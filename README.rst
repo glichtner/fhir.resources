@@ -17,7 +17,7 @@ data validation, faster in performance and optionally ``orjson`` support has bee
 
 Package Origin
 --------------
-Forked from https://github.com/nazrulworld/fhir.resources, recreated to only include FHIR Release 5 Preview #3 resources.
+Forked from https://github.com/nazrulworld/fhir.resources, recreated to only include FHIR Release R5 Preview #3 resources.
 
 
 FHIR® Version Info
@@ -217,14 +217,11 @@ For more information and usages, please visit the original repository of the pac
 
 Credits
 -------
+This repository just applied the code from nazrulworld_ to create python classes from the FHIR Release R5 Preview#3 build.
 
 All FHIR® Resources (python classes) are generated using fhir-parser_ which is forked from https://github.com/smart-on-fhir/fhir-parser.git.
 
-
-This package skeleton was created with Cookiecutter_ and the `audreyr/cookiecutter-pypackage`_ project template.
-
-.. _Cookiecutter: https://github.com/audreyr/cookiecutter
-.. _`audreyr/cookiecutter-pypackage`: https://github.com/audreyr/cookiecutter-pypackage
+.. _`nazrulworld`: https://github.com/nazrulworld/
 .. _`fhir-parser`: https://github.com/glichtner/fhir-parser
 .. _`pydantic`: https://pydantic-docs.helpmanual.io/
 .. _`orjson`: <https://pypi.org/project/orjson/>
