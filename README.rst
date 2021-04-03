@@ -28,6 +28,7 @@ FHIR® Version Info
 FHIR® (Release R5, version 4.5.0) - https://build.fhir.org
 
 
+
 Installation
 ------------
 
@@ -38,6 +39,16 @@ Clone this repository and add its base path to your python path
     import sys
     sys.path.append("/path/to/fhir.resources/")
 
+
+FHIR class creation
+-------------------
+The classes in this package were created using the fhir-parser_ package, cloned from https://github.com/nazrulworld/fhir-parser. To create the classes yourself, clone fhir-parser_ and run generate.py:
+
+.. code-block:: shell
+
+    $ git clone https://github.com/glichtner/fhir-parser.git
+    $ cd fhir-parser
+    $ ./generate.py
 
 
 
