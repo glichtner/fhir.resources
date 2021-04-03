@@ -1,12 +1,10 @@
-=================================
-FHIR® Resources (R5 Preview #3)
-=================================
-
+=======================================
+FHIR® Resources (Release R5 Preview #3)
+=======================================
 
 .. image:: https://www.hl7.org/fhir/assets/images/fhir-logo-www.png
         :target: https://www.hl7.org/implement/standards/product_brief.cfm?product_id=449
         :alt: HL7® FHIR®
-
 
 Powered by pydantic_, all `FHIR Resources <https://build.fhir.org/resourcelist.html>`_ are available as python class with built-in
 data validation, faster in performance and optionally ``orjson`` support has been included as a performance booster! Written in modern python.
@@ -14,7 +12,7 @@ data validation, faster in performance and optionally ``orjson`` support has bee
 * Easy to construct, easy to extended validation, easy to export.
 * By inheriting behaviour from pydantic_, compatible with `ORM <https://en.wikipedia.org/wiki/Object-relational_mapping>`_.
 * Full support of FHIR® Extensibility for Primitive Data Types are available.
-* Previous release of FHIR® Resources are available.
+* Preview release of the next FHIR version.
 * Free software: BSD license
 
 Package Origin
