@@ -19,13 +19,10 @@ Package Origin
 --------------
 Forked from https://github.com/nazrulworld/fhir.resources, recreated to only include FHIR Release R5 Preview #3 resources.
 
-
 FHIR® Version Info
 ------------------
 
 FHIR® (Release R5, version 4.5.0) - https://build.fhir.org
-
-
 
 Installation
 ------------
@@ -215,7 +212,7 @@ For more information and usages, please visit the original repository of the pac
 
 Credits
 -------
-This repository just applied the code from nazrulworld_ to create python classes from the FHIR Release R5 Preview#3 build.
+This repository just applied the code from nazrulworld_ to create python classes from the FHIR Release R5 Preview#3 build (with a few tweaks to make it run with FHIR R5).
 
 All FHIR® Resources (python classes) are generated using fhir-parser_ which is forked from https://github.com/smart-on-fhir/fhir-parser.git.
 
