@@ -37,6 +37,7 @@ FHIR_PRIMITIVES = [
     "id",
     "decimal",
     "integer",
+    "integer64",
     "unsignedInt",
     "positiveInt",
     "uri",
@@ -615,7 +616,7 @@ def get_fhir_type_class(model_name):
 class AbstractType(dict):
     """ """
 
-    __fhir_release__: str = "R4"
+    __fhir_release__: str = "R5"
     __resource_type__: str = ...  # type: ignore
 
     @classmethod
@@ -648,7 +649,7 @@ class FHIRPrimitiveExtensionType(AbstractType):
 class AbstractBaseType(dict):
     """ """
 
-    __fhir_release__: str = "R4"
+    __fhir_release__: str = "R5"
     __resource_type__: str = ...  # type: ignore
 
     @classmethod
@@ -3735,6 +3736,7 @@ __all__ = [
     "Id",
     "Decimal",
     "Integer",
+    "Integer64",
     "UnsignedInt",
     "PositiveInt",
     "Uri",

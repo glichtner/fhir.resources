@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/DetectedIssue
-Release: R4
+Release: R5
 Version: 4.5.0
 Build ID: 0d95498
 Last updated: 2021-04-03T00:34:11.075+00:00
