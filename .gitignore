@@ -3,3 +3,7 @@ __pycache__
 env
 .idea
 .vscode
+build/
+dist/
+.eggs/
+*.egg-info/

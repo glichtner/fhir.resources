@@ -30,12 +30,11 @@ FHIR® (Release R5, version 4.5.0) - https://build.fhir.org
 Installation
 ------------
 
-Clone this repository and add its base path to your python path
+Install from github:
 
-.. code-block:: python
+.. code-block:: shell
 
-    import sys
-    sys.path.append("/path/to/fhir.resources/")
+    $ pip install git+https://github.com/glichtner/fhir.resources.git
 
 
 FHIR class creation
@@ -47,7 +46,6 @@ The classes in this package were created using the fhir-parser_ package, cloned 
     $ git clone https://github.com/glichtner/fhir-parser.git
     $ cd fhir-parser
     $ ./generate.py
-
 
 
 Usages
