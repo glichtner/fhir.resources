@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/ValueSet
-Release: R5
-Version: 4.5.0
-Build ID: 0d95498
-Last updated: 2021-04-03T00:34:11.075+00:00
+Release: 2022Sep
+Version: 5.0.0-ballot
+Build ID: 1505a88
+Last updated: 2022-09-10T04:52:37.223+10:00
 """
 from pydantic.validators import bytes_validator  # noqa: F401
 from fhir.resources import fhirtypes  # noqa: F401
@@ -12,51 +12,41 @@ from fhir.resources import valueset
 
 
 def impl_valueset_1(inst):
-    assert inst.compose.include[0].filter[0].op == "is-a"
-    assert inst.compose.include[0].filter[0].property == "concept"
-    assert inst.compose.include[0].filter[0].value == "_ActDetectedIssueManagementCode"
-    assert (
-        inst.compose.include[0].system
-        == "http://terminology.hl7.org/CodeSystem/v3-ActCode"
-    )
+    assert inst.compose.include[0].system == "http://cds-hooks.hl7.org/CodeSystem/indicator"
     assert inst.contact[0].telecom[0].system == "url"
     assert inst.contact[0].telecom[0].value == "http://hl7.org/fhir"
+    assert inst.date == fhirtypes.DateTime.validate("2022-09-10T04:52:37+10:00")
     assert inst.description == (
-        "Kinds of mitigating actions and observations that can be "
-        "associated with a detected issue or contraindication, such "
-        "as 'added concurrent therapy', 'prior therapy documented', "
-        "etc."
+    "This value set captures the set of indicator codes defined "
+    "by the CDS Hooks specification."
     )
+    assert inst.experimental is False
     assert inst.extension[0].url == (
-        "http://hl7.org/fhir/StructureDefinition/structuredefinition-" "wg"
+    "http://hl7.org/fhir/StructureDefinition/structuredefinition-"
+    "wg"
     )
-    assert inst.extension[0].valueCode == "cds"
-    assert inst.id == "detectedissue-mitigation-action"
+    assert inst.extension[0].valueCode == "vocab"
+    assert inst.id == "cdshooks-indicator"
     assert inst.identifier[0].system == "urn:ietf:rfc:3986"
-    assert inst.identifier[0].value == "urn:oid:2.16.840.1.113883.4.642.3.205"
-    assert inst.meta.lastUpdated == fhirtypes.Instant.validate(
-        "2021-04-03T00:34:11.075+00:00"
-    )
-    assert (
-        inst.meta.profile[0]
-        == "http://hl7.org/fhir/StructureDefinition/shareablevalueset"
-    )
-    assert inst.name == "DetectedIssueMitigationAction"
+    assert inst.identifier[0].value == "urn:oid:2.16.840.1.113883.4.642.3.1065"
+    assert inst.immutable is True
+    assert inst.meta.lastUpdated == fhirtypes.Instant.validate("2022-09-10T04:52:37.223+10:00")
+    assert inst.meta.profile[0] == "http://hl7.org/fhir/StructureDefinition/shareablevalueset"
+    assert inst.name == "Indicator"
     assert inst.publisher == "FHIR Project team"
     assert inst.status == "draft"
     assert inst.text.status == "generated"
-    assert inst.title == "Detected Issue Mitigation Action"
-    assert inst.url == "http://hl7.org/fhir/ValueSet/detectedissue-mitigation-action"
-    assert inst.version == "4.5.0"
+    assert inst.title == "CDSHooksIndicator"
+    assert inst.url == "http://hl7.org/fhir/ValueSet/cdshooks-indicator"
+    assert inst.version == "5.0.0-ballot"
 
 
 def test_valueset_1(base_settings):
     """No. 1 tests collection for ValueSet.
-    Test File: valueset-detectedissue-mitigation-action.json
+    Test File: valueset-cdshooks-indicator.json
     """
     filename = (
-        base_settings["unittest_data_dir"]
-        / "valueset-detectedissue-mitigation-action.json"
+        base_settings["unittest_data_dir"] / "valueset-cdshooks-indicator.json"
     )
     inst = valueset.ValueSet.parse_file(
         filename, content_type="application/json", encoding="utf-8"
@@ -74,53 +64,50 @@ def test_valueset_1(base_settings):
 
 
 def impl_valueset_2(inst):
-    assert inst.compose.include[0].filter[0].op == "is-a"
-    assert inst.compose.include[0].filter[0].property == "concept"
-    assert inst.compose.include[0].filter[0].value == "91723000"
-    assert inst.compose.include[0].system == "http://snomed.info/sct"
+    assert inst.compose.include[0].system == "http://hl7.org/fhir/ingredient-manufacturer-role"
     assert inst.contact[0].telecom[0].system == "url"
     assert inst.contact[0].telecom[0].value == "http://hl7.org/fhir"
-    assert inst.description == (
-        "This value set includes Anatomical Structure codes from "
-        "SNOMED CT - provided as an exemplar."
-    )
+    assert inst.contact[0].telecom[1].system == "email"
+    assert inst.contact[0].telecom[1].value == "fhir@lists.hl7.org"
+    assert inst.date == fhirtypes.DateTime.validate("2020-12-28T16:55:11+11:00")
+    assert inst.experimental is False
     assert inst.extension[0].url == (
-        "http://hl7.org/fhir/StructureDefinition/structuredefinition-" "wg"
+    "http://hl7.org/fhir/StructureDefinition/structuredefinition-"
+    "wg"
     )
-    assert inst.extension[0].valueCode == "fhir"
+    assert inst.extension[0].valueCode == "brr"
     assert inst.extension[1].url == (
-        "http://hl7.org/fhir/StructureDefinition/structuredefinition-"
-        "standards-status"
+    "http://hl7.org/fhir/StructureDefinition/structuredefinition-"
+    "standards-status"
     )
-    assert inst.extension[1].valueCode == "draft"
+    assert inst.extension[1].valueCode == "trial-use"
     assert inst.extension[2].url == (
-        "http://hl7.org/fhir/StructureDefinition/structuredefinition-" "fmm"
+    "http://hl7.org/fhir/StructureDefinition/structuredefinition-"
+    "fmm"
     )
-    assert inst.extension[2].valueInteger == 1
-    assert inst.id == "approach-site-codes"
+    assert inst.extension[2].valueInteger == 2
+    assert inst.id == "ingredient-manufacturer-role"
     assert inst.identifier[0].system == "urn:ietf:rfc:3986"
-    assert inst.identifier[0].value == "urn:oid:2.16.840.1.113883.4.642.3.346"
-    assert inst.meta.lastUpdated == fhirtypes.Instant.validate(
-        "2021-04-03T00:34:11.075+00:00"
-    )
-    assert (
-        inst.meta.profile[0]
-        == "http://hl7.org/fhir/StructureDefinition/shareablevalueset"
-    )
-    assert inst.name == "SNOMEDCTAnatomicalStructureForAdministrationSiteCodes"
-    assert inst.publisher == "FHIR Project team"
+    assert inst.identifier[0].value == "urn:oid:2.16.840.1.113883.4.642.3.3247"
+    assert inst.immutable is True
+    assert inst.meta.lastUpdated == fhirtypes.Instant.validate("2022-09-10T04:52:37.223+10:00")
+    assert inst.meta.profile[0] == "http://hl7.org/fhir/StructureDefinition/shareablevalueset"
+    assert inst.name == "IngredientManufacturerRole"
+    assert inst.publisher == "HL7 (FHIR Project)"
     assert inst.status == "draft"
     assert inst.text.status == "generated"
-    assert inst.title == "SNOMED CT Anatomical Structure for Administration Site Codes"
-    assert inst.url == "http://hl7.org/fhir/ValueSet/approach-site-codes"
-    assert inst.version == "4.5.0"
+    assert inst.title == "IngredientManufacturerRole"
+    assert inst.url == "http://hl7.org/fhir/ValueSet/ingredient-manufacturer-role"
+    assert inst.version == "5.0.0-ballot"
 
 
 def test_valueset_2(base_settings):
     """No. 2 tests collection for ValueSet.
-    Test File: valueset-approach-site-codes.json
+    Test File: valueset-ingredient-manufacturer-role.json
     """
-    filename = base_settings["unittest_data_dir"] / "valueset-approach-site-codes.json"
+    filename = (
+        base_settings["unittest_data_dir"] / "valueset-ingredient-manufacturer-role.json"
+    )
     inst = valueset.ValueSet.parse_file(
         filename, content_type="application/json", encoding="utf-8"
     )
@@ -137,58 +124,57 @@ def test_valueset_2(base_settings):
 
 
 def impl_valueset_3(inst):
-    assert inst.compose.include[0].system == "http://hl7.org/fhir/trigger-type"
+    assert inst.compose.include[0].system == "urn:oid:1.2.36.1.2001.1001.101.104.16592"
     assert inst.contact[0].telecom[0].system == "url"
-    assert inst.contact[0].telecom[0].value == "http://hl7.org/fhir"
-    assert inst.contact[0].telecom[1].system == "email"
-    assert inst.contact[0].telecom[1].value == "fhir@lists.hl7.org"
-    assert inst.date == fhirtypes.DateTime.validate("2021-04-03T00:34:11+00:00")
-    assert inst.description == "The type of trigger."
-    assert inst.experimental is False
+    assert inst.contact[0].telecom[0].value == "http://www.nehta.gov.au"
+    assert inst.description == (
+    "Example Item Flags for the List Resource. In this case, "
+    "these are the kind of flags that would be used on a "
+    "medication list at the end of a consultation."
+    )
+    assert inst.experimental is True
     assert inst.extension[0].url == (
-        "http://hl7.org/fhir/StructureDefinition/structuredefinition-" "wg"
+    "http://hl7.org/fhir/StructureDefinition/structuredefinition-"
+    "wg"
     )
     assert inst.extension[0].valueCode == "fhir"
     assert inst.extension[1].url == (
-        "http://hl7.org/fhir/StructureDefinition/structuredefinition-"
-        "standards-status"
+    "http://hl7.org/fhir/StructureDefinition/structuredefinition-"
+    "standards-status"
     )
-    assert inst.extension[1].valueCode == "trial-use"
+    assert inst.extension[1].valueCode == "draft"
     assert inst.extension[2].url == (
-        "http://hl7.org/fhir/StructureDefinition/structuredefinition-" "fmm"
+    "http://hl7.org/fhir/StructureDefinition/structuredefinition-"
+    "fmm"
     )
-    assert inst.extension[2].valueInteger == 5
-    assert inst.id == "trigger-type"
+    assert inst.extension[2].valueInteger == 1
+    assert inst.id == "list-item-flag"
     assert inst.identifier[0].system == "urn:ietf:rfc:3986"
-    assert inst.identifier[0].value == "urn:oid:2.16.840.1.113883.4.642.3.103"
-    assert inst.immutable is True
-    assert inst.meta.lastUpdated == fhirtypes.Instant.validate(
-        "2021-04-03T00:34:11.075+00:00"
-    )
-    assert (
-        inst.meta.profile[0]
-        == "http://hl7.org/fhir/StructureDefinition/shareablevalueset"
-    )
-    assert inst.name == "TriggerType"
-    assert inst.publisher == "HL7 (FHIR Project)"
+    assert inst.identifier[0].value == "urn:oid:2.16.840.1.113883.4.642.3.320"
+    assert inst.meta.lastUpdated == fhirtypes.Instant.validate("2022-09-10T04:52:37.223+10:00")
+    assert inst.meta.profile[0] == "http://hl7.org/fhir/StructureDefinition/shareablevalueset"
+    assert inst.name == "PatientMedicineChangeTypes"
+    assert inst.publisher == "National E-Health Transition Authority Ltd (NEHTA)"
     assert inst.status == "draft"
     assert inst.text.div == (
-        '<div xmlns="http://www.w3.org/1999/xhtml"><ul><li>Include '
-        'all codes defined in <a href="codesystem-trigger-'
-        'type.html"><code>http://hl7.org/fhir/trigger-'
-        "type</code></a></li></ul></div>"
+    "<div xmlns=\"http://www.w3.org/1999/xhtml\"><ul><li>Include "
+    "all codes defined in <a href=\"codesystem-list-item-flag.htm"
+    "l\"><code>urn:oid:1.2.36.1.2001.1001.101.104.16592</code></a"
+    "></li></ul></div>"
     )
     assert inst.text.status == "generated"
-    assert inst.title == "TriggerType"
-    assert inst.url == "http://hl7.org/fhir/ValueSet/trigger-type"
-    assert inst.version == "4.5.0"
+    assert inst.title == "Patient Medicine Change Types"
+    assert inst.url == "http://hl7.org/fhir/ValueSet/list-item-flag"
+    assert inst.version == "5.0.0-ballot"
 
 
 def test_valueset_3(base_settings):
     """No. 3 tests collection for ValueSet.
-    Test File: valueset-trigger-type.json
+    Test File: valueset-list-item-flag.json
     """
-    filename = base_settings["unittest_data_dir"] / "valueset-trigger-type.json"
+    filename = (
+        base_settings["unittest_data_dir"] / "valueset-list-item-flag.json"
+    )
     inst = valueset.ValueSet.parse_file(
         filename, content_type="application/json", encoding="utf-8"
     )
@@ -205,58 +191,58 @@ def test_valueset_3(base_settings):
 
 
 def impl_valueset_4(inst):
-    assert inst.compose.include[0].concept[0].code == "proposal"
-    assert inst.compose.include[0].concept[1].code == "plan"
-    assert inst.compose.include[0].concept[2].code == "order"
-    assert inst.compose.include[0].concept[3].code == "option"
-    assert inst.compose.include[0].concept[4].code == "directive"
-    assert inst.compose.include[0].system == "http://hl7.org/fhir/request-intent"
+    assert inst.compose.include[0].filter[0].op == "descendent-of"
+    assert inst.compose.include[0].filter[0].property == "concept"
+    assert inst.compose.include[0].filter[0].value == "research-study-phase"
+    assert inst.compose.include[0].system == "http://hl7.org/fhir/research-study-classifiers"
     assert inst.contact[0].telecom[0].system == "url"
-    assert (
-        inst.contact[0].telecom[0].value
-        == "http://www.hl7.org/Special/committees/patientcare/"
-    )
+    assert inst.contact[0].telecom[0].value == "http://hl7.org/fhir"
+    assert inst.contact[0].telecom[1].system == "email"
+    assert inst.contact[0].telecom[1].value == "fhir@lists.hl7.org"
+    assert inst.date == fhirtypes.DateTime.validate("2020-12-28T16:55:11+11:00")
     assert inst.description == (
-        "Codes indicating the degree of authority/intentionality "
-        "associated with a care plan."
+    "Codes for the stage in the progression of a therapy from "
+    "initial experimental use in humans in clinical trials to "
+    "post-market evaluation."
     )
+    assert inst.experimental is True
     assert inst.extension[0].url == (
-        "http://hl7.org/fhir/StructureDefinition/structuredefinition-" "wg"
+    "http://hl7.org/fhir/StructureDefinition/structuredefinition-"
+    "wg"
     )
-    assert inst.extension[0].valueCode == "pc"
+    assert inst.extension[0].valueCode == "brr"
     assert inst.extension[1].url == (
-        "http://hl7.org/fhir/StructureDefinition/structuredefinition-"
-        "standards-status"
+    "http://hl7.org/fhir/StructureDefinition/structuredefinition-"
+    "standards-status"
     )
-    assert inst.extension[1].valueCode == "trial-use"
+    assert inst.extension[1].valueCode == "draft"
     assert inst.extension[2].url == (
-        "http://hl7.org/fhir/StructureDefinition/structuredefinition-" "fmm"
+    "http://hl7.org/fhir/StructureDefinition/structuredefinition-"
+    "fmm"
     )
-    assert inst.extension[2].valueInteger == 2
-    assert inst.id == "care-plan-intent"
+    assert inst.extension[2].valueInteger == 1
+    assert inst.id == "research-study-phase"
     assert inst.identifier[0].system == "urn:ietf:rfc:3986"
-    assert inst.identifier[0].value == "urn:oid:2.16.840.1.113883.4.642.3.150"
-    assert inst.meta.lastUpdated == fhirtypes.Instant.validate(
-        "2021-04-03T00:34:11.075+00:00"
-    )
-    assert (
-        inst.meta.profile[0]
-        == "http://hl7.org/fhir/StructureDefinition/shareablevalueset"
-    )
-    assert inst.name == "CarePlanIntent"
-    assert inst.publisher == "HL7 International - Patient Care WG"
+    assert inst.identifier[0].value == "urn:oid:2.16.840.1.113883.4.642.3.821"
+    assert inst.immutable is True
+    assert inst.meta.lastUpdated == fhirtypes.Instant.validate("2022-09-10T04:52:37.223+10:00")
+    assert inst.meta.profile[0] == "http://hl7.org/fhir/StructureDefinition/shareablevalueset"
+    assert inst.name == "ResearchStudyPhase"
+    assert inst.publisher == "HL7 (FHIR Project)"
     assert inst.status == "draft"
-    assert inst.text.status == "extensions"
-    assert inst.title == "Care Plan Intent"
-    assert inst.url == "http://hl7.org/fhir/ValueSet/care-plan-intent"
-    assert inst.version == "4.5.0"
+    assert inst.text.status == "generated"
+    assert inst.title == "ResearchStudyPhase"
+    assert inst.url == "http://hl7.org/fhir/ValueSet/research-study-phase"
+    assert inst.version == "5.0.0-ballot"
 
 
 def test_valueset_4(base_settings):
     """No. 4 tests collection for ValueSet.
-    Test File: valueset-care-plan-intent.json
+    Test File: valueset-research-study-phase.json
     """
-    filename = base_settings["unittest_data_dir"] / "valueset-care-plan-intent.json"
+    filename = (
+        base_settings["unittest_data_dir"] / "valueset-research-study-phase.json"
+    )
     inst = valueset.ValueSet.parse_file(
         filename, content_type="application/json", encoding="utf-8"
     )
@@ -273,50 +259,53 @@ def test_valueset_4(base_settings):
 
 
 def impl_valueset_5(inst):
-    assert inst.compose.include[0].system == "http://snomed.info/sct"
-    assert inst.compose.include[1].system == "http://loinc.org"
-    assert (
-        inst.compose.include[2].system == "http://www.nlm.nih.gov/research/umls/rxnorm"
+    assert inst.compose.include[0].system == (
+    "http://terminology.hl7.org/CodeSystem/v3-ObservationInterpre"
+    "tation"
     )
     assert inst.contact[0].telecom[0].system == "url"
-    assert inst.contact[0].telecom[0].value == "http://healthit.gov"
-    assert inst.date == fhirtypes.DateTime.validate("2021-04-03T00:34:11+00:00")
-    assert inst.description == (
-        "The allowed codes for identifying the ISO 11179 ObjectClass "
-        "for a particular data element if intended for "
-        "registration/use within the U.S. Structured Data Capture "
-        "(SDC) project."
-    )
+    assert inst.contact[0].telecom[0].value == "http://hl7.org/fhir"
     assert inst.experimental is False
     assert inst.extension[0].url == (
-        "http://hl7.org/fhir/StructureDefinition/structuredefinition-" "wg"
+    "http://hl7.org/fhir/StructureDefinition/structuredefinition-"
+    "wg"
     )
-    assert inst.extension[0].valueCode == "fhir"
-    assert inst.id == "dataelement-sdcobjectclass"
+    assert inst.extension[0].valueCode == "oo"
+    assert inst.extension[1].url == (
+    "http://hl7.org/fhir/StructureDefinition/structuredefinition-"
+    "standards-status"
+    )
+    assert inst.extension[1].valueCode == "normative"
+    assert inst.extension[2].url == (
+    "http://hl7.org/fhir/StructureDefinition/structuredefinition-"
+    "normative-version"
+    )
+    assert inst.extension[2].valueCode == "4.0.0"
+    assert inst.extension[3].url == (
+    "http://hl7.org/fhir/StructureDefinition/structuredefinition-"
+    "fmm"
+    )
+    assert inst.extension[3].valueInteger == 5
+    assert inst.id == "observation-interpretation"
     assert inst.identifier[0].system == "urn:ietf:rfc:3986"
-    assert inst.identifier[0].value == "urn:oid:2.16.840.1.113883.4.642.3.910"
-    assert inst.meta.lastUpdated == fhirtypes.Instant.validate(
-        "2021-04-03T00:34:11.075+00:00"
-    )
-    assert (
-        inst.meta.profile[0]
-        == "http://hl7.org/fhir/StructureDefinition/shareablevalueset"
-    )
-    assert inst.name == "DataElementSDCObjectClass"
-    assert inst.publisher == "Office of the National Coordinator for Health IT"
-    assert inst.status == "draft"
+    assert inst.identifier[0].value == "urn:oid:2.16.840.1.113883.4.642.3.399"
+    assert inst.meta.lastUpdated == fhirtypes.Instant.validate("2022-09-10T04:52:37.223+10:00")
+    assert inst.meta.profile[0] == "http://hl7.org/fhir/StructureDefinition/shareablevalueset"
+    assert inst.name == "ObservationInterpretationCodes"
+    assert inst.publisher == "FHIR Project team"
+    assert inst.status == "active"
     assert inst.text.status == "generated"
-    assert inst.title == "DataElement SDC Object Class"
-    assert inst.url == "http://hl7.org/fhir/ValueSet/dataelement-sdcobjectclass"
-    assert inst.version == "4.5.0"
+    assert inst.title == "Observation Interpretation Codes"
+    assert inst.url == "http://hl7.org/fhir/ValueSet/observation-interpretation"
+    assert inst.version == "5.0.0-ballot"
 
 
 def test_valueset_5(base_settings):
     """No. 5 tests collection for ValueSet.
-    Test File: valueset-dataelement-sdcobjectclass.json
+    Test File: valueset-observation-interpretation.json
     """
     filename = (
-        base_settings["unittest_data_dir"] / "valueset-dataelement-sdcobjectclass.json"
+        base_settings["unittest_data_dir"] / "valueset-observation-interpretation.json"
     )
     inst = valueset.ValueSet.parse_file(
         filename, content_type="application/json", encoding="utf-8"
@@ -334,59 +323,79 @@ def test_valueset_5(base_settings):
 
 
 def impl_valueset_6(inst):
-    assert (
-        inst.compose.include[0].system
-        == "http://terminology.hl7.org/CodeSystem/communication-category"
-    )
+    assert inst.compose.include[0].valueSet[0] == "http://hl7.org/fhir/ValueSet/substance-code"
+    assert inst.compose.include[1].filter[0].op == "is-a"
+    assert inst.compose.include[1].filter[0].property == "concept"
+    assert inst.compose.include[1].filter[0].value == "418038007"
+    assert inst.compose.include[1].system == "http://snomed.info/sct"
+    assert inst.compose.include[2].filter[0].op == "is-a"
+    assert inst.compose.include[2].filter[0].property == "concept"
+    assert inst.compose.include[2].filter[0].value == "267425008"
+    assert inst.compose.include[2].system == "http://snomed.info/sct"
+    assert inst.compose.include[3].filter[0].op == "is-a"
+    assert inst.compose.include[3].filter[0].property == "concept"
+    assert inst.compose.include[3].filter[0].value == "29736007"
+    assert inst.compose.include[3].system == "http://snomed.info/sct"
+    assert inst.compose.include[4].filter[0].op == "is-a"
+    assert inst.compose.include[4].filter[0].property == "concept"
+    assert inst.compose.include[4].filter[0].value == "340519003"
+    assert inst.compose.include[4].system == "http://snomed.info/sct"
+    assert inst.compose.include[5].filter[0].op == "is-a"
+    assert inst.compose.include[5].filter[0].property == "concept"
+    assert inst.compose.include[5].filter[0].value == "190753003"
+    assert inst.compose.include[5].system == "http://snomed.info/sct"
+    assert inst.compose.include[6].filter[0].op == "is-a"
+    assert inst.compose.include[6].filter[0].property == "concept"
+    assert inst.compose.include[6].filter[0].value == "413427002"
+    assert inst.compose.include[6].system == "http://snomed.info/sct"
+    assert inst.compose.include[7].filter[0].op == "is-a"
+    assert inst.compose.include[7].filter[0].property == "concept"
+    assert inst.compose.include[7].filter[0].value == "716186003"
+    assert inst.compose.include[7].system == "http://snomed.info/sct"
     assert inst.contact[0].telecom[0].system == "url"
     assert inst.contact[0].telecom[0].value == "http://hl7.org/fhir"
-    assert inst.contact[0].telecom[1].system == "email"
-    assert inst.contact[0].telecom[1].value == "fhir@lists.hl7.org"
-    assert inst.date == fhirtypes.DateTime.validate("2020-12-28T16:55:11+11:00")
-    assert inst.description == (
-        "Codes for general categories of communications such as "
-        "alerts, instructions, etc."
-    )
-    assert inst.experimental is False
+    assert inst.experimental is True
     assert inst.extension[0].url == (
-        "http://hl7.org/fhir/StructureDefinition/structuredefinition-" "wg"
+    "http://hl7.org/fhir/StructureDefinition/structuredefinition-"
+    "wg"
     )
     assert inst.extension[0].valueCode == "pc"
     assert inst.extension[1].url == (
-        "http://hl7.org/fhir/StructureDefinition/structuredefinition-"
-        "standards-status"
+    "http://hl7.org/fhir/StructureDefinition/structuredefinition-"
+    "standards-status"
     )
     assert inst.extension[1].valueCode == "draft"
     assert inst.extension[2].url == (
-        "http://hl7.org/fhir/StructureDefinition/structuredefinition-" "fmm"
+    "http://hl7.org/fhir/StructureDefinition/structuredefinition-"
+    "fmm"
     )
     assert inst.extension[2].valueInteger == 1
-    assert inst.id == "communication-category"
+    assert inst.id == "allergyintolerance-code"
     assert inst.identifier[0].system == "urn:ietf:rfc:3986"
-    assert inst.identifier[0].value == "urn:oid:2.16.840.1.113883.4.642.3.172"
-    assert inst.immutable is True
-    assert inst.meta.lastUpdated == fhirtypes.Instant.validate(
-        "2021-04-03T11:34:11.075+11:00"
+    assert inst.identifier[0].value == "urn:oid:2.16.840.1.113883.4.642.3.137"
+    assert inst.meta.lastUpdated == fhirtypes.Instant.validate("2022-09-10T04:52:37.223+10:00")
+    assert inst.meta.profile[0] == "http://hl7.org/fhir/StructureDefinition/shareablevalueset"
+    assert inst.name == (
+    "AllergyIntoleranceSubstance/Product,ConditionAndNegationCode"
+    "s"
     )
-    assert (
-        inst.meta.profile[0]
-        == "http://hl7.org/fhir/StructureDefinition/shareablevalueset"
-    )
-    assert inst.name == "CommunicationCategory"
-    assert inst.publisher == "HL7 (FHIR Project)"
+    assert inst.publisher == "FHIR Project team"
     assert inst.status == "draft"
     assert inst.text.status == "generated"
-    assert inst.title == "CommunicationCategory"
-    assert inst.url == "http://hl7.org/fhir/ValueSet/communication-category"
-    assert inst.version == "4.5.0"
+    assert inst.title == (
+    "AllergyIntolerance Substance/Product, Condition and Negation"
+    " Codes"
+    )
+    assert inst.url == "http://hl7.org/fhir/ValueSet/allergyintolerance-code"
+    assert inst.version == "5.0.0-ballot"
 
 
 def test_valueset_6(base_settings):
     """No. 6 tests collection for ValueSet.
-    Test File: valueset-communication-category.json
+    Test File: valueset-allergyintolerance-code.json
     """
     filename = (
-        base_settings["unittest_data_dir"] / "valueset-communication-category.json"
+        base_settings["unittest_data_dir"] / "valueset-allergyintolerance-code.json"
     )
     inst = valueset.ValueSet.parse_file(
         filename, content_type="application/json", encoding="utf-8"
@@ -404,63 +413,31 @@ def test_valueset_6(base_settings):
 
 
 def impl_valueset_7(inst):
-    assert inst.compose.include[0].system == (
-        "http://terminology.hl7.org/CodeSystem/cited-artifact-" "classification-type"
-    )
-    assert inst.contact[0].telecom[0].system == "url"
-    assert inst.contact[0].telecom[0].value == "http://hl7.org/fhir"
-    assert inst.contact[0].telecom[1].system == "email"
-    assert inst.contact[0].telecom[1].value == "fhir@lists.hl7.org"
-    assert inst.date == fhirtypes.DateTime.validate("2021-03-11T10:55:11.085+11:00")
-    assert inst.description == "Cited Artifact Classification Type"
+    assert inst.compose.include[0].system == "http://hl7.org/fhir/codesystem-properties-mode"
+    assert inst.description == "Description Needed Here"
     assert inst.experimental is False
     assert inst.extension[0].url == (
-        "http://hl7.org/fhir/StructureDefinition/structuredefinition-" "wg"
+    "http://hl7.org/fhir/StructureDefinition/structuredefinition-"
+    "wg"
     )
-    assert inst.extension[0].valueCode == "cds"
-    assert inst.extension[1].url == (
-        "http://hl7.org/fhir/StructureDefinition/structuredefinition-"
-        "standards-classification"
-    )
-    assert inst.extension[1].valueCode == "trial-use"
-    assert inst.extension[2].url == (
-        "http://hl7.org/fhir/StructureDefinition/structuredefinition-" "fmm"
-    )
-    assert inst.extension[2].valueInteger == 0
-    assert inst.extension[3].url == (
-        "http://hl7.org/fhir/StructureDefinition/structuredefinition-"
-        "standards-status"
-    )
-    assert inst.extension[3].valueCode == "trial-use"
-    assert inst.id == "cited-artifact-classification-type"
+    assert inst.extension[0].valueCode == "vocab"
+    assert inst.id == "codesystem-properties-mode"
     assert inst.identifier[0].system == "urn:ietf:rfc:3986"
-    assert inst.identifier[0].value == "urn:oid:2.16.840.1.113883.4.642.3.0"
-    assert inst.immutable is True
-    assert inst.meta.lastUpdated == fhirtypes.Instant.validate(
-        "2021-04-03T11:34:11.075+11:00"
-    )
-    assert (
-        inst.meta.profile[0]
-        == "http://hl7.org/fhir/StructureDefinition/shareablevalueset"
-    )
-    assert inst.name == "CitedArtifactClassificationType"
-    assert inst.publisher == "HL7 (FHIR Project)"
-    assert inst.status == "draft"
+    assert inst.identifier[0].value == "urn:oid:2.16.840.1.113883.4.642.3.3129"
+    assert inst.meta.lastUpdated == fhirtypes.Instant.validate("2022-09-10T04:52:37.223+10:00")
+    assert inst.meta.profile[0] == "http://hl7.org/fhir/StructureDefinition/shareablevalueset"
+    assert inst.name == "CodeSystemPropertiesMode"
     assert inst.text.status == "generated"
-    assert inst.title == "CitedArtifactClassificationType"
-    assert inst.url == (
-        "http://hl7.org/fhir/ValueSet/cited-artifact-classification-" "type"
-    )
-    assert inst.version == "4.5.0"
+    assert inst.url == "http://hl7.org/fhir/ValueSet/codesystem-properties-mode"
+    assert inst.version == "5.0.0-ballot"
 
 
 def test_valueset_7(base_settings):
     """No. 7 tests collection for ValueSet.
-    Test File: valueset-cited-artifact-classification-type.json
+    Test File: valueset-codesystem-properties-mode.json
     """
     filename = (
-        base_settings["unittest_data_dir"]
-        / "valueset-cited-artifact-classification-type.json"
+        base_settings["unittest_data_dir"] / "valueset-codesystem-properties-mode.json"
     )
     inst = valueset.ValueSet.parse_file(
         filename, content_type="application/json", encoding="utf-8"
@@ -478,53 +455,57 @@ def test_valueset_7(base_settings):
 
 
 def impl_valueset_8(inst):
-    assert (
-        inst.compose.include[0].system
-        == "http://terminology.hl7.org/CodeSystem/paymentstatus"
-    )
+    assert inst.compose.include[0].system == "http://hl7.org/fhir/eligibility-outcome"
     assert inst.contact[0].telecom[0].system == "url"
     assert inst.contact[0].telecom[0].value == "http://hl7.org/fhir"
-    assert inst.copyright == "This is an example set."
-    assert inst.description == (
-        "This value set includes a sample set of Payment Status " "codes."
-    )
+    assert inst.contact[0].telecom[1].system == "email"
+    assert inst.contact[0].telecom[1].value == "fhir@lists.hl7.org"
+    assert inst.date == fhirtypes.DateTime.validate("2020-12-28T16:55:11+11:00")
+    assert inst.description == "The outcome of the processing."
+    assert inst.experimental is False
     assert inst.extension[0].url == (
-        "http://hl7.org/fhir/StructureDefinition/structuredefinition-" "wg"
+    "http://hl7.org/fhir/StructureDefinition/structuredefinition-"
+    "wg"
     )
     assert inst.extension[0].valueCode == "fm"
     assert inst.extension[1].url == (
-        "http://hl7.org/fhir/StructureDefinition/structuredefinition-"
-        "standards-status"
+    "http://hl7.org/fhir/StructureDefinition/structuredefinition-"
+    "standards-status"
     )
-    assert inst.extension[1].valueCode == "draft"
+    assert inst.extension[1].valueCode == "trial-use"
     assert inst.extension[2].url == (
-        "http://hl7.org/fhir/StructureDefinition/structuredefinition-" "fmm"
+    "http://hl7.org/fhir/StructureDefinition/structuredefinition-"
+    "fmm"
     )
-    assert inst.extension[2].valueInteger == 1
-    assert inst.id == "payment-status"
+    assert inst.extension[2].valueInteger == 2
+    assert inst.id == "eligibility-outcome"
     assert inst.identifier[0].system == "urn:ietf:rfc:3986"
-    assert inst.identifier[0].value == "urn:oid:2.16.840.1.113883.4.642.3.643"
-    assert inst.meta.lastUpdated == fhirtypes.Instant.validate(
-        "2021-04-03T00:34:11.075+00:00"
-    )
-    assert (
-        inst.meta.profile[0]
-        == "http://hl7.org/fhir/StructureDefinition/shareablevalueset"
-    )
-    assert inst.name == "PaymentStatusCodes"
-    assert inst.publisher == "Financial Management"
+    assert inst.identifier[0].value == "urn:oid:2.16.840.1.113883.4.642.3.3233"
+    assert inst.immutable is True
+    assert inst.meta.lastUpdated == fhirtypes.Instant.validate("2022-09-10T04:52:37.223+10:00")
+    assert inst.meta.profile[0] == "http://hl7.org/fhir/StructureDefinition/shareablevalueset"
+    assert inst.name == "EligibilityOutcome"
+    assert inst.publisher == "HL7 (FHIR Project)"
     assert inst.status == "draft"
+    assert inst.text.div == (
+    "<div xmlns=\"http://www.w3.org/1999/xhtml\"><ul><li>Include "
+    "all codes defined in <a href=\"codesystem-eligibility-"
+    "outcome.html\"><code>http://hl7.org/fhir/eligibility-"
+    "outcome</code></a></li></ul></div>"
+    )
     assert inst.text.status == "generated"
-    assert inst.title == "Payment Status Codes"
-    assert inst.url == "http://hl7.org/fhir/ValueSet/payment-status"
-    assert inst.version == "4.5.0"
+    assert inst.title == "EligibilityOutcome"
+    assert inst.url == "http://hl7.org/fhir/ValueSet/eligibility-outcome"
+    assert inst.version == "5.0.0-ballot"
 
 
 def test_valueset_8(base_settings):
     """No. 8 tests collection for ValueSet.
-    Test File: valueset-payment-status.json
+    Test File: valueset-eligibility-outcome.json
     """
-    filename = base_settings["unittest_data_dir"] / "valueset-payment-status.json"
+    filename = (
+        base_settings["unittest_data_dir"] / "valueset-eligibility-outcome.json"
+    )
     inst = valueset.ValueSet.parse_file(
         filename, content_type="application/json", encoding="utf-8"
     )
@@ -541,48 +522,47 @@ def test_valueset_8(base_settings):
 
 
 def impl_valueset_9(inst):
-    assert inst.compose.include[0].system == "http://www.ensembl.org"
-    assert inst.compose.include[1].system == "http://www.ncbi.nlm.nih.gov/nuccore"
+    assert inst.compose.include[0].system == "http://terminology.hl7.org/CodeSystem/benefit-term"
     assert inst.contact[0].telecom[0].system == "url"
     assert inst.contact[0].telecom[0].value == "http://hl7.org/fhir"
-    assert inst.description == "This value set includes all Reference codes"
+    assert inst.copyright == "This is an example set."
+    assert inst.description == "This value set includes a smattering of Benefit Term codes."
+    assert inst.experimental is True
     assert inst.extension[0].url == (
-        "http://hl7.org/fhir/StructureDefinition/structuredefinition-" "wg"
+    "http://hl7.org/fhir/StructureDefinition/structuredefinition-"
+    "wg"
     )
-    assert inst.extension[0].valueCode == "cg"
+    assert inst.extension[0].valueCode == "fm"
     assert inst.extension[1].url == (
-        "http://hl7.org/fhir/StructureDefinition/structuredefinition-"
-        "standards-status"
+    "http://hl7.org/fhir/StructureDefinition/structuredefinition-"
+    "standards-status"
     )
     assert inst.extension[1].valueCode == "draft"
     assert inst.extension[2].url == (
-        "http://hl7.org/fhir/StructureDefinition/structuredefinition-" "fmm"
+    "http://hl7.org/fhir/StructureDefinition/structuredefinition-"
+    "fmm"
     )
     assert inst.extension[2].valueInteger == 1
-    assert inst.id == "sequence-referenceSeq"
+    assert inst.id == "benefit-term"
     assert inst.identifier[0].system == "urn:ietf:rfc:3986"
-    assert inst.identifier[0].value == "urn:oid:2.16.840.1.113883.4.642.3.221"
-    assert inst.meta.lastUpdated == fhirtypes.Instant.validate(
-        "2021-04-03T00:34:11.075+00:00"
-    )
-    assert (
-        inst.meta.profile[0]
-        == "http://hl7.org/fhir/StructureDefinition/shareablevalueset"
-    )
-    assert inst.name == "ENSEMBL"
-    assert inst.publisher == "FHIR Project team"
+    assert inst.identifier[0].value == "urn:oid:2.16.840.1.113883.4.642.3.612"
+    assert inst.meta.lastUpdated == fhirtypes.Instant.validate("2022-09-10T04:52:37.223+10:00")
+    assert inst.meta.profile[0] == "http://hl7.org/fhir/StructureDefinition/shareablevalueset"
+    assert inst.name == "BenefitTermCodes"
+    assert inst.publisher == "Financial Management"
     assert inst.status == "draft"
     assert inst.text.status == "generated"
-    assert inst.url == "http://hl7.org/fhir/ValueSet/sequence-referenceSeq"
-    assert inst.version == "4.5.0"
+    assert inst.title == "Benefit Term Codes"
+    assert inst.url == "http://hl7.org/fhir/ValueSet/benefit-term"
+    assert inst.version == "5.0.0-ballot"
 
 
 def test_valueset_9(base_settings):
     """No. 9 tests collection for ValueSet.
-    Test File: valueset-sequence-referenceSeq.json
+    Test File: valueset-benefit-term.json
     """
     filename = (
-        base_settings["unittest_data_dir"] / "valueset-sequence-referenceSeq.json"
+        base_settings["unittest_data_dir"] / "valueset-benefit-term.json"
     )
     inst = valueset.ValueSet.parse_file(
         filename, content_type="application/json", encoding="utf-8"
@@ -600,85 +580,31 @@ def test_valueset_9(base_settings):
 
 
 def impl_valueset_10(inst):
-    assert inst.compose.include[0].concept[0].code == "47545007"
-    assert inst.compose.include[0].concept[0].designation[0].value == "CPAP"
-    assert inst.compose.include[0].concept[0].display == (
-        "Continuous positive airway pressure ventilation treatment " "(regime/therapy)"
-    )
-    assert inst.compose.include[0].concept[1].code == "286812008"
-    assert inst.compose.include[0].concept[1].designation[0].value == "PCV"
-    assert (
-        inst.compose.include[0].concept[1].display
-        == "Pressure controlled ventilation (procedure)"
-    )
-    assert inst.compose.include[0].concept[2].code == "243144002"
-    assert inst.compose.include[0].concept[2].designation[0].value == "IPPB "
-    assert (
-        inst.compose.include[0].concept[2].display
-        == "Patient triggered inspiratory assistance (procedure)"
-    )
-    assert inst.compose.include[0].concept[3].code == "243150007"
-    assert inst.compose.include[0].concept[3].designation[0].value == "ACV"
-    assert (
-        inst.compose.include[0].concept[3].display
-        == "Assisted controlled mandatory ventilation (procedure)"
-    )
-    assert inst.compose.include[0].concept[4].code == "59427005"
-    assert inst.compose.include[0].concept[4].designation[0].value == "SIMV"
-    assert (
-        inst.compose.include[0].concept[4].display
-        == "Synchronized intermittent mandatory ventilation (procedure)"
-    )
-    assert inst.compose.include[0].system == "http://snomed.info/sct"
-    assert inst.contact[0].telecom[0].system == "url"
-    assert (
-        inst.contact[0].telecom[0].value
-        == "http://www.hl7.org/Special/committees/orders/index.cfm"
-    )
-    assert inst.description == (
-        "An example value set of Codified order entry details "
-        "concepts.  These concepts only make sense in the context of "
-        "what is being ordered.  This example is for a patient "
-        "ventilation order"
-    )
+    assert inst.compose.include[0].system == "http://hl7.org/fhir/goal-relationship-type"
+    assert inst.description == "Description Needed Here"
+    assert inst.experimental is False
     assert inst.extension[0].url == (
-        "http://hl7.org/fhir/StructureDefinition/structuredefinition-" "wg"
+    "http://hl7.org/fhir/StructureDefinition/structuredefinition-"
+    "wg"
     )
-    assert inst.extension[0].valueCode == "oo"
-    assert inst.extension[1].url == (
-        "http://hl7.org/fhir/StructureDefinition/structuredefinition-"
-        "standards-status"
-    )
-    assert inst.extension[1].valueCode == "draft"
-    assert inst.extension[2].url == (
-        "http://hl7.org/fhir/StructureDefinition/structuredefinition-" "fmm"
-    )
-    assert inst.extension[2].valueInteger == 1
-    assert inst.id == "servicerequest-orderdetail"
+    assert inst.extension[0].valueCode == "pc"
+    assert inst.id == "goal-relationship-type"
     assert inst.identifier[0].system == "urn:ietf:rfc:3986"
-    assert inst.identifier[0].value == "urn:oid:2.16.840.1.113883.4.642.3.435"
-    assert inst.meta.lastUpdated == fhirtypes.Instant.validate(
-        "2021-04-03T00:34:11.075+00:00"
-    )
-    assert (
-        inst.meta.profile[0]
-        == "http://hl7.org/fhir/StructureDefinition/shareablevalueset"
-    )
-    assert inst.name == "ServiceRequestOrderDetailsCodes"
-    assert inst.publisher == "Orders and Observations Workgroup"
-    assert inst.status == "draft"
+    assert inst.identifier[0].value == "urn:oid:2.16.840.1.113883.4.642.3.915"
+    assert inst.meta.lastUpdated == fhirtypes.Instant.validate("2022-09-10T04:52:37.223+10:00")
+    assert inst.meta.profile[0] == "http://hl7.org/fhir/StructureDefinition/shareablevalueset"
+    assert inst.name == "GoalRelationshipType"
     assert inst.text.status == "generated"
-    assert inst.title == "Service Request Order Details Codes"
-    assert inst.url == "http://hl7.org/fhir/ValueSet/servicerequest-orderdetail"
-    assert inst.version == "4.5.0"
+    assert inst.url == "http://hl7.org/fhir/ValueSet/goal-relationship-type"
+    assert inst.version == "5.0.0-ballot"
 
 
 def test_valueset_10(base_settings):
     """No. 10 tests collection for ValueSet.
-    Test File: valueset-servicerequest-orderdetail.json
+    Test File: valueset-goal-relationship-type.json
     """
     filename = (
-        base_settings["unittest_data_dir"] / "valueset-servicerequest-orderdetail.json"
+        base_settings["unittest_data_dir"] / "valueset-goal-relationship-type.json"
     )
     inst = valueset.ValueSet.parse_file(
         filename, content_type="application/json", encoding="utf-8"

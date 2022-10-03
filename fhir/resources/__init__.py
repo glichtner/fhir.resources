@@ -1,3 +1,4 @@
+
 # -*- coding: utf-8 -*-
 from pathlib import Path
 from typing import Any, Dict, Union
@@ -5,13 +6,13 @@ from typing import Any, Dict, Union
 from .fhirabstractmodel import FHIRAbstractModel
 from .fhirtypesvalidators import get_fhir_model_class
 
-__fhir_version__ = "4.5.0"
+__fhir_version__ = "5.0.0-ballot"
 
 
 def construct_fhir_element(
     element_type: str, data: Union[Dict[str, Any], str, bytes, Path]
 ) -> FHIRAbstractModel:
-
+    
     try:
         klass = get_fhir_model_class(element_type)
     except KeyError:

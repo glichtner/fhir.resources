@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/StructureMap
-Release: R5
-Version: 4.5.0
-Build ID: 0d95498
-Last updated: 2021-04-03T00:34:11.075+00:00
+Release: 2022Sep
+Version: 5.0.0-ballot
+Build ID: 1505a88
+Last updated: 2022-09-10T04:52:37.223+10:00
 """
 from pydantic.validators import bytes_validator  # noqa: F401
 from fhir.resources import fhirtypes  # noqa: F401
@@ -74,17 +74,14 @@ def impl_structuremap_1(inst):
     assert inst.group[0].rule[6].target[0].parameter[0].valueString == "now()"
     assert inst.group[0].rule[6].target[0].transform == "evaluate"
     assert inst.id == "supplyrequest-transform"
+    assert inst.identifier[0].system == "urn:ietf:rfc:3986"
+    assert inst.identifier[0].value == "urn:oid:2.16.840.1.113883.4.642.13.1"
     assert inst.name == "Transform from an ActivityDefinition to a SupplyRequest"
     assert inst.status == "draft"
     assert inst.structure[0].mode == "source"
-    assert (
-        inst.structure[0].url
-        == "http://hl7.org/fhir/StructureDefinition/activitydefinition"
-    )
+    assert inst.structure[0].url == "http://hl7.org/fhir/StructureDefinition/activitydefinition"
     assert inst.structure[1].mode == "target"
-    assert (
-        inst.structure[1].url == "http://hl7.org/fhir/StructureDefinition/supplyrequest"
-    )
+    assert inst.structure[1].url == "http://hl7.org/fhir/StructureDefinition/supplyrequest"
     assert inst.text.status == "generated"
     assert inst.url == "http://hl7.org/fhir/StructureMap/supplyrequest-transform"
 
@@ -130,13 +127,10 @@ def impl_structuremap_2(inst):
     assert inst.group[0].rule[0].target[0].transform == "copy"
     assert inst.id == "example"
     assert inst.identifier[0].system == "urn:ietf:rfc:3986"
-    assert inst.identifier[0].value == "urn:oid:37843577-95fb-4adb-84c0-8837188a7bf3"
+    assert inst.identifier[0].value == "urn:oid:2.16.840.1.113883.4.642.13.2"
     assert inst.jurisdiction[0].coding[0].code == "009"
     assert inst.jurisdiction[0].coding[0].display == "Oceania"
-    assert (
-        inst.jurisdiction[0].coding[0].system
-        == "http://unstats.un.org/unsd/methods/m49/m49.htm"
-    )
+    assert inst.jurisdiction[0].coding[0].system == "http://unstats.un.org/unsd/methods/m49/m49.htm"
     assert inst.name == "ExampleMap"
     assert inst.publisher == "HL7 FHIR Standard"
     assert inst.status == "draft"
@@ -150,7 +144,9 @@ def test_structuremap_2(base_settings):
     """No. 2 tests collection for StructureMap.
     Test File: structuremap-example.json
     """
-    filename = base_settings["unittest_data_dir"] / "structuremap-example.json"
+    filename = (
+        base_settings["unittest_data_dir"] / "structuremap-example.json"
+    )
     inst = structuremap.StructureMap.parse_file(
         filename, content_type="application/json", encoding="utf-8"
     )

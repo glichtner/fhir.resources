@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/AppointmentResponse
-Release: R5
-Version: 4.5.0
-Build ID: 0d95498
-Last updated: 2021-04-03T00:34:11.075+00:00
+Release: 2022Sep
+Version: 5.0.0-ballot
+Build ID: 1505a88
+Last updated: 2022-09-10T04:52:37.223+10:00
 """
 import typing
 from pydantic import Field
@@ -18,7 +18,6 @@ from . import fhirtypes
 
 from . import domainresource
 
-
 class AppointmentResponse(domainresource.DomainResource):
     """Disclaimer: Any field name ends with ``__ext`` doesn't part of
     Resource StructureDefinition, instead used to enable Extensibility feature
@@ -27,155 +26,207 @@ class AppointmentResponse(domainresource.DomainResource):
     A reply to an appointment request for a patient and/or practitioner(s),
     such as a confirmation or rejection.
     """
-
     resource_type = Field("AppointmentResponse", const=True)
-
+	
     actor: fhirtypes.ReferenceType = Field(
-        None,
-        alias="actor",
-        title="Person, Location, HealthcareService, or Device",
-        description=(
-            "A Person, Location, HealthcareService, or Device that is participating"
-            " in the appointment."
-        ),
+		None,
+		alias="actor",
+		title="Person(s), Location, HealthcareService, or Device",
+		description=(
+    "A Person, Location, HealthcareService, or Device that is participating"
+    " in the appointment."
+    ),
         # if property is element of this resource.
         element_property=True,
         # note: Listed Resource Type(s) should be allowed as Reference.
-        enum_reference_types=[
-            "Patient",
-            "Practitioner",
-            "PractitionerRole",
-            "RelatedPerson",
-            "Device",
-            "HealthcareService",
-            "Location",
-        ],
-    )
-
+		enum_reference_types=["Patient", "Group", "Practitioner", "PractitionerRole", "RelatedPerson", "Device", "HealthcareService", "Location"],
+	)
+	
     appointment: fhirtypes.ReferenceType = Field(
-        ...,
-        alias="appointment",
-        title="Appointment this response relates to",
-        description="Appointment that this response is replying to.",
+		...,
+		alias="appointment",
+		title="Appointment this response relates to",
+		description="Appointment that this response is replying to.",
         # if property is element of this resource.
         element_property=True,
         # note: Listed Resource Type(s) should be allowed as Reference.
-        enum_reference_types=["Appointment"],
-    )
-
+		enum_reference_types=["Appointment"],
+	)
+	
     comment: fhirtypes.String = Field(
-        None,
-        alias="comment",
-        title="Additional comments",
-        description="Additional comments about the appointment.",
+		None,
+		alias="comment",
+		title="Additional comments",
+		description="Additional comments about the appointment.",
         # if property is element of this resource.
         element_property=True,
-    )
+	)
     comment__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
-        None, alias="_comment", title="Extension field for ``comment``."
+        None,
+        alias="_comment",
+        title="Extension field for ``comment``."
     )
-
+	
     end: fhirtypes.Instant = Field(
-        None,
-        alias="end",
-        title="Time from appointment, or requested new end time",
-        description=(
-            "This may be either the same as the appointment request to confirm the "
-            "details of the appointment, or alternately a new time to request a re-"
-            "negotiation of the end time."
-        ),
+		None,
+		alias="end",
+		title="Time from appointment, or requested new end time",
+		description=(
+    "This may be either the same as the appointment request to confirm the "
+    "details of the appointment, or alternately a new time to request a re-"
+    "negotiation of the end time."
+    ),
         # if property is element of this resource.
         element_property=True,
-    )
+	)
     end__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
-        None, alias="_end", title="Extension field for ``end``."
-    )
-
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
         None,
-        alias="identifier",
-        title="External Ids for this item",
-        description=(
-            "This records identifiers associated with this appointment response "
-            "concern that are defined by business processes and/ or used to refer "
-            "to it when a direct URL reference to the resource itself is not "
-            "appropriate."
-        ),
+        alias="_end",
+        title="Extension field for ``end``."
+    )
+	
+    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+		None,
+		alias="identifier",
+		title="External Ids for this item",
+		description=(
+    "This records identifiers associated with this appointment response "
+    "concern that are defined by business processes and/ or used to refer "
+    "to it when a direct URL reference to the resource itself is not "
+    "appropriate."
+    ),
         # if property is element of this resource.
         element_property=True,
-    )
-
-    participantStatus: fhirtypes.Code = Field(
+	)
+	
+    occurrenceDate: fhirtypes.Date = Field(
+		None,
+		alias="occurrenceDate",
+		title="Original date within a recurring request",
+		description=(
+    "The original date within a recurring request. This could be used in "
+    "place of the recurrenceId to be more direct (or where the template is "
+    "provided through the simple list of dates in "
+    "`Appointment.occurrenceDate`)."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+	)
+    occurrenceDate__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
         None,
-        alias="participantStatus",
-        title="accepted | declined | tentative | needs-action",
-        description=(
-            "Participation status of the participant. When the status is declined "
-            "or tentative if the start/end times are different to the appointment, "
-            "then these times should be interpreted as a requested time change. "
-            "When the status is accepted, the times can either be the time of the "
-            "appointment (as a confirmation of the time) or can be empty."
-        ),
+        alias="_occurrenceDate",
+        title="Extension field for ``occurrenceDate``."
+    )
+	
+    participantStatus: fhirtypes.Code = Field(
+		None,
+		alias="participantStatus",
+		title="accepted | declined | tentative | needs-action",
+		description=(
+    "Participation status of the participant. When the status is declined "
+    "or tentative if the start/end times are different to the appointment, "
+    "then these times should be interpreted as a requested time change. "
+    "When the status is accepted, the times can either be the time of the "
+    "appointment (as a confirmation of the time) or can be empty."
+    ),
         # if property is element of this resource.
         element_property=True,
         element_required=True,
         # note: Enum values can be used in validation,
         # but use in your own responsibilities, read official FHIR documentation.
-        enum_values=["accepted", "declined", "tentative", "needs-action"],
-    )
+		enum_values=["accepted", "declined", "tentative", "needs-action"],
+	)
     participantStatus__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
         None,
         alias="_participantStatus",
-        title="Extension field for ``participantStatus``.",
+        title="Extension field for ``participantStatus``."
     )
-
+	
     participantType: typing.List[fhirtypes.CodeableConceptType] = Field(
-        None,
-        alias="participantType",
-        title="Role of participant in the appointment",
-        description=None,
+		None,
+		alias="participantType",
+		title="Role of participant in the appointment",
+		description=None,
         # if property is element of this resource.
         element_property=True,
+	)
+	
+    proposedNewTime: bool = Field(
+		None,
+		alias="proposedNewTime",
+		title="Indicator for a counter proposal",
+		description=(
+    "Indicates that the response is proposing a different time that was "
+    "initially requested.  The new proposed time will be indicated in the "
+    "start and end properties."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+	)
+    proposedNewTime__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
+        None,
+        alias="_proposedNewTime",
+        title="Extension field for ``proposedNewTime``."
     )
-
+	
+    recurrenceId: fhirtypes.PositiveInt = Field(
+		None,
+		alias="recurrenceId",
+		title="The recurrence ID of the specific recurring request",
+		description=(
+    "The recurrence ID (sequence number) of the specific appointment when "
+    "responding to a recurring request."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+	)
+    recurrenceId__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
+        None,
+        alias="_recurrenceId",
+        title="Extension field for ``recurrenceId``."
+    )
+	
+    recurring: bool = Field(
+		None,
+		alias="recurring",
+		title="This response is for all occurrences in a recurring request",
+		description=(
+    "Indicates that this AppointmentResponse applies to all occurrences in "
+    "a recurring request."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+	)
+    recurring__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
+        None,
+        alias="_recurring",
+        title="Extension field for ``recurring``."
+    )
+	
     start: fhirtypes.Instant = Field(
-        None,
-        alias="start",
-        title="Time from appointment, or requested new start time",
-        description=(
-            "Date/Time that the appointment is to take place, or requested new "
-            "start time."
-        ),
+		None,
+		alias="start",
+		title="Time from appointment, or requested new start time",
+		description=(
+    "Date/Time that the appointment is to take place, or requested new "
+    "start time."
+    ),
         # if property is element of this resource.
         element_property=True,
-    )
+	)
     start__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
-        None, alias="_start", title="Extension field for ``start``."
+        None,
+        alias="_start",
+        title="Extension field for ``start``."
     )
-
     @classmethod
     def elements_sequence(cls):
-        """returning all elements names from ``AppointmentResponse`` according specification,
+        """returning all elements names from
+        ``AppointmentResponse`` according specification,
         with preserving original sequence order.
         """
-        return [
-            "id",
-            "meta",
-            "implicitRules",
-            "language",
-            "text",
-            "contained",
-            "extension",
-            "modifierExtension",
-            "identifier",
-            "appointment",
-            "start",
-            "end",
-            "participantType",
-            "actor",
-            "participantStatus",
-            "comment",
-        ]
+        return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "identifier", "appointment", "proposedNewTime", "start", "end", "participantType", "actor", "participantStatus", "comment", "recurring", "occurrenceDate", "recurrenceId"]
+
 
     @root_validator(pre=True, allow_reuse=True)
     def validate_required_primitive_elements_2180(
@@ -188,7 +239,8 @@ class AppointmentResponse(domainresource.DomainResource):
         data type mandatory, it is possible to provide an extension that explains why
         the primitive value is not present.
         """
-        required_fields = [("participantStatus", "participantStatus__ext")]
+        required_fields = [
+			("participantStatus", "participantStatus__ext")]
         _missing = object()
 
         def _fallback():

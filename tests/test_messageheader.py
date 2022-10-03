@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/MessageHeader
-Release: R5
-Version: 4.5.0
-Build ID: 0d95498
-Last updated: 2021-04-03T00:34:11.075+00:00
+Release: 2022Sep
+Version: 5.0.0-ballot
+Build ID: 1505a88
+Last updated: 2022-09-10T04:52:37.223+10:00
 """
 from pydantic.validators import bytes_validator  # noqa: F401
 from fhir.resources import fhirtypes  # noqa: F401
@@ -13,15 +13,10 @@ from fhir.resources import messageheader
 
 def impl_messageheader_1(inst):
     assert inst.author.reference == "Practitioner/example"
-    assert (
-        inst.definition == "http:////acme.com/ehr/fhir/messagedefinition/patientrequest"
-    )
+    assert inst.definition == "http:////acme.com/ehr/fhir/messagedefinition/patientrequest"
     assert inst.destination[0].endpoint == "llp:10.11.12.14:5432"
     assert inst.destination[0].name == "Acme Message Gateway"
-    assert (
-        inst.destination[0].receiver.reference
-        == "http://acme.com/ehr/fhir/Practitioner/2323-33-4"
-    )
+    assert inst.destination[0].receiver.reference == "http://acme.com/ehr/fhir/Practitioner/2323-33-4"
     assert inst.destination[0].target.reference == "Device/example"
     assert inst.enterer.reference == "Practitioner/example"
     assert inst.eventCoding.code == "admin-notify"
@@ -30,15 +25,14 @@ def impl_messageheader_1(inst):
     assert inst.id == "1cbdfb97-5859-48a4-8301-d54eab818d68"
     assert inst.meta.tag[0].code == "HTEST"
     assert inst.meta.tag[0].display == "test health data"
-    assert (
-        inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
-    )
+    assert inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
     assert inst.reason.coding[0].code == "admit"
     assert inst.reason.coding[0].system == (
-        "http://terminology.hl7.org/CodeSystem/message-reasons-" "encounter"
+    "http://terminology.hl7.org/CodeSystem/message-reasons-"
+    "encounter"
     )
     assert inst.response.code == "ok"
-    assert inst.response.identifier == "5015fe84-8e76-4526-89d8-44b322e8d4fb"
+    assert inst.response.identifier.value == "5015fe84-8e76-4526-89d8-44b322e8d4fb"
     assert inst.sender.reference == "Organization/1"
     assert inst.source.contact.system == "phone"
     assert inst.source.contact.value == "+1 (555) 123 4567"
@@ -53,7 +47,9 @@ def test_messageheader_1(base_settings):
     """No. 1 tests collection for MessageHeader.
     Test File: messageheader-example.json
     """
-    filename = base_settings["unittest_data_dir"] / "messageheader-example.json"
+    filename = (
+        base_settings["unittest_data_dir"] / "messageheader-example.json"
+    )
     inst = messageheader.MessageHeader.parse_file(
         filename, content_type="application/json", encoding="utf-8"
     )

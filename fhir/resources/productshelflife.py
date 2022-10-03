@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/ProductShelfLife
-Release: R5
-Version: 4.5.0
-Build ID: 0d95498
-Last updated: 2021-04-03T00:34:11.075+00:00
+Release: 2022Sep
+Version: 5.0.0-ballot
+Build ID: 1505a88
+Last updated: 2022-09-10T04:52:37.223+10:00
 """
 import typing
 from pydantic import Field
@@ -15,7 +15,6 @@ from . import fhirtypes
 
 from . import backbonetype
 
-
 class ProductShelfLife(backbonetype.BackboneType):
     """Disclaimer: Any field name ends with ``__ext`` doesn't part of
     Resource StructureDefinition, instead used to enable Extensibility feature
@@ -24,91 +23,85 @@ class ProductShelfLife(backbonetype.BackboneType):
     The shelf-life and storage information for a medicinal product item or
     container can be described using this class.
     """
-
     resource_type = Field("ProductShelfLife", const=True)
-
-    periodQuantity: fhirtypes.QuantityType = Field(
-        None,
-        alias="periodQuantity",
-        title=(
-            "The shelf life time period can be specified using a numerical value "
-            "for the period of time and its unit of time measurement The unit of "
-            "measurement shall be specified in accordance with ISO 11240 and the "
-            "resulting terminology The symbol and the symbol identifier shall be "
-            "used"
-        ),
-        description=None,
+	
+    periodDuration: fhirtypes.DurationType = Field(
+		None,
+		alias="periodDuration",
+		title=(
+    "The shelf life time period can be specified using a numerical value "
+    "for the period of time and its unit of time measurement The unit of "
+    "measurement shall be specified in accordance with ISO 11240 and the "
+    "resulting terminology The symbol and the symbol identifier shall be "
+    "used"
+    ),
+		description=None,
         # if property is element of this resource.
         element_property=True,
         # Choice of Data Types. i.e period[x]
-        one_of_many="period",
-        one_of_many_required=False,
-    )
-
+		one_of_many="period",
+		one_of_many_required=False,
+	)
+	
     periodString: fhirtypes.String = Field(
-        None,
-        alias="periodString",
-        title=(
-            "The shelf life time period can be specified using a numerical value "
-            "for the period of time and its unit of time measurement The unit of "
-            "measurement shall be specified in accordance with ISO 11240 and the "
-            "resulting terminology The symbol and the symbol identifier shall be "
-            "used"
-        ),
-        description=None,
+		None,
+		alias="periodString",
+		title=(
+    "The shelf life time period can be specified using a numerical value "
+    "for the period of time and its unit of time measurement The unit of "
+    "measurement shall be specified in accordance with ISO 11240 and the "
+    "resulting terminology The symbol and the symbol identifier shall be "
+    "used"
+    ),
+		description=None,
         # if property is element of this resource.
         element_property=True,
         # Choice of Data Types. i.e period[x]
-        one_of_many="period",
-        one_of_many_required=False,
-    )
+		one_of_many="period",
+		one_of_many_required=False,
+	)
     periodString__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
-        None, alias="_periodString", title="Extension field for ``periodString``."
+        None,
+        alias="_periodString",
+        title="Extension field for ``periodString``."
     )
-
+	
     specialPrecautionsForStorage: typing.List[fhirtypes.CodeableConceptType] = Field(
-        None,
-        alias="specialPrecautionsForStorage",
-        title=(
-            "Special precautions for storage, if any, can be specified using an "
-            "appropriate controlled vocabulary The controlled term and the "
-            "controlled term identifier shall be specified"
-        ),
-        description=None,
+		None,
+		alias="specialPrecautionsForStorage",
+		title=(
+    "Special precautions for storage, if any, can be specified using an "
+    "appropriate controlled vocabulary The controlled term and the "
+    "controlled term identifier shall be specified"
+    ),
+		description=None,
         # if property is element of this resource.
         element_property=True,
-    )
-
+	)
+	
     type: fhirtypes.CodeableConceptType = Field(
-        None,
-        alias="type",
-        title=(
-            "This describes the shelf life, taking into account various scenarios "
-            "such as shelf life of the packaged Medicinal Product itself, shelf "
-            "life after transformation where necessary and shelf life after the "
-            "first opening of a bottle, etc. The shelf life type shall be specified"
-            " using an appropriate controlled vocabulary The controlled term and "
-            "the controlled term identifier shall be specified"
-        ),
-        description=None,
+		None,
+		alias="type",
+		title=(
+    "This describes the shelf life, taking into account various scenarios "
+    "such as shelf life of the packaged Medicinal Product itself, shelf "
+    "life after transformation where necessary and shelf life after the "
+    "first opening of a bottle, etc. The shelf life type shall be specified"
+    " using an appropriate controlled vocabulary The controlled term and "
+    "the controlled term identifier shall be specified"
+    ),
+		description=None,
         # if property is element of this resource.
         element_property=True,
-    )
-
+	)
     @classmethod
     def elements_sequence(cls):
-        """returning all elements names from ``ProductShelfLife`` according specification,
+        """returning all elements names from
+        ``ProductShelfLife`` according specification,
         with preserving original sequence order.
         """
-        return [
-            "id",
-            "extension",
-            "modifierExtension",
-            "type",
-            "periodQuantity",
-            "periodString",
-            "specialPrecautionsForStorage",
-        ]
+        return ["id", "extension", "modifierExtension", "type", "periodDuration", "periodString", "specialPrecautionsForStorage"]
+
 
     @root_validator(pre=True, allow_reuse=True)
     def validate_one_of_many_1800(
@@ -126,7 +119,10 @@ class ProductShelfLife(backbonetype.BackboneType):
         choice of types, the authoring system must create a single element with a
         data type chosen from among the list of permitted data types.
         """
-        one_of_many_fields = {"period": ["periodQuantity", "periodString"]}
+        one_of_many_fields = {
+			"period": [
+			    "periodDuration",
+			    "periodString"]}
         for prefix, fields in one_of_many_fields.items():
             assert cls.__fields__[fields[0]].field_info.extra["one_of_many"] == prefix
             required = (

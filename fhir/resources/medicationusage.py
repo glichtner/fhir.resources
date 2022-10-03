@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/MedicationUsage
-Release: R5
-Version: 4.5.0
-Build ID: 0d95498
-Last updated: 2021-04-03T00:34:11.075+00:00
+Release: 2022Sep
+Version: 5.0.0-ballot
+Build ID: 1505a88
+Last updated: 2022-09-10T04:52:37.223+10:00
 """
 import typing
 from pydantic import Field
@@ -17,7 +17,6 @@ from . import fhirtypes
 
 
 from . import domainresource
-
 
 class MedicationUsage(domainresource.DomainResource):
     """Disclaimer: Any field name ends with ``__ext`` doesn't part of
@@ -35,7 +34,7 @@ class MedicationUsage(domainresource.DomainResource):
     information may come from sources such as the patient's memory, from a
     prescription bottle,  or from a list of medications the patient, clinician
     or other party maintains.
-
+    
     The primary difference between a medicationusage and a
     medicationadministration is that the medication administration has complete
     administration information and is based on actual administration
@@ -49,326 +48,284 @@ class MedicationUsage(domainresource.DomainResource):
     prescription bottle or from a list of medications the patient, clinician or
     other party maintains.  Medication administration is more formal and is not
     missing detailed information.
-
+    
     The MedicationUsage resource was previously called MedicationStatement.
     """
-
     resource_type = Field("MedicationUsage", const=True)
-
-    adherence: fhirtypes.CodeableConceptType = Field(
-        None,
-        alias="adherence",
-        title=(
-            "Indicates if the medication is being consumed or administered as "
-            "instructed"
-        ),
-        description=None,
+	
+    adherence: fhirtypes.MedicationUsageAdherenceType = Field(
+		None,
+		alias="adherence",
+		title=(
+    "Indicates if the medication is being consumed or administered as "
+    "instructed"
+    ),
+		description=None,
         # if property is element of this resource.
         element_property=True,
-    )
-
-    basedOn: typing.List[fhirtypes.ReferenceType] = Field(
-        None,
-        alias="basedOn",
-        title="Fulfils plan, proposal or order",
-        description=(
-            "A plan, proposal or order that is fulfilled in whole or in part by "
-            "this event."
-        ),
-        # if property is element of this resource.
-        element_property=True,
-        # note: Listed Resource Type(s) should be allowed as Reference.
-        enum_reference_types=["MedicationRequest", "CarePlan", "ServiceRequest"],
-    )
-
+	)
+	
     category: typing.List[fhirtypes.CodeableConceptType] = Field(
-        None,
-        alias="category",
-        title="Type of medication usage",
-        description=(
-            "Type of medication usage (for example, drug classification like ATC, "
-            "where meds would be administered, legal category of the medication.)."
-        ),
+		None,
+		alias="category",
+		title="Type of medication usage",
+		description=(
+    "Type of medication usage (for example, drug classification like ATC, "
+    "where meds would be administered, legal category of the medication.)."
+    ),
         # if property is element of this resource.
         element_property=True,
-    )
-
+	)
+	
     dateAsserted: fhirtypes.DateTime = Field(
-        None,
-        alias="dateAsserted",
-        title="When the usage was asserted?",
-        description=(
-            "The date when the Medication Usage was asserted by the information "
-            "source."
-        ),
+		None,
+		alias="dateAsserted",
+		title="When the usage was asserted?",
+		description=(
+    "The date when the Medication Usage was asserted by the information "
+    "source."
+    ),
         # if property is element of this resource.
         element_property=True,
-    )
+	)
     dateAsserted__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
-        None, alias="_dateAsserted", title="Extension field for ``dateAsserted``."
-    )
-
-    derivedFrom: typing.List[fhirtypes.ReferenceType] = Field(
         None,
-        alias="derivedFrom",
-        title="Link to information used to derive the MedicationUsage",
-        description=(
-            "Allows linking the MedicationUsage to the underlying "
-            "MedicationRequest, or to other information that supports or is used to"
-            " derive the MedicationUsage."
-        ),
+        alias="_dateAsserted",
+        title="Extension field for ``dateAsserted``."
+    )
+	
+    derivedFrom: typing.List[fhirtypes.ReferenceType] = Field(
+		None,
+		alias="derivedFrom",
+		title="Link to information used to derive the MedicationUsage",
+		description=(
+    "Allows linking the MedicationUsage to the underlying "
+    "MedicationRequest, or to other information that supports or is used to"
+    " derive the MedicationUsage."
+    ),
         # if property is element of this resource.
         element_property=True,
         # note: Listed Resource Type(s) should be allowed as Reference.
-        enum_reference_types=["Resource"],
-    )
-
+		enum_reference_types=["Resource"],
+	)
+	
     dosage: typing.List[fhirtypes.DosageType] = Field(
-        None,
-        alias="dosage",
-        title="Details of how medication is/was taken or should be taken",
-        description="Indicates how the medication is/was or should be taken by the patient.",
+		None,
+		alias="dosage",
+		title="Details of how medication is/was taken or should be taken",
+		description="Indicates how the medication is/was or should be taken by the patient.",
         # if property is element of this resource.
         element_property=True,
-    )
-
+	)
+	
     effectiveDateTime: fhirtypes.DateTime = Field(
-        None,
-        alias="effectiveDateTime",
-        title="The date/time or interval when the medication is/was/will be taken",
-        description=(
-            "The interval of time during which it is being asserted that the "
-            "patient is/was/will be taking the medication (or was not taking, when "
-            "the MedicationUsage.status element is NotTaken)."
-        ),
+		None,
+		alias="effectiveDateTime",
+		title="The date/time or interval when the medication is/was/will be taken",
+		description=(
+    "The interval of time during which it is being asserted that the "
+    "patient is/was/will be taking the medication (or was not taking, when "
+    "the MedicationUsage.adherence element is Not Taking)."
+    ),
         # if property is element of this resource.
         element_property=True,
         # Choice of Data Types. i.e effective[x]
-        one_of_many="effective",
-        one_of_many_required=False,
-    )
+		one_of_many="effective",
+		one_of_many_required=False,
+	)
     effectiveDateTime__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
         None,
         alias="_effectiveDateTime",
-        title="Extension field for ``effectiveDateTime``.",
+        title="Extension field for ``effectiveDateTime``."
     )
-
+	
     effectivePeriod: fhirtypes.PeriodType = Field(
-        None,
-        alias="effectivePeriod",
-        title="The date/time or interval when the medication is/was/will be taken",
-        description=(
-            "The interval of time during which it is being asserted that the "
-            "patient is/was/will be taking the medication (or was not taking, when "
-            "the MedicationUsage.status element is NotTaken)."
-        ),
+		None,
+		alias="effectivePeriod",
+		title="The date/time or interval when the medication is/was/will be taken",
+		description=(
+    "The interval of time during which it is being asserted that the "
+    "patient is/was/will be taking the medication (or was not taking, when "
+    "the MedicationUsage.adherence element is Not Taking)."
+    ),
         # if property is element of this resource.
         element_property=True,
         # Choice of Data Types. i.e effective[x]
-        one_of_many="effective",
-        one_of_many_required=False,
-    )
-
+		one_of_many="effective",
+		one_of_many_required=False,
+	)
+	
     encounter: fhirtypes.ReferenceType = Field(
-        None,
-        alias="encounter",
-        title="Encounter associated with MedicationUsage",
-        description="The encounter that establishes the context for this MedicationUsage.",
+		None,
+		alias="encounter",
+		title="Encounter associated with MedicationUsage",
+		description="The encounter that establishes the context for this MedicationUsage.",
         # if property is element of this resource.
         element_property=True,
         # note: Listed Resource Type(s) should be allowed as Reference.
-        enum_reference_types=["Encounter"],
-    )
-
+		enum_reference_types=["Encounter"],
+	)
+	
     identifier: typing.List[fhirtypes.IdentifierType] = Field(
-        None,
-        alias="identifier",
-        title="External identifier",
-        description=(
-            "Identifiers associated with this Medication Usage that are defined by "
-            "business processes and/or used to refer to it when a direct URL "
-            "reference to the resource itself is not appropriate. They are business"
-            " identifiers assigned to this resource by the performer or other "
-            "systems and remain constant as the resource is updated and propagates "
-            "from server to server."
-        ),
+		None,
+		alias="identifier",
+		title="External identifier",
+		description=(
+    "Identifiers associated with this Medication Usage that are defined by "
+    "business processes and/or used to refer to it when a direct URL "
+    "reference to the resource itself is not appropriate. They are business"
+    " identifiers assigned to this resource by the performer or other "
+    "systems and remain constant as the resource is updated and propagates "
+    "from server to server."
+    ),
         # if property is element of this resource.
         element_property=True,
-    )
-
-    informationSource: fhirtypes.ReferenceType = Field(
-        None,
-        alias="informationSource",
-        title=(
-            "Person or organization that provided the information about the taking "
-            "of this medication"
-        ),
-        description=(
-            "The person or organization that provided the information about the "
-            "taking of this medication. Note: Use derivedFrom when a "
-            "MedicationUsage is derived from other resources, e.g. Claim or "
-            "MedicationRequest."
-        ),
+	)
+	
+    informationSource: typing.List[fhirtypes.ReferenceType] = Field(
+		None,
+		alias="informationSource",
+		title=(
+    "Person or organization that provided the information about the taking "
+    "of this medication"
+    ),
+		description=(
+    "The person or organization that provided the information about the "
+    "taking of this medication. Note: Use derivedFrom when a "
+    "MedicationUsage is derived from other resources, e.g. Claim or "
+    "MedicationRequest."
+    ),
         # if property is element of this resource.
         element_property=True,
         # note: Listed Resource Type(s) should be allowed as Reference.
-        enum_reference_types=[
-            "Patient",
-            "Practitioner",
-            "PractitionerRole",
-            "RelatedPerson",
-            "Organization",
-        ],
-    )
-
+		enum_reference_types=["Patient", "Practitioner", "PractitionerRole", "RelatedPerson", "Organization"],
+	)
+	
     medication: fhirtypes.CodeableReferenceType = Field(
-        ...,
-        alias="medication",
-        title="What medication was taken",
-        description=(
-            "Identifies the medication being administered. This is either a link to"
-            " a resource representing the details of the medication or a simple "
-            "attribute carrying a code that identifies the medication from a known "
-            "list of medications."
-        ),
+		...,
+		alias="medication",
+		title="What medication was taken",
+		description=(
+    "Identifies the medication being administered. This is either a link to"
+    " a resource representing the details of the medication or a simple "
+    "attribute carrying a code that identifies the medication from a known "
+    "list of medications."
+    ),
         # if property is element of this resource.
         element_property=True,
         # note: Listed Resource Type(s) should be allowed as Reference.
-        enum_reference_types=["Medication"],
-    )
-
+		enum_reference_types=["Medication"],
+	)
+	
     note: typing.List[fhirtypes.AnnotationType] = Field(
-        None,
-        alias="note",
-        title="Further information about the usage",
-        description=(
-            "Provides extra information about the Medication Usage that is not "
-            "conveyed by the other attributes."
-        ),
+		None,
+		alias="note",
+		title="Further information about the usage",
+		description=(
+    "Provides extra information about the Medication Usage that is not "
+    "conveyed by the other attributes."
+    ),
         # if property is element of this resource.
         element_property=True,
-    )
-
+	)
+	
     partOf: typing.List[fhirtypes.ReferenceType] = Field(
-        None,
-        alias="partOf",
-        title="Part of referenced event",
-        description="A larger event of which this particular event is a component or step.",
+		None,
+		alias="partOf",
+		title="Part of referenced event",
+		description=(
+    "A larger event of which this particular MedicationUsage is a component"
+    " or step."
+    ),
         # if property is element of this resource.
         element_property=True,
         # note: Listed Resource Type(s) should be allowed as Reference.
-        enum_reference_types=[
-            "MedicationAdministration",
-            "MedicationDispense",
-            "MedicationUsage",
-            "Procedure",
-            "Observation",
-        ],
-    )
-
+		enum_reference_types=["Procedure"],
+	)
+	
     reason: typing.List[fhirtypes.CodeableReferenceType] = Field(
-        None,
-        alias="reason",
-        title="Reason for why the medication is being/was taken",
-        description=(
-            "A concept, Condition or observation that supports why the medication "
-            "is being/was taken."
-        ),
+		None,
+		alias="reason",
+		title="Reason for why the medication is being/was taken",
+		description=(
+    "A concept, Condition or observation that supports why the medication "
+    "is being/was taken."
+    ),
         # if property is element of this resource.
         element_property=True,
         # note: Listed Resource Type(s) should be allowed as Reference.
-        enum_reference_types=["Condition", "Observation", "DiagnosticReport"],
-    )
-
-    renderedDosageInstruction: fhirtypes.String = Field(
-        None,
-        alias="renderedDosageInstruction",
-        title="Full representation of the dosage instructions",
-        description=(
-            "The full representation of the dose of the medication included in all "
-            "dosage instructions.  To be used when multiple dosage instructions are"
-            " included to represent complex dosing such as increasing or tapering "
-            "doses."
-        ),
+		enum_reference_types=["Condition", "Observation", "DiagnosticReport"],
+	)
+	
+    relatedClinicalInformation: typing.List[fhirtypes.ReferenceType] = Field(
+		None,
+		alias="relatedClinicalInformation",
+		title="Link to information relevant to the usage of a medication",
+		description=(
+    "Link to information that is relevant to a medication usage, for "
+    "example, illicit drug use, gestational age, etc."
+    ),
         # if property is element of this resource.
         element_property=True,
-    )
+        # note: Listed Resource Type(s) should be allowed as Reference.
+		enum_reference_types=["Observation", "Condition"],
+	)
+	
+    renderedDosageInstruction: fhirtypes.String = Field(
+		None,
+		alias="renderedDosageInstruction",
+		title="Full representation of the dosage instructions",
+		description=(
+    "The full representation of the dose of the medication included in all "
+    "dosage instructions.  To be used when multiple dosage instructions are"
+    " included to represent complex dosing such as increasing or tapering "
+    "doses."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+	)
     renderedDosageInstruction__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
         None,
         alias="_renderedDosageInstruction",
-        title="Extension field for ``renderedDosageInstruction``.",
+        title="Extension field for ``renderedDosageInstruction``."
     )
-
+	
     status: fhirtypes.Code = Field(
-        None,
-        alias="status",
-        title="completed | entered-in-error | unknown",
-        description="A code representing the status of recording the medication usage.",
+		None,
+		alias="status",
+		title="recorded | entered-in-error | draft",
+		description="A code representing the status of recording the medication usage.",
         # if property is element of this resource.
         element_property=True,
         element_required=True,
         # note: Enum values can be used in validation,
         # but use in your own responsibilities, read official FHIR documentation.
-        enum_values=["completed", "entered-in-error", "unknown"],
-    )
+		enum_values=["recorded", "entered-in-error", "draft"],
+	)
     status__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
-        None, alias="_status", title="Extension field for ``status``."
-    )
-
-    statusReason: typing.List[fhirtypes.CodeableConceptType] = Field(
         None,
-        alias="statusReason",
-        title="Reason for current status",
-        description="Captures the reason for the current state of the MedicationUsage.",
-        # if property is element of this resource.
-        element_property=True,
+        alias="_status",
+        title="Extension field for ``status``."
     )
-
+	
     subject: fhirtypes.ReferenceType = Field(
-        ...,
-        alias="subject",
-        title="Who is/was taking  the medication",
-        description="The person, animal or group who is/was taking the medication.",
+		...,
+		alias="subject",
+		title="Who is/was taking  the medication",
+		description="The person, animal or group who is/was taking the medication.",
         # if property is element of this resource.
         element_property=True,
         # note: Listed Resource Type(s) should be allowed as Reference.
-        enum_reference_types=["Patient", "Group"],
-    )
-
+		enum_reference_types=["Patient", "Group"],
+	)
     @classmethod
     def elements_sequence(cls):
-        """returning all elements names from ``MedicationUsage`` according specification,
+        """returning all elements names from
+        ``MedicationUsage`` according specification,
         with preserving original sequence order.
         """
-        return [
-            "id",
-            "meta",
-            "implicitRules",
-            "language",
-            "text",
-            "contained",
-            "extension",
-            "modifierExtension",
-            "identifier",
-            "basedOn",
-            "partOf",
-            "status",
-            "statusReason",
-            "category",
-            "medication",
-            "subject",
-            "encounter",
-            "effectiveDateTime",
-            "effectivePeriod",
-            "dateAsserted",
-            "informationSource",
-            "derivedFrom",
-            "reason",
-            "note",
-            "renderedDosageInstruction",
-            "dosage",
-            "adherence",
-        ]
+        return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "identifier", "partOf", "status", "category", "medication", "subject", "encounter", "effectiveDateTime", "effectivePeriod", "dateAsserted", "informationSource", "derivedFrom", "reason", "note", "relatedClinicalInformation", "renderedDosageInstruction", "dosage", "adherence"]
+
 
     @root_validator(pre=True, allow_reuse=True)
     def validate_required_primitive_elements_1700(
@@ -381,7 +338,8 @@ class MedicationUsage(domainresource.DomainResource):
         data type mandatory, it is possible to provide an extension that explains why
         the primitive value is not present.
         """
-        required_fields = [("status", "status__ext")]
+        required_fields = [
+			("status", "status__ext")]
         _missing = object()
 
         def _fallback():
@@ -445,7 +403,10 @@ class MedicationUsage(domainresource.DomainResource):
         choice of types, the authoring system must create a single element with a
         data type chosen from among the list of permitted data types.
         """
-        one_of_many_fields = {"effective": ["effectiveDateTime", "effectivePeriod"]}
+        one_of_many_fields = {
+			"effective": [
+			    "effectiveDateTime",
+			    "effectivePeriod"]}
         for prefix, fields in one_of_many_fields.items():
             assert cls.__fields__[fields[0]].field_info.extra["one_of_many"] == prefix
             required = (
@@ -466,3 +427,41 @@ class MedicationUsage(domainresource.DomainResource):
                 raise ValueError(f"Expect any of field value from this list {fields}.")
 
         return values
+
+
+from . import backboneelement
+
+class MedicationUsageAdherence(backboneelement.BackboneElement):
+    """Disclaimer: Any field name ends with ``__ext`` doesn't part of
+    Resource StructureDefinition, instead used to enable Extensibility feature
+    for FHIR Primitive Data Types.
+
+    Indicates if the medication is being consumed or administered as instructed.
+    """
+    resource_type = Field("MedicationUsageAdherence", const=True)
+	
+    code: fhirtypes.CodeableConceptType = Field(
+		...,
+		alias="code",
+		title="Type of adherence",
+		description="Type of the adherence for the medication.",
+        # if property is element of this resource.
+        element_property=True,
+	)
+	
+    reason: fhirtypes.CodeableConceptType = Field(
+		None,
+		alias="reason",
+		title="Details of the reason for the current use of the medication",
+		description="Captures the reason for the current use or adherence of a medication.",
+        # if property is element of this resource.
+        element_property=True,
+	)
+    @classmethod
+    def elements_sequence(cls):
+        """returning all elements names from
+        ``MedicationUsageAdherence`` according specification,
+        with preserving original sequence order.
+        """
+        return ["id", "extension", "modifierExtension", "code", "reason"]
+

@@ -1,15 +1,14 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/Base
-Release: R5
-Version: 4.5.0
-Build ID: 0d95498
-Last updated: 2021-04-03T00:34:11.075+00:00
+Release: 2022Sep
+Version: 5.0.0-ballot
+Build ID: 1505a88
+Last updated: 2022-09-10T04:52:37.223+10:00
 """
 from pydantic import Field
 
-from . import fhirabstractmodel
-
+from fhir.resources.core import fhirabstractmodel
 
 class Base(fhirabstractmodel.FHIRAbstractModel):
     """Disclaimer: Any field name ends with ``__ext`` doesn't part of
@@ -19,12 +18,12 @@ class Base(fhirabstractmodel.FHIRAbstractModel):
     Base for all types and resources.
     Base definition for all types defined in FHIR type system.
     """
-
     resource_type = Field("Base", const=True)
-
     @classmethod
     def elements_sequence(cls):
-        """returning all elements names from ``Base`` according specification,
+        """returning all elements names from
+        ``Base`` according specification,
         with preserving original sequence order.
         """
         return []
+

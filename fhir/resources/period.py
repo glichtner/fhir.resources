@@ -1,17 +1,16 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/Period
-Release: R5
-Version: 4.5.0
-Build ID: 0d95498
-Last updated: 2021-04-03T00:34:11.075+00:00
+Release: 2022Sep
+Version: 5.0.0-ballot
+Build ID: 1505a88
+Last updated: 2022-09-10T04:52:37.223+10:00
 """
 from pydantic import Field
 from . import fhirtypes
 
 
 from . import datatype
-
 
 class Period(datatype.DataType):
     """Disclaimer: Any field name ends with ``__ext`` doesn't part of
@@ -21,41 +20,45 @@ class Period(datatype.DataType):
     Time range defined by start and end date/time.
     A time period defined by a start and end date and optionally time.
     """
-
     resource_type = Field("Period", const=True)
-
+	
     end: fhirtypes.DateTime = Field(
-        None,
-        alias="end",
-        title="End time with inclusive boundary, if not ongoing",
-        description=(
-            "The end of the period. If the end of the period is missing, it means "
-            "no end was known or planned at the time the instance was created. The "
-            "start may be in the past, and the end date in the future, which means "
-            "that period is expected/planned to end at that time."
-        ),
+		None,
+		alias="end",
+		title="End time with inclusive boundary, if not ongoing",
+		description=(
+    "The end of the period. If the end of the period is missing, it means "
+    "no end was known or planned at the time the instance was created. The "
+    "start may be in the past, and the end date in the future, which means "
+    "that period is expected/planned to end at that time."
+    ),
         # if property is element of this resource.
         element_property=True,
-    )
+	)
     end__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
-        None, alias="_end", title="Extension field for ``end``."
-    )
-
-    start: fhirtypes.DateTime = Field(
         None,
-        alias="start",
-        title="Starting time with inclusive boundary",
-        description="The start of the period. The boundary is inclusive.",
+        alias="_end",
+        title="Extension field for ``end``."
+    )
+	
+    start: fhirtypes.DateTime = Field(
+		None,
+		alias="start",
+		title="Starting time with inclusive boundary",
+		description="The start of the period. The boundary is inclusive.",
         # if property is element of this resource.
         element_property=True,
-    )
+	)
     start__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
-        None, alias="_start", title="Extension field for ``start``."
+        None,
+        alias="_start",
+        title="Extension field for ``start``."
     )
-
     @classmethod
     def elements_sequence(cls):
-        """returning all elements names from ``Period`` according specification,
+        """returning all elements names from
+        ``Period`` according specification,
         with preserving original sequence order.
         """
         return ["id", "extension", "start", "end"]
+

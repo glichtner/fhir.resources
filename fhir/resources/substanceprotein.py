@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/SubstanceProtein
-Release: R5
-Version: 4.5.0
-Build ID: 0d95498
-Last updated: 2021-04-03T00:34:11.075+00:00
+Release: 2022Sep
+Version: 5.0.0-ballot
+Build ID: 1505a88
+Last updated: 2022-09-10T04:52:37.223+10:00
 """
 import typing
 from pydantic import Field
@@ -12,7 +12,6 @@ from . import fhirtypes
 
 
 from . import domainresource
-
 
 class SubstanceProtein(domainresource.DomainResource):
     """Disclaimer: Any field name ends with ``__ext`` doesn't part of
@@ -28,106 +27,90 @@ class SubstanceProtein(domainresource.DomainResource):
     factors, peptide/SubstanceProtein hormones, enzymes, toxins, toxoids,
     recombinant vaccines, and immunomodulators.
     """
-
     resource_type = Field("SubstanceProtein", const=True)
-
-    disulfideLinkage: typing.List[fhirtypes.String] = Field(
-        None,
-        alias="disulfideLinkage",
-        title=(
-            "The disulphide bond between two cysteine residues either on the same "
-            "subunit or on two different subunits shall be described. The position "
-            "of the disulfide bonds in the SubstanceProtein shall be listed in "
-            "increasing order of subunit number and position within subunit "
-            "followed by the abbreviation of the amino acids involved. The "
-            "disulfide linkage positions shall actually contain the amino acid "
-            "Cysteine at the respective positions"
-        ),
-        description=None,
+	
+    disulfideLinkage: typing.List[typing.Optional[fhirtypes.String]] = Field(
+		None,
+		alias="disulfideLinkage",
+		title=(
+    "The disulphide bond between two cysteine residues either on the same "
+    "subunit or on two different subunits shall be described. The position "
+    "of the disulfide bonds in the SubstanceProtein shall be listed in "
+    "increasing order of subunit number and position within subunit "
+    "followed by the abbreviation of the amino acids involved. The "
+    "disulfide linkage positions shall actually contain the amino acid "
+    "Cysteine at the respective positions"
+    ),
+		description=None,
         # if property is element of this resource.
         element_property=True,
-    )
-    disulfideLinkage__ext: typing.List[
-        typing.Union[fhirtypes.FHIRPrimitiveExtensionType, None]
-    ] = Field(
+	)
+    disulfideLinkage__ext: typing.List[typing.Union[fhirtypes.FHIRPrimitiveExtensionType, None]] = Field(
         None,
         alias="_disulfideLinkage",
-        title="Extension field for ``disulfideLinkage``.",
+        title="Extension field for ``disulfideLinkage``."
     )
-
+	
     numberOfSubunits: fhirtypes.Integer = Field(
-        None,
-        alias="numberOfSubunits",
-        title=(
-            "Number of linear sequences of amino acids linked through peptide "
-            "bonds. The number of subunits constituting the SubstanceProtein shall "
-            "be described. It is possible that the number of subunits can be "
-            "variable"
-        ),
-        description=None,
+		None,
+		alias="numberOfSubunits",
+		title=(
+    "Number of linear sequences of amino acids linked through peptide "
+    "bonds. The number of subunits constituting the SubstanceProtein shall "
+    "be described. It is possible that the number of subunits can be "
+    "variable"
+    ),
+		description=None,
         # if property is element of this resource.
         element_property=True,
-    )
+	)
     numberOfSubunits__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
         None,
         alias="_numberOfSubunits",
-        title="Extension field for ``numberOfSubunits``.",
+        title="Extension field for ``numberOfSubunits``."
     )
-
+	
     sequenceType: fhirtypes.CodeableConceptType = Field(
-        None,
-        alias="sequenceType",
-        title=(
-            "The SubstanceProtein descriptive elements will only be used when a "
-            "complete or partial amino acid sequence is available or derivable from"
-            " a nucleic acid sequence"
-        ),
-        description=None,
+		None,
+		alias="sequenceType",
+		title=(
+    "The SubstanceProtein descriptive elements will only be used when a "
+    "complete or partial amino acid sequence is available or derivable from"
+    " a nucleic acid sequence"
+    ),
+		description=None,
         # if property is element of this resource.
         element_property=True,
-    )
-
+	)
+	
     subunit: typing.List[fhirtypes.SubstanceProteinSubunitType] = Field(
-        None,
-        alias="subunit",
-        title=(
-            "This subclause refers to the description of each subunit constituting "
-            "the SubstanceProtein. A subunit is a linear sequence of amino acids "
-            "linked through peptide bonds. The Subunit information shall be "
-            "provided when the finished SubstanceProtein is a complex of multiple "
-            "sequences; subunits are not used to delineate domains within a single "
-            "sequence. Subunits are listed in order of decreasing length; sequences"
-            " of the same length will be ordered by decreasing molecular weight; "
-            "subunits that have identical sequences will be repeated multiple times"
-        ),
-        description=None,
+		None,
+		alias="subunit",
+		title=(
+    "This subclause refers to the description of each subunit constituting "
+    "the SubstanceProtein. A subunit is a linear sequence of amino acids "
+    "linked through peptide bonds. The Subunit information shall be "
+    "provided when the finished SubstanceProtein is a complex of multiple "
+    "sequences; subunits are not used to delineate domains within a single "
+    "sequence. Subunits are listed in order of decreasing length; sequences"
+    " of the same length will be ordered by decreasing molecular weight; "
+    "subunits that have identical sequences will be repeated multiple times"
+    ),
+		description=None,
         # if property is element of this resource.
         element_property=True,
-    )
-
+	)
     @classmethod
     def elements_sequence(cls):
-        """returning all elements names from ``SubstanceProtein`` according specification,
+        """returning all elements names from
+        ``SubstanceProtein`` according specification,
         with preserving original sequence order.
         """
-        return [
-            "id",
-            "meta",
-            "implicitRules",
-            "language",
-            "text",
-            "contained",
-            "extension",
-            "modifierExtension",
-            "sequenceType",
-            "numberOfSubunits",
-            "disulfideLinkage",
-            "subunit",
-        ]
+        return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "sequenceType", "numberOfSubunits", "disulfideLinkage", "subunit"]
+
 
 
 from . import backboneelement
-
 
 class SubstanceProteinSubunit(backboneelement.BackboneElement):
     """Disclaimer: Any field name ends with ``__ext`` doesn't part of
@@ -143,147 +126,141 @@ class SubstanceProteinSubunit(backboneelement.BackboneElement):
     by decreasing molecular weight; subunits that have identical sequences will
     be repeated multiple times.
     """
-
     resource_type = Field("SubstanceProteinSubunit", const=True)
-
+	
     cTerminalModification: fhirtypes.String = Field(
-        None,
-        alias="cTerminalModification",
-        title="The modification at the C-terminal shall be specified",
-        description=None,
+		None,
+		alias="cTerminalModification",
+		title="The modification at the C-terminal shall be specified",
+		description=None,
         # if property is element of this resource.
         element_property=True,
-    )
+	)
     cTerminalModification__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
         None,
         alias="_cTerminalModification",
-        title="Extension field for ``cTerminalModification``.",
+        title="Extension field for ``cTerminalModification``."
     )
-
+	
     cTerminalModificationId: fhirtypes.IdentifierType = Field(
-        None,
-        alias="cTerminalModificationId",
-        title=(
-            "Unique identifier for molecular fragment modification based on the ISO"
-            " 11238 Substance ID"
-        ),
-        description=None,
+		None,
+		alias="cTerminalModificationId",
+		title=(
+    "Unique identifier for molecular fragment modification based on the ISO"
+    " 11238 Substance ID"
+    ),
+		description=None,
         # if property is element of this resource.
         element_property=True,
-    )
-
+	)
+	
     length: fhirtypes.Integer = Field(
-        None,
-        alias="length",
-        title="Length of linear sequences of amino acids contained in the subunit",
-        description=None,
+		None,
+		alias="length",
+		title="Length of linear sequences of amino acids contained in the subunit",
+		description=None,
         # if property is element of this resource.
         element_property=True,
-    )
+	)
     length__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
-        None, alias="_length", title="Extension field for ``length``."
-    )
-
-    nTerminalModification: fhirtypes.String = Field(
         None,
-        alias="nTerminalModification",
-        title=(
-            "The name of the fragment modified at the N-terminal of the "
-            "SubstanceProtein shall be specified"
-        ),
-        description=None,
+        alias="_length",
+        title="Extension field for ``length``."
+    )
+	
+    nTerminalModification: fhirtypes.String = Field(
+		None,
+		alias="nTerminalModification",
+		title=(
+    "The name of the fragment modified at the N-terminal of the "
+    "SubstanceProtein shall be specified"
+    ),
+		description=None,
         # if property is element of this resource.
         element_property=True,
-    )
+	)
     nTerminalModification__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
         None,
         alias="_nTerminalModification",
-        title="Extension field for ``nTerminalModification``.",
+        title="Extension field for ``nTerminalModification``."
     )
-
+	
     nTerminalModificationId: fhirtypes.IdentifierType = Field(
-        None,
-        alias="nTerminalModificationId",
-        title=(
-            "Unique identifier for molecular fragment modification based on the ISO"
-            " 11238 Substance ID"
-        ),
-        description=None,
+		None,
+		alias="nTerminalModificationId",
+		title=(
+    "Unique identifier for molecular fragment modification based on the ISO"
+    " 11238 Substance ID"
+    ),
+		description=None,
         # if property is element of this resource.
         element_property=True,
-    )
-
+	)
+	
     sequence: fhirtypes.String = Field(
-        None,
-        alias="sequence",
-        title=(
-            "The sequence information shall be provided enumerating the amino acids"
-            " from N- to C-terminal end using standard single-letter amino acid "
-            "codes. Uppercase shall be used for L-amino acids and lowercase for "
-            "D-amino acids. Transcribed SubstanceProteins will always be described "
-            "using the translated sequence; for synthetic peptide containing amino "
-            "acids that are not represented with a single letter code an X should "
-            "be used within the sequence. The modified amino acids will be "
-            "distinguished by their position in the sequence"
-        ),
-        description=None,
+		None,
+		alias="sequence",
+		title=(
+    "The sequence information shall be provided enumerating the amino acids"
+    " from N- to C-terminal end using standard single-letter amino acid "
+    "codes. Uppercase shall be used for L-amino acids and lowercase for "
+    "D-amino acids. Transcribed SubstanceProteins will always be described "
+    "using the translated sequence; for synthetic peptide containing amino "
+    "acids that are not represented with a single letter code an X should "
+    "be used within the sequence. The modified amino acids will be "
+    "distinguished by their position in the sequence"
+    ),
+		description=None,
         # if property is element of this resource.
         element_property=True,
-    )
+	)
     sequence__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
-        None, alias="_sequence", title="Extension field for ``sequence``."
+        None,
+        alias="_sequence",
+        title="Extension field for ``sequence``."
     )
-
+	
     sequenceAttachment: fhirtypes.AttachmentType = Field(
-        None,
-        alias="sequenceAttachment",
-        title=(
-            "The sequence information shall be provided enumerating the amino acids"
-            " from N- to C-terminal end using standard single-letter amino acid "
-            "codes. Uppercase shall be used for L-amino acids and lowercase for "
-            "D-amino acids. Transcribed SubstanceProteins will always be described "
-            "using the translated sequence; for synthetic peptide containing amino "
-            "acids that are not represented with a single letter code an X should "
-            "be used within the sequence. The modified amino acids will be "
-            "distinguished by their position in the sequence"
-        ),
-        description=None,
+		None,
+		alias="sequenceAttachment",
+		title=(
+    "The sequence information shall be provided enumerating the amino acids"
+    " from N- to C-terminal end using standard single-letter amino acid "
+    "codes. Uppercase shall be used for L-amino acids and lowercase for "
+    "D-amino acids. Transcribed SubstanceProteins will always be described "
+    "using the translated sequence; for synthetic peptide containing amino "
+    "acids that are not represented with a single letter code an X should "
+    "be used within the sequence. The modified amino acids will be "
+    "distinguished by their position in the sequence"
+    ),
+		description=None,
         # if property is element of this resource.
         element_property=True,
-    )
-
+	)
+	
     subunit: fhirtypes.Integer = Field(
-        None,
-        alias="subunit",
-        title=(
-            "Index of primary sequences of amino acids linked through peptide bonds"
-            " in order of decreasing length. Sequences of the same length will be "
-            "ordered by molecular weight. Subunits that have identical sequences "
-            "will be repeated and have sequential subscripts"
-        ),
-        description=None,
+		None,
+		alias="subunit",
+		title=(
+    "Index of primary sequences of amino acids linked through peptide bonds"
+    " in order of decreasing length. Sequences of the same length will be "
+    "ordered by molecular weight. Subunits that have identical sequences "
+    "will be repeated and have sequential subscripts"
+    ),
+		description=None,
         # if property is element of this resource.
         element_property=True,
-    )
+	)
     subunit__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
-        None, alias="_subunit", title="Extension field for ``subunit``."
+        None,
+        alias="_subunit",
+        title="Extension field for ``subunit``."
     )
-
     @classmethod
     def elements_sequence(cls):
-        """returning all elements names from ``SubstanceProteinSubunit`` according specification,
+        """returning all elements names from
+        ``SubstanceProteinSubunit`` according specification,
         with preserving original sequence order.
         """
-        return [
-            "id",
-            "extension",
-            "modifierExtension",
-            "subunit",
-            "sequence",
-            "length",
-            "sequenceAttachment",
-            "nTerminalModificationId",
-            "nTerminalModification",
-            "cTerminalModificationId",
-            "cTerminalModification",
-        ]
+        return ["id", "extension", "modifierExtension", "subunit", "sequence", "length", "sequenceAttachment", "nTerminalModificationId", "nTerminalModification", "cTerminalModificationId", "cTerminalModification"]
+

@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/OperationOutcome
-Release: R5
-Version: 4.5.0
-Build ID: 0d95498
-Last updated: 2021-04-03T00:34:11.075+00:00
+Release: 2022Sep
+Version: 5.0.0-ballot
+Build ID: 1505a88
+Last updated: 2022-09-10T04:52:37.223+10:00
 """
 from pydantic.validators import bytes_validator  # noqa: F401
 from fhir.resources import fhirtypes  # noqa: F401
@@ -12,28 +12,22 @@ from fhir.resources import operationoutcome
 
 
 def impl_operationoutcome_1(inst):
-    assert inst.id == "searchfail"
-    assert inst.issue[0].code == "code-invalid"
-    assert inst.issue[0].details.text == (
-        'The "name" parameter has the modifier "exact" which is '
-        "not supported by this server"
-    )
-    assert inst.issue[0].location[0] == "http.name:exact"
-    assert inst.issue[0].severity == "fatal"
+    assert inst.id == "allok"
+    assert inst.issue[0].code == "informational"
+    assert inst.issue[0].details.text == "All OK"
+    assert inst.issue[0].severity == "information"
     assert inst.meta.tag[0].code == "HTEST"
     assert inst.meta.tag[0].display == "test health data"
-    assert (
-        inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
-    )
+    assert inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
     assert inst.text.status == "generated"
 
 
 def test_operationoutcome_1(base_settings):
     """No. 1 tests collection for OperationOutcome.
-    Test File: operationoutcome-example-searchfail.json
+    Test File: operationoutcome-example-allok.json
     """
     filename = (
-        base_settings["unittest_data_dir"] / "operationoutcome-example-searchfail.json"
+        base_settings["unittest_data_dir"] / "operationoutcome-example-allok.json"
     )
     inst = operationoutcome.OperationOutcome.parse_file(
         filename, content_type="application/json", encoding="utf-8"
@@ -51,32 +45,27 @@ def test_operationoutcome_1(base_settings):
 
 
 def impl_operationoutcome_2(inst):
-    assert inst.id == "101"
+    assert inst.id == "searchfail"
     assert inst.issue[0].code == "code-invalid"
-    assert (
-        inst.issue[0].details.text
-        == 'The code "W" is not known and not legal in this context'
+    assert inst.issue[0].details.text == (
+    "The \"name\" parameter has the modifier \"exact\" which is "
+    "not supported by this server"
     )
-    assert (
-        inst.issue[0].diagnostics
-        == "Acme.Interop.FHIRProcessors.Patient.processGender line 2453"
-    )
-    assert inst.issue[0].expression[0] == "Patient.gender"
-    assert inst.issue[0].location[0] == "/f:Patient/f:gender"
-    assert inst.issue[0].severity == "error"
+    assert inst.issue[0].location[0] == "http.name:exact"
+    assert inst.issue[0].severity == "fatal"
     assert inst.meta.tag[0].code == "HTEST"
     assert inst.meta.tag[0].display == "test health data"
-    assert (
-        inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
-    )
+    assert inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
     assert inst.text.status == "generated"
 
 
 def test_operationoutcome_2(base_settings):
     """No. 2 tests collection for OperationOutcome.
-    Test File: operationoutcome-example.json
+    Test File: operationoutcome-example-searchfail.json
     """
-    filename = base_settings["unittest_data_dir"] / "operationoutcome-example.json"
+    filename = (
+        base_settings["unittest_data_dir"] / "operationoutcome-example-searchfail.json"
+    )
     inst = operationoutcome.OperationOutcome.parse_file(
         filename, content_type="application/json", encoding="utf-8"
     )
@@ -99,9 +88,7 @@ def impl_operationoutcome_3(inst):
     assert inst.issue[0].severity == "error"
     assert inst.meta.tag[0].code == "HTEST"
     assert inst.meta.tag[0].display == "test health data"
-    assert (
-        inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
-    )
+    assert inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
     assert inst.text.status == "generated"
 
 
@@ -128,24 +115,28 @@ def test_operationoutcome_3(base_settings):
 
 
 def impl_operationoutcome_4(inst):
-    assert inst.id == "allok"
-    assert inst.issue[0].code == "informational"
-    assert inst.issue[0].details.text == "All OK"
+    assert inst.id == "break-the-glass"
+    assert inst.issue[0].code == "suppressed"
+    assert inst.issue[0].details.coding[0].code == "BTG"
+    assert inst.issue[0].details.coding[0].display == "Break the glass"
+    assert inst.issue[0].details.coding[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
+    assert inst.issue[0].details.text == (
+    "Additional information may be available using the Break-The-"
+    "Glass Protocol"
+    )
     assert inst.issue[0].severity == "information"
     assert inst.meta.tag[0].code == "HTEST"
     assert inst.meta.tag[0].display == "test health data"
-    assert (
-        inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
-    )
+    assert inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
     assert inst.text.status == "generated"
 
 
 def test_operationoutcome_4(base_settings):
     """No. 4 tests collection for OperationOutcome.
-    Test File: operationoutcome-example-allok.json
+    Test File: operationoutcome-example-break-the-glass.json
     """
     filename = (
-        base_settings["unittest_data_dir"] / "operationoutcome-example-allok.json"
+        base_settings["unittest_data_dir"] / "operationoutcome-example-break-the-glass.json"
     )
     inst = operationoutcome.OperationOutcome.parse_file(
         filename, content_type="application/json", encoding="utf-8"
@@ -163,33 +154,24 @@ def test_operationoutcome_4(base_settings):
 
 
 def impl_operationoutcome_5(inst):
-    assert inst.id == "break-the-glass"
-    assert inst.issue[0].code == "suppressed"
-    assert inst.issue[0].details.coding[0].code == "ETREAT"
-    assert inst.issue[0].details.coding[0].display == "Emergency Treatment"
-    assert (
-        inst.issue[0].details.coding[0].system
-        == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
-    )
-    assert inst.issue[0].details.text == (
-        "Additional information may be available using the Break-The-" "Glass Protocol"
-    )
-    assert inst.issue[0].severity == "information"
+    assert inst.id == "validationfail"
+    assert inst.issue[0].code == "structure"
+    assert inst.issue[0].details.text == "Error parsing resource XML (Unknown Content \"label\""
+    assert inst.issue[0].expression[0] == "Patient.identifier"
+    assert inst.issue[0].location[0] == "/f:Patient/f:identifier"
+    assert inst.issue[0].severity == "error"
     assert inst.meta.tag[0].code == "HTEST"
     assert inst.meta.tag[0].display == "test health data"
-    assert (
-        inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
-    )
+    assert inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
     assert inst.text.status == "generated"
 
 
 def test_operationoutcome_5(base_settings):
     """No. 5 tests collection for OperationOutcome.
-    Test File: operationoutcome-example-break-the-glass.json
+    Test File: operationoutcome-example-validationfail.json
     """
     filename = (
-        base_settings["unittest_data_dir"]
-        / "operationoutcome-example-break-the-glass.json"
+        base_settings["unittest_data_dir"] / "operationoutcome-example-validationfail.json"
     )
     inst = operationoutcome.OperationOutcome.parse_file(
         filename, content_type="application/json", encoding="utf-8"
@@ -207,30 +189,25 @@ def test_operationoutcome_5(base_settings):
 
 
 def impl_operationoutcome_6(inst):
-    assert inst.id == "validationfail"
-    assert inst.issue[0].code == "structure"
-    assert (
-        inst.issue[0].details.text
-        == 'Error parsing resource XML (Unknown Content "label"'
-    )
-    assert inst.issue[0].expression[0] == "Patient.identifier"
-    assert inst.issue[0].location[0] == "/f:Patient/f:identifier"
+    assert inst.id == "101"
+    assert inst.issue[0].code == "code-invalid"
+    assert inst.issue[0].details.text == "The code \"W\" is not known and not legal in this context"
+    assert inst.issue[0].diagnostics == "Acme.Interop.FHIRProcessors.Patient.processGender line 2453"
+    assert inst.issue[0].expression[0] == "Patient.gender"
+    assert inst.issue[0].location[0] == "/f:Patient/f:gender"
     assert inst.issue[0].severity == "error"
     assert inst.meta.tag[0].code == "HTEST"
     assert inst.meta.tag[0].display == "test health data"
-    assert (
-        inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
-    )
+    assert inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
     assert inst.text.status == "generated"
 
 
 def test_operationoutcome_6(base_settings):
     """No. 6 tests collection for OperationOutcome.
-    Test File: operationoutcome-example-validationfail.json
+    Test File: operationoutcome-example.json
     """
     filename = (
-        base_settings["unittest_data_dir"]
-        / "operationoutcome-example-validationfail.json"
+        base_settings["unittest_data_dir"] / "operationoutcome-example.json"
     )
     inst = operationoutcome.OperationOutcome.parse_file(
         filename, content_type="application/json", encoding="utf-8"

@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/Medication
-Release: R5
-Version: 4.5.0
-Build ID: 0d95498
-Last updated: 2021-04-03T00:34:11.075+00:00
+Release: 2022Sep
+Version: 5.0.0-ballot
+Build ID: 1505a88
+Last updated: 2022-09-10T04:52:37.223+10:00
 """
 import typing
 from pydantic import Field
@@ -14,7 +14,6 @@ from . import fhirtypes
 
 
 from . import domainresource
-
 
 class Medication(domainresource.DomainResource):
     """Disclaimer: Any field name ends with ``__ext`` doesn't part of
@@ -27,136 +26,122 @@ class Medication(domainresource.DomainResource):
     dispensing, and administering a medication as well as for making statements
     about medication use.
     """
-
     resource_type = Field("Medication", const=True)
-
-    amount: fhirtypes.RatioType = Field(
-        None,
-        alias="amount",
-        title="Amount of drug in package",
-        description=(
-            "Specific amount of the drug in the packaged product.  For example, "
-            "when specifying a product that has the same strength (For example, "
-            "Insulin glargine 100 unit per mL solution for injection), this "
-            "attribute provides additional clarification of the package amount (For"
-            " example, 3 mL, 10mL, etc.)."
-        ),
-        # if property is element of this resource.
-        element_property=True,
-    )
-
+	
     batch: fhirtypes.MedicationBatchType = Field(
-        None,
-        alias="batch",
-        title="Details about packaged medications",
-        description="Information that only applies to packages (not products).",
+		None,
+		alias="batch",
+		title="Details about packaged medications",
+		description="Information that only applies to packages (not products).",
         # if property is element of this resource.
         element_property=True,
-    )
-
+	)
+	
     code: fhirtypes.CodeableConceptType = Field(
-        None,
-        alias="code",
-        title="Codes that identify this medication",
-        description=(
-            "A code (or set of codes) that specify this medication, or a textual "
-            "description if no code is available. Usage note: This could be a "
-            "standard medication code such as a code from RxNorm, SNOMED CT, IDMP "
-            "etc. It could also be a national or local formulary code, optionally "
-            "with translations to other code systems."
-        ),
+		None,
+		alias="code",
+		title="Codes that identify this medication",
+		description=(
+    "A code (or set of codes) that specify this medication, or a textual "
+    "description if no code is available. Usage note: This could be a "
+    "standard medication code such as a code from RxNorm, SNOMED CT, IDMP "
+    "etc. It could also be a national or local formulary code, optionally "
+    "with translations to other code systems."
+    ),
         # if property is element of this resource.
         element_property=True,
-    )
-
+	)
+	
     doseForm: fhirtypes.CodeableConceptType = Field(
-        None,
-        alias="doseForm",
-        title="powder | tablets | capsule +",
-        description="Describes the form of the item.  Powder; tablets; capsule.",
+		None,
+		alias="doseForm",
+		title="powder | tablets | capsule +",
+		description="Describes the form of the item.  Powder; tablets; capsule.",
         # if property is element of this resource.
         element_property=True,
-    )
-
+	)
+	
     identifier: typing.List[fhirtypes.IdentifierType] = Field(
-        None,
-        alias="identifier",
-        title="Business identifier for this medication",
-        description=None,
+		None,
+		alias="identifier",
+		title="Business identifier for this medication",
+		description=None,
         # if property is element of this resource.
         element_property=True,
-    )
-
+	)
+	
     ingredient: typing.List[fhirtypes.MedicationIngredientType] = Field(
-        None,
-        alias="ingredient",
-        title="Active or inactive ingredient",
-        description="Identifies a particular constituent of interest in the product.",
+		None,
+		alias="ingredient",
+		title="Active or inactive ingredient",
+		description="Identifies a particular constituent of interest in the product.",
         # if property is element of this resource.
         element_property=True,
-    )
-
-    sponsor: fhirtypes.ReferenceType = Field(
-        None,
-        alias="sponsor",
-        title="Organization responsible for manufacturing the item",
-        description=(
-            "Describes the details of the manufacturer of the medication product. "
-            "This is not intended to represent the distributor of a medication "
-            "product.\u00a0 Describes\u00a0the organization that is responsible for the "
-            "manufacturing of the item and holds the registration to market the "
-            "product in a jurisdiction.. This might not be the company that "
-            "physically manufactures the product.\u00a0 May be known as Market "
-            "Authorization Holder."
-        ),
+	)
+	
+    marketingAuthorizationHolder: fhirtypes.ReferenceType = Field(
+		None,
+		alias="marketingAuthorizationHolder",
+		title="Organization that has authorization to market medication",
+		description=(
+    "The company or other legal entity that has authorization, from the "
+    "appropriate drug regulatory authority,  to market a medicine in one or"
+    " more jurisdictions.  Typically abbreviated MAH.Note:  The MAH may "
+    "manufacture the product and may also contract the manufacturing of the"
+    " product to one or more companies (organizations)."
+    ),
         # if property is element of this resource.
         element_property=True,
         # note: Listed Resource Type(s) should be allowed as Reference.
-        enum_reference_types=["Organization"],
-    )
-
+		enum_reference_types=["Organization"],
+	)
+	
     status: fhirtypes.Code = Field(
-        None,
-        alias="status",
-        title="active | inactive | entered-in-error",
-        description="A code to indicate if the medication is in active use.",
+		None,
+		alias="status",
+		title="active | inactive | entered-in-error",
+		description="A code to indicate if the medication is in active use.",
         # if property is element of this resource.
         element_property=True,
         # note: Enum values can be used in validation,
         # but use in your own responsibilities, read official FHIR documentation.
-        enum_values=["active", "inactive", "entered-in-error"],
-    )
+		enum_values=["active", "inactive", "entered-in-error"],
+	)
     status__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
-        None, alias="_status", title="Extension field for ``status``."
+        None,
+        alias="_status",
+        title="Extension field for ``status``."
     )
-
+	
+    totalVolume: fhirtypes.RatioType = Field(
+		None,
+		alias="totalVolume",
+		title=(
+    "When the specified product code does not infer a package size, this is"
+    " the specific amount of drug in the product"
+    ),
+		description=(
+    "When the specified product code does not infer a package size, this is"
+    " the specific amount of drug in the product.  For example, when "
+    "specifying a product that has the same strength (For example, Insulin "
+    "glargine 100 unit per mL solution for injection), this attribute "
+    "provides additional clarification of the package amount (For example, "
+    "3 mL, 10mL, etc.)."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+	)
     @classmethod
     def elements_sequence(cls):
-        """returning all elements names from ``Medication`` according specification,
+        """returning all elements names from
+        ``Medication`` according specification,
         with preserving original sequence order.
         """
-        return [
-            "id",
-            "meta",
-            "implicitRules",
-            "language",
-            "text",
-            "contained",
-            "extension",
-            "modifierExtension",
-            "identifier",
-            "code",
-            "status",
-            "sponsor",
-            "doseForm",
-            "amount",
-            "ingredient",
-            "batch",
-        ]
+        return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "identifier", "code", "status", "marketingAuthorizationHolder", "doseForm", "totalVolume", "ingredient", "batch"]
+
 
 
 from . import backboneelement
-
 
 class MedicationBatch(backboneelement.BackboneElement):
     """Disclaimer: Any field name ends with ``__ext`` doesn't part of
@@ -166,39 +151,43 @@ class MedicationBatch(backboneelement.BackboneElement):
     Details about packaged medications.
     Information that only applies to packages (not products).
     """
-
     resource_type = Field("MedicationBatch", const=True)
-
+	
     expirationDate: fhirtypes.DateTime = Field(
-        None,
-        alias="expirationDate",
-        title="When batch will expire",
-        description="When this specific batch of product will expire.",
+		None,
+		alias="expirationDate",
+		title="When batch will expire",
+		description="When this specific batch of product will expire.",
         # if property is element of this resource.
         element_property=True,
-    )
+	)
     expirationDate__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
-        None, alias="_expirationDate", title="Extension field for ``expirationDate``."
-    )
-
-    lotNumber: fhirtypes.String = Field(
         None,
-        alias="lotNumber",
-        title="Identifier assigned to batch",
-        description="The assigned lot number of a batch of the specified product.",
+        alias="_expirationDate",
+        title="Extension field for ``expirationDate``."
+    )
+	
+    lotNumber: fhirtypes.String = Field(
+		None,
+		alias="lotNumber",
+		title="Identifier assigned to batch",
+		description="The assigned lot number of a batch of the specified product.",
         # if property is element of this resource.
         element_property=True,
-    )
+	)
     lotNumber__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
-        None, alias="_lotNumber", title="Extension field for ``lotNumber``."
+        None,
+        alias="_lotNumber",
+        title="Extension field for ``lotNumber``."
     )
-
     @classmethod
     def elements_sequence(cls):
-        """returning all elements names from ``MedicationBatch`` according specification,
+        """returning all elements names from
+        ``MedicationBatch`` according specification,
         with preserving original sequence order.
         """
         return ["id", "extension", "modifierExtension", "lotNumber", "expirationDate"]
+
 
 
 class MedicationIngredient(backboneelement.BackboneElement):
@@ -209,111 +198,104 @@ class MedicationIngredient(backboneelement.BackboneElement):
     Active or inactive ingredient.
     Identifies a particular constituent of interest in the product.
     """
-
     resource_type = Field("MedicationIngredient", const=True)
-
+	
     isActive: bool = Field(
-        None,
-        alias="isActive",
-        title="Active ingredient indicator",
-        description=(
-            "Indication of whether this ingredient affects the therapeutic action "
-            "of the drug."
-        ),
+		None,
+		alias="isActive",
+		title="Active ingredient indicator",
+		description=(
+    "Indication of whether this ingredient affects the therapeutic action "
+    "of the drug."
+    ),
         # if property is element of this resource.
         element_property=True,
-    )
+	)
     isActive__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
-        None, alias="_isActive", title="Extension field for ``isActive``."
+        None,
+        alias="_isActive",
+        title="Extension field for ``isActive``."
     )
-
+	
     item: fhirtypes.CodeableReferenceType = Field(
-        ...,
-        alias="item",
-        title=(
-            "The ingredient (substance or medication) that the ingredient.strength "
-            "relates to"
-        ),
-        description=(
-            "The ingredient (substance or medication) that the ingredient.strength "
-            "relates to.  This is represented as a concept from a code system or "
-            "described in another resource (Substance or Medication)."
-        ),
+		...,
+		alias="item",
+		title=(
+    "The ingredient (substance or medication) that the ingredient.strength "
+    "relates to"
+    ),
+		description=(
+    "The ingredient (substance or medication) that the ingredient.strength "
+    "relates to.  This is represented as a concept from a code system or "
+    "described in another resource (Substance or Medication)."
+    ),
         # if property is element of this resource.
         element_property=True,
         # note: Listed Resource Type(s) should be allowed as Reference.
-        enum_reference_types=["Substance", "Medication"],
-    )
-
+		enum_reference_types=["Substance", "Medication"],
+	)
+	
     strengthCodeableConcept: fhirtypes.CodeableConceptType = Field(
-        None,
-        alias="strengthCodeableConcept",
-        title="Quantity of ingredient present",
-        description=(
-            "Specifies how many (or how much) of the items there are in this "
-            "Medication.  For example, 250 mg per tablet.  This is expressed as a "
-            "ratio where the numerator is 250mg and the denominator is 1 tablet but"
-            " can also be expressed a quantity when the denominator is assumed to "
-            "be 1 tablet."
-        ),
+		None,
+		alias="strengthCodeableConcept",
+		title="Quantity of ingredient present",
+		description=(
+    "Specifies how many (or how much) of the items there are in this "
+    "Medication.  For example, 250 mg per tablet.  This is expressed as a "
+    "ratio where the numerator is 250mg and the denominator is 1 tablet but"
+    " can also be expressed a quantity when the denominator is assumed to "
+    "be 1 tablet."
+    ),
         # if property is element of this resource.
         element_property=True,
         # Choice of Data Types. i.e strength[x]
-        one_of_many="strength",
-        one_of_many_required=False,
-    )
-
+		one_of_many="strength",
+		one_of_many_required=False,
+	)
+	
     strengthQuantity: fhirtypes.QuantityType = Field(
-        None,
-        alias="strengthQuantity",
-        title="Quantity of ingredient present",
-        description=(
-            "Specifies how many (or how much) of the items there are in this "
-            "Medication.  For example, 250 mg per tablet.  This is expressed as a "
-            "ratio where the numerator is 250mg and the denominator is 1 tablet but"
-            " can also be expressed a quantity when the denominator is assumed to "
-            "be 1 tablet."
-        ),
+		None,
+		alias="strengthQuantity",
+		title="Quantity of ingredient present",
+		description=(
+    "Specifies how many (or how much) of the items there are in this "
+    "Medication.  For example, 250 mg per tablet.  This is expressed as a "
+    "ratio where the numerator is 250mg and the denominator is 1 tablet but"
+    " can also be expressed a quantity when the denominator is assumed to "
+    "be 1 tablet."
+    ),
         # if property is element of this resource.
         element_property=True,
         # Choice of Data Types. i.e strength[x]
-        one_of_many="strength",
-        one_of_many_required=False,
-    )
-
+		one_of_many="strength",
+		one_of_many_required=False,
+	)
+	
     strengthRatio: fhirtypes.RatioType = Field(
-        None,
-        alias="strengthRatio",
-        title="Quantity of ingredient present",
-        description=(
-            "Specifies how many (or how much) of the items there are in this "
-            "Medication.  For example, 250 mg per tablet.  This is expressed as a "
-            "ratio where the numerator is 250mg and the denominator is 1 tablet but"
-            " can also be expressed a quantity when the denominator is assumed to "
-            "be 1 tablet."
-        ),
+		None,
+		alias="strengthRatio",
+		title="Quantity of ingredient present",
+		description=(
+    "Specifies how many (or how much) of the items there are in this "
+    "Medication.  For example, 250 mg per tablet.  This is expressed as a "
+    "ratio where the numerator is 250mg and the denominator is 1 tablet but"
+    " can also be expressed a quantity when the denominator is assumed to "
+    "be 1 tablet."
+    ),
         # if property is element of this resource.
         element_property=True,
         # Choice of Data Types. i.e strength[x]
-        one_of_many="strength",
-        one_of_many_required=False,
-    )
-
+		one_of_many="strength",
+		one_of_many_required=False,
+	)
     @classmethod
     def elements_sequence(cls):
-        """returning all elements names from ``MedicationIngredient`` according specification,
+        """returning all elements names from
+        ``MedicationIngredient`` according specification,
         with preserving original sequence order.
         """
-        return [
-            "id",
-            "extension",
-            "modifierExtension",
-            "item",
-            "isActive",
-            "strengthRatio",
-            "strengthCodeableConcept",
-            "strengthQuantity",
-        ]
+        return ["id", "extension", "modifierExtension", "item", "isActive", "strengthRatio", "strengthCodeableConcept", "strengthQuantity"]
+
 
     @root_validator(pre=True, allow_reuse=True)
     def validate_one_of_many_2247(
@@ -332,8 +314,10 @@ class MedicationIngredient(backboneelement.BackboneElement):
         data type chosen from among the list of permitted data types.
         """
         one_of_many_fields = {
-            "strength": ["strengthCodeableConcept", "strengthQuantity", "strengthRatio"]
-        }
+			"strength": [
+			    "strengthCodeableConcept",
+			    "strengthQuantity",
+			    "strengthRatio"]}
         for prefix, fields in one_of_many_fields.items():
             assert cls.__fields__[fields[0]].field_info.extra["one_of_many"] == prefix
             required = (

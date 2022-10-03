@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/DeviceRequest
-Release: R5
-Version: 4.5.0
-Build ID: 0d95498
-Last updated: 2021-04-03T00:34:11.075+00:00
+Release: 2022Sep
+Version: 5.0.0-ballot
+Build ID: 1505a88
+Last updated: 2022-09-10T04:52:37.223+10:00
 """
 from pydantic.validators import bytes_validator  # noqa: F401
 from fhir.resources import fhirtypes  # noqa: F401
@@ -22,26 +22,23 @@ def impl_devicerequest_1(inst):
     assert inst.id == "insulinpump"
     assert inst.identifier[0].value == "ip_request1.1"
     assert inst.instantiatesCanonical[0] == (
-        "http://motivemi.com/artifacts/PlanDefinition/low-suicide-" "risk-order-set"
+    "http://motivemi.com/artifacts/PlanDefinition/low-suicide-"
+    "risk-order-set"
     )
     assert inst.intent == "instance-order"
     assert inst.meta.tag[0].code == "HTEST"
     assert inst.meta.tag[0].display == "test health data"
-    assert (
-        inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
-    )
+    assert inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
     assert inst.note[0].text == "this is the right device brand and model"
-    assert inst.occurrenceDateTime == fhirtypes.DateTime.validate(
-        "2013-05-08T09:33:27+07:00"
-    )
+    assert inst.occurrenceDateTime == fhirtypes.DateTime.validate("2013-05-08T09:33:27+07:00")
     assert inst.performer.display == "Nurse Rossignol"
     assert inst.performerType.coding[0].display == "Qualified nurse"
     assert inst.performerType.text == "Nurse"
-    assert inst.priorRequest[0].display == "CGM ambulatory"
     assert inst.priority == "routine"
     assert inst.reason[0].concept.text == "gastroparesis"
     assert inst.reason[1].reference.display == "Gastroparesis"
     assert inst.relevantHistory[0].display == "Request for unspecified device"
+    assert inst.replaces[0].display == "CGM ambulatory"
     assert inst.requester.display == "Dr. Adam Careful"
     assert inst.requester.reference == "Practitioner/example"
     assert inst.status == "active"
@@ -75,7 +72,8 @@ def test_devicerequest_1(base_settings):
 def impl_devicerequest_2(inst):
     assert inst.code.concept.coding[0].code == "lens"
     assert inst.code.concept.coding[0].system == (
-        "http://terminology.hl7.org/CodeSystem/ex-" "visionprescriptionproduct"
+    "http://terminology.hl7.org/CodeSystem/ex-"
+    "visionprescriptionproduct"
     )
     assert inst.groupIdentifier.system == "http://acme.org"
     assert inst.groupIdentifier.value == "15013"
@@ -85,15 +83,10 @@ def impl_devicerequest_2(inst):
     assert inst.intent == "original-order"
     assert inst.meta.tag[0].code == "HTEST"
     assert inst.meta.tag[0].display == "test health data"
-    assert (
-        inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
-    )
+    assert inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
     assert inst.occurrenceDateTime == fhirtypes.DateTime.validate("2014-06-15")
     assert inst.parameter[0].code.coding[0].code == "28842-3"
-    assert (
-        inst.parameter[0].code.coding[0].display
-        == "Sphere distance Glasses prescription.lens - left"
-    )
+    assert inst.parameter[0].code.coding[0].display == "Sphere distance Glasses prescription.lens - left"
     assert inst.parameter[0].code.coding[0].system == "http://loinc.org"
     assert inst.parameter[0].code.text == "sphere, left lens"
     assert inst.parameter[0].valueQuantity.code == "[diop]"
@@ -101,10 +94,7 @@ def impl_devicerequest_2(inst):
     assert inst.parameter[0].valueQuantity.unit == "Diopter"
     assert float(inst.parameter[0].valueQuantity.value) == float(-1.0)
     assert inst.parameter[1].code.coding[0].code == "28843-1"
-    assert (
-        inst.parameter[1].code.coding[0].display
-        == "Cylinder base distance Glasses prescription.lens - left"
-    )
+    assert inst.parameter[1].code.coding[0].display == "Cylinder base distance Glasses prescription.lens - left"
     assert inst.parameter[1].code.coding[0].system == "http://loinc.org"
     assert inst.parameter[1].code.text == "cylinder, left lens"
     assert inst.parameter[1].valueQuantity.code == "[diop]"
@@ -112,10 +102,7 @@ def impl_devicerequest_2(inst):
     assert inst.parameter[1].valueQuantity.unit == "Diopter"
     assert float(inst.parameter[1].valueQuantity.value) == float(-0.5)
     assert inst.parameter[2].code.coding[0].code == "28844-9"
-    assert (
-        inst.parameter[2].code.coding[0].display
-        == " Axis distance Glasses prescription.lens - left"
-    )
+    assert inst.parameter[2].code.coding[0].display == " Axis distance Glasses prescription.lens - left"
     assert inst.parameter[2].code.coding[0].system == "http://loinc.org"
     assert inst.parameter[2].code.text == "axis, left lens"
     assert inst.parameter[2].valueQuantity.code == "deg"
@@ -132,7 +119,9 @@ def test_devicerequest_2(base_settings):
     """No. 2 tests collection for DeviceRequest.
     Test File: devicerequest-left-lens.json
     """
-    filename = base_settings["unittest_data_dir"] / "devicerequest-left-lens.json"
+    filename = (
+        base_settings["unittest_data_dir"] / "devicerequest-left-lens.json"
+    )
     inst = devicerequest.DeviceRequest.parse_file(
         filename, content_type="application/json", encoding="utf-8"
     )
@@ -151,7 +140,8 @@ def test_devicerequest_2(base_settings):
 def impl_devicerequest_3(inst):
     assert inst.code.concept.coding[0].code == "lens"
     assert inst.code.concept.coding[0].system == (
-        "http://terminology.hl7.org/CodeSystem/ex-" "visionprescriptionproduct"
+    "http://terminology.hl7.org/CodeSystem/ex-"
+    "visionprescriptionproduct"
     )
     assert inst.groupIdentifier.system == "http://acme.org"
     assert inst.groupIdentifier.value == "15013"
@@ -161,15 +151,10 @@ def impl_devicerequest_3(inst):
     assert inst.intent == "original-order"
     assert inst.meta.tag[0].code == "HTEST"
     assert inst.meta.tag[0].display == "test health data"
-    assert (
-        inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
-    )
+    assert inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
     assert inst.occurrenceDateTime == fhirtypes.DateTime.validate("2014-06-15")
     assert inst.parameter[0].code.coding[0].code == "28826-6"
-    assert (
-        inst.parameter[0].code.coding[0].display
-        == "Sphere distance Glasses prescription.lens - right"
-    )
+    assert inst.parameter[0].code.coding[0].display == "Sphere distance Glasses prescription.lens - right"
     assert inst.parameter[0].code.coding[0].system == "http://loinc.org"
     assert inst.parameter[0].code.text == "sphere, right lens"
     assert inst.parameter[0].valueQuantity.code == "[diop]"
@@ -177,10 +162,7 @@ def impl_devicerequest_3(inst):
     assert inst.parameter[0].valueQuantity.unit == "Diopter"
     assert float(inst.parameter[0].valueQuantity.value) == float(-2.0)
     assert inst.parameter[1].code.coding[0].code == "28829-0"
-    assert (
-        inst.parameter[1].code.coding[0].display
-        == "Prism base distance Glasses prescription.lens - right"
-    )
+    assert inst.parameter[1].code.coding[0].display == "Prism base distance Glasses prescription.lens - right"
     assert inst.parameter[1].code.coding[0].system == "http://loinc.org"
     assert inst.parameter[1].code.text == "prisms, right lens"
     assert inst.parameter[1].valueQuantity.code == "[diop]"
@@ -205,7 +187,9 @@ def test_devicerequest_3(base_settings):
     """No. 3 tests collection for DeviceRequest.
     Test File: devicerequest-right-lens.json
     """
-    filename = base_settings["unittest_data_dir"] / "devicerequest-right-lens.json"
+    filename = (
+        base_settings["unittest_data_dir"] / "devicerequest-right-lens.json"
+    )
     inst = devicerequest.DeviceRequest.parse_file(
         filename, content_type="application/json", encoding="utf-8"
     )
@@ -227,9 +211,7 @@ def impl_devicerequest_4(inst):
     assert inst.intent == "original-order"
     assert inst.meta.tag[0].code == "HTEST"
     assert inst.meta.tag[0].display == "test health data"
-    assert (
-        inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
-    )
+    assert inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
     assert inst.status == "completed"
     assert inst.subject.reference == "Patient/example"
     assert inst.text.status == "generated"
@@ -239,7 +221,9 @@ def test_devicerequest_4(base_settings):
     """No. 4 tests collection for DeviceRequest.
     Test File: devicerequest-example.json
     """
-    filename = base_settings["unittest_data_dir"] / "devicerequest-example.json"
+    filename = (
+        base_settings["unittest_data_dir"] / "devicerequest-example.json"
+    )
     inst = devicerequest.DeviceRequest.parse_file(
         filename, content_type="application/json", encoding="utf-8"
     )

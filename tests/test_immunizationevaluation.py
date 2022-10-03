@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/ImmunizationEvaluation
-Release: R5
-Version: 4.5.0
-Build ID: 0d95498
-Last updated: 2021-04-03T00:34:11.075+00:00
+Release: 2022Sep
+Version: 5.0.0-ballot
+Build ID: 1505a88
+Last updated: 2022-09-10T04:52:37.223+10:00
 """
 from pydantic.validators import bytes_validator  # noqa: F401
 from fhir.resources import fhirtypes  # noqa: F401
@@ -17,13 +17,14 @@ def impl_immunizationevaluation_1(inst):
     assert inst.doseStatus.coding[0].code == "notvalid"
     assert inst.doseStatus.coding[0].display == "Not Valid"
     assert inst.doseStatus.coding[0].system == (
-        "http://terminology.hl7.org/CodeSystem/immunization-" "evaluation-dose-status"
+    "http://terminology.hl7.org/CodeSystem/immunization-"
+    "evaluation-dose-status"
     )
     assert inst.doseStatusReason[0].coding[0].code == "outsideschedule"
     assert inst.doseStatusReason[0].coding[0].display == "Outside Schedule"
     assert inst.doseStatusReason[0].coding[0].system == (
-        "http://terminology.hl7.org/CodeSystem/immunization-"
-        "evaluation-dose-status-reason"
+    "http://terminology.hl7.org/CodeSystem/immunization-"
+    "evaluation-dose-status-reason"
     )
     assert inst.id == "notValid"
     assert inst.identifier[0].system == "urn:ietf:rfc:3986"
@@ -31,9 +32,7 @@ def impl_immunizationevaluation_1(inst):
     assert inst.immunizationEvent.reference == "Immunization/example"
     assert inst.meta.tag[0].code == "HTEST"
     assert inst.meta.tag[0].display == "test health data"
-    assert (
-        inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
-    )
+    assert inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
     assert inst.patient.reference == "Patient/example"
     assert inst.series == "Vaccination Series 1"
     assert inst.status == "completed"
@@ -47,8 +46,7 @@ def test_immunizationevaluation_1(base_settings):
     Test File: immunizationevaluation-example-notvalid.json
     """
     filename = (
-        base_settings["unittest_data_dir"]
-        / "immunizationevaluation-example-notvalid.json"
+        base_settings["unittest_data_dir"] / "immunizationevaluation-example-notvalid.json"
     )
     inst = immunizationevaluation.ImmunizationEvaluation.parse_file(
         filename, content_type="application/json", encoding="utf-8"
@@ -72,7 +70,8 @@ def impl_immunizationevaluation_2(inst):
     assert inst.doseStatus.coding[0].code == "valid"
     assert inst.doseStatus.coding[0].display == "Valid"
     assert inst.doseStatus.coding[0].system == (
-        "http://terminology.hl7.org/CodeSystem/immunization-" "evaluation-dose-status"
+    "http://terminology.hl7.org/CodeSystem/immunization-"
+    "evaluation-dose-status"
     )
     assert inst.id == "example"
     assert inst.identifier[0].system == "urn:ietf:rfc:3986"
@@ -80,9 +79,7 @@ def impl_immunizationevaluation_2(inst):
     assert inst.immunizationEvent.reference == "Immunization/example"
     assert inst.meta.tag[0].code == "HTEST"
     assert inst.meta.tag[0].display == "test health data"
-    assert (
-        inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
-    )
+    assert inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
     assert inst.patient.reference == "Patient/example"
     assert inst.series == "Vaccination Series 1"
     assert inst.seriesDoses == "3"

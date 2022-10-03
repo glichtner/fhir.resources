@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/GraphDefinition
-Release: R5
-Version: 4.5.0
-Build ID: 0d95498
-Last updated: 2021-04-03T00:34:11.075+00:00
+Release: 2022Sep
+Version: 5.0.0-ballot
+Build ID: 1505a88
+Last updated: 2022-09-10T04:52:37.223+10:00
 """
 from pydantic.validators import bytes_validator  # noqa: F401
 from fhir.resources import fhirtypes  # noqa: F401
@@ -16,8 +16,8 @@ def impl_graphdefinition_1(inst):
     assert inst.contact[0].telecom[0].value == "http://hl7.org/fhir"
     assert inst.date == fhirtypes.DateTime.validate("2015-08-04")
     assert inst.description == (
-        "Specify to include list references when generating a "
-        "document using the $document operation"
+    "Specify to include list references when generating a "
+    "document using the $document operation"
     )
     assert inst.id == "example"
     assert inst.link[0].description == "Link to List"
@@ -44,7 +44,9 @@ def test_graphdefinition_1(base_settings):
     """No. 1 tests collection for GraphDefinition.
     Test File: graphdefinition-example.json
     """
-    filename = base_settings["unittest_data_dir"] / "graphdefinition-example.json"
+    filename = (
+        base_settings["unittest_data_dir"] / "graphdefinition-example.json"
+    )
     inst = graphdefinition.GraphDefinition.parse_file(
         filename, content_type="application/json", encoding="utf-8"
     )

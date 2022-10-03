@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/MolecularSequence
-Release: R5
-Version: 4.5.0
-Build ID: 0d95498
-Last updated: 2021-04-03T00:34:11.075+00:00
+Release: 2022Sep
+Version: 5.0.0-ballot
+Build ID: 1505a88
+Last updated: 2022-09-10T04:52:37.223+10:00
 """
 from pydantic.validators import bytes_validator  # noqa: F401
 from fhir.resources import fhirtypes  # noqa: F401
@@ -12,42 +12,34 @@ from fhir.resources import molecularsequence
 
 
 def impl_molecularsequence_1(inst):
-    assert inst.coordinateSystem == 1
-    assert inst.id == "coord-1-base"
+    assert inst.id == "breastcancer"
     assert inst.meta.tag[0].code == "HTEST"
     assert inst.meta.tag[0].display == "test health data"
-    assert (
-        inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
-    )
-    assert inst.observedSeq == "ACATGGTAGC"
-    assert inst.referenceSeq.referenceSeqString == "ACGTAGTC"
-    assert inst.referenceSeq.strand == "watson"
-    assert inst.referenceSeq.windowEnd == 8
-    assert inst.referenceSeq.windowStart == 1
+    assert inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
+    assert inst.relative[0].coordinateSystem.coding[0].code == "LA30100-4"
+    assert inst.relative[0].coordinateSystem.coding[0].display == "0-based interval counting"
+    assert inst.relative[0].coordinateSystem.coding[0].system == "http://loinc.org"
+    assert inst.relative[0].edit[0].end == 32316187
+    assert inst.relative[0].edit[0].replacedSequence == "C"
+    assert inst.relative[0].edit[0].replacementSequence == "A"
+    assert inst.relative[0].edit[0].start == 32316186
+    assert inst.relative[0].startingSequence.sequenceCodeableConcept.coding[0].code == "NM_000059.3"
+    assert inst.relative[0].startingSequence.sequenceCodeableConcept.coding[0].display == "Homo sapiens BRCA2, DNA repair associated (BRCA2), mRNA"
+    assert inst.relative[0].startingSequence.sequenceCodeableConcept.coding[0].system == "http://www.ncbi.nlm.nih.gov/nuccore/"
+    assert inst.relative[0].startingSequence.windowEnd == 101499444
+    assert inst.relative[0].startingSequence.windowStart == 101488058
+    assert inst.subject.reference == "Patient/brcapat"
     assert inst.text.status == "generated"
-    assert inst.type == "dna"
-    assert inst.variant[0].cigar == "3I"
-    assert inst.variant[0].end == 3
-    assert inst.variant[0].observedAllele == "ATG"
-    assert inst.variant[0].referenceAllele == "-"
-    assert inst.variant[0].start == 2
-    assert inst.variant[1].cigar == "3I"
-    assert inst.variant[1].end == 5
-    assert inst.variant[1].observedAllele == "T"
-    assert inst.variant[1].referenceAllele == "A"
-    assert inst.variant[1].start == 5
-    assert inst.variant[2].cigar == "1D"
-    assert inst.variant[2].end == 7
-    assert inst.variant[2].observedAllele == "-"
-    assert inst.variant[2].referenceAllele == "T"
-    assert inst.variant[2].start == 7
+    assert inst.type == "rna"
 
 
 def test_molecularsequence_1(base_settings):
     """No. 1 tests collection for MolecularSequence.
-    Test File: coord-1base-example.json
+    Test File: sequence-genetics-example-breastcancer.json
     """
-    filename = base_settings["unittest_data_dir"] / "coord-1base-example.json"
+    filename = (
+        base_settings["unittest_data_dir"] / "sequence-genetics-example-breastcancer.json"
+    )
     inst = molecularsequence.MolecularSequence.parse_file(
         filename, content_type="application/json", encoding="utf-8"
     )
@@ -64,36 +56,34 @@ def test_molecularsequence_1(base_settings):
 
 
 def impl_molecularsequence_2(inst):
-    assert inst.coordinateSystem == 1
     assert inst.id == "example-TPMT-one"
     assert inst.meta.tag[0].code == "HTEST"
     assert inst.meta.tag[0].display == "test health data"
-    assert (
-        inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
-    )
-    assert inst.observedSeq == "T-C-C-C-A-C-C-C"
-    assert inst.patient.reference == "Patient/example"
-    assert inst.referenceSeq.referenceSeqId.coding[0].code == "NT_007592.15"
-    assert (
-        inst.referenceSeq.referenceSeqId.coding[0].system
-        == "http://www.ncbi.nlm.nih.gov/nuccore"
-    )
-    assert inst.referenceSeq.strand == "watson"
-    assert inst.referenceSeq.windowEnd == 18143955
-    assert inst.referenceSeq.windowStart == 18130918
+    assert inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
+    assert inst.relative[0].coordinateSystem.coding[0].code == "LA30102-0"
+    assert inst.relative[0].coordinateSystem.coding[0].display == "1-based character counting"
+    assert inst.relative[0].coordinateSystem.coding[0].system == "http://loinc.org"
+    assert inst.relative[0].edit[0].end == 18139214
+    assert inst.relative[0].edit[0].replacedSequence == "G"
+    assert inst.relative[0].edit[0].replacementSequence == "A"
+    assert inst.relative[0].edit[0].start == 18139214
+    assert inst.relative[0].startingSequence.sequenceCodeableConcept.coding[0].code == "NT_007592.15"
+    assert inst.relative[0].startingSequence.sequenceCodeableConcept.coding[0].system == "http://www.ncbi.nlm.nih.gov/nuccore"
+    assert inst.relative[0].startingSequence.strand == "watson"
+    assert inst.relative[0].startingSequence.windowEnd == 18143955
+    assert inst.relative[0].startingSequence.windowStart == 18130918
+    assert inst.subject.reference == "Patient/example"
     assert inst.text.status == "generated"
     assert inst.type == "dna"
-    assert inst.variant[0].end == 18139214
-    assert inst.variant[0].observedAllele == "A"
-    assert inst.variant[0].referenceAllele == "G"
-    assert inst.variant[0].start == 18139214
 
 
 def test_molecularsequence_2(base_settings):
     """No. 2 tests collection for MolecularSequence.
     Test File: sequence-example-TPMT-one.json
     """
-    filename = base_settings["unittest_data_dir"] / "sequence-example-TPMT-one.json"
+    filename = (
+        base_settings["unittest_data_dir"] / "sequence-example-TPMT-one.json"
+    )
     inst = molecularsequence.MolecularSequence.parse_file(
         filename, content_type="application/json", encoding="utf-8"
     )
@@ -110,36 +100,39 @@ def test_molecularsequence_2(base_settings):
 
 
 def impl_molecularsequence_3(inst):
-    assert inst.coordinateSystem == 0
-    assert inst.id == "graphic-example-1"
+    assert inst.device.display == "12 lead EKG Device Metric"
+    assert inst.id == "sequence-complex-variant"
+    assert inst.identifier[0].use == "official"
     assert inst.meta.tag[0].code == "HTEST"
     assert inst.meta.tag[0].display == "test health data"
-    assert (
-        inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
-    )
-    assert inst.pointer[0].reference == "MolecularSequence/graphic-example-2"
-    assert inst.referenceSeq.referenceSeqId.coding[0].code == "NC_000002.12"
-    assert (
-        inst.referenceSeq.referenceSeqId.coding[0].system
-        == "http://www.ncbi.nlm.nih.gov/nuccore"
-    )
-    assert inst.referenceSeq.strand == "watson"
-    assert inst.referenceSeq.windowEnd == 128273732
-    assert inst.referenceSeq.windowStart == 128273724
+    assert inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
+    assert inst.performer.display == "HL7"
+    assert inst.performer.reference == "Organization/hl7"
+    assert inst.relative[0].coordinateSystem.coding[0].code == "LA30100-4"
+    assert inst.relative[0].coordinateSystem.coding[0].display == "0-based interval counting"
+    assert inst.relative[0].coordinateSystem.coding[0].system == "http://loinc.org"
+    assert inst.relative[0].edit[0].end == 128273736
+    assert inst.relative[0].edit[0].replacedSequence == "CTCCATTGCATGCGTT"
+    assert inst.relative[0].edit[0].replacementSequence == "CTCATTGT"
+    assert inst.relative[0].edit[0].start == 128273724
+    assert inst.relative[0].startingSequence.sequenceCodeableConcept.coding[0].code == "NC_000002.12"
+    assert inst.relative[0].startingSequence.sequenceCodeableConcept.coding[0].system == "http://www.ncbi.nlm.nih.gov/nuccore"
+    assert inst.relative[0].startingSequence.strand == "watson"
+    assert inst.relative[0].startingSequence.windowEnd == 128273754
+    assert inst.relative[0].startingSequence.windowStart == 128273724
+    assert inst.specimen.display == "Molecular Specimen ID: MLD45-Z4-1234"
+    assert inst.specimen.reference == "Specimen/genetics-example1-somatic"
     assert inst.text.status == "generated"
     assert inst.type == "dna"
-    assert inst.variant[0].cigar == "1M"
-    assert inst.variant[0].end == 128273726
-    assert inst.variant[0].observedAllele == "G"
-    assert inst.variant[0].referenceAllele == "T"
-    assert inst.variant[0].start == 128273725
 
 
 def test_molecularsequence_3(base_settings):
     """No. 3 tests collection for MolecularSequence.
-    Test File: sequence-graphic-example-1.json
+    Test File: sequence-complex-variant.json
     """
-    filename = base_settings["unittest_data_dir"] / "sequence-graphic-example-1.json"
+    filename = (
+        base_settings["unittest_data_dir"] / "sequence-complex-variant.json"
+    )
     inst = molecularsequence.MolecularSequence.parse_file(
         filename, content_type="application/json", encoding="utf-8"
     )
@@ -156,40 +149,27 @@ def test_molecularsequence_3(base_settings):
 
 
 def impl_molecularsequence_4(inst):
-    assert inst.coordinateSystem == 0
-    assert inst.id == "breastcancer"
+    assert inst.formatted[0].contentType == "application/json"
+    assert inst.formatted[0].title == "GA4GH API"
+    assert inst.formatted[0].url == (
+    "http://grch37.rest.ensembl.org/ga4gh/variants/3:rs1333049?co"
+    "ntent-type=application/json"
+    )
+    assert inst.id == "example"
     assert inst.meta.tag[0].code == "HTEST"
     assert inst.meta.tag[0].display == "test health data"
-    assert (
-        inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
-    )
-    assert inst.patient.reference == "Patient/brcapat"
-    assert inst.referenceSeq.referenceSeqId.coding[0].code == "NM_000059.3"
-    assert (
-        inst.referenceSeq.referenceSeqId.coding[0].display
-        == "Homo sapiens BRCA2, DNA repair associated (BRCA2), mRNA"
-    )
-    assert (
-        inst.referenceSeq.referenceSeqId.coding[0].system
-        == "http://www.ncbi.nlm.nih.gov/nuccore/"
-    )
-    assert inst.referenceSeq.windowEnd == 101499444
-    assert inst.referenceSeq.windowStart == 101488058
+    assert inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
+    assert inst.subject.reference == "Patient/example"
     assert inst.text.status == "generated"
-    assert inst.type == "rna"
-    assert inst.variant[0].end == 32316187
-    assert inst.variant[0].observedAllele == "A"
-    assert inst.variant[0].referenceAllele == "C"
-    assert inst.variant[0].start == 32316186
+    assert inst.type == "dna"
 
 
 def test_molecularsequence_4(base_settings):
     """No. 4 tests collection for MolecularSequence.
-    Test File: sequence-genetics-example-breastcancer.json
+    Test File: molecularsequence-example.json
     """
     filename = (
-        base_settings["unittest_data_dir"]
-        / "sequence-genetics-example-breastcancer.json"
+        base_settings["unittest_data_dir"] / "molecularsequence-example.json"
     )
     inst = molecularsequence.MolecularSequence.parse_file(
         filename, content_type="application/json", encoding="utf-8"
@@ -207,46 +187,40 @@ def test_molecularsequence_4(base_settings):
 
 
 def impl_molecularsequence_5(inst):
-    assert inst.coordinateSystem == 1
-    assert inst.device.display == "12 lead EKG Device Metric"
-    assert inst.id == "sequence-complex-variant"
-    assert inst.identifier[0].use == "official"
+    assert inst.id == "coord-0-base"
     assert inst.meta.tag[0].code == "HTEST"
     assert inst.meta.tag[0].display == "test health data"
-    assert (
-        inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
-    )
-    assert inst.performer.display == "HL7"
-    assert inst.performer.reference == "Organization/hl7"
-    assert float(inst.quantity.value) == float(25)
-    assert inst.readCoverage == 1
-    assert inst.referenceSeq.referenceSeqId.coding[0].code == "NC_000002.12"
-    assert (
-        inst.referenceSeq.referenceSeqId.coding[0].system
-        == "http://www.ncbi.nlm.nih.gov/nuccore"
-    )
-    assert inst.referenceSeq.strand == "watson"
-    assert inst.referenceSeq.windowEnd == 128273754
-    assert inst.referenceSeq.windowStart == 128273724
-    assert inst.repository[0].datasetId == "Ensembl"
-    assert inst.repository[0].readsetId == "v1beta2"
-    assert inst.repository[0].type == "other"
-    assert inst.specimen.display == "Molecular Specimen ID: MLD45-Z4-1234"
-    assert inst.specimen.reference == "Specimen/genetics-example1-somatic"
+    assert inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
+    assert inst.relative[0].coordinateSystem.coding[0].code == "LA30101-2"
+    assert inst.relative[0].coordinateSystem.coding[0].display == "0-based character counting"
+    assert inst.relative[0].coordinateSystem.coding[0].system == "http://loinc.org"
+    assert inst.relative[0].edit[0].end == 2
+    assert inst.relative[0].edit[0].replacedSequence == "-"
+    assert inst.relative[0].edit[0].replacementSequence == "ATG"
+    assert inst.relative[0].edit[0].start == 2
+    assert inst.relative[0].edit[1].end == 5
+    assert inst.relative[0].edit[1].replacedSequence == "A"
+    assert inst.relative[0].edit[1].replacementSequence == "T"
+    assert inst.relative[0].edit[1].start == 4
+    assert inst.relative[0].edit[2].end == 7
+    assert inst.relative[0].edit[2].replacedSequence == "T"
+    assert inst.relative[0].edit[2].replacementSequence == "-"
+    assert inst.relative[0].edit[2].start == 6
+    assert inst.relative[0].startingSequence.sequenceString == "ACGTAGTC"
+    assert inst.relative[0].startingSequence.strand == "watson"
+    assert inst.relative[0].startingSequence.windowEnd == 8
+    assert inst.relative[0].startingSequence.windowStart == 0
     assert inst.text.status == "generated"
     assert inst.type == "dna"
-    assert inst.variant[0].cigar == "3M1D4M6N2M"
-    assert inst.variant[0].end == 128273736
-    assert inst.variant[0].observedAllele == "CTCATTGT"
-    assert inst.variant[0].referenceAllele == "CTCCATTGCATGCGTT"
-    assert inst.variant[0].start == 128273724
 
 
 def test_molecularsequence_5(base_settings):
     """No. 5 tests collection for MolecularSequence.
-    Test File: sequence-complex-variant.json
+    Test File: coord-0base-example.json
     """
-    filename = base_settings["unittest_data_dir"] / "sequence-complex-variant.json"
+    filename = (
+        base_settings["unittest_data_dir"] / "coord-0base-example.json"
+    )
     inst = molecularsequence.MolecularSequence.parse_file(
         filename, content_type="application/json", encoding="utf-8"
     )
@@ -263,63 +237,41 @@ def test_molecularsequence_5(base_settings):
 
 
 def impl_molecularsequence_6(inst):
-    assert inst.coordinateSystem == 1
-    assert inst.id == "fda-example"
+    assert inst.id == "sequence-example-fusion"
     assert inst.meta.tag[0].code == "HTEST"
     assert inst.meta.tag[0].display == "test health data"
-    assert (
-        inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
-    )
-    assert inst.patient.reference == "Patient/example"
-    assert inst.quality[0].end == 101770080
-    assert float(inst.quality[0].fScore) == float(0.545551)
-    assert float(inst.quality[0].gtFP) == float(2186)
-    assert inst.quality[0].method.coding[0].code == "job-ByxYPx809jFVy21KJG74Jg3Y"
-    assert inst.quality[0].method.coding[0].system == "https://precision.fda.gov/jobs/"
-    assert inst.quality[0].method.text == "Vcfeval + Hap.py Comparison"
-    assert float(inst.quality[0].precision) == float(0.428005)
-    assert float(inst.quality[0].queryFP) == float(10670)
-    assert float(inst.quality[0].queryTP) == float(7984)
-    assert float(inst.quality[0].recall) == float(0.752111)
-    assert (
-        inst.quality[0].standardSequence.coding[0].code
-        == "file-Bk50V4Q0qVb65P0v2VPbfYPZ"
-    )
-    assert (
-        inst.quality[0].standardSequence.coding[0].system
-        == "https://precision.fda.gov/files/"
-    )
-    assert inst.quality[0].start == 10453
-    assert float(inst.quality[0].truthFN) == float(2554)
-    assert float(inst.quality[0].truthTP) == float(7749)
-    assert inst.quality[0].type == "snp"
-    assert inst.referenceSeq.referenceSeqId.coding[0].code == "NC_000001.11"
-    assert (
-        inst.referenceSeq.referenceSeqId.coding[0].system
-        == "http://www.ncbi.nlm.nih.gov/nuccore"
-    )
-    assert inst.referenceSeq.strand == "watson"
-    assert inst.referenceSeq.windowEnd == 101770080
-    assert inst.referenceSeq.windowStart == 10453
-    assert inst.repository[0].name == "FDA"
-    assert inst.repository[0].type == "login"
-    assert inst.repository[0].url == (
-        "https://precision.fda.gov/files/file-" "Bx37ZK009P4bX5g3qjkFZV38"
-    )
-    assert inst.repository[0].variantsetId == "file-Bx37ZK009P4bX5g3qjkFZV38"
+    assert inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
+    assert inst.relative[0].coordinateSystem.coding[0].code == "LA30102-0"
+    assert inst.relative[0].coordinateSystem.coding[0].display == "1-based character counting"
+    assert inst.relative[0].coordinateSystem.coding[0].system == "http://loinc.org"
+    assert inst.relative[0].ordinalPosition == 1
+    assert float(inst.relative[0].sequenceRange.high.value) == float(3234)
+    assert float(inst.relative[0].sequenceRange.low.value) == float(1)
+    assert inst.relative[0].startingSequence.sequenceCodeableConcept.coding[0].code == "NM_004327.4"
+    assert inst.relative[0].startingSequence.sequenceCodeableConcept.coding[0].system == "http://www.ncbi.nlm.nih.gov/nuccore"
+    assert inst.relative[0].startingSequence.windowEnd == 3234
+    assert inst.relative[0].startingSequence.windowStart == 1
+    assert inst.relative[1].coordinateSystem.coding[0].code == "LA30102-0"
+    assert inst.relative[1].coordinateSystem.coding[0].display == "1-based character counting"
+    assert inst.relative[1].coordinateSystem.coding[0].system == "http://loinc.org"
+    assert inst.relative[1].ordinalPosition == 2
+    assert float(inst.relative[1].sequenceRange.high.value) == float(8367)
+    assert float(inst.relative[1].sequenceRange.low.value) == float(3235)
+    assert inst.relative[1].startingSequence.sequenceCodeableConcept.coding[0].code == "NM_005157.6"
+    assert inst.relative[1].startingSequence.sequenceCodeableConcept.coding[0].system == "http://www.ncbi.nlm.nih.gov/nuccore"
+    assert inst.relative[1].startingSequence.windowEnd == 5306
+    assert inst.relative[1].startingSequence.windowStart == 174
     assert inst.text.status == "generated"
-    assert inst.type == "dna"
-    assert inst.variant[0].end == 13117
-    assert inst.variant[0].observedAllele == "T"
-    assert inst.variant[0].referenceAllele == "G"
-    assert inst.variant[0].start == 13116
+    assert inst.type == "rna"
 
 
 def test_molecularsequence_6(base_settings):
     """No. 6 tests collection for MolecularSequence.
-    Test File: sequence-example-fda.json
+    Test File: sequence-example-fusion.json
     """
-    filename = base_settings["unittest_data_dir"] / "sequence-example-fda.json"
+    filename = (
+        base_settings["unittest_data_dir"] / "sequence-example-fusion.json"
+    )
     inst = molecularsequence.MolecularSequence.parse_file(
         filename, content_type="application/json", encoding="utf-8"
     )
@@ -336,59 +288,34 @@ def test_molecularsequence_6(base_settings):
 
 
 def impl_molecularsequence_7(inst):
-    assert inst.coordinateSystem == 1
-    assert inst.id == "fda-vcf-comparison"
+    assert inst.id == "example-pgx-2"
     assert inst.meta.tag[0].code == "HTEST"
     assert inst.meta.tag[0].display == "test health data"
-    assert (
-        inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
-    )
-    assert inst.patient.reference == "Patient/example"
-    assert inst.quality[0].end == 101770080
-    assert float(inst.quality[0].fScore) == float(0.9823)
-    assert float(inst.quality[0].gtFP) == float(2186)
-    assert inst.quality[0].method.coding[0].code == "app-BqB9XZ8006ZZ2g5KzGXP3fpq"
-    assert inst.quality[0].method.coding[0].system == "https://precision.fda.gov/apps/"
-    assert inst.quality[0].method.text == "VCF Comparison"
-    assert float(inst.quality[0].precision) == float(0.9885)
-    assert float(inst.quality[0].queryFP) == float(1507)
-    assert float(inst.quality[0].score.value) == float(5.0)
-    assert (
-        inst.quality[0].standardSequence.coding[0].code
-        == "file-BkZxBZ00bpJVk2q6x43b1YBx"
-    )
-    assert (
-        inst.quality[0].standardSequence.coding[0].system
-        == "https://precision.fda.gov/files/"
-    )
-    assert inst.quality[0].start == 10453
-    assert float(inst.quality[0].truthFN) == float(3168)
-    assert float(inst.quality[0].truthTP) == float(129481)
-    assert inst.quality[0].type == "unknown"
-    assert inst.referenceSeq.referenceSeqId.coding[0].code == "NC_000001.11"
-    assert (
-        inst.referenceSeq.referenceSeqId.coding[0].system
-        == "http://www.ncbi.nlm.nih.gov/nuccore"
-    )
-    assert inst.referenceSeq.strand == "watson"
-    assert inst.referenceSeq.windowEnd == 101770080
-    assert inst.referenceSeq.windowStart == 10453
-    assert inst.repository[0].name == "FDA"
-    assert inst.repository[0].type == "login"
-    assert inst.repository[0].url == "https://precision.fda.gov/comparisons/1850"
+    assert inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
+    assert inst.relative[0].coordinateSystem.coding[0].code == "LA30100-4"
+    assert inst.relative[0].coordinateSystem.coding[0].display == "0-based interval counting"
+    assert inst.relative[0].coordinateSystem.coding[0].system == "http://loinc.org"
+    assert inst.relative[0].edit[0].end == 55227979
+    assert inst.relative[0].edit[0].replacedSequence == "T"
+    assert inst.relative[0].edit[0].replacementSequence == "G"
+    assert inst.relative[0].edit[0].start == 55227978
+    assert inst.relative[0].startingSequence.orientation == "sense"
+    assert inst.relative[0].startingSequence.sequenceCodeableConcept.coding[0].code == "NG_007726.3"
+    assert inst.relative[0].startingSequence.sequenceCodeableConcept.coding[0].system == "http://www.ncbi.nlm.nih.gov/nuccore"
+    assert inst.relative[0].startingSequence.strand == "watson"
+    assert inst.relative[0].startingSequence.windowEnd == 55227980
+    assert inst.relative[0].startingSequence.windowStart == 55227970
+    assert inst.subject.reference == "Patient/example"
     assert inst.text.status == "generated"
-    assert inst.variant[0].end == 13117
-    assert inst.variant[0].observedAllele == "T"
-    assert inst.variant[0].referenceAllele == "G"
-    assert inst.variant[0].start == 13116
+    assert inst.type == "dna"
 
 
 def test_molecularsequence_7(base_settings):
     """No. 7 tests collection for MolecularSequence.
-    Test File: sequence-example-fda-comparisons.json
+    Test File: sequence-example-pgx-2.json
     """
     filename = (
-        base_settings["unittest_data_dir"] / "sequence-example-fda-comparisons.json"
+        base_settings["unittest_data_dir"] / "sequence-example-pgx-2.json"
     )
     inst = molecularsequence.MolecularSequence.parse_file(
         filename, content_type="application/json", encoding="utf-8"
@@ -406,27 +333,41 @@ def test_molecularsequence_7(base_settings):
 
 
 def impl_molecularsequence_8(inst):
-    assert inst.coordinateSystem == 0
-    assert inst.id == "graphic-example-2"
+    assert inst.id == "seq-ordinal"
     assert inst.meta.tag[0].code == "HTEST"
     assert inst.meta.tag[0].display == "test health data"
-    assert (
-        inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
-    )
-    assert inst.pointer[0].reference == "MolecularSequence/graphic-example-3"
-    assert inst.referenceSeq.referenceSeqString == "CGCCATTG"
-    assert inst.referenceSeq.strand == "watson"
-    assert inst.referenceSeq.windowEnd == 8
-    assert inst.referenceSeq.windowStart == 0
+    assert inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
+    assert inst.relative[0].coordinateSystem.coding[0].code == "LA30102-0"
+    assert inst.relative[0].coordinateSystem.coding[0].display == "1-based character counting"
+    assert inst.relative[0].coordinateSystem.coding[0].system == "http://loinc.org"
+    assert inst.relative[0].ordinalPosition == 1
+    assert float(inst.relative[0].sequenceRange.high.value) == float(2194)
+    assert float(inst.relative[0].sequenceRange.low.value) == float(1)
+    assert inst.relative[0].startingSequence.sequenceCodeableConcept.coding[0].code == "NM_000141.5"
+    assert inst.relative[0].startingSequence.sequenceCodeableConcept.coding[0].system == "http://www.ncbi.nlm.nih.gov/nuccore/"
+    assert inst.relative[0].startingSequence.windowEnd == 2194
+    assert inst.relative[0].startingSequence.windowStart == 1
+    assert inst.relative[1].coordinateSystem.coding[0].code == "LA30102-0"
+    assert inst.relative[1].coordinateSystem.coding[0].display == "1-based character counting"
+    assert inst.relative[1].coordinateSystem.coding[0].system == "http://loinc.org"
+    assert inst.relative[1].ordinalPosition == 2
+    assert float(inst.relative[1].sequenceRange.high.value) == float(4899)
+    assert float(inst.relative[1].sequenceRange.low.value) == float(2194)
+    assert inst.relative[1].startingSequence.sequenceCodeableConcept.coding[0].code == "NM_000245.4"
+    assert inst.relative[1].startingSequence.sequenceCodeableConcept.coding[0].system == "http://www.ncbi.nlm.nih.gov/nuccore/"
+    assert inst.relative[1].startingSequence.windowEnd == 6822
+    assert inst.relative[1].startingSequence.windowStart == 1923
     assert inst.text.status == "generated"
-    assert inst.type == "dna"
+    assert inst.type == "rna"
 
 
 def test_molecularsequence_8(base_settings):
     """No. 8 tests collection for MolecularSequence.
-    Test File: sequence-graphic-example-2.json
+    Test File: sequence-example-ordinal.json
     """
-    filename = base_settings["unittest_data_dir"] / "sequence-graphic-example-2.json"
+    filename = (
+        base_settings["unittest_data_dir"] / "sequence-example-ordinal.json"
+    )
     inst = molecularsequence.MolecularSequence.parse_file(
         filename, content_type="application/json", encoding="utf-8"
     )
@@ -443,42 +384,40 @@ def test_molecularsequence_8(base_settings):
 
 
 def impl_molecularsequence_9(inst):
-    assert inst.coordinateSystem == 0
-    assert inst.id == "coord-0-base"
+    assert inst.id == "coord-1-base"
     assert inst.meta.tag[0].code == "HTEST"
     assert inst.meta.tag[0].display == "test health data"
-    assert (
-        inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
-    )
-    assert inst.observedSeq == "ACATGGTAGC"
-    assert inst.referenceSeq.referenceSeqString == "ACGTAGTC"
-    assert inst.referenceSeq.strand == "watson"
-    assert inst.referenceSeq.windowEnd == 8
-    assert inst.referenceSeq.windowStart == 0
+    assert inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
+    assert inst.relative[0].coordinateSystem.coding[0].code == "LA30102-0"
+    assert inst.relative[0].coordinateSystem.coding[0].display == "1-based character counting"
+    assert inst.relative[0].coordinateSystem.coding[0].system == "http://loinc.org"
+    assert inst.relative[0].edit[0].end == 3
+    assert inst.relative[0].edit[0].replacedSequence == "-"
+    assert inst.relative[0].edit[0].replacementSequence == "ATG"
+    assert inst.relative[0].edit[0].start == 2
+    assert inst.relative[0].edit[1].end == 5
+    assert inst.relative[0].edit[1].replacedSequence == "A"
+    assert inst.relative[0].edit[1].replacementSequence == "T"
+    assert inst.relative[0].edit[1].start == 5
+    assert inst.relative[0].edit[2].end == 7
+    assert inst.relative[0].edit[2].replacedSequence == "T"
+    assert inst.relative[0].edit[2].replacementSequence == "-"
+    assert inst.relative[0].edit[2].start == 7
+    assert inst.relative[0].startingSequence.sequenceString == "ACGTAGTC"
+    assert inst.relative[0].startingSequence.strand == "watson"
+    assert inst.relative[0].startingSequence.windowEnd == 8
+    assert inst.relative[0].startingSequence.windowStart == 1
     assert inst.text.status == "generated"
     assert inst.type == "dna"
-    assert inst.variant[0].cigar == "3I"
-    assert inst.variant[0].end == 2
-    assert inst.variant[0].observedAllele == "ATG"
-    assert inst.variant[0].referenceAllele == "-"
-    assert inst.variant[0].start == 2
-    assert inst.variant[1].cigar == "1M"
-    assert inst.variant[1].end == 5
-    assert inst.variant[1].observedAllele == "T"
-    assert inst.variant[1].referenceAllele == "A"
-    assert inst.variant[1].start == 4
-    assert inst.variant[2].cigar == "1D"
-    assert inst.variant[2].end == 7
-    assert inst.variant[2].observedAllele == "-"
-    assert inst.variant[2].referenceAllele == "T"
-    assert inst.variant[2].start == 6
 
 
 def test_molecularsequence_9(base_settings):
     """No. 9 tests collection for MolecularSequence.
-    Test File: coord-0base-example.json
+    Test File: coord-1base-example.json
     """
-    filename = base_settings["unittest_data_dir"] / "coord-0base-example.json"
+    filename = (
+        base_settings["unittest_data_dir"] / "coord-1base-example.json"
+    )
     inst = molecularsequence.MolecularSequence.parse_file(
         filename, content_type="application/json", encoding="utf-8"
     )
@@ -495,80 +434,35 @@ def test_molecularsequence_9(base_settings):
 
 
 def impl_molecularsequence_10(inst):
-    assert inst.coordinateSystem == 1
-    assert inst.id == "fda-vcfeval-comparison"
+    assert inst.id == "example-pgx-1"
     assert inst.meta.tag[0].code == "HTEST"
     assert inst.meta.tag[0].display == "test health data"
-    assert (
-        inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
-    )
-    assert inst.patient.reference == "Patient/example"
-    assert inst.quality[0].end == 101770080
-    assert float(inst.quality[0].gtFP) == float(2186)
-    assert inst.quality[0].method.coding[0].code == "app-BxfGF8j02pBZzZxbzZxP725P"
-    assert inst.quality[0].method.coding[0].system == "https://precision.fda.gov/apps/"
-    assert inst.quality[0].method.text == "Vcfeval + Hap.py Comparison"
-    assert float(inst.quality[0].precision) == float(0.428005)
-    assert float(inst.quality[0].queryFP) == float(10670)
-    assert float(inst.quality[0].recall) == float(0.752111)
-    assert (
-        inst.quality[0].standardSequence.coding[0].code
-        == "file-BkZxBZ00bpJVk2q6x43b1YBx"
-    )
-    assert (
-        inst.quality[0].standardSequence.coding[0].system
-        == "https://precision.fda.gov/files/"
-    )
-    assert inst.quality[0].start == 10453
-    assert float(inst.quality[0].truthFN) == float(2554)
-    assert float(inst.quality[0].truthTP) == float(7749)
-    assert inst.quality[0].type == "indel"
-    assert inst.quality[1].end == 101770080
-    assert float(inst.quality[1].gtFP) == float(493)
-    assert inst.quality[1].method.coding[0].code == "app-BxfGF8j02pBZzZxbzZxP725P"
-    assert inst.quality[1].method.coding[0].system == "https://precision.fda.gov/apps/"
-    assert inst.quality[1].method.text == "Vcfeval + Hap.py Comparison"
-    assert float(inst.quality[1].precision) == float(0.808602)
-    assert float(inst.quality[1].queryFP) == float(21744)
-    assert float(inst.quality[1].recall) == float(0.986642)
-    assert (
-        inst.quality[1].standardSequence.coding[0].code
-        == "file-BkZxBZ00bpJVk2q6x43b1YBx"
-    )
-    assert (
-        inst.quality[1].standardSequence.coding[0].system
-        == "https://precision.fda.gov/files/"
-    )
-    assert inst.quality[1].start == 10453
-    assert float(inst.quality[1].truthFN) == float(1247)
-    assert float(inst.quality[1].truthTP) == float(92106)
-    assert inst.quality[1].type == "snp"
-    assert inst.referenceSeq.referenceSeqId.coding[0].code == "NC_000001.11"
-    assert (
-        inst.referenceSeq.referenceSeqId.coding[0].system
-        == "http://www.ncbi.nlm.nih.gov/nuccore"
-    )
-    assert inst.referenceSeq.strand == "watson"
-    assert inst.referenceSeq.windowEnd == 101770080
-    assert inst.referenceSeq.windowStart == 10453
-    assert inst.repository[0].name == "FDA"
-    assert inst.repository[0].type == "login"
-    assert (
-        inst.repository[0].url
-        == "https://precision.fda.gov/jobs/job-ByxYPx809jFVy21KJG74Jg3Y"
-    )
+    assert inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
+    assert inst.relative[0].coordinateSystem.coding[0].code == "LA30100-4"
+    assert inst.relative[0].coordinateSystem.coding[0].display == "0-based interval counting"
+    assert inst.relative[0].coordinateSystem.coding[0].system == "http://loinc.org"
+    assert inst.relative[0].edit[0].end == 55227977
+    assert inst.relative[0].edit[0].replacedSequence == "T"
+    assert inst.relative[0].edit[0].replacementSequence == "G"
+    assert inst.relative[0].edit[0].start == 55227976
+    assert inst.relative[0].startingSequence.orientation == "sense"
+    assert inst.relative[0].startingSequence.sequenceCodeableConcept.coding[0].code == "NG_007726.3"
+    assert inst.relative[0].startingSequence.sequenceCodeableConcept.coding[0].system == "http://www.ncbi.nlm.nih.gov/nuccore"
+    assert inst.relative[0].startingSequence.strand == "watson"
+    assert inst.relative[0].startingSequence.windowEnd == 55227980
+    assert inst.relative[0].startingSequence.windowStart == 55227970
+    assert inst.subject.reference == "Patient/example"
     assert inst.text.status == "generated"
-    assert inst.variant[0].end == 13117
-    assert inst.variant[0].observedAllele == "T"
-    assert inst.variant[0].referenceAllele == "G"
-    assert inst.variant[0].start == 13116
+    assert inst.type == "dna"
 
 
 def test_molecularsequence_10(base_settings):
     """No. 10 tests collection for MolecularSequence.
-    Test File: sequence-example-fda-vcfeval.json
+    Test File: sequence-example-pgx-1.json
     """
-    filename = base_settings["unittest_data_dir"] / "sequence-example-fda-vcfeval.json"
+    filename = (
+        base_settings["unittest_data_dir"] / "sequence-example-pgx-1.json"
+    )
     inst = molecularsequence.MolecularSequence.parse_file(
         filename, content_type="application/json", encoding="utf-8"
     )

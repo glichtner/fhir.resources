@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/Binary
-Release: R5
-Version: 4.5.0
-Build ID: 0d95498
-Last updated: 2021-04-03T00:34:11.075+00:00
+Release: 2022Sep
+Version: 5.0.0-ballot
+Build ID: 1505a88
+Last updated: 2022-09-10T04:52:37.223+10:00
 """
 from pydantic.validators import bytes_validator  # noqa: F401
 from fhir.resources import fhirtypes  # noqa: F401
@@ -12,20 +12,21 @@ from fhir.resources import binary
 
 
 def impl_binary_1(inst):
-    assert inst.contentType == "image/jpeg"
-    assert inst.id == "f006"
+    assert inst.contentType == "application/pdf"
+    assert inst.id == "example"
     assert inst.meta.tag[0].code == "HTEST"
     assert inst.meta.tag[0].display == "test health data"
-    assert (
-        inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
-    )
+    assert inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
+    assert inst.securityContext.reference == "DocumentReference/example"
 
 
 def test_binary_1(base_settings):
     """No. 1 tests collection for Binary.
-    Test File: binary-f006.json
+    Test File: binary-example.json
     """
-    filename = base_settings["unittest_data_dir"] / "binary-f006.json"
+    filename = (
+        base_settings["unittest_data_dir"] / "binary-example.json"
+    )
     inst = binary.Binary.parse_file(
         filename, content_type="application/json", encoding="utf-8"
     )
@@ -42,21 +43,20 @@ def test_binary_1(base_settings):
 
 
 def impl_binary_2(inst):
-    assert inst.contentType == "application/pdf"
-    assert inst.id == "example"
+    assert inst.contentType == "image/jpeg"
+    assert inst.id == "f006"
     assert inst.meta.tag[0].code == "HTEST"
     assert inst.meta.tag[0].display == "test health data"
-    assert (
-        inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
-    )
-    assert inst.securityContext.reference == "DocumentReference/example"
+    assert inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
 
 
 def test_binary_2(base_settings):
     """No. 2 tests collection for Binary.
-    Test File: binary-example.json
+    Test File: binary-f006.json
     """
-    filename = base_settings["unittest_data_dir"] / "binary-example.json"
+    filename = (
+        base_settings["unittest_data_dir"] / "binary-f006.json"
+    )
     inst = binary.Binary.parse_file(
         filename, content_type="application/json", encoding="utf-8"
     )

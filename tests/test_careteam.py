@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/CareTeam
-Release: R5
-Version: 4.5.0
-Build ID: 0d95498
-Last updated: 2021-04-03T00:34:11.075+00:00
+Release: 2022Sep
+Version: 5.0.0-ballot
+Build ID: 1505a88
+Last updated: 2022-09-10T04:52:37.223+10:00
 """
 from pydantic.validators import bytes_validator  # noqa: F401
 from fhir.resources import fhirtypes  # noqa: F401
@@ -21,23 +21,13 @@ def impl_careteam_1(inst):
     assert inst.managingOrganization[0].reference == "Organization/f001"
     assert inst.meta.tag[0].code == "HTEST"
     assert inst.meta.tag[0].display == "test health data"
-    assert (
-        inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
-    )
+    assert inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
     assert inst.name == "Peter James Charlmers Care Team for Inpatient Encounter"
     assert inst.participant[0].member.display == "Peter James Chalmers"
     assert inst.participant[0].member.reference == "Patient/example"
     assert inst.participant[0].role.text == "responsiblePerson"
-    assert inst.participant[
-        1
-    ].coverageTiming.repeat.boundsPeriod.end == fhirtypes.DateTime.validate(
-        "2013-01-01"
-    )
-    assert inst.participant[
-        1
-    ].coverageTiming.repeat.boundsPeriod.start == fhirtypes.DateTime.validate(
-        "2010-12-23"
-    )
+    assert inst.participant[1].coverageTiming.repeat.boundsPeriod.end == fhirtypes.DateTime.validate("2013-01-01")
+    assert inst.participant[1].coverageTiming.repeat.boundsPeriod.start == fhirtypes.DateTime.validate("2010-12-23")
     assert inst.participant[1].coverageTiming.repeat.dayOfWeek[0] == "mon"
     assert inst.participant[1].coverageTiming.repeat.frequency == 1
     assert float(inst.participant[1].coverageTiming.repeat.period) == float(1)
@@ -51,7 +41,7 @@ def impl_careteam_1(inst):
     assert inst.status == "active"
     assert inst.subject.display == "Peter James Chalmers"
     assert inst.subject.reference == "Patient/example"
-    assert inst.text.div == '<div xmlns="http://www.w3.org/1999/xhtml">Care Team</div>'
+    assert inst.text.div == "<div xmlns=\"http://www.w3.org/1999/xhtml\">Care Team</div>"
     assert inst.text.status == "generated"
 
 
@@ -59,7 +49,9 @@ def test_careteam_1(base_settings):
     """No. 1 tests collection for CareTeam.
     Test File: careteam-example.json
     """
-    filename = base_settings["unittest_data_dir"] / "careteam-example.json"
+    filename = (
+        base_settings["unittest_data_dir"] / "careteam-example.json"
+    )
     inst = careteam.CareTeam.parse_file(
         filename, content_type="application/json", encoding="utf-8"
     )

@@ -18,7 +18,8 @@ from pydantic.types import (
 )
 from pydantic.validators import bool_validator, parse_date, parse_datetime, parse_time
 
-from .fhirabstractmodel import FHIRAbstractModel
+from fhir.resources.core.fhirabstractmodel import FHIRAbstractModel
+
 from .fhirtypesvalidators import run_validator_for_fhir_type
 
 if TYPE_CHECKING:
@@ -108,13 +109,39 @@ class String(ConstrainedStr, Primitive):
     Therefore strings SHOULD always contain non-whitespace content"""
 
     regex = re.compile(r"[ \r\n\t\S]+")
+    allow_empty_str = False
     __visit_name__ = "string"
+
+    @classmethod
+    def configure_empty_str(cls, allow: bool = None):
+        """About empty string
+        1. https://bit.ly/3woGnFG
+        2. https://github.com/nazrulworld/fhir.resources/issues/65#issuecomment-856693256
+        There are a lot of valid discussion about accept empty string as String value but
+        it is cleared for us that according to FHIR Specification, empty string is not valid!
+        However in real use cases, we see empty string is coming other (when the task is related
+        to query data from other system)
+
+        It is in your hand now, if you would like to allow empty string! by default empty string is not
+        accepted.
+        """
+        if isinstance(allow, bool):
+            cls.allow_empty_str = allow
+
+    @classmethod
+    def validate(cls, value: Union[str]) -> Union[str]:
+        if cls.allow_empty_str is True and value in ("", ""):
+            return value
+        # do the default things
+        return ConstrainedStr.validate.__func__(cls, value)
 
     @classmethod
     def to_string(cls, value):
         """ """
         if isinstance(value, bytes):
             value = value.decode()
+        elif value is None:
+            value = ""
         assert isinstance(value, str)
         return value
 
@@ -357,7 +384,7 @@ class Url(AnyUrl, Primitive):
     Note URLs are accessed directly using the specified protocol.
     Common URL protocols are http{s}:, ftp:, mailto: and mllp:,
     though many others are defined"""
-
+    path_regex = re.compile(r'^/(?P<resourceType>[^\s?/]+)(/[^\s?/]+)*')
     __visit_name__ = "url"
 
     @classmethod
@@ -378,6 +405,13 @@ class Url(AnyUrl, Primitive):
             return value
         elif value in FHIR_PRIMITIVES:
             # Extensions may contain a valueUrl for a primitive FHIR type
+            return value
+
+        # we are allowing relative path
+        matched = cls.path_regex.match(value)
+        if matched is not None:
+            # @ToDo: required resource type validation?
+            # fx: resource type = matched.groupdict().get("resourceType")
             return value
 
         return AnyUrl.validate(value, field, config)
@@ -616,7 +650,7 @@ def get_fhir_type_class(model_name):
 class AbstractType(dict):
     """ """
 
-    __fhir_release__: str = "R5"
+    __fhir_release__: str = "2022Sep"
     __resource_type__: str = ...  # type: ignore
 
     @classmethod
@@ -649,7 +683,7 @@ class FHIRPrimitiveExtensionType(AbstractType):
 class AbstractBaseType(dict):
     """ """
 
-    __fhir_release__: str = "R5"
+    __fhir_release__: str = "2022Sep"
     __resource_type__: str = ...  # type: ignore
 
     @classmethod
@@ -705,9 +739,12 @@ class ResourceType(AbstractBaseType):
 
     __resource_type__ = "Resource"
 
-
 class AccountType(AbstractType):
     __resource_type__ = "Account"
+
+
+class AccountBalanceType(AbstractType):
+    __resource_type__ = "AccountBalance"
 
 
 class AccountCoverageType(AbstractType):
@@ -716,6 +753,10 @@ class AccountCoverageType(AbstractType):
 
 class AccountGuarantorType(AbstractType):
     __resource_type__ = "AccountGuarantor"
+
+
+class AccountRelatedAccountType(AbstractType):
+    __resource_type__ = "AccountRelatedAccount"
 
 
 class ActivityDefinitionType(AbstractType):
@@ -728,6 +769,10 @@ class ActivityDefinitionDynamicValueType(AbstractType):
 
 class ActivityDefinitionParticipantType(AbstractType):
     __resource_type__ = "ActivityDefinitionParticipant"
+
+
+class ActorDefinitionType(AbstractType):
+    __resource_type__ = "ActorDefinition"
 
 
 class AddressType(AbstractType):
@@ -746,17 +791,11 @@ class AdministrableProductDefinitionRouteOfAdministrationType(AbstractType):
     __resource_type__ = "AdministrableProductDefinitionRouteOfAdministration"
 
 
-class AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesType(
-    AbstractType
-):
-    __resource_type__ = (
-        "AdministrableProductDefinitionRouteOfAdministrationTargetSpecies"
-    )
+class AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesType(AbstractType):
+    __resource_type__ = "AdministrableProductDefinitionRouteOfAdministrationTargetSpecies"
 
 
-class AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriodType(
-    AbstractType
-):
+class AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriodType(AbstractType):
     __resource_type__ = "AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriod"
 
 
@@ -800,6 +839,10 @@ class AllergyIntoleranceType(AbstractType):
     __resource_type__ = "AllergyIntolerance"
 
 
+class AllergyIntoleranceParticipantType(AbstractType):
+    __resource_type__ = "AllergyIntoleranceParticipant"
+
+
 class AllergyIntoleranceReactionType(AbstractType):
     __resource_type__ = "AllergyIntoleranceReaction"
 
@@ -816,8 +859,32 @@ class AppointmentParticipantType(AbstractType):
     __resource_type__ = "AppointmentParticipant"
 
 
+class AppointmentRecurrenceTemplateType(AbstractType):
+    __resource_type__ = "AppointmentRecurrenceTemplate"
+
+
+class AppointmentRecurrenceTemplateMonthlyTemplateType(AbstractType):
+    __resource_type__ = "AppointmentRecurrenceTemplateMonthlyTemplate"
+
+
+class AppointmentRecurrenceTemplateWeeklyTemplateType(AbstractType):
+    __resource_type__ = "AppointmentRecurrenceTemplateWeeklyTemplate"
+
+
+class AppointmentRecurrenceTemplateYearlyTemplateType(AbstractType):
+    __resource_type__ = "AppointmentRecurrenceTemplateYearlyTemplate"
+
+
 class AppointmentResponseType(AbstractType):
     __resource_type__ = "AppointmentResponse"
+
+
+class ArtifactAssessmentType(AbstractType):
+    __resource_type__ = "ArtifactAssessment"
+
+
+class ArtifactAssessmentContentType(AbstractType):
+    __resource_type__ = "ArtifactAssessmentContent"
 
 
 class AttachmentType(AbstractType):
@@ -832,10 +899,6 @@ class AuditEventAgentType(AbstractType):
     __resource_type__ = "AuditEventAgent"
 
 
-class AuditEventAgentNetworkType(AbstractType):
-    __resource_type__ = "AuditEventAgentNetwork"
-
-
 class AuditEventEntityType(AbstractType):
     __resource_type__ = "AuditEventEntity"
 
@@ -844,8 +907,24 @@ class AuditEventEntityDetailType(AbstractType):
     __resource_type__ = "AuditEventEntityDetail"
 
 
+class AuditEventOutcomeType(AbstractType):
+    __resource_type__ = "AuditEventOutcome"
+
+
 class AuditEventSourceType(AbstractType):
     __resource_type__ = "AuditEventSource"
+
+
+class AvailabilityType(AbstractType):
+    __resource_type__ = "Availability"
+
+
+class AvailabilityAvailableTimeType(AbstractType):
+    __resource_type__ = "AvailabilityAvailableTime"
+
+
+class AvailabilityNotAvailableTimeType(AbstractType):
+    __resource_type__ = "AvailabilityNotAvailableTime"
 
 
 class BackboneElementType(AbstractType):
@@ -876,20 +955,20 @@ class BiologicallyDerivedProductCollectionType(AbstractType):
     __resource_type__ = "BiologicallyDerivedProductCollection"
 
 
-class BiologicallyDerivedProductManipulationType(AbstractType):
-    __resource_type__ = "BiologicallyDerivedProductManipulation"
-
-
-class BiologicallyDerivedProductProcessingType(AbstractType):
-    __resource_type__ = "BiologicallyDerivedProductProcessing"
-
-
-class BiologicallyDerivedProductStorageType(AbstractType):
-    __resource_type__ = "BiologicallyDerivedProductStorage"
+class BiologicallyDerivedProductPropertyType(AbstractType):
+    __resource_type__ = "BiologicallyDerivedProductProperty"
 
 
 class BodyStructureType(AbstractType):
     __resource_type__ = "BodyStructure"
+
+
+class BodyStructureExcludedStructureType(AbstractType):
+    __resource_type__ = "BodyStructureExcludedStructure"
+
+
+class BodyStructureIncludedStructureType(AbstractType):
+    __resource_type__ = "BodyStructureIncludedStructure"
 
 
 class BundleType(AbstractType):
@@ -922,46 +1001,6 @@ class CanonicalResourceType(AbstractType):
 
 class CapabilityStatementType(AbstractType):
     __resource_type__ = "CapabilityStatement"
-
-
-class CapabilityStatement2Type(AbstractType):
-    __resource_type__ = "CapabilityStatement2"
-
-
-class CapabilityStatement2ImplementationType(AbstractType):
-    __resource_type__ = "CapabilityStatement2Implementation"
-
-
-class CapabilityStatement2RestType(AbstractType):
-    __resource_type__ = "CapabilityStatement2Rest"
-
-
-class CapabilityStatement2RestFeatureType(AbstractType):
-    __resource_type__ = "CapabilityStatement2RestFeature"
-
-
-class CapabilityStatement2RestInteractionType(AbstractType):
-    __resource_type__ = "CapabilityStatement2RestInteraction"
-
-
-class CapabilityStatement2RestResourceType(AbstractType):
-    __resource_type__ = "CapabilityStatement2RestResource"
-
-
-class CapabilityStatement2RestResourceInteractionType(AbstractType):
-    __resource_type__ = "CapabilityStatement2RestResourceInteraction"
-
-
-class CapabilityStatement2RestResourceOperationType(AbstractType):
-    __resource_type__ = "CapabilityStatement2RestResourceOperation"
-
-
-class CapabilityStatement2RestResourceSearchParamType(AbstractType):
-    __resource_type__ = "CapabilityStatement2RestResourceSearchParam"
-
-
-class CapabilityStatement2SoftwareType(AbstractType):
-    __resource_type__ = "CapabilityStatement2Software"
 
 
 class CapabilityStatementDocumentType(AbstractType):
@@ -1036,14 +1075,6 @@ class CareTeamParticipantType(AbstractType):
     __resource_type__ = "CareTeamParticipant"
 
 
-class CatalogEntryType(AbstractType):
-    __resource_type__ = "CatalogEntry"
-
-
-class CatalogEntryRelatedEntryType(AbstractType):
-    __resource_type__ = "CatalogEntryRelatedEntry"
-
-
 class ChargeItemType(AbstractType):
     __resource_type__ = "ChargeItem"
 
@@ -1058,10 +1089,6 @@ class ChargeItemDefinitionApplicabilityType(AbstractType):
 
 class ChargeItemDefinitionPropertyGroupType(AbstractType):
     __resource_type__ = "ChargeItemDefinitionPropertyGroup"
-
-
-class ChargeItemDefinitionPropertyGroupPriceComponentType(AbstractType):
-    __resource_type__ = "ChargeItemDefinitionPropertyGroupPriceComponent"
 
 
 class ChargeItemPerformerType(AbstractType):
@@ -1084,20 +1111,12 @@ class CitationCitedArtifactClassificationType(AbstractType):
     __resource_type__ = "CitationCitedArtifactClassification"
 
 
-class CitationCitedArtifactClassificationWhoClassifiedType(AbstractType):
-    __resource_type__ = "CitationCitedArtifactClassificationWhoClassified"
-
-
 class CitationCitedArtifactContributorshipType(AbstractType):
     __resource_type__ = "CitationCitedArtifactContributorship"
 
 
 class CitationCitedArtifactContributorshipEntryType(AbstractType):
     __resource_type__ = "CitationCitedArtifactContributorshipEntry"
-
-
-class CitationCitedArtifactContributorshipEntryAffiliationInfoType(AbstractType):
-    __resource_type__ = "CitationCitedArtifactContributorshipEntryAffiliationInfo"
 
 
 class CitationCitedArtifactContributorshipEntryContributionInstanceType(AbstractType):
@@ -1114,18 +1133,6 @@ class CitationCitedArtifactPartType(AbstractType):
 
 class CitationCitedArtifactPublicationFormType(AbstractType):
     __resource_type__ = "CitationCitedArtifactPublicationForm"
-
-
-class CitationCitedArtifactPublicationFormPeriodicReleaseType(AbstractType):
-    __resource_type__ = "CitationCitedArtifactPublicationFormPeriodicRelease"
-
-
-class CitationCitedArtifactPublicationFormPeriodicReleaseDateOfPublicationType(
-    AbstractType
-):
-    __resource_type__ = (
-        "CitationCitedArtifactPublicationFormPeriodicReleaseDateOfPublication"
-    )
 
 
 class CitationCitedArtifactPublicationFormPublishedInType(AbstractType):
@@ -1154,10 +1161,6 @@ class CitationCitedArtifactWebLocationType(AbstractType):
 
 class CitationClassificationType(AbstractType):
     __resource_type__ = "CitationClassification"
-
-
-class CitationRelatesToType(AbstractType):
-    __resource_type__ = "CitationRelatesTo"
 
 
 class CitationStatusDateType(AbstractType):
@@ -1192,6 +1195,10 @@ class ClaimItemType(AbstractType):
     __resource_type__ = "ClaimItem"
 
 
+class ClaimItemBodySiteType(AbstractType):
+    __resource_type__ = "ClaimItemBodySite"
+
+
 class ClaimItemDetailType(AbstractType):
     __resource_type__ = "ClaimItemDetail"
 
@@ -1218,6 +1225,10 @@ class ClaimResponseType(AbstractType):
 
 class ClaimResponseAddItemType(AbstractType):
     __resource_type__ = "ClaimResponseAddItem"
+
+
+class ClaimResponseAddItemBodySiteType(AbstractType):
+    __resource_type__ = "ClaimResponseAddItemBodySite"
 
 
 class ClaimResponseAddItemDetailType(AbstractType):
@@ -1276,32 +1287,36 @@ class ClinicalImpressionFindingType(AbstractType):
     __resource_type__ = "ClinicalImpressionFinding"
 
 
-class ClinicalUseIssueType(AbstractType):
-    __resource_type__ = "ClinicalUseIssue"
+class ClinicalUseDefinitionType(AbstractType):
+    __resource_type__ = "ClinicalUseDefinition"
 
 
-class ClinicalUseIssueContraindicationType(AbstractType):
-    __resource_type__ = "ClinicalUseIssueContraindication"
+class ClinicalUseDefinitionContraindicationType(AbstractType):
+    __resource_type__ = "ClinicalUseDefinitionContraindication"
 
 
-class ClinicalUseIssueContraindicationOtherTherapyType(AbstractType):
-    __resource_type__ = "ClinicalUseIssueContraindicationOtherTherapy"
+class ClinicalUseDefinitionContraindicationOtherTherapyType(AbstractType):
+    __resource_type__ = "ClinicalUseDefinitionContraindicationOtherTherapy"
 
 
-class ClinicalUseIssueIndicationType(AbstractType):
-    __resource_type__ = "ClinicalUseIssueIndication"
+class ClinicalUseDefinitionIndicationType(AbstractType):
+    __resource_type__ = "ClinicalUseDefinitionIndication"
 
 
-class ClinicalUseIssueInteractionType(AbstractType):
-    __resource_type__ = "ClinicalUseIssueInteraction"
+class ClinicalUseDefinitionInteractionType(AbstractType):
+    __resource_type__ = "ClinicalUseDefinitionInteraction"
 
 
-class ClinicalUseIssueInteractionInteractantType(AbstractType):
-    __resource_type__ = "ClinicalUseIssueInteractionInteractant"
+class ClinicalUseDefinitionInteractionInteractantType(AbstractType):
+    __resource_type__ = "ClinicalUseDefinitionInteractionInteractant"
 
 
-class ClinicalUseIssueUndesirableEffectType(AbstractType):
-    __resource_type__ = "ClinicalUseIssueUndesirableEffect"
+class ClinicalUseDefinitionUndesirableEffectType(AbstractType):
+    __resource_type__ = "ClinicalUseDefinitionUndesirableEffect"
+
+
+class ClinicalUseDefinitionWarningType(AbstractType):
+    __resource_type__ = "ClinicalUseDefinitionWarning"
 
 
 class CodeSystemType(AbstractType):
@@ -1376,10 +1391,6 @@ class CompositionEventType(AbstractType):
     __resource_type__ = "CompositionEvent"
 
 
-class CompositionRelatesToType(AbstractType):
-    __resource_type__ = "CompositionRelatesTo"
-
-
 class CompositionSectionType(AbstractType):
     __resource_type__ = "CompositionSection"
 
@@ -1436,8 +1447,8 @@ class ConditionDefinitionQuestionnaireType(AbstractType):
     __resource_type__ = "ConditionDefinitionQuestionnaire"
 
 
-class ConditionEvidenceType(AbstractType):
-    __resource_type__ = "ConditionEvidence"
+class ConditionParticipantType(AbstractType):
+    __resource_type__ = "ConditionParticipant"
 
 
 class ConditionStageType(AbstractType):
@@ -1448,8 +1459,8 @@ class ConsentType(AbstractType):
     __resource_type__ = "Consent"
 
 
-class ConsentPolicyType(AbstractType):
-    __resource_type__ = "ConsentPolicy"
+class ConsentPolicyBasisType(AbstractType):
+    __resource_type__ = "ConsentPolicyBasis"
 
 
 class ConsentProvisionType(AbstractType):
@@ -1604,6 +1615,10 @@ class CoverageEligibilityResponseInsuranceItemBenefitType(AbstractType):
     __resource_type__ = "CoverageEligibilityResponseInsuranceItemBenefit"
 
 
+class CoveragePaymentByType(AbstractType):
+    __resource_type__ = "CoveragePaymentBy"
+
+
 class DataRequirementType(AbstractType):
     __resource_type__ = "DataRequirement"
 
@@ -1618,6 +1633,10 @@ class DataRequirementDateFilterType(AbstractType):
 
 class DataRequirementSortType(AbstractType):
     __resource_type__ = "DataRequirementSort"
+
+
+class DataRequirementValueFilterType(AbstractType):
+    __resource_type__ = "DataRequirementValueFilter"
 
 
 class DataTypeType(AbstractType):
@@ -1640,36 +1659,68 @@ class DeviceType(AbstractType):
     __resource_type__ = "Device"
 
 
-class DeviceAssociationStatusType(AbstractType):
-    __resource_type__ = "DeviceAssociationStatus"
+class DeviceAssociationType(AbstractType):
+    __resource_type__ = "DeviceAssociation"
 
 
 class DeviceDefinitionType(AbstractType):
     __resource_type__ = "DeviceDefinition"
 
 
-class DeviceDefinitionCapabilityType(AbstractType):
-    __resource_type__ = "DeviceDefinitionCapability"
+class DeviceDefinitionChargeItemType(AbstractType):
+    __resource_type__ = "DeviceDefinitionChargeItem"
+
+
+class DeviceDefinitionClassificationType(AbstractType):
+    __resource_type__ = "DeviceDefinitionClassification"
+
+
+class DeviceDefinitionCorrectiveActionType(AbstractType):
+    __resource_type__ = "DeviceDefinitionCorrectiveAction"
 
 
 class DeviceDefinitionDeviceNameType(AbstractType):
     __resource_type__ = "DeviceDefinitionDeviceName"
 
 
+class DeviceDefinitionGuidelineType(AbstractType):
+    __resource_type__ = "DeviceDefinitionGuideline"
+
+
+class DeviceDefinitionHasPartType(AbstractType):
+    __resource_type__ = "DeviceDefinitionHasPart"
+
+
+class DeviceDefinitionLinkType(AbstractType):
+    __resource_type__ = "DeviceDefinitionLink"
+
+
 class DeviceDefinitionMaterialType(AbstractType):
     __resource_type__ = "DeviceDefinitionMaterial"
+
+
+class DeviceDefinitionPackagingType(AbstractType):
+    __resource_type__ = "DeviceDefinitionPackaging"
+
+
+class DeviceDefinitionPackagingDistributorType(AbstractType):
+    __resource_type__ = "DeviceDefinitionPackagingDistributor"
 
 
 class DeviceDefinitionPropertyType(AbstractType):
     __resource_type__ = "DeviceDefinitionProperty"
 
 
-class DeviceDefinitionSpecializationType(AbstractType):
-    __resource_type__ = "DeviceDefinitionSpecialization"
+class DeviceDefinitionRegulatoryIdentifierType(AbstractType):
+    __resource_type__ = "DeviceDefinitionRegulatoryIdentifier"
 
 
 class DeviceDefinitionUdiDeviceIdentifierType(AbstractType):
     __resource_type__ = "DeviceDefinitionUdiDeviceIdentifier"
+
+
+class DeviceDefinitionUdiDeviceIdentifierMarketDistributionType(AbstractType):
+    __resource_type__ = "DeviceDefinitionUdiDeviceIdentifierMarketDistribution"
 
 
 class DeviceDefinitionVersionType(AbstractType):
@@ -1680,6 +1731,14 @@ class DeviceDeviceNameType(AbstractType):
     __resource_type__ = "DeviceDeviceName"
 
 
+class DeviceDispenseType(AbstractType):
+    __resource_type__ = "DeviceDispense"
+
+
+class DeviceDispensePerformerType(AbstractType):
+    __resource_type__ = "DeviceDispensePerformer"
+
+
 class DeviceMetricType(AbstractType):
     __resource_type__ = "DeviceMetric"
 
@@ -1688,8 +1747,8 @@ class DeviceMetricCalibrationType(AbstractType):
     __resource_type__ = "DeviceMetricCalibration"
 
 
-class DeviceOperationalStatusType(AbstractType):
-    __resource_type__ = "DeviceOperationalStatus"
+class DeviceOperationType(AbstractType):
+    __resource_type__ = "DeviceOperation"
 
 
 class DevicePropertyType(AbstractType):
@@ -1716,6 +1775,10 @@ class DeviceUsageType(AbstractType):
     __resource_type__ = "DeviceUsage"
 
 
+class DeviceUsageAdherenceType(AbstractType):
+    __resource_type__ = "DeviceUsageAdherence"
+
+
 class DeviceVersionType(AbstractType):
     __resource_type__ = "DeviceVersion"
 
@@ -1726,6 +1789,10 @@ class DiagnosticReportType(AbstractType):
 
 class DiagnosticReportMediaType(AbstractType):
     __resource_type__ = "DiagnosticReportMedia"
+
+
+class DiagnosticReportSupportingInfoType(AbstractType):
+    __resource_type__ = "DiagnosticReportSupportingInfo"
 
 
 class DistanceType(AbstractType):
@@ -1752,6 +1819,10 @@ class DocumentReferenceContentType(AbstractType):
     __resource_type__ = "DocumentReferenceContent"
 
 
+class DocumentReferenceContentProfileType(AbstractType):
+    __resource_type__ = "DocumentReferenceContentProfile"
+
+
 class DocumentReferenceRelatesToType(AbstractType):
     __resource_type__ = "DocumentReferenceRelatesTo"
 
@@ -1770,6 +1841,7 @@ class DosageDoseAndRateType(AbstractType):
 
 class DurationType(AbstractType):
     __resource_type__ = "Duration"
+
 
 
 class ElementDefinitionType(AbstractType):
@@ -1812,16 +1884,16 @@ class EncounterType(AbstractType):
     __resource_type__ = "Encounter"
 
 
+class EncounterAdmissionType(AbstractType):
+    __resource_type__ = "EncounterAdmission"
+
+
 class EncounterClassHistoryType(AbstractType):
     __resource_type__ = "EncounterClassHistory"
 
 
 class EncounterDiagnosisType(AbstractType):
     __resource_type__ = "EncounterDiagnosis"
-
-
-class EncounterHospitalizationType(AbstractType):
-    __resource_type__ = "EncounterHospitalization"
 
 
 class EncounterLocationType(AbstractType):
@@ -1880,6 +1952,10 @@ class EvidenceReportRelatesToType(AbstractType):
     __resource_type__ = "EvidenceReportRelatesTo"
 
 
+class EvidenceReportRelatesToTargetType(AbstractType):
+    __resource_type__ = "EvidenceReportRelatesToTarget"
+
+
 class EvidenceReportSectionType(AbstractType):
     __resource_type__ = "EvidenceReportSection"
 
@@ -1890,6 +1966,26 @@ class EvidenceReportSubjectType(AbstractType):
 
 class EvidenceReportSubjectCharacteristicType(AbstractType):
     __resource_type__ = "EvidenceReportSubjectCharacteristic"
+
+
+class EvidenceStatisticType(AbstractType):
+    __resource_type__ = "EvidenceStatistic"
+
+
+class EvidenceStatisticAttributeEstimateType(AbstractType):
+    __resource_type__ = "EvidenceStatisticAttributeEstimate"
+
+
+class EvidenceStatisticModelCharacteristicType(AbstractType):
+    __resource_type__ = "EvidenceStatisticModelCharacteristic"
+
+
+class EvidenceStatisticModelCharacteristicVariableType(AbstractType):
+    __resource_type__ = "EvidenceStatisticModelCharacteristicVariable"
+
+
+class EvidenceStatisticSampleSizeType(AbstractType):
+    __resource_type__ = "EvidenceStatisticSampleSize"
 
 
 class EvidenceVariableType(AbstractType):
@@ -1904,8 +2000,16 @@ class EvidenceVariableCharacteristicType(AbstractType):
     __resource_type__ = "EvidenceVariableCharacteristic"
 
 
-class EvidenceVariableCharacteristicTimeFromStartType(AbstractType):
-    __resource_type__ = "EvidenceVariableCharacteristicTimeFromStart"
+class EvidenceVariableCharacteristicDefinitionByCombinationType(AbstractType):
+    __resource_type__ = "EvidenceVariableCharacteristicDefinitionByCombination"
+
+
+class EvidenceVariableCharacteristicDefinitionByTypeAndValueType(AbstractType):
+    __resource_type__ = "EvidenceVariableCharacteristicDefinitionByTypeAndValue"
+
+
+class EvidenceVariableCharacteristicTimeFromEventType(AbstractType):
+    __resource_type__ = "EvidenceVariableCharacteristicTimeFromEvent"
 
 
 class EvidenceVariableDefinitionType(AbstractType):
@@ -1960,6 +2064,10 @@ class ExplanationOfBenefitAddItemType(AbstractType):
     __resource_type__ = "ExplanationOfBenefitAddItem"
 
 
+class ExplanationOfBenefitAddItemBodySiteType(AbstractType):
+    __resource_type__ = "ExplanationOfBenefitAddItemBodySite"
+
+
 class ExplanationOfBenefitAddItemDetailType(AbstractType):
     __resource_type__ = "ExplanationOfBenefitAddItemDetail"
 
@@ -1994,6 +2102,10 @@ class ExplanationOfBenefitItemType(AbstractType):
 
 class ExplanationOfBenefitItemAdjudicationType(AbstractType):
     __resource_type__ = "ExplanationOfBenefitItemAdjudication"
+
+
+class ExplanationOfBenefitItemBodySiteType(AbstractType):
+    __resource_type__ = "ExplanationOfBenefitItemBodySite"
 
 
 class ExplanationOfBenefitItemDetailType(AbstractType):
@@ -2036,6 +2148,10 @@ class ExpressionType(AbstractType):
     __resource_type__ = "Expression"
 
 
+class ExtendedContactDetailType(AbstractType):
+    __resource_type__ = "ExtendedContactDetail"
+
+
 class ExtensionType(AbstractType):
     __resource_type__ = "Extension"
 
@@ -2054,6 +2170,34 @@ class FamilyMemberHistoryProcedureType(AbstractType):
 
 class FlagType(AbstractType):
     __resource_type__ = "Flag"
+
+
+class FormularyItemType(AbstractType):
+    __resource_type__ = "FormularyItem"
+
+
+class GenomicStudyType(AbstractType):
+    __resource_type__ = "GenomicStudy"
+
+
+class GenomicStudyAnalysisType(AbstractType):
+    __resource_type__ = "GenomicStudyAnalysis"
+
+
+class GenomicStudyAnalysisDeviceType(AbstractType):
+    __resource_type__ = "GenomicStudyAnalysisDevice"
+
+
+class GenomicStudyAnalysisInputType(AbstractType):
+    __resource_type__ = "GenomicStudyAnalysisInput"
+
+
+class GenomicStudyAnalysisOutputType(AbstractType):
+    __resource_type__ = "GenomicStudyAnalysisOutput"
+
+
+class GenomicStudyAnalysisPerformerType(AbstractType):
+    __resource_type__ = "GenomicStudyAnalysisPerformer"
 
 
 class GoalType(AbstractType):
@@ -2100,16 +2244,8 @@ class HealthcareServiceType(AbstractType):
     __resource_type__ = "HealthcareService"
 
 
-class HealthcareServiceAvailableTimeType(AbstractType):
-    __resource_type__ = "HealthcareServiceAvailableTime"
-
-
 class HealthcareServiceEligibilityType(AbstractType):
     __resource_type__ = "HealthcareServiceEligibility"
-
-
-class HealthcareServiceNotAvailableType(AbstractType):
-    __resource_type__ = "HealthcareServiceNotAvailable"
 
 
 class HumanNameType(AbstractType):
@@ -2120,12 +2256,28 @@ class IdentifierType(AbstractType):
     __resource_type__ = "Identifier"
 
 
+class ImagingSelectionType(AbstractType):
+    __resource_type__ = "ImagingSelection"
+
+
+class ImagingSelectionImageRegionType(AbstractType):
+    __resource_type__ = "ImagingSelectionImageRegion"
+
+
+class ImagingSelectionInstanceType(AbstractType):
+    __resource_type__ = "ImagingSelectionInstance"
+
+
+class ImagingSelectionInstanceImageRegionType(AbstractType):
+    __resource_type__ = "ImagingSelectionInstanceImageRegion"
+
+
+class ImagingSelectionPerformerType(AbstractType):
+    __resource_type__ = "ImagingSelectionPerformer"
+
+
 class ImagingStudyType(AbstractType):
     __resource_type__ = "ImagingStudy"
-
-
-class ImagingStudyProcedureType(AbstractType):
-    __resource_type__ = "ImagingStudyProcedure"
 
 
 class ImagingStudySeriesType(AbstractType):
@@ -2144,16 +2296,16 @@ class ImmunizationType(AbstractType):
     __resource_type__ = "Immunization"
 
 
-class ImmunizationEducationType(AbstractType):
-    __resource_type__ = "ImmunizationEducation"
-
-
 class ImmunizationEvaluationType(AbstractType):
     __resource_type__ = "ImmunizationEvaluation"
 
 
 class ImmunizationPerformerType(AbstractType):
     __resource_type__ = "ImmunizationPerformer"
+
+
+class ImmunizationProgramEligibilityType(AbstractType):
+    __resource_type__ = "ImmunizationProgramEligibility"
 
 
 class ImmunizationProtocolAppliedType(AbstractType):
@@ -2228,8 +2380,8 @@ class IngredientType(AbstractType):
     __resource_type__ = "Ingredient"
 
 
-class IngredientSpecifiedSubstanceType(AbstractType):
-    __resource_type__ = "IngredientSpecifiedSubstance"
+class IngredientManufacturerType(AbstractType):
+    __resource_type__ = "IngredientManufacturer"
 
 
 class IngredientSubstanceType(AbstractType):
@@ -2246,10 +2398,6 @@ class IngredientSubstanceStrengthReferenceStrengthType(AbstractType):
 
 class InsurancePlanType(AbstractType):
     __resource_type__ = "InsurancePlan"
-
-
-class InsurancePlanContactType(AbstractType):
-    __resource_type__ = "InsurancePlanContact"
 
 
 class InsurancePlanCoverageType(AbstractType):
@@ -2304,10 +2452,6 @@ class InvoiceLineItemType(AbstractType):
     __resource_type__ = "InvoiceLineItem"
 
 
-class InvoiceLineItemPriceComponentType(AbstractType):
-    __resource_type__ = "InvoiceLineItemPriceComponent"
-
-
 class InvoiceParticipantType(AbstractType):
     __resource_type__ = "InvoiceParticipant"
 
@@ -2336,16 +2480,20 @@ class LocationType(AbstractType):
     __resource_type__ = "Location"
 
 
-class LocationHoursOfOperationType(AbstractType):
-    __resource_type__ = "LocationHoursOfOperation"
-
-
 class LocationPositionType(AbstractType):
     __resource_type__ = "LocationPosition"
 
 
 class ManufacturedItemDefinitionType(AbstractType):
     __resource_type__ = "ManufacturedItemDefinition"
+
+
+class ManufacturedItemDefinitionComponentType(AbstractType):
+    __resource_type__ = "ManufacturedItemDefinitionComponent"
+
+
+class ManufacturedItemDefinitionComponentConstituentType(AbstractType):
+    __resource_type__ = "ManufacturedItemDefinitionComponentConstituent"
 
 
 class ManufacturedItemDefinitionPropertyType(AbstractType):
@@ -2408,6 +2556,10 @@ class MeasureSupplementalDataType(AbstractType):
     __resource_type__ = "MeasureSupplementalData"
 
 
+class MeasureTermType(AbstractType):
+    __resource_type__ = "MeasureTerm"
+
+
 class MedicationType(AbstractType):
     __resource_type__ = "Medication"
 
@@ -2452,8 +2604,16 @@ class MedicationKnowledgeCostType(AbstractType):
     __resource_type__ = "MedicationKnowledgeCost"
 
 
-class MedicationKnowledgeDrugCharacteristicType(AbstractType):
-    __resource_type__ = "MedicationKnowledgeDrugCharacteristic"
+class MedicationKnowledgeDefinitionalType(AbstractType):
+    __resource_type__ = "MedicationKnowledgeDefinitional"
+
+
+class MedicationKnowledgeDefinitionalDrugCharacteristicType(AbstractType):
+    __resource_type__ = "MedicationKnowledgeDefinitionalDrugCharacteristic"
+
+
+class MedicationKnowledgeDefinitionalIngredientType(AbstractType):
+    __resource_type__ = "MedicationKnowledgeDefinitionalIngredient"
 
 
 class MedicationKnowledgeIndicationGuidelineType(AbstractType):
@@ -2468,20 +2628,8 @@ class MedicationKnowledgeIndicationGuidelineDosingGuidelineDosageType(AbstractTy
     __resource_type__ = "MedicationKnowledgeIndicationGuidelineDosingGuidelineDosage"
 
 
-class MedicationKnowledgeIndicationGuidelineDosingGuidelinePatientCharacteristicType(
-    AbstractType
-):
-    __resource_type__ = (
-        "MedicationKnowledgeIndicationGuidelineDosingGuidelinePatientCharacteristic"
-    )
-
-
-class MedicationKnowledgeIngredientType(AbstractType):
-    __resource_type__ = "MedicationKnowledgeIngredient"
-
-
-class MedicationKnowledgeKineticCharacteristicType(AbstractType):
-    __resource_type__ = "MedicationKnowledgeKineticCharacteristic"
+class MedicationKnowledgeIndicationGuidelineDosingGuidelinePatientCharacteristicType(AbstractType):
+    __resource_type__ = "MedicationKnowledgeIndicationGuidelineDosingGuidelinePatientCharacteristic"
 
 
 class MedicationKnowledgeMedicineClassificationType(AbstractType):
@@ -2516,6 +2664,14 @@ class MedicationKnowledgeRelatedMedicationKnowledgeType(AbstractType):
     __resource_type__ = "MedicationKnowledgeRelatedMedicationKnowledge"
 
 
+class MedicationKnowledgeStorageGuidelineType(AbstractType):
+    __resource_type__ = "MedicationKnowledgeStorageGuideline"
+
+
+class MedicationKnowledgeStorageGuidelineEnvironmentalSettingType(AbstractType):
+    __resource_type__ = "MedicationKnowledgeStorageGuidelineEnvironmentalSetting"
+
+
 class MedicationRequestType(AbstractType):
     __resource_type__ = "MedicationRequest"
 
@@ -2528,6 +2684,10 @@ class MedicationRequestDispenseRequestInitialFillType(AbstractType):
     __resource_type__ = "MedicationRequestDispenseRequestInitialFill"
 
 
+class MedicationRequestDoseType(AbstractType):
+    __resource_type__ = "MedicationRequestDose"
+
+
 class MedicationRequestSubstitutionType(AbstractType):
     __resource_type__ = "MedicationRequestSubstitution"
 
@@ -2536,12 +2696,16 @@ class MedicationUsageType(AbstractType):
     __resource_type__ = "MedicationUsage"
 
 
+class MedicationUsageAdherenceType(AbstractType):
+    __resource_type__ = "MedicationUsageAdherence"
+
+
 class MedicinalProductDefinitionType(AbstractType):
     __resource_type__ = "MedicinalProductDefinition"
 
 
-class MedicinalProductDefinitionAdministrableProductType(AbstractType):
-    __resource_type__ = "MedicinalProductDefinitionAdministrableProduct"
+class MedicinalProductDefinitionCharacteristicType(AbstractType):
+    __resource_type__ = "MedicinalProductDefinitionCharacteristic"
 
 
 class MedicinalProductDefinitionContactType(AbstractType):
@@ -2556,20 +2720,16 @@ class MedicinalProductDefinitionNameType(AbstractType):
     __resource_type__ = "MedicinalProductDefinitionName"
 
 
-class MedicinalProductDefinitionNameCountryLanguageType(AbstractType):
-    __resource_type__ = "MedicinalProductDefinitionNameCountryLanguage"
+class MedicinalProductDefinitionNamePartType(AbstractType):
+    __resource_type__ = "MedicinalProductDefinitionNamePart"
 
 
-class MedicinalProductDefinitionNameNamePartType(AbstractType):
-    __resource_type__ = "MedicinalProductDefinitionNameNamePart"
+class MedicinalProductDefinitionNameUsageType(AbstractType):
+    __resource_type__ = "MedicinalProductDefinitionNameUsage"
 
 
 class MedicinalProductDefinitionOperationType(AbstractType):
     __resource_type__ = "MedicinalProductDefinitionOperation"
-
-
-class MedicinalProductDefinitionPackageType(AbstractType):
-    __resource_type__ = "MedicinalProductDefinitionPackage"
 
 
 class MessageDefinitionType(AbstractType):
@@ -2612,36 +2772,20 @@ class MolecularSequenceType(AbstractType):
     __resource_type__ = "MolecularSequence"
 
 
-class MolecularSequenceQualityType(AbstractType):
-    __resource_type__ = "MolecularSequenceQuality"
+class MolecularSequenceRelativeType(AbstractType):
+    __resource_type__ = "MolecularSequenceRelative"
 
 
-class MolecularSequenceQualityRocType(AbstractType):
-    __resource_type__ = "MolecularSequenceQualityRoc"
+class MolecularSequenceRelativeEditType(AbstractType):
+    __resource_type__ = "MolecularSequenceRelativeEdit"
 
 
-class MolecularSequenceReferenceSeqType(AbstractType):
-    __resource_type__ = "MolecularSequenceReferenceSeq"
+class MolecularSequenceRelativeStartingSequenceType(AbstractType):
+    __resource_type__ = "MolecularSequenceRelativeStartingSequence"
 
 
-class MolecularSequenceRepositoryType(AbstractType):
-    __resource_type__ = "MolecularSequenceRepository"
-
-
-class MolecularSequenceStructureVariantType(AbstractType):
-    __resource_type__ = "MolecularSequenceStructureVariant"
-
-
-class MolecularSequenceStructureVariantInnerType(AbstractType):
-    __resource_type__ = "MolecularSequenceStructureVariantInner"
-
-
-class MolecularSequenceStructureVariantOuterType(AbstractType):
-    __resource_type__ = "MolecularSequenceStructureVariantOuter"
-
-
-class MolecularSequenceVariantType(AbstractType):
-    __resource_type__ = "MolecularSequenceVariant"
+class MonetaryComponentType(AbstractType):
+    __resource_type__ = "MonetaryComponent"
 
 
 class MoneyType(AbstractType):
@@ -2684,8 +2828,16 @@ class NutritionOrderEnteralFormulaType(AbstractType):
     __resource_type__ = "NutritionOrderEnteralFormula"
 
 
+class NutritionOrderEnteralFormulaAdditiveType(AbstractType):
+    __resource_type__ = "NutritionOrderEnteralFormulaAdditive"
+
+
 class NutritionOrderEnteralFormulaAdministrationType(AbstractType):
     __resource_type__ = "NutritionOrderEnteralFormulaAdministration"
+
+
+class NutritionOrderEnteralFormulaAdministrationScheduleType(AbstractType):
+    __resource_type__ = "NutritionOrderEnteralFormulaAdministrationSchedule"
 
 
 class NutritionOrderOralDietType(AbstractType):
@@ -2696,6 +2848,10 @@ class NutritionOrderOralDietNutrientType(AbstractType):
     __resource_type__ = "NutritionOrderOralDietNutrient"
 
 
+class NutritionOrderOralDietScheduleType(AbstractType):
+    __resource_type__ = "NutritionOrderOralDietSchedule"
+
+
 class NutritionOrderOralDietTextureType(AbstractType):
     __resource_type__ = "NutritionOrderOralDietTexture"
 
@@ -2704,8 +2860,16 @@ class NutritionOrderSupplementType(AbstractType):
     __resource_type__ = "NutritionOrderSupplement"
 
 
+class NutritionOrderSupplementScheduleType(AbstractType):
+    __resource_type__ = "NutritionOrderSupplementSchedule"
+
+
 class NutritionProductType(AbstractType):
     __resource_type__ = "NutritionProduct"
+
+
+class NutritionProductCharacteristicType(AbstractType):
+    __resource_type__ = "NutritionProductCharacteristic"
 
 
 class NutritionProductIngredientType(AbstractType):
@@ -2718,10 +2882,6 @@ class NutritionProductInstanceType(AbstractType):
 
 class NutritionProductNutrientType(AbstractType):
     __resource_type__ = "NutritionProductNutrient"
-
-
-class NutritionProductProductCharacteristicType(AbstractType):
-    __resource_type__ = "NutritionProductProductCharacteristic"
 
 
 class ObservationType(AbstractType):
@@ -2752,6 +2912,10 @@ class ObservationReferenceRangeType(AbstractType):
     __resource_type__ = "ObservationReferenceRange"
 
 
+class ObservationTriggeredByType(AbstractType):
+    __resource_type__ = "ObservationTriggeredBy"
+
+
 class OperationDefinitionType(AbstractType):
     __resource_type__ = "OperationDefinition"
 
@@ -2780,14 +2944,6 @@ class OperationOutcomeIssueType(AbstractType):
     __resource_type__ = "OperationOutcomeIssue"
 
 
-class OrderedDistributionType(AbstractType):
-    __resource_type__ = "OrderedDistribution"
-
-
-class OrderedDistributionIntervalType(AbstractType):
-    __resource_type__ = "OrderedDistributionInterval"
-
-
 class OrganizationType(AbstractType):
     __resource_type__ = "Organization"
 
@@ -2796,24 +2952,28 @@ class OrganizationAffiliationType(AbstractType):
     __resource_type__ = "OrganizationAffiliation"
 
 
-class OrganizationContactType(AbstractType):
-    __resource_type__ = "OrganizationContact"
+class OrganizationQualificationType(AbstractType):
+    __resource_type__ = "OrganizationQualification"
 
 
 class PackagedProductDefinitionType(AbstractType):
     __resource_type__ = "PackagedProductDefinition"
 
 
-class PackagedProductDefinitionPackageType(AbstractType):
-    __resource_type__ = "PackagedProductDefinitionPackage"
+class PackagedProductDefinitionLegalStatusOfSupplyType(AbstractType):
+    __resource_type__ = "PackagedProductDefinitionLegalStatusOfSupply"
 
 
-class PackagedProductDefinitionPackageContainedItemType(AbstractType):
-    __resource_type__ = "PackagedProductDefinitionPackageContainedItem"
+class PackagedProductDefinitionPackagingType(AbstractType):
+    __resource_type__ = "PackagedProductDefinitionPackaging"
 
 
-class PackagedProductDefinitionPackagePropertyType(AbstractType):
-    __resource_type__ = "PackagedProductDefinitionPackageProperty"
+class PackagedProductDefinitionPackagingContainedItemType(AbstractType):
+    __resource_type__ = "PackagedProductDefinitionPackagingContainedItem"
+
+
+class PackagedProductDefinitionPackagingPropertyType(AbstractType):
+    __resource_type__ = "PackagedProductDefinitionPackagingProperty"
 
 
 class ParameterDefinitionType(AbstractType):
@@ -2852,8 +3012,8 @@ class PaymentReconciliationType(AbstractType):
     __resource_type__ = "PaymentReconciliation"
 
 
-class PaymentReconciliationDetailType(AbstractType):
-    __resource_type__ = "PaymentReconciliationDetail"
+class PaymentReconciliationAllocationType(AbstractType):
+    __resource_type__ = "PaymentReconciliationAllocation"
 
 
 class PaymentReconciliationProcessNoteType(AbstractType):
@@ -2872,12 +3032,28 @@ class PermissionJustificationType(AbstractType):
     __resource_type__ = "PermissionJustification"
 
 
-class PermissionProcessingActivityType(AbstractType):
-    __resource_type__ = "PermissionProcessingActivity"
+class PermissionRuleType(AbstractType):
+    __resource_type__ = "PermissionRule"
+
+
+class PermissionRuleActivityType(AbstractType):
+    __resource_type__ = "PermissionRuleActivity"
+
+
+class PermissionRuleDataType(AbstractType):
+    __resource_type__ = "PermissionRuleData"
+
+
+class PermissionRuleDataResourceType(AbstractType):
+    __resource_type__ = "PermissionRuleDataResource"
 
 
 class PersonType(AbstractType):
     __resource_type__ = "Person"
+
+
+class PersonCommunicationType(AbstractType):
+    __resource_type__ = "PersonCommunication"
 
 
 class PersonLinkType(AbstractType):
@@ -2900,12 +3076,28 @@ class PlanDefinitionActionDynamicValueType(AbstractType):
     __resource_type__ = "PlanDefinitionActionDynamicValue"
 
 
+class PlanDefinitionActionInputType(AbstractType):
+    __resource_type__ = "PlanDefinitionActionInput"
+
+
+class PlanDefinitionActionOutputType(AbstractType):
+    __resource_type__ = "PlanDefinitionActionOutput"
+
+
 class PlanDefinitionActionParticipantType(AbstractType):
     __resource_type__ = "PlanDefinitionActionParticipant"
 
 
 class PlanDefinitionActionRelatedActionType(AbstractType):
     __resource_type__ = "PlanDefinitionActionRelatedAction"
+
+
+class PlanDefinitionActorType(AbstractType):
+    __resource_type__ = "PlanDefinitionActor"
+
+
+class PlanDefinitionActorOptionType(AbstractType):
+    __resource_type__ = "PlanDefinitionActorOption"
 
 
 class PlanDefinitionGoalType(AbstractType):
@@ -2932,14 +3124,6 @@ class PractitionerRoleType(AbstractType):
     __resource_type__ = "PractitionerRole"
 
 
-class PractitionerRoleAvailableTimeType(AbstractType):
-    __resource_type__ = "PractitionerRoleAvailableTime"
-
-
-class PractitionerRoleNotAvailableType(AbstractType):
-    __resource_type__ = "PractitionerRoleNotAvailable"
-
-
 class PrimitiveTypeType(AbstractType):
     __resource_type__ = "PrimitiveType"
 
@@ -2954,10 +3138,6 @@ class ProcedureFocalDeviceType(AbstractType):
 
 class ProcedurePerformerType(AbstractType):
     __resource_type__ = "ProcedurePerformer"
-
-
-class ProdCharacteristicType(AbstractType):
-    __resource_type__ = "ProdCharacteristic"
 
 
 class ProductShelfLifeType(AbstractType):
@@ -3036,10 +3216,6 @@ class RegulatedAuthorizationCaseType(AbstractType):
     __resource_type__ = "RegulatedAuthorizationCase"
 
 
-class RegulatedAuthorizationRelatedDateType(AbstractType):
-    __resource_type__ = "RegulatedAuthorizationRelatedDate"
-
-
 class RelatedArtifactType(AbstractType):
     __resource_type__ = "RelatedArtifact"
 
@@ -3052,36 +3228,60 @@ class RelatedPersonCommunicationType(AbstractType):
     __resource_type__ = "RelatedPersonCommunication"
 
 
-class RequestGroupType(AbstractType):
-    __resource_type__ = "RequestGroup"
+class RequestOrchestrationType(AbstractType):
+    __resource_type__ = "RequestOrchestration"
 
 
-class RequestGroupActionType(AbstractType):
-    __resource_type__ = "RequestGroupAction"
+class RequestOrchestrationActionType(AbstractType):
+    __resource_type__ = "RequestOrchestrationAction"
 
 
-class RequestGroupActionConditionType(AbstractType):
-    __resource_type__ = "RequestGroupActionCondition"
+class RequestOrchestrationActionConditionType(AbstractType):
+    __resource_type__ = "RequestOrchestrationActionCondition"
 
 
-class RequestGroupActionRelatedActionType(AbstractType):
-    __resource_type__ = "RequestGroupActionRelatedAction"
+class RequestOrchestrationActionDynamicValueType(AbstractType):
+    __resource_type__ = "RequestOrchestrationActionDynamicValue"
+
+
+class RequestOrchestrationActionInputType(AbstractType):
+    __resource_type__ = "RequestOrchestrationActionInput"
+
+
+class RequestOrchestrationActionOutputType(AbstractType):
+    __resource_type__ = "RequestOrchestrationActionOutput"
+
+
+class RequestOrchestrationActionParticipantType(AbstractType):
+    __resource_type__ = "RequestOrchestrationActionParticipant"
+
+
+class RequestOrchestrationActionRelatedActionType(AbstractType):
+    __resource_type__ = "RequestOrchestrationActionRelatedAction"
+
+
+class RequirementsType(AbstractType):
+    __resource_type__ = "Requirements"
+
+
+class RequirementsStatementType(AbstractType):
+    __resource_type__ = "RequirementsStatement"
 
 
 class ResearchStudyType(AbstractType):
     __resource_type__ = "ResearchStudy"
 
 
-class ResearchStudyArmType(AbstractType):
-    __resource_type__ = "ResearchStudyArm"
-
-
 class ResearchStudyAssociatedPartyType(AbstractType):
     __resource_type__ = "ResearchStudyAssociatedParty"
 
 
-class ResearchStudyClassificationType(AbstractType):
-    __resource_type__ = "ResearchStudyClassification"
+class ResearchStudyComparisonGroupType(AbstractType):
+    __resource_type__ = "ResearchStudyComparisonGroup"
+
+
+class ResearchStudyFocusType(AbstractType):
+    __resource_type__ = "ResearchStudyFocus"
 
 
 class ResearchStudyLabelType(AbstractType):
@@ -3096,16 +3296,16 @@ class ResearchStudyOutcomeMeasureType(AbstractType):
     __resource_type__ = "ResearchStudyOutcomeMeasure"
 
 
+class ResearchStudyProgressStatusType(AbstractType):
+    __resource_type__ = "ResearchStudyProgressStatus"
+
+
 class ResearchStudyRecruitmentType(AbstractType):
     __resource_type__ = "ResearchStudyRecruitment"
 
 
-class ResearchStudyRelatesToType(AbstractType):
-    __resource_type__ = "ResearchStudyRelatesTo"
-
-
-class ResearchStudyStatusDateType(AbstractType):
-    __resource_type__ = "ResearchStudyStatusDate"
+class ResearchStudyWebLocationType(AbstractType):
+    __resource_type__ = "ResearchStudyWebLocation"
 
 
 class ResearchSubjectType(AbstractType):
@@ -3114,6 +3314,7 @@ class ResearchSubjectType(AbstractType):
 
 class ResearchSubjectProgressType(AbstractType):
     __resource_type__ = "ResearchSubjectProgress"
+
 
 
 class RiskAssessmentType(AbstractType):
@@ -3184,32 +3385,12 @@ class SpecimenDefinitionTypeTestedHandlingType(AbstractType):
     __resource_type__ = "SpecimenDefinitionTypeTestedHandling"
 
 
+class SpecimenFeatureType(AbstractType):
+    __resource_type__ = "SpecimenFeature"
+
+
 class SpecimenProcessingType(AbstractType):
     __resource_type__ = "SpecimenProcessing"
-
-
-class StatisticType(AbstractType):
-    __resource_type__ = "Statistic"
-
-
-class StatisticAttributeEstimateType(AbstractType):
-    __resource_type__ = "StatisticAttributeEstimate"
-
-
-class StatisticAttributeEstimateAttributeEstimateType(AbstractType):
-    __resource_type__ = "StatisticAttributeEstimateAttributeEstimate"
-
-
-class StatisticModelCharacteristicType(AbstractType):
-    __resource_type__ = "StatisticModelCharacteristic"
-
-
-class StatisticModelCharacteristicVariableType(AbstractType):
-    __resource_type__ = "StatisticModelCharacteristicVariable"
-
-
-class StatisticSampleSizeType(AbstractType):
-    __resource_type__ = "StatisticSampleSize"
 
 
 class StructureDefinitionType(AbstractType):
@@ -3280,16 +3461,28 @@ class SubscriptionStatusType(AbstractType):
     __resource_type__ = "SubscriptionStatus"
 
 
+class SubscriptionStatusNotificationEventType(AbstractType):
+    __resource_type__ = "SubscriptionStatusNotificationEvent"
+
+
 class SubscriptionTopicType(AbstractType):
     __resource_type__ = "SubscriptionTopic"
 
 
+class SubscriptionTopicCanFilterByType(AbstractType):
+    __resource_type__ = "SubscriptionTopicCanFilterBy"
+
+
+class SubscriptionTopicEventTriggerType(AbstractType):
+    __resource_type__ = "SubscriptionTopicEventTrigger"
+
+
+class SubscriptionTopicNotificationShapeType(AbstractType):
+    __resource_type__ = "SubscriptionTopicNotificationShape"
+
+
 class SubscriptionTopicResourceTriggerType(AbstractType):
     __resource_type__ = "SubscriptionTopicResourceTrigger"
-
-
-class SubscriptionTopicResourceTriggerCanFilterByType(AbstractType):
-    __resource_type__ = "SubscriptionTopicResourceTriggerCanFilterBy"
 
 
 class SubscriptionTopicResourceTriggerQueryCriteriaType(AbstractType):
@@ -3310,6 +3503,10 @@ class SubstanceDefinitionCodeType(AbstractType):
 
 class SubstanceDefinitionMoietyType(AbstractType):
     __resource_type__ = "SubstanceDefinitionMoiety"
+
+
+class SubstanceDefinitionMolecularWeightType(AbstractType):
+    __resource_type__ = "SubstanceDefinitionMolecularWeight"
 
 
 class SubstanceDefinitionNameType(AbstractType):
@@ -3334,14 +3531,6 @@ class SubstanceDefinitionSourceMaterialType(AbstractType):
 
 class SubstanceDefinitionStructureType(AbstractType):
     __resource_type__ = "SubstanceDefinitionStructure"
-
-
-class SubstanceDefinitionStructureIsotopeType(AbstractType):
-    __resource_type__ = "SubstanceDefinitionStructureIsotope"
-
-
-class SubstanceDefinitionStructureIsotopeMolecularWeightType(AbstractType):
-    __resource_type__ = "SubstanceDefinitionStructureIsotopeMolecularWeight"
 
 
 class SubstanceDefinitionStructureRepresentationType(AbstractType):
@@ -3644,6 +3833,22 @@ class TimingRepeatType(AbstractType):
     __resource_type__ = "TimingRepeat"
 
 
+class TransportType(AbstractType):
+    __resource_type__ = "Transport"
+
+
+class TransportInputType(AbstractType):
+    __resource_type__ = "TransportInput"
+
+
+class TransportOutputType(AbstractType):
+    __resource_type__ = "TransportOutput"
+
+
+class TransportRestrictionType(AbstractType):
+    __resource_type__ = "TransportRestriction"
+
+
 class TriggerDefinitionType(AbstractType):
     __resource_type__ = "TriggerDefinition"
 
@@ -3688,6 +3893,10 @@ class ValueSetExpansionContainsPropertyType(AbstractType):
     __resource_type__ = "ValueSetExpansionContainsProperty"
 
 
+class ValueSetExpansionContainsPropertySubPropertyType(AbstractType):
+    __resource_type__ = "ValueSetExpansionContainsPropertySubProperty"
+
+
 class ValueSetExpansionParameterType(AbstractType):
     __resource_type__ = "ValueSetExpansionParameter"
 
@@ -3716,6 +3925,10 @@ class VerificationResultValidatorType(AbstractType):
     __resource_type__ = "VerificationResultValidator"
 
 
+class VirtualServiceDetailType(AbstractType):
+    __resource_type__ = "VirtualServiceDetail"
+
+
 class VisionPrescriptionType(AbstractType):
     __resource_type__ = "VisionPrescription"
 
@@ -3726,7 +3939,6 @@ class VisionPrescriptionLensSpecificationType(AbstractType):
 
 class VisionPrescriptionLensSpecificationPrismType(AbstractType):
     __resource_type__ = "VisionPrescriptionLensSpecificationPrism"
-
 
 __all__ = [
     "Boolean",
@@ -3753,756 +3965,2406 @@ __all__ = [
     "FHIRPrimitiveExtensionType",
     "ElementType",
     "ResourceType",
-    "AccountType",
-    "AccountCoverageType",
-    "AccountGuarantorType",
-    "ActivityDefinitionType",
-    "ActivityDefinitionDynamicValueType",
-    "ActivityDefinitionParticipantType",
-    "AddressType",
-    "AdministrableProductDefinitionType",
-    "AdministrableProductDefinitionPropertyType",
-    "AdministrableProductDefinitionRouteOfAdministrationType",
-    "AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesType",
-    "AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriodType",
-    "AdverseEventType",
-    "AdverseEventContributingFactorType",
-    "AdverseEventMitigatingActionType",
-    "AdverseEventParticipantType",
-    "AdverseEventPreventiveActionType",
-    "AdverseEventSupportingInfoType",
-    "AdverseEventSuspectEntityType",
-    "AdverseEventSuspectEntityCausalityType",
-    "AgeType",
-    "AllergyIntoleranceType",
-    "AllergyIntoleranceReactionType",
-    "AnnotationType",
-    "AppointmentType",
-    "AppointmentParticipantType",
-    "AppointmentResponseType",
-    "AttachmentType",
-    "AuditEventType",
-    "AuditEventAgentType",
-    "AuditEventAgentNetworkType",
-    "AuditEventEntityType",
-    "AuditEventEntityDetailType",
-    "AuditEventSourceType",
-    "BackboneElementType",
-    "BackboneTypeType",
-    "BaseType",
-    "BasicType",
-    "BinaryType",
-    "BiologicallyDerivedProductType",
-    "BiologicallyDerivedProductCollectionType",
-    "BiologicallyDerivedProductManipulationType",
-    "BiologicallyDerivedProductProcessingType",
-    "BiologicallyDerivedProductStorageType",
-    "BodyStructureType",
-    "BundleType",
-    "BundleEntryType",
-    "BundleEntryRequestType",
-    "BundleEntryResponseType",
-    "BundleEntrySearchType",
-    "BundleLinkType",
-    "CanonicalResourceType",
-    "CapabilityStatementType",
-    "CapabilityStatement2Type",
-    "CapabilityStatement2ImplementationType",
-    "CapabilityStatement2RestType",
-    "CapabilityStatement2RestFeatureType",
-    "CapabilityStatement2RestInteractionType",
-    "CapabilityStatement2RestResourceType",
-    "CapabilityStatement2RestResourceInteractionType",
-    "CapabilityStatement2RestResourceOperationType",
-    "CapabilityStatement2RestResourceSearchParamType",
-    "CapabilityStatement2SoftwareType",
-    "CapabilityStatementDocumentType",
-    "CapabilityStatementImplementationType",
-    "CapabilityStatementMessagingType",
-    "CapabilityStatementMessagingEndpointType",
-    "CapabilityStatementMessagingSupportedMessageType",
-    "CapabilityStatementRestType",
-    "CapabilityStatementRestInteractionType",
-    "CapabilityStatementRestResourceType",
-    "CapabilityStatementRestResourceInteractionType",
-    "CapabilityStatementRestResourceOperationType",
-    "CapabilityStatementRestResourceSearchParamType",
-    "CapabilityStatementRestSecurityType",
-    "CapabilityStatementSoftwareType",
-    "CarePlanType",
-    "CarePlanActivityType",
-    "CarePlanActivityPlannedActivityDetailType",
-    "CareTeamType",
-    "CareTeamParticipantType",
-    "CatalogEntryType",
-    "CatalogEntryRelatedEntryType",
-    "ChargeItemType",
-    "ChargeItemDefinitionType",
-    "ChargeItemDefinitionApplicabilityType",
-    "ChargeItemDefinitionPropertyGroupType",
-    "ChargeItemDefinitionPropertyGroupPriceComponentType",
-    "ChargeItemPerformerType",
-    "CitationType",
-    "CitationCitedArtifactType",
-    "CitationCitedArtifactAbstractType",
-    "CitationCitedArtifactClassificationType",
-    "CitationCitedArtifactClassificationWhoClassifiedType",
-    "CitationCitedArtifactContributorshipType",
-    "CitationCitedArtifactContributorshipEntryType",
-    "CitationCitedArtifactContributorshipEntryAffiliationInfoType",
-    "CitationCitedArtifactContributorshipEntryContributionInstanceType",
-    "CitationCitedArtifactContributorshipSummaryType",
-    "CitationCitedArtifactPartType",
-    "CitationCitedArtifactPublicationFormType",
-    "CitationCitedArtifactPublicationFormPeriodicReleaseType",
-    "CitationCitedArtifactPublicationFormPeriodicReleaseDateOfPublicationType",
-    "CitationCitedArtifactPublicationFormPublishedInType",
-    "CitationCitedArtifactRelatesToType",
-    "CitationCitedArtifactStatusDateType",
-    "CitationCitedArtifactTitleType",
-    "CitationCitedArtifactVersionType",
-    "CitationCitedArtifactWebLocationType",
-    "CitationClassificationType",
-    "CitationRelatesToType",
-    "CitationStatusDateType",
-    "CitationSummaryType",
-    "ClaimType",
-    "ClaimAccidentType",
-    "ClaimCareTeamType",
-    "ClaimDiagnosisType",
-    "ClaimInsuranceType",
-    "ClaimItemType",
-    "ClaimItemDetailType",
-    "ClaimItemDetailSubDetailType",
-    "ClaimPayeeType",
-    "ClaimProcedureType",
-    "ClaimRelatedType",
-    "ClaimResponseType",
-    "ClaimResponseAddItemType",
-    "ClaimResponseAddItemDetailType",
-    "ClaimResponseAddItemDetailSubDetailType",
-    "ClaimResponseErrorType",
-    "ClaimResponseInsuranceType",
-    "ClaimResponseItemType",
-    "ClaimResponseItemAdjudicationType",
-    "ClaimResponseItemDetailType",
-    "ClaimResponseItemDetailSubDetailType",
-    "ClaimResponsePaymentType",
-    "ClaimResponseProcessNoteType",
-    "ClaimResponseTotalType",
-    "ClaimSupportingInfoType",
-    "ClinicalImpressionType",
-    "ClinicalImpressionFindingType",
-    "ClinicalUseIssueType",
-    "ClinicalUseIssueContraindicationType",
-    "ClinicalUseIssueContraindicationOtherTherapyType",
-    "ClinicalUseIssueIndicationType",
-    "ClinicalUseIssueInteractionType",
-    "ClinicalUseIssueInteractionInteractantType",
-    "ClinicalUseIssueUndesirableEffectType",
-    "CodeSystemType",
-    "CodeSystemConceptType",
-    "CodeSystemConceptDesignationType",
-    "CodeSystemConceptPropertyType",
-    "CodeSystemFilterType",
-    "CodeSystemPropertyType",
-    "CodeableConceptType",
-    "CodeableReferenceType",
-    "CodingType",
-    "CommunicationType",
-    "CommunicationPayloadType",
-    "CommunicationRequestType",
-    "CommunicationRequestPayloadType",
-    "CompartmentDefinitionType",
-    "CompartmentDefinitionResourceType",
-    "CompositionType",
-    "CompositionAttesterType",
-    "CompositionEventType",
-    "CompositionRelatesToType",
-    "CompositionSectionType",
-    "ConceptMapType",
-    "ConceptMapGroupType",
-    "ConceptMapGroupElementType",
-    "ConceptMapGroupElementTargetType",
-    "ConceptMapGroupElementTargetDependsOnType",
-    "ConceptMapGroupUnmappedType",
-    "ConditionType",
-    "ConditionDefinitionType",
-    "ConditionDefinitionMedicationType",
-    "ConditionDefinitionObservationType",
-    "ConditionDefinitionPlanType",
-    "ConditionDefinitionPreconditionType",
-    "ConditionDefinitionQuestionnaireType",
-    "ConditionEvidenceType",
-    "ConditionStageType",
-    "ConsentType",
-    "ConsentPolicyType",
-    "ConsentProvisionType",
-    "ConsentProvisionActorType",
-    "ConsentProvisionDataType",
-    "ConsentVerificationType",
-    "ContactDetailType",
-    "ContactPointType",
-    "ContractType",
-    "ContractContentDefinitionType",
-    "ContractFriendlyType",
-    "ContractLegalType",
-    "ContractRuleType",
-    "ContractSignerType",
-    "ContractTermType",
-    "ContractTermActionType",
-    "ContractTermActionSubjectType",
-    "ContractTermAssetType",
-    "ContractTermAssetContextType",
-    "ContractTermAssetValuedItemType",
-    "ContractTermOfferType",
-    "ContractTermOfferAnswerType",
-    "ContractTermOfferPartyType",
-    "ContractTermSecurityLabelType",
-    "ContributorType",
-    "CountType",
-    "CoverageType",
-    "CoverageClassType",
-    "CoverageCostToBeneficiaryType",
-    "CoverageCostToBeneficiaryExceptionType",
-    "CoverageEligibilityRequestType",
-    "CoverageEligibilityRequestInsuranceType",
-    "CoverageEligibilityRequestItemType",
-    "CoverageEligibilityRequestItemDiagnosisType",
-    "CoverageEligibilityRequestSupportingInfoType",
-    "CoverageEligibilityResponseType",
-    "CoverageEligibilityResponseErrorType",
-    "CoverageEligibilityResponseInsuranceType",
-    "CoverageEligibilityResponseInsuranceItemType",
-    "CoverageEligibilityResponseInsuranceItemBenefitType",
-    "DataRequirementType",
-    "DataRequirementCodeFilterType",
-    "DataRequirementDateFilterType",
-    "DataRequirementSortType",
-    "DataTypeType",
-    "DetectedIssueType",
-    "DetectedIssueEvidenceType",
-    "DetectedIssueMitigationType",
-    "DeviceType",
-    "DeviceAssociationStatusType",
-    "DeviceDefinitionType",
-    "DeviceDefinitionCapabilityType",
-    "DeviceDefinitionDeviceNameType",
-    "DeviceDefinitionMaterialType",
-    "DeviceDefinitionPropertyType",
-    "DeviceDefinitionSpecializationType",
-    "DeviceDefinitionUdiDeviceIdentifierType",
-    "DeviceDefinitionVersionType",
-    "DeviceDeviceNameType",
-    "DeviceMetricType",
-    "DeviceMetricCalibrationType",
-    "DeviceOperationalStatusType",
-    "DevicePropertyType",
-    "DeviceRequestType",
-    "DeviceRequestParameterType",
-    "DeviceSpecializationType",
-    "DeviceUdiCarrierType",
-    "DeviceUsageType",
-    "DeviceVersionType",
-    "DiagnosticReportType",
-    "DiagnosticReportMediaType",
-    "DistanceType",
-    "DocumentManifestType",
-    "DocumentManifestRelatedType",
-    "DocumentReferenceType",
-    "DocumentReferenceAttesterType",
-    "DocumentReferenceContentType",
-    "DocumentReferenceRelatesToType",
-    "DomainResourceType",
-    "DosageType",
-    "DosageDoseAndRateType",
-    "DurationType",
-    "ElementDefinitionType",
-    "ElementDefinitionBaseType",
-    "ElementDefinitionBindingType",
-    "ElementDefinitionConstraintType",
-    "ElementDefinitionExampleType",
-    "ElementDefinitionMappingType",
-    "ElementDefinitionSlicingType",
-    "ElementDefinitionSlicingDiscriminatorType",
-    "ElementDefinitionTypeType",
-    "EncounterType",
-    "EncounterClassHistoryType",
-    "EncounterDiagnosisType",
-    "EncounterHospitalizationType",
-    "EncounterLocationType",
-    "EncounterParticipantType",
-    "EncounterStatusHistoryType",
-    "EndpointType",
-    "EnrollmentRequestType",
-    "EnrollmentResponseType",
-    "EpisodeOfCareType",
-    "EpisodeOfCareDiagnosisType",
-    "EpisodeOfCareStatusHistoryType",
-    "EventDefinitionType",
-    "EvidenceType",
-    "EvidenceCertaintyType",
-    "EvidenceReportType",
-    "EvidenceReportRelatesToType",
-    "EvidenceReportSectionType",
-    "EvidenceReportSubjectType",
-    "EvidenceReportSubjectCharacteristicType",
-    "EvidenceVariableType",
-    "EvidenceVariableCategoryType",
-    "EvidenceVariableCharacteristicType",
-    "EvidenceVariableCharacteristicTimeFromStartType",
-    "EvidenceVariableDefinitionType",
-    "ExampleScenarioType",
-    "ExampleScenarioActorType",
-    "ExampleScenarioInstanceType",
-    "ExampleScenarioInstanceContainedInstanceType",
-    "ExampleScenarioInstanceVersionType",
-    "ExampleScenarioProcessType",
-    "ExampleScenarioProcessStepType",
-    "ExampleScenarioProcessStepAlternativeType",
-    "ExampleScenarioProcessStepOperationType",
-    "ExplanationOfBenefitType",
-    "ExplanationOfBenefitAccidentType",
-    "ExplanationOfBenefitAddItemType",
-    "ExplanationOfBenefitAddItemDetailType",
-    "ExplanationOfBenefitAddItemDetailSubDetailType",
-    "ExplanationOfBenefitBenefitBalanceType",
-    "ExplanationOfBenefitBenefitBalanceFinancialType",
-    "ExplanationOfBenefitCareTeamType",
-    "ExplanationOfBenefitDiagnosisType",
-    "ExplanationOfBenefitInsuranceType",
-    "ExplanationOfBenefitItemType",
-    "ExplanationOfBenefitItemAdjudicationType",
-    "ExplanationOfBenefitItemDetailType",
-    "ExplanationOfBenefitItemDetailSubDetailType",
-    "ExplanationOfBenefitPayeeType",
-    "ExplanationOfBenefitPaymentType",
-    "ExplanationOfBenefitProcedureType",
-    "ExplanationOfBenefitProcessNoteType",
-    "ExplanationOfBenefitRelatedType",
-    "ExplanationOfBenefitSupportingInfoType",
-    "ExplanationOfBenefitTotalType",
-    "ExpressionType",
-    "ExtensionType",
-    "FamilyMemberHistoryType",
-    "FamilyMemberHistoryConditionType",
-    "FamilyMemberHistoryProcedureType",
-    "FlagType",
-    "GoalType",
-    "GoalTargetType",
-    "GraphDefinitionType",
-    "GraphDefinitionLinkType",
-    "GraphDefinitionLinkTargetType",
-    "GraphDefinitionLinkTargetCompartmentType",
-    "GroupType",
-    "GroupCharacteristicType",
-    "GroupMemberType",
-    "GuidanceResponseType",
-    "HealthcareServiceType",
-    "HealthcareServiceAvailableTimeType",
-    "HealthcareServiceEligibilityType",
-    "HealthcareServiceNotAvailableType",
-    "HumanNameType",
-    "IdentifierType",
-    "ImagingStudyType",
-    "ImagingStudyProcedureType",
-    "ImagingStudySeriesType",
-    "ImagingStudySeriesInstanceType",
-    "ImagingStudySeriesPerformerType",
-    "ImmunizationType",
-    "ImmunizationEducationType",
-    "ImmunizationEvaluationType",
-    "ImmunizationPerformerType",
-    "ImmunizationProtocolAppliedType",
-    "ImmunizationReactionType",
-    "ImmunizationRecommendationType",
-    "ImmunizationRecommendationRecommendationType",
-    "ImmunizationRecommendationRecommendationDateCriterionType",
-    "ImplementationGuideType",
-    "ImplementationGuideDefinitionType",
-    "ImplementationGuideDefinitionGroupingType",
-    "ImplementationGuideDefinitionPageType",
-    "ImplementationGuideDefinitionParameterType",
-    "ImplementationGuideDefinitionResourceType",
-    "ImplementationGuideDefinitionTemplateType",
-    "ImplementationGuideDependsOnType",
-    "ImplementationGuideGlobalType",
-    "ImplementationGuideManifestType",
-    "ImplementationGuideManifestPageType",
-    "ImplementationGuideManifestResourceType",
-    "IngredientType",
-    "IngredientSpecifiedSubstanceType",
-    "IngredientSubstanceType",
-    "IngredientSubstanceStrengthType",
-    "IngredientSubstanceStrengthReferenceStrengthType",
-    "InsurancePlanType",
-    "InsurancePlanContactType",
-    "InsurancePlanCoverageType",
-    "InsurancePlanCoverageBenefitType",
-    "InsurancePlanCoverageBenefitLimitType",
-    "InsurancePlanPlanType",
-    "InsurancePlanPlanGeneralCostType",
-    "InsurancePlanPlanSpecificCostType",
-    "InsurancePlanPlanSpecificCostBenefitType",
-    "InsurancePlanPlanSpecificCostBenefitCostType",
-    "InventoryReportType",
-    "InventoryReportInventoryListingType",
-    "InventoryReportInventoryListingItemsType",
-    "InvoiceType",
-    "InvoiceLineItemType",
-    "InvoiceLineItemPriceComponentType",
-    "InvoiceParticipantType",
-    "LibraryType",
-    "LinkageType",
-    "LinkageItemType",
-    "ListType",
-    "ListEntryType",
-    "LocationType",
-    "LocationHoursOfOperationType",
-    "LocationPositionType",
-    "ManufacturedItemDefinitionType",
-    "ManufacturedItemDefinitionPropertyType",
-    "MarketingStatusType",
-    "MeasureType",
-    "MeasureGroupType",
-    "MeasureGroupPopulationType",
-    "MeasureGroupStratifierType",
-    "MeasureGroupStratifierComponentType",
-    "MeasureReportType",
-    "MeasureReportGroupType",
-    "MeasureReportGroupPopulationType",
-    "MeasureReportGroupStratifierType",
-    "MeasureReportGroupStratifierStratumType",
-    "MeasureReportGroupStratifierStratumComponentType",
-    "MeasureReportGroupStratifierStratumPopulationType",
-    "MeasureSupplementalDataType",
-    "MedicationType",
-    "MedicationAdministrationType",
-    "MedicationAdministrationDosageType",
-    "MedicationAdministrationPerformerType",
-    "MedicationBatchType",
-    "MedicationDispenseType",
-    "MedicationDispensePerformerType",
-    "MedicationDispenseSubstitutionType",
-    "MedicationIngredientType",
-    "MedicationKnowledgeType",
-    "MedicationKnowledgeCostType",
-    "MedicationKnowledgeDrugCharacteristicType",
-    "MedicationKnowledgeIndicationGuidelineType",
-    "MedicationKnowledgeIndicationGuidelineDosingGuidelineType",
-    "MedicationKnowledgeIndicationGuidelineDosingGuidelineDosageType",
-    "MedicationKnowledgeIndicationGuidelineDosingGuidelinePatientCharacteristicType",
-    "MedicationKnowledgeIngredientType",
-    "MedicationKnowledgeKineticCharacteristicType",
-    "MedicationKnowledgeMedicineClassificationType",
-    "MedicationKnowledgeMonitoringProgramType",
-    "MedicationKnowledgeMonographType",
-    "MedicationKnowledgePackagingType",
-    "MedicationKnowledgeRegulatoryType",
-    "MedicationKnowledgeRegulatoryMaxDispenseType",
-    "MedicationKnowledgeRegulatorySubstitutionType",
-    "MedicationKnowledgeRelatedMedicationKnowledgeType",
-    "MedicationRequestType",
-    "MedicationRequestDispenseRequestType",
-    "MedicationRequestDispenseRequestInitialFillType",
-    "MedicationRequestSubstitutionType",
-    "MedicationUsageType",
-    "MedicinalProductDefinitionType",
-    "MedicinalProductDefinitionAdministrableProductType",
-    "MedicinalProductDefinitionContactType",
-    "MedicinalProductDefinitionCrossReferenceType",
-    "MedicinalProductDefinitionNameType",
-    "MedicinalProductDefinitionNameCountryLanguageType",
-    "MedicinalProductDefinitionNameNamePartType",
-    "MedicinalProductDefinitionOperationType",
-    "MedicinalProductDefinitionPackageType",
-    "MessageDefinitionType",
-    "MessageDefinitionAllowedResponseType",
-    "MessageDefinitionFocusType",
-    "MessageHeaderType",
-    "MessageHeaderDestinationType",
-    "MessageHeaderResponseType",
-    "MessageHeaderSourceType",
-    "MetaType",
-    "MetadataResourceType",
-    "MolecularSequenceType",
-    "MolecularSequenceQualityType",
-    "MolecularSequenceQualityRocType",
-    "MolecularSequenceReferenceSeqType",
-    "MolecularSequenceRepositoryType",
-    "MolecularSequenceStructureVariantType",
-    "MolecularSequenceStructureVariantInnerType",
-    "MolecularSequenceStructureVariantOuterType",
-    "MolecularSequenceVariantType",
-    "MoneyType",
-    "NamingSystemType",
-    "NamingSystemUniqueIdType",
-    "NarrativeType",
-    "NutritionIntakeType",
-    "NutritionIntakeConsumedItemType",
-    "NutritionIntakeIngredientLabelType",
-    "NutritionIntakePerformerType",
-    "NutritionOrderType",
-    "NutritionOrderEnteralFormulaType",
-    "NutritionOrderEnteralFormulaAdministrationType",
-    "NutritionOrderOralDietType",
-    "NutritionOrderOralDietNutrientType",
-    "NutritionOrderOralDietTextureType",
-    "NutritionOrderSupplementType",
-    "NutritionProductType",
-    "NutritionProductIngredientType",
-    "NutritionProductInstanceType",
-    "NutritionProductNutrientType",
-    "NutritionProductProductCharacteristicType",
-    "ObservationType",
-    "ObservationComponentType",
-    "ObservationDefinitionType",
-    "ObservationDefinitionComponentType",
-    "ObservationDefinitionQualifiedValueType",
-    "ObservationDefinitionQuantitativeDetailsType",
-    "ObservationReferenceRangeType",
-    "OperationDefinitionType",
-    "OperationDefinitionOverloadType",
-    "OperationDefinitionParameterType",
-    "OperationDefinitionParameterBindingType",
-    "OperationDefinitionParameterReferencedFromType",
-    "OperationOutcomeType",
-    "OperationOutcomeIssueType",
-    "OrderedDistributionType",
-    "OrderedDistributionIntervalType",
-    "OrganizationType",
-    "OrganizationAffiliationType",
-    "OrganizationContactType",
-    "PackagedProductDefinitionType",
-    "PackagedProductDefinitionPackageType",
-    "PackagedProductDefinitionPackageContainedItemType",
-    "PackagedProductDefinitionPackagePropertyType",
-    "ParameterDefinitionType",
-    "ParametersType",
-    "ParametersParameterType",
-    "PatientType",
-    "PatientCommunicationType",
-    "PatientContactType",
-    "PatientLinkType",
-    "PaymentNoticeType",
-    "PaymentReconciliationType",
-    "PaymentReconciliationDetailType",
-    "PaymentReconciliationProcessNoteType",
-    "PeriodType",
-    "PermissionType",
-    "PermissionJustificationType",
-    "PermissionProcessingActivityType",
-    "PersonType",
-    "PersonLinkType",
-    "PlanDefinitionType",
-    "PlanDefinitionActionType",
-    "PlanDefinitionActionConditionType",
-    "PlanDefinitionActionDynamicValueType",
-    "PlanDefinitionActionParticipantType",
-    "PlanDefinitionActionRelatedActionType",
-    "PlanDefinitionGoalType",
-    "PlanDefinitionGoalTargetType",
-    "PopulationType",
-    "PractitionerType",
-    "PractitionerQualificationType",
-    "PractitionerRoleType",
-    "PractitionerRoleAvailableTimeType",
-    "PractitionerRoleNotAvailableType",
-    "PrimitiveTypeType",
-    "ProcedureType",
-    "ProcedureFocalDeviceType",
-    "ProcedurePerformerType",
-    "ProdCharacteristicType",
-    "ProductShelfLifeType",
-    "ProvenanceType",
-    "ProvenanceAgentType",
-    "ProvenanceEntityType",
-    "QuantityType",
-    "QuestionnaireType",
-    "QuestionnaireItemType",
-    "QuestionnaireItemAnswerOptionType",
-    "QuestionnaireItemEnableWhenType",
-    "QuestionnaireItemInitialType",
-    "QuestionnaireResponseType",
-    "QuestionnaireResponseItemType",
-    "QuestionnaireResponseItemAnswerType",
-    "RangeType",
-    "RatioType",
-    "RatioRangeType",
-    "ReferenceType",
-    "RegulatedAuthorizationType",
-    "RegulatedAuthorizationCaseType",
-    "RegulatedAuthorizationRelatedDateType",
-    "RelatedArtifactType",
-    "RelatedPersonType",
-    "RelatedPersonCommunicationType",
-    "RequestGroupType",
-    "RequestGroupActionType",
-    "RequestGroupActionConditionType",
-    "RequestGroupActionRelatedActionType",
-    "ResearchStudyType",
-    "ResearchStudyArmType",
-    "ResearchStudyAssociatedPartyType",
-    "ResearchStudyClassificationType",
-    "ResearchStudyLabelType",
-    "ResearchStudyObjectiveType",
-    "ResearchStudyOutcomeMeasureType",
-    "ResearchStudyRecruitmentType",
-    "ResearchStudyRelatesToType",
-    "ResearchStudyStatusDateType",
-    "ResearchSubjectType",
-    "ResearchSubjectProgressType",
-    "RiskAssessmentType",
-    "RiskAssessmentPredictionType",
-    "SampledDataType",
-    "ScheduleType",
-    "SearchParameterType",
-    "SearchParameterComponentType",
-    "ServiceRequestType",
-    "SignatureType",
-    "SlotType",
-    "SpecimenType",
-    "SpecimenCollectionType",
-    "SpecimenContainerType",
-    "SpecimenDefinitionType",
-    "SpecimenDefinitionTypeTestedType",
-    "SpecimenDefinitionTypeTestedContainerType",
-    "SpecimenDefinitionTypeTestedContainerAdditiveType",
-    "SpecimenDefinitionTypeTestedHandlingType",
-    "SpecimenProcessingType",
-    "StatisticType",
-    "StatisticAttributeEstimateType",
-    "StatisticAttributeEstimateAttributeEstimateType",
-    "StatisticModelCharacteristicType",
-    "StatisticModelCharacteristicVariableType",
-    "StatisticSampleSizeType",
-    "StructureDefinitionType",
-    "StructureDefinitionContextType",
-    "StructureDefinitionDifferentialType",
-    "StructureDefinitionMappingType",
-    "StructureDefinitionSnapshotType",
-    "StructureMapType",
-    "StructureMapGroupType",
-    "StructureMapGroupInputType",
-    "StructureMapGroupRuleType",
-    "StructureMapGroupRuleDependentType",
-    "StructureMapGroupRuleSourceType",
-    "StructureMapGroupRuleTargetType",
-    "StructureMapGroupRuleTargetParameterType",
-    "StructureMapStructureType",
-    "SubscriptionType",
-    "SubscriptionFilterByType",
-    "SubscriptionStatusType",
-    "SubscriptionTopicType",
-    "SubscriptionTopicResourceTriggerType",
-    "SubscriptionTopicResourceTriggerCanFilterByType",
-    "SubscriptionTopicResourceTriggerQueryCriteriaType",
-    "SubstanceType",
-    "SubstanceDefinitionType",
-    "SubstanceDefinitionCodeType",
-    "SubstanceDefinitionMoietyType",
-    "SubstanceDefinitionNameType",
-    "SubstanceDefinitionNameOfficialType",
-    "SubstanceDefinitionPropertyType",
-    "SubstanceDefinitionRelationshipType",
-    "SubstanceDefinitionSourceMaterialType",
-    "SubstanceDefinitionStructureType",
-    "SubstanceDefinitionStructureIsotopeType",
-    "SubstanceDefinitionStructureIsotopeMolecularWeightType",
-    "SubstanceDefinitionStructureRepresentationType",
-    "SubstanceIngredientType",
-    "SubstanceNucleicAcidType",
-    "SubstanceNucleicAcidSubunitType",
-    "SubstanceNucleicAcidSubunitLinkageType",
-    "SubstanceNucleicAcidSubunitSugarType",
-    "SubstancePolymerType",
-    "SubstancePolymerMonomerSetType",
-    "SubstancePolymerMonomerSetStartingMaterialType",
-    "SubstancePolymerRepeatType",
-    "SubstancePolymerRepeatRepeatUnitType",
-    "SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisationType",
-    "SubstancePolymerRepeatRepeatUnitStructuralRepresentationType",
-    "SubstanceProteinType",
-    "SubstanceProteinSubunitType",
-    "SubstanceReferenceInformationType",
-    "SubstanceReferenceInformationGeneType",
-    "SubstanceReferenceInformationGeneElementType",
-    "SubstanceReferenceInformationTargetType",
-    "SubstanceSourceMaterialType",
-    "SubstanceSourceMaterialFractionDescriptionType",
-    "SubstanceSourceMaterialOrganismType",
-    "SubstanceSourceMaterialOrganismAuthorType",
-    "SubstanceSourceMaterialOrganismHybridType",
-    "SubstanceSourceMaterialOrganismOrganismGeneralType",
-    "SubstanceSourceMaterialPartDescriptionType",
-    "SupplyDeliveryType",
-    "SupplyDeliverySuppliedItemType",
-    "SupplyRequestType",
-    "SupplyRequestParameterType",
-    "TaskType",
-    "TaskInputType",
-    "TaskOutputType",
-    "TaskRestrictionType",
-    "TerminologyCapabilitiesType",
-    "TerminologyCapabilitiesClosureType",
-    "TerminologyCapabilitiesCodeSystemType",
-    "TerminologyCapabilitiesCodeSystemVersionType",
-    "TerminologyCapabilitiesCodeSystemVersionFilterType",
-    "TerminologyCapabilitiesExpansionType",
-    "TerminologyCapabilitiesExpansionParameterType",
-    "TerminologyCapabilitiesImplementationType",
-    "TerminologyCapabilitiesSoftwareType",
-    "TerminologyCapabilitiesTranslationType",
-    "TerminologyCapabilitiesValidateCodeType",
-    "TestReportType",
-    "TestReportParticipantType",
-    "TestReportSetupType",
-    "TestReportSetupActionType",
-    "TestReportSetupActionAssertType",
-    "TestReportSetupActionOperationType",
-    "TestReportTeardownType",
-    "TestReportTeardownActionType",
-    "TestReportTestType",
-    "TestReportTestActionType",
-    "TestScriptType",
-    "TestScriptDestinationType",
-    "TestScriptFixtureType",
-    "TestScriptMetadataType",
-    "TestScriptMetadataCapabilityType",
-    "TestScriptMetadataLinkType",
-    "TestScriptOriginType",
-    "TestScriptScopeType",
-    "TestScriptSetupType",
-    "TestScriptSetupActionType",
-    "TestScriptSetupActionAssertType",
-    "TestScriptSetupActionOperationType",
-    "TestScriptSetupActionOperationRequestHeaderType",
-    "TestScriptTeardownType",
-    "TestScriptTeardownActionType",
-    "TestScriptTestType",
-    "TestScriptTestActionType",
-    "TestScriptVariableType",
-    "TimingType",
-    "TimingRepeatType",
-    "TriggerDefinitionType",
-    "UsageContextType",
-    "ValueSetType",
-    "ValueSetComposeType",
-    "ValueSetComposeIncludeType",
-    "ValueSetComposeIncludeConceptType",
-    "ValueSetComposeIncludeConceptDesignationType",
-    "ValueSetComposeIncludeFilterType",
-    "ValueSetExpansionType",
-    "ValueSetExpansionContainsType",
-    "ValueSetExpansionContainsPropertyType",
-    "ValueSetExpansionParameterType",
-    "ValueSetExpansionPropertyType",
-    "ValueSetScopeType",
-    "VerificationResultType",
-    "VerificationResultAttestationType",
-    "VerificationResultPrimarySourceType",
-    "VerificationResultValidatorType",
-    "VisionPrescriptionType",
-    "VisionPrescriptionLensSpecificationType",
-    "VisionPrescriptionLensSpecificationPrismType",
+	
+	"AccountType",
+	
+	
+	"AccountBalanceType",
+	
+	
+	"AccountCoverageType",
+	
+	
+	"AccountGuarantorType",
+	
+	
+	"AccountRelatedAccountType",
+	
+	
+	"ActivityDefinitionType",
+	
+	
+	"ActivityDefinitionDynamicValueType",
+	
+	
+	"ActivityDefinitionParticipantType",
+	
+	
+	"ActorDefinitionType",
+	
+	
+	"AddressType",
+	
+	
+	"AdministrableProductDefinitionType",
+	
+	
+	"AdministrableProductDefinitionPropertyType",
+	
+	
+	"AdministrableProductDefinitionRouteOfAdministrationType",
+	
+	
+	"AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesType",
+	
+	
+	"AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriodType",
+	
+	
+	"AdverseEventType",
+	
+	
+	"AdverseEventContributingFactorType",
+	
+	
+	"AdverseEventMitigatingActionType",
+	
+	
+	"AdverseEventParticipantType",
+	
+	
+	"AdverseEventPreventiveActionType",
+	
+	
+	"AdverseEventSupportingInfoType",
+	
+	
+	"AdverseEventSuspectEntityType",
+	
+	
+	"AdverseEventSuspectEntityCausalityType",
+	
+	
+	"AgeType",
+	
+	
+	"AllergyIntoleranceType",
+	
+	
+	"AllergyIntoleranceParticipantType",
+	
+	
+	"AllergyIntoleranceReactionType",
+	
+	
+	"AnnotationType",
+	
+	
+	"AppointmentType",
+	
+	
+	"AppointmentParticipantType",
+	
+	
+	"AppointmentRecurrenceTemplateType",
+	
+	
+	"AppointmentRecurrenceTemplateMonthlyTemplateType",
+	
+	
+	"AppointmentRecurrenceTemplateWeeklyTemplateType",
+	
+	
+	"AppointmentRecurrenceTemplateYearlyTemplateType",
+	
+	
+	"AppointmentResponseType",
+	
+	
+	"ArtifactAssessmentType",
+	
+	
+	"ArtifactAssessmentContentType",
+	
+	
+	"AttachmentType",
+	
+	
+	"AuditEventType",
+	
+	
+	"AuditEventAgentType",
+	
+	
+	"AuditEventEntityType",
+	
+	
+	"AuditEventEntityDetailType",
+	
+	
+	"AuditEventOutcomeType",
+	
+	
+	"AuditEventSourceType",
+	
+	
+	"AvailabilityType",
+	
+	
+	"AvailabilityAvailableTimeType",
+	
+	
+	"AvailabilityNotAvailableTimeType",
+	
+	
+	"BackboneElementType",
+	
+	
+	"BackboneTypeType",
+	
+	
+	"BaseType",
+	
+	
+	"BasicType",
+	
+	
+	"BinaryType",
+	
+	
+	"BiologicallyDerivedProductType",
+	
+	
+	"BiologicallyDerivedProductCollectionType",
+	
+	
+	"BiologicallyDerivedProductPropertyType",
+	
+	
+	"BodyStructureType",
+	
+	
+	"BodyStructureExcludedStructureType",
+	
+	
+	"BodyStructureIncludedStructureType",
+	
+	
+	"BundleType",
+	
+	
+	"BundleEntryType",
+	
+	
+	"BundleEntryRequestType",
+	
+	
+	"BundleEntryResponseType",
+	
+	
+	"BundleEntrySearchType",
+	
+	
+	"BundleLinkType",
+	
+	
+	"CanonicalResourceType",
+	
+	
+	"CapabilityStatementType",
+	
+	
+	"CapabilityStatementDocumentType",
+	
+	
+	"CapabilityStatementImplementationType",
+	
+	
+	"CapabilityStatementMessagingType",
+	
+	
+	"CapabilityStatementMessagingEndpointType",
+	
+	
+	"CapabilityStatementMessagingSupportedMessageType",
+	
+	
+	"CapabilityStatementRestType",
+	
+	
+	"CapabilityStatementRestInteractionType",
+	
+	
+	"CapabilityStatementRestResourceType",
+	
+	
+	"CapabilityStatementRestResourceInteractionType",
+	
+	
+	"CapabilityStatementRestResourceOperationType",
+	
+	
+	"CapabilityStatementRestResourceSearchParamType",
+	
+	
+	"CapabilityStatementRestSecurityType",
+	
+	
+	"CapabilityStatementSoftwareType",
+	
+	
+	"CarePlanType",
+	
+	
+	"CarePlanActivityType",
+	
+	
+	"CarePlanActivityPlannedActivityDetailType",
+	
+	
+	"CareTeamType",
+	
+	
+	"CareTeamParticipantType",
+	
+	
+	"ChargeItemType",
+	
+	
+	"ChargeItemDefinitionType",
+	
+	
+	"ChargeItemDefinitionApplicabilityType",
+	
+	
+	"ChargeItemDefinitionPropertyGroupType",
+	
+	
+	"ChargeItemPerformerType",
+	
+	
+	"CitationType",
+	
+	
+	"CitationCitedArtifactType",
+	
+	
+	"CitationCitedArtifactAbstractType",
+	
+	
+	"CitationCitedArtifactClassificationType",
+	
+	
+	"CitationCitedArtifactContributorshipType",
+	
+	
+	"CitationCitedArtifactContributorshipEntryType",
+	
+	
+	"CitationCitedArtifactContributorshipEntryContributionInstanceType",
+	
+	
+	"CitationCitedArtifactContributorshipSummaryType",
+	
+	
+	"CitationCitedArtifactPartType",
+	
+	
+	"CitationCitedArtifactPublicationFormType",
+	
+	
+	"CitationCitedArtifactPublicationFormPublishedInType",
+	
+	
+	"CitationCitedArtifactRelatesToType",
+	
+	
+	"CitationCitedArtifactStatusDateType",
+	
+	
+	"CitationCitedArtifactTitleType",
+	
+	
+	"CitationCitedArtifactVersionType",
+	
+	
+	"CitationCitedArtifactWebLocationType",
+	
+	
+	"CitationClassificationType",
+	
+	
+	"CitationStatusDateType",
+	
+	
+	"CitationSummaryType",
+	
+	
+	"ClaimType",
+	
+	
+	"ClaimAccidentType",
+	
+	
+	"ClaimCareTeamType",
+	
+	
+	"ClaimDiagnosisType",
+	
+	
+	"ClaimInsuranceType",
+	
+	
+	"ClaimItemType",
+	
+	
+	"ClaimItemBodySiteType",
+	
+	
+	"ClaimItemDetailType",
+	
+	
+	"ClaimItemDetailSubDetailType",
+	
+	
+	"ClaimPayeeType",
+	
+	
+	"ClaimProcedureType",
+	
+	
+	"ClaimRelatedType",
+	
+	
+	"ClaimResponseType",
+	
+	
+	"ClaimResponseAddItemType",
+	
+	
+	"ClaimResponseAddItemBodySiteType",
+	
+	
+	"ClaimResponseAddItemDetailType",
+	
+	
+	"ClaimResponseAddItemDetailSubDetailType",
+	
+	
+	"ClaimResponseErrorType",
+	
+	
+	"ClaimResponseInsuranceType",
+	
+	
+	"ClaimResponseItemType",
+	
+	
+	"ClaimResponseItemAdjudicationType",
+	
+	
+	"ClaimResponseItemDetailType",
+	
+	
+	"ClaimResponseItemDetailSubDetailType",
+	
+	
+	"ClaimResponsePaymentType",
+	
+	
+	"ClaimResponseProcessNoteType",
+	
+	
+	"ClaimResponseTotalType",
+	
+	
+	"ClaimSupportingInfoType",
+	
+	
+	"ClinicalImpressionType",
+	
+	
+	"ClinicalImpressionFindingType",
+	
+	
+	"ClinicalUseDefinitionType",
+	
+	
+	"ClinicalUseDefinitionContraindicationType",
+	
+	
+	"ClinicalUseDefinitionContraindicationOtherTherapyType",
+	
+	
+	"ClinicalUseDefinitionIndicationType",
+	
+	
+	"ClinicalUseDefinitionInteractionType",
+	
+	
+	"ClinicalUseDefinitionInteractionInteractantType",
+	
+	
+	"ClinicalUseDefinitionUndesirableEffectType",
+	
+	
+	"ClinicalUseDefinitionWarningType",
+	
+	
+	"CodeSystemType",
+	
+	
+	"CodeSystemConceptType",
+	
+	
+	"CodeSystemConceptDesignationType",
+	
+	
+	"CodeSystemConceptPropertyType",
+	
+	
+	"CodeSystemFilterType",
+	
+	
+	"CodeSystemPropertyType",
+	
+	
+	"CodeableConceptType",
+	
+	
+	"CodeableReferenceType",
+	
+	
+	"CodingType",
+	
+	
+	"CommunicationType",
+	
+	
+	"CommunicationPayloadType",
+	
+	
+	"CommunicationRequestType",
+	
+	
+	"CommunicationRequestPayloadType",
+	
+	
+	"CompartmentDefinitionType",
+	
+	
+	"CompartmentDefinitionResourceType",
+	
+	
+	"CompositionType",
+	
+	
+	"CompositionAttesterType",
+	
+	
+	"CompositionEventType",
+	
+	
+	"CompositionSectionType",
+	
+	
+	"ConceptMapType",
+	
+	
+	"ConceptMapGroupType",
+	
+	
+	"ConceptMapGroupElementType",
+	
+	
+	"ConceptMapGroupElementTargetType",
+	
+	
+	"ConceptMapGroupElementTargetDependsOnType",
+	
+	
+	"ConceptMapGroupUnmappedType",
+	
+	
+	"ConditionType",
+	
+	
+	"ConditionDefinitionType",
+	
+	
+	"ConditionDefinitionMedicationType",
+	
+	
+	"ConditionDefinitionObservationType",
+	
+	
+	"ConditionDefinitionPlanType",
+	
+	
+	"ConditionDefinitionPreconditionType",
+	
+	
+	"ConditionDefinitionQuestionnaireType",
+	
+	
+	"ConditionParticipantType",
+	
+	
+	"ConditionStageType",
+	
+	
+	"ConsentType",
+	
+	
+	"ConsentPolicyBasisType",
+	
+	
+	"ConsentProvisionType",
+	
+	
+	"ConsentProvisionActorType",
+	
+	
+	"ConsentProvisionDataType",
+	
+	
+	"ConsentVerificationType",
+	
+	
+	"ContactDetailType",
+	
+	
+	"ContactPointType",
+	
+	
+	"ContractType",
+	
+	
+	"ContractContentDefinitionType",
+	
+	
+	"ContractFriendlyType",
+	
+	
+	"ContractLegalType",
+	
+	
+	"ContractRuleType",
+	
+	
+	"ContractSignerType",
+	
+	
+	"ContractTermType",
+	
+	
+	"ContractTermActionType",
+	
+	
+	"ContractTermActionSubjectType",
+	
+	
+	"ContractTermAssetType",
+	
+	
+	"ContractTermAssetContextType",
+	
+	
+	"ContractTermAssetValuedItemType",
+	
+	
+	"ContractTermOfferType",
+	
+	
+	"ContractTermOfferAnswerType",
+	
+	
+	"ContractTermOfferPartyType",
+	
+	
+	"ContractTermSecurityLabelType",
+	
+	
+	"ContributorType",
+	
+	
+	"CountType",
+	
+	
+	"CoverageType",
+	
+	
+	"CoverageClassType",
+	
+	
+	"CoverageCostToBeneficiaryType",
+	
+	
+	"CoverageCostToBeneficiaryExceptionType",
+	
+	
+	"CoverageEligibilityRequestType",
+	
+	
+	"CoverageEligibilityRequestInsuranceType",
+	
+	
+	"CoverageEligibilityRequestItemType",
+	
+	
+	"CoverageEligibilityRequestItemDiagnosisType",
+	
+	
+	"CoverageEligibilityRequestSupportingInfoType",
+	
+	
+	"CoverageEligibilityResponseType",
+	
+	
+	"CoverageEligibilityResponseErrorType",
+	
+	
+	"CoverageEligibilityResponseInsuranceType",
+	
+	
+	"CoverageEligibilityResponseInsuranceItemType",
+	
+	
+	"CoverageEligibilityResponseInsuranceItemBenefitType",
+	
+	
+	"CoveragePaymentByType",
+	
+	
+	"DataRequirementType",
+	
+	
+	"DataRequirementCodeFilterType",
+	
+	
+	"DataRequirementDateFilterType",
+	
+	
+	"DataRequirementSortType",
+	
+	
+	"DataRequirementValueFilterType",
+	
+	
+	"DataTypeType",
+	
+	
+	"DetectedIssueType",
+	
+	
+	"DetectedIssueEvidenceType",
+	
+	
+	"DetectedIssueMitigationType",
+	
+	
+	"DeviceType",
+	
+	
+	"DeviceAssociationType",
+	
+	
+	"DeviceDefinitionType",
+	
+	
+	"DeviceDefinitionChargeItemType",
+	
+	
+	"DeviceDefinitionClassificationType",
+	
+	
+	"DeviceDefinitionCorrectiveActionType",
+	
+	
+	"DeviceDefinitionDeviceNameType",
+	
+	
+	"DeviceDefinitionGuidelineType",
+	
+	
+	"DeviceDefinitionHasPartType",
+	
+	
+	"DeviceDefinitionLinkType",
+	
+	
+	"DeviceDefinitionMaterialType",
+	
+	
+	"DeviceDefinitionPackagingType",
+	
+	
+	"DeviceDefinitionPackagingDistributorType",
+	
+	
+	"DeviceDefinitionPropertyType",
+	
+	
+	"DeviceDefinitionRegulatoryIdentifierType",
+	
+	
+	"DeviceDefinitionUdiDeviceIdentifierType",
+	
+	
+	"DeviceDefinitionUdiDeviceIdentifierMarketDistributionType",
+	
+	
+	"DeviceDefinitionVersionType",
+	
+	
+	"DeviceDeviceNameType",
+	
+	
+	"DeviceDispenseType",
+	
+	
+	"DeviceDispensePerformerType",
+	
+	
+	"DeviceMetricType",
+	
+	
+	"DeviceMetricCalibrationType",
+	
+	
+	"DeviceOperationType",
+	
+	
+	"DevicePropertyType",
+	
+	
+	"DeviceRequestType",
+	
+	
+	"DeviceRequestParameterType",
+	
+	
+	"DeviceSpecializationType",
+	
+	
+	"DeviceUdiCarrierType",
+	
+	
+	"DeviceUsageType",
+	
+	
+	"DeviceUsageAdherenceType",
+	
+	
+	"DeviceVersionType",
+	
+	
+	"DiagnosticReportType",
+	
+	
+	"DiagnosticReportMediaType",
+	
+	
+	"DiagnosticReportSupportingInfoType",
+	
+	
+	"DistanceType",
+	
+	
+	"DocumentManifestType",
+	
+	
+	"DocumentManifestRelatedType",
+	
+	
+	"DocumentReferenceType",
+	
+	
+	"DocumentReferenceAttesterType",
+	
+	
+	"DocumentReferenceContentType",
+	
+	
+	"DocumentReferenceContentProfileType",
+	
+	
+	"DocumentReferenceRelatesToType",
+	
+	
+	"DomainResourceType",
+	
+	
+	"DosageType",
+	
+	
+	"DosageDoseAndRateType",
+	
+	
+	"DurationType",
+	
+	
+	
+	"ElementDefinitionType",
+	
+	
+	"ElementDefinitionBaseType",
+	
+	
+	"ElementDefinitionBindingType",
+	
+	
+	"ElementDefinitionConstraintType",
+	
+	
+	"ElementDefinitionExampleType",
+	
+	
+	"ElementDefinitionMappingType",
+	
+	
+	"ElementDefinitionSlicingType",
+	
+	
+	"ElementDefinitionSlicingDiscriminatorType",
+	
+	
+	"ElementDefinitionTypeType",
+	
+	
+	"EncounterType",
+	
+	
+	"EncounterAdmissionType",
+	
+	
+	"EncounterClassHistoryType",
+	
+	
+	"EncounterDiagnosisType",
+	
+	
+	"EncounterLocationType",
+	
+	
+	"EncounterParticipantType",
+	
+	
+	"EncounterStatusHistoryType",
+	
+	
+	"EndpointType",
+	
+	
+	"EnrollmentRequestType",
+	
+	
+	"EnrollmentResponseType",
+	
+	
+	"EpisodeOfCareType",
+	
+	
+	"EpisodeOfCareDiagnosisType",
+	
+	
+	"EpisodeOfCareStatusHistoryType",
+	
+	
+	"EventDefinitionType",
+	
+	
+	"EvidenceType",
+	
+	
+	"EvidenceCertaintyType",
+	
+	
+	"EvidenceReportType",
+	
+	
+	"EvidenceReportRelatesToType",
+	
+	
+	"EvidenceReportRelatesToTargetType",
+	
+	
+	"EvidenceReportSectionType",
+	
+	
+	"EvidenceReportSubjectType",
+	
+	
+	"EvidenceReportSubjectCharacteristicType",
+	
+	
+	"EvidenceStatisticType",
+	
+	
+	"EvidenceStatisticAttributeEstimateType",
+	
+	
+	"EvidenceStatisticModelCharacteristicType",
+	
+	
+	"EvidenceStatisticModelCharacteristicVariableType",
+	
+	
+	"EvidenceStatisticSampleSizeType",
+	
+	
+	"EvidenceVariableType",
+	
+	
+	"EvidenceVariableCategoryType",
+	
+	
+	"EvidenceVariableCharacteristicType",
+	
+	
+	"EvidenceVariableCharacteristicDefinitionByCombinationType",
+	
+	
+	"EvidenceVariableCharacteristicDefinitionByTypeAndValueType",
+	
+	
+	"EvidenceVariableCharacteristicTimeFromEventType",
+	
+	
+	"EvidenceVariableDefinitionType",
+	
+	
+	"ExampleScenarioType",
+	
+	
+	"ExampleScenarioActorType",
+	
+	
+	"ExampleScenarioInstanceType",
+	
+	
+	"ExampleScenarioInstanceContainedInstanceType",
+	
+	
+	"ExampleScenarioInstanceVersionType",
+	
+	
+	"ExampleScenarioProcessType",
+	
+	
+	"ExampleScenarioProcessStepType",
+	
+	
+	"ExampleScenarioProcessStepAlternativeType",
+	
+	
+	"ExampleScenarioProcessStepOperationType",
+	
+	
+	"ExplanationOfBenefitType",
+	
+	
+	"ExplanationOfBenefitAccidentType",
+	
+	
+	"ExplanationOfBenefitAddItemType",
+	
+	
+	"ExplanationOfBenefitAddItemBodySiteType",
+	
+	
+	"ExplanationOfBenefitAddItemDetailType",
+	
+	
+	"ExplanationOfBenefitAddItemDetailSubDetailType",
+	
+	
+	"ExplanationOfBenefitBenefitBalanceType",
+	
+	
+	"ExplanationOfBenefitBenefitBalanceFinancialType",
+	
+	
+	"ExplanationOfBenefitCareTeamType",
+	
+	
+	"ExplanationOfBenefitDiagnosisType",
+	
+	
+	"ExplanationOfBenefitInsuranceType",
+	
+	
+	"ExplanationOfBenefitItemType",
+	
+	
+	"ExplanationOfBenefitItemAdjudicationType",
+	
+	
+	"ExplanationOfBenefitItemBodySiteType",
+	
+	
+	"ExplanationOfBenefitItemDetailType",
+	
+	
+	"ExplanationOfBenefitItemDetailSubDetailType",
+	
+	
+	"ExplanationOfBenefitPayeeType",
+	
+	
+	"ExplanationOfBenefitPaymentType",
+	
+	
+	"ExplanationOfBenefitProcedureType",
+	
+	
+	"ExplanationOfBenefitProcessNoteType",
+	
+	
+	"ExplanationOfBenefitRelatedType",
+	
+	
+	"ExplanationOfBenefitSupportingInfoType",
+	
+	
+	"ExplanationOfBenefitTotalType",
+	
+	
+	"ExpressionType",
+	
+	
+	"ExtendedContactDetailType",
+	
+	
+	"ExtensionType",
+	
+	
+	"FamilyMemberHistoryType",
+	
+	
+	"FamilyMemberHistoryConditionType",
+	
+	
+	"FamilyMemberHistoryProcedureType",
+	
+	
+	"FlagType",
+	
+	
+	"FormularyItemType",
+	
+	
+	"GenomicStudyType",
+	
+	
+	"GenomicStudyAnalysisType",
+	
+	
+	"GenomicStudyAnalysisDeviceType",
+	
+	
+	"GenomicStudyAnalysisInputType",
+	
+	
+	"GenomicStudyAnalysisOutputType",
+	
+	
+	"GenomicStudyAnalysisPerformerType",
+	
+	
+	"GoalType",
+	
+	
+	"GoalTargetType",
+	
+	
+	"GraphDefinitionType",
+	
+	
+	"GraphDefinitionLinkType",
+	
+	
+	"GraphDefinitionLinkTargetType",
+	
+	
+	"GraphDefinitionLinkTargetCompartmentType",
+	
+	
+	"GroupType",
+	
+	
+	"GroupCharacteristicType",
+	
+	
+	"GroupMemberType",
+	
+	
+	"GuidanceResponseType",
+	
+	
+	"HealthcareServiceType",
+	
+	
+	"HealthcareServiceEligibilityType",
+	
+	
+	"HumanNameType",
+	
+	
+	"IdentifierType",
+	
+	
+	"ImagingSelectionType",
+	
+	
+	"ImagingSelectionImageRegionType",
+	
+	
+	"ImagingSelectionInstanceType",
+	
+	
+	"ImagingSelectionInstanceImageRegionType",
+	
+	
+	"ImagingSelectionPerformerType",
+	
+	
+	"ImagingStudyType",
+	
+	
+	"ImagingStudySeriesType",
+	
+	
+	"ImagingStudySeriesInstanceType",
+	
+	
+	"ImagingStudySeriesPerformerType",
+	
+	
+	"ImmunizationType",
+	
+	
+	"ImmunizationEvaluationType",
+	
+	
+	"ImmunizationPerformerType",
+	
+	
+	"ImmunizationProgramEligibilityType",
+	
+	
+	"ImmunizationProtocolAppliedType",
+	
+	
+	"ImmunizationReactionType",
+	
+	
+	"ImmunizationRecommendationType",
+	
+	
+	"ImmunizationRecommendationRecommendationType",
+	
+	
+	"ImmunizationRecommendationRecommendationDateCriterionType",
+	
+	
+	"ImplementationGuideType",
+	
+	
+	"ImplementationGuideDefinitionType",
+	
+	
+	"ImplementationGuideDefinitionGroupingType",
+	
+	
+	"ImplementationGuideDefinitionPageType",
+	
+	
+	"ImplementationGuideDefinitionParameterType",
+	
+	
+	"ImplementationGuideDefinitionResourceType",
+	
+	
+	"ImplementationGuideDefinitionTemplateType",
+	
+	
+	"ImplementationGuideDependsOnType",
+	
+	
+	"ImplementationGuideGlobalType",
+	
+	
+	"ImplementationGuideManifestType",
+	
+	
+	"ImplementationGuideManifestPageType",
+	
+	
+	"ImplementationGuideManifestResourceType",
+	
+	
+	"IngredientType",
+	
+	
+	"IngredientManufacturerType",
+	
+	
+	"IngredientSubstanceType",
+	
+	
+	"IngredientSubstanceStrengthType",
+	
+	
+	"IngredientSubstanceStrengthReferenceStrengthType",
+	
+	
+	"InsurancePlanType",
+	
+	
+	"InsurancePlanCoverageType",
+	
+	
+	"InsurancePlanCoverageBenefitType",
+	
+	
+	"InsurancePlanCoverageBenefitLimitType",
+	
+	
+	"InsurancePlanPlanType",
+	
+	
+	"InsurancePlanPlanGeneralCostType",
+	
+	
+	"InsurancePlanPlanSpecificCostType",
+	
+	
+	"InsurancePlanPlanSpecificCostBenefitType",
+	
+	
+	"InsurancePlanPlanSpecificCostBenefitCostType",
+	
+	
+	"InventoryReportType",
+	
+	
+	"InventoryReportInventoryListingType",
+	
+	
+	"InventoryReportInventoryListingItemsType",
+	
+	
+	"InvoiceType",
+	
+	
+	"InvoiceLineItemType",
+	
+	
+	"InvoiceParticipantType",
+	
+	
+	"LibraryType",
+	
+	
+	"LinkageType",
+	
+	
+	"LinkageItemType",
+	
+	
+	"ListType",
+	
+	
+	"ListEntryType",
+	
+	
+	"LocationType",
+	
+	
+	"LocationPositionType",
+	
+	
+	"ManufacturedItemDefinitionType",
+	
+	
+	"ManufacturedItemDefinitionComponentType",
+	
+	
+	"ManufacturedItemDefinitionComponentConstituentType",
+	
+	
+	"ManufacturedItemDefinitionPropertyType",
+	
+	
+	"MarketingStatusType",
+	
+	
+	"MeasureType",
+	
+	
+	"MeasureGroupType",
+	
+	
+	"MeasureGroupPopulationType",
+	
+	
+	"MeasureGroupStratifierType",
+	
+	
+	"MeasureGroupStratifierComponentType",
+	
+	
+	"MeasureReportType",
+	
+	
+	"MeasureReportGroupType",
+	
+	
+	"MeasureReportGroupPopulationType",
+	
+	
+	"MeasureReportGroupStratifierType",
+	
+	
+	"MeasureReportGroupStratifierStratumType",
+	
+	
+	"MeasureReportGroupStratifierStratumComponentType",
+	
+	
+	"MeasureReportGroupStratifierStratumPopulationType",
+	
+	
+	"MeasureSupplementalDataType",
+	
+	
+	"MeasureTermType",
+	
+	
+	"MedicationType",
+	
+	
+	"MedicationAdministrationType",
+	
+	
+	"MedicationAdministrationDosageType",
+	
+	
+	"MedicationAdministrationPerformerType",
+	
+	
+	"MedicationBatchType",
+	
+	
+	"MedicationDispenseType",
+	
+	
+	"MedicationDispensePerformerType",
+	
+	
+	"MedicationDispenseSubstitutionType",
+	
+	
+	"MedicationIngredientType",
+	
+	
+	"MedicationKnowledgeType",
+	
+	
+	"MedicationKnowledgeCostType",
+	
+	
+	"MedicationKnowledgeDefinitionalType",
+	
+	
+	"MedicationKnowledgeDefinitionalDrugCharacteristicType",
+	
+	
+	"MedicationKnowledgeDefinitionalIngredientType",
+	
+	
+	"MedicationKnowledgeIndicationGuidelineType",
+	
+	
+	"MedicationKnowledgeIndicationGuidelineDosingGuidelineType",
+	
+	
+	"MedicationKnowledgeIndicationGuidelineDosingGuidelineDosageType",
+	
+	
+	"MedicationKnowledgeIndicationGuidelineDosingGuidelinePatientCharacteristicType",
+	
+	
+	"MedicationKnowledgeMedicineClassificationType",
+	
+	
+	"MedicationKnowledgeMonitoringProgramType",
+	
+	
+	"MedicationKnowledgeMonographType",
+	
+	
+	"MedicationKnowledgePackagingType",
+	
+	
+	"MedicationKnowledgeRegulatoryType",
+	
+	
+	"MedicationKnowledgeRegulatoryMaxDispenseType",
+	
+	
+	"MedicationKnowledgeRegulatorySubstitutionType",
+	
+	
+	"MedicationKnowledgeRelatedMedicationKnowledgeType",
+	
+	
+	"MedicationKnowledgeStorageGuidelineType",
+	
+	
+	"MedicationKnowledgeStorageGuidelineEnvironmentalSettingType",
+	
+	
+	"MedicationRequestType",
+	
+	
+	"MedicationRequestDispenseRequestType",
+	
+	
+	"MedicationRequestDispenseRequestInitialFillType",
+	
+	
+	"MedicationRequestDoseType",
+	
+	
+	"MedicationRequestSubstitutionType",
+	
+	
+	"MedicationUsageType",
+	
+	
+	"MedicationUsageAdherenceType",
+	
+	
+	"MedicinalProductDefinitionType",
+	
+	
+	"MedicinalProductDefinitionCharacteristicType",
+	
+	
+	"MedicinalProductDefinitionContactType",
+	
+	
+	"MedicinalProductDefinitionCrossReferenceType",
+	
+	
+	"MedicinalProductDefinitionNameType",
+	
+	
+	"MedicinalProductDefinitionNamePartType",
+	
+	
+	"MedicinalProductDefinitionNameUsageType",
+	
+	
+	"MedicinalProductDefinitionOperationType",
+	
+	
+	"MessageDefinitionType",
+	
+	
+	"MessageDefinitionAllowedResponseType",
+	
+	
+	"MessageDefinitionFocusType",
+	
+	
+	"MessageHeaderType",
+	
+	
+	"MessageHeaderDestinationType",
+	
+	
+	"MessageHeaderResponseType",
+	
+	
+	"MessageHeaderSourceType",
+	
+	
+	"MetaType",
+	
+	
+	"MetadataResourceType",
+	
+	
+	"MolecularSequenceType",
+	
+	
+	"MolecularSequenceRelativeType",
+	
+	
+	"MolecularSequenceRelativeEditType",
+	
+	
+	"MolecularSequenceRelativeStartingSequenceType",
+	
+	
+	"MonetaryComponentType",
+	
+	
+	"MoneyType",
+	
+	
+	"NamingSystemType",
+	
+	
+	"NamingSystemUniqueIdType",
+	
+	
+	"NarrativeType",
+	
+	
+	"NutritionIntakeType",
+	
+	
+	"NutritionIntakeConsumedItemType",
+	
+	
+	"NutritionIntakeIngredientLabelType",
+	
+	
+	"NutritionIntakePerformerType",
+	
+	
+	"NutritionOrderType",
+	
+	
+	"NutritionOrderEnteralFormulaType",
+	
+	
+	"NutritionOrderEnteralFormulaAdditiveType",
+	
+	
+	"NutritionOrderEnteralFormulaAdministrationType",
+	
+	
+	"NutritionOrderEnteralFormulaAdministrationScheduleType",
+	
+	
+	"NutritionOrderOralDietType",
+	
+	
+	"NutritionOrderOralDietNutrientType",
+	
+	
+	"NutritionOrderOralDietScheduleType",
+	
+	
+	"NutritionOrderOralDietTextureType",
+	
+	
+	"NutritionOrderSupplementType",
+	
+	
+	"NutritionOrderSupplementScheduleType",
+	
+	
+	"NutritionProductType",
+	
+	
+	"NutritionProductCharacteristicType",
+	
+	
+	"NutritionProductIngredientType",
+	
+	
+	"NutritionProductInstanceType",
+	
+	
+	"NutritionProductNutrientType",
+	
+	
+	"ObservationType",
+	
+	
+	"ObservationComponentType",
+	
+	
+	"ObservationDefinitionType",
+	
+	
+	"ObservationDefinitionComponentType",
+	
+	
+	"ObservationDefinitionQualifiedValueType",
+	
+	
+	"ObservationDefinitionQuantitativeDetailsType",
+	
+	
+	"ObservationReferenceRangeType",
+	
+	
+	"ObservationTriggeredByType",
+	
+	
+	"OperationDefinitionType",
+	
+	
+	"OperationDefinitionOverloadType",
+	
+	
+	"OperationDefinitionParameterType",
+	
+	
+	"OperationDefinitionParameterBindingType",
+	
+	
+	"OperationDefinitionParameterReferencedFromType",
+	
+	
+	"OperationOutcomeType",
+	
+	
+	"OperationOutcomeIssueType",
+	
+	
+	"OrganizationType",
+	
+	
+	"OrganizationAffiliationType",
+	
+	
+	"OrganizationQualificationType",
+	
+	
+	"PackagedProductDefinitionType",
+	
+	
+	"PackagedProductDefinitionLegalStatusOfSupplyType",
+	
+	
+	"PackagedProductDefinitionPackagingType",
+	
+	
+	"PackagedProductDefinitionPackagingContainedItemType",
+	
+	
+	"PackagedProductDefinitionPackagingPropertyType",
+	
+	
+	"ParameterDefinitionType",
+	
+	
+	"ParametersType",
+	
+	
+	"ParametersParameterType",
+	
+	
+	"PatientType",
+	
+	
+	"PatientCommunicationType",
+	
+	
+	"PatientContactType",
+	
+	
+	"PatientLinkType",
+	
+	
+	"PaymentNoticeType",
+	
+	
+	"PaymentReconciliationType",
+	
+	
+	"PaymentReconciliationAllocationType",
+	
+	
+	"PaymentReconciliationProcessNoteType",
+	
+	
+	"PeriodType",
+	
+	
+	"PermissionType",
+	
+	
+	"PermissionJustificationType",
+	
+	
+	"PermissionRuleType",
+	
+	
+	"PermissionRuleActivityType",
+	
+	
+	"PermissionRuleDataType",
+	
+	
+	"PermissionRuleDataResourceType",
+	
+	
+	"PersonType",
+	
+	
+	"PersonCommunicationType",
+	
+	
+	"PersonLinkType",
+	
+	
+	"PlanDefinitionType",
+	
+	
+	"PlanDefinitionActionType",
+	
+	
+	"PlanDefinitionActionConditionType",
+	
+	
+	"PlanDefinitionActionDynamicValueType",
+	
+	
+	"PlanDefinitionActionInputType",
+	
+	
+	"PlanDefinitionActionOutputType",
+	
+	
+	"PlanDefinitionActionParticipantType",
+	
+	
+	"PlanDefinitionActionRelatedActionType",
+	
+	
+	"PlanDefinitionActorType",
+	
+	
+	"PlanDefinitionActorOptionType",
+	
+	
+	"PlanDefinitionGoalType",
+	
+	
+	"PlanDefinitionGoalTargetType",
+	
+	
+	"PopulationType",
+	
+	
+	"PractitionerType",
+	
+	
+	"PractitionerQualificationType",
+	
+	
+	"PractitionerRoleType",
+	
+	
+	"PrimitiveTypeType",
+	
+	
+	"ProcedureType",
+	
+	
+	"ProcedureFocalDeviceType",
+	
+	
+	"ProcedurePerformerType",
+	
+	
+	"ProductShelfLifeType",
+	
+	
+	"ProvenanceType",
+	
+	
+	"ProvenanceAgentType",
+	
+	
+	"ProvenanceEntityType",
+	
+	
+	"QuantityType",
+	
+	
+	"QuestionnaireType",
+	
+	
+	"QuestionnaireItemType",
+	
+	
+	"QuestionnaireItemAnswerOptionType",
+	
+	
+	"QuestionnaireItemEnableWhenType",
+	
+	
+	"QuestionnaireItemInitialType",
+	
+	
+	"QuestionnaireResponseType",
+	
+	
+	"QuestionnaireResponseItemType",
+	
+	
+	"QuestionnaireResponseItemAnswerType",
+	
+	
+	"RangeType",
+	
+	
+	"RatioType",
+	
+	
+	"RatioRangeType",
+	
+	
+	"ReferenceType",
+	
+	
+	"RegulatedAuthorizationType",
+	
+	
+	"RegulatedAuthorizationCaseType",
+	
+	
+	"RelatedArtifactType",
+	
+	
+	"RelatedPersonType",
+	
+	
+	"RelatedPersonCommunicationType",
+	
+	
+	"RequestOrchestrationType",
+	
+	
+	"RequestOrchestrationActionType",
+	
+	
+	"RequestOrchestrationActionConditionType",
+	
+	
+	"RequestOrchestrationActionDynamicValueType",
+	
+	
+	"RequestOrchestrationActionInputType",
+	
+	
+	"RequestOrchestrationActionOutputType",
+	
+	
+	"RequestOrchestrationActionParticipantType",
+	
+	
+	"RequestOrchestrationActionRelatedActionType",
+	
+	
+	"RequirementsType",
+	
+	
+	"RequirementsStatementType",
+	
+	
+	"ResearchStudyType",
+	
+	
+	"ResearchStudyAssociatedPartyType",
+	
+	
+	"ResearchStudyComparisonGroupType",
+	
+	
+	"ResearchStudyFocusType",
+	
+	
+	"ResearchStudyLabelType",
+	
+	
+	"ResearchStudyObjectiveType",
+	
+	
+	"ResearchStudyOutcomeMeasureType",
+	
+	
+	"ResearchStudyProgressStatusType",
+	
+	
+	"ResearchStudyRecruitmentType",
+	
+	
+	"ResearchStudyWebLocationType",
+	
+	
+	"ResearchSubjectType",
+	
+	
+	"ResearchSubjectProgressType",
+	
+	
+	
+	"RiskAssessmentType",
+	
+	
+	"RiskAssessmentPredictionType",
+	
+	
+	"SampledDataType",
+	
+	
+	"ScheduleType",
+	
+	
+	"SearchParameterType",
+	
+	
+	"SearchParameterComponentType",
+	
+	
+	"ServiceRequestType",
+	
+	
+	"SignatureType",
+	
+	
+	"SlotType",
+	
+	
+	"SpecimenType",
+	
+	
+	"SpecimenCollectionType",
+	
+	
+	"SpecimenContainerType",
+	
+	
+	"SpecimenDefinitionType",
+	
+	
+	"SpecimenDefinitionTypeTestedType",
+	
+	
+	"SpecimenDefinitionTypeTestedContainerType",
+	
+	
+	"SpecimenDefinitionTypeTestedContainerAdditiveType",
+	
+	
+	"SpecimenDefinitionTypeTestedHandlingType",
+	
+	
+	"SpecimenFeatureType",
+	
+	
+	"SpecimenProcessingType",
+	
+	
+	"StructureDefinitionType",
+	
+	
+	"StructureDefinitionContextType",
+	
+	
+	"StructureDefinitionDifferentialType",
+	
+	
+	"StructureDefinitionMappingType",
+	
+	
+	"StructureDefinitionSnapshotType",
+	
+	
+	"StructureMapType",
+	
+	
+	"StructureMapGroupType",
+	
+	
+	"StructureMapGroupInputType",
+	
+	
+	"StructureMapGroupRuleType",
+	
+	
+	"StructureMapGroupRuleDependentType",
+	
+	
+	"StructureMapGroupRuleSourceType",
+	
+	
+	"StructureMapGroupRuleTargetType",
+	
+	
+	"StructureMapGroupRuleTargetParameterType",
+	
+	
+	"StructureMapStructureType",
+	
+	
+	"SubscriptionType",
+	
+	
+	"SubscriptionFilterByType",
+	
+	
+	"SubscriptionStatusType",
+	
+	
+	"SubscriptionStatusNotificationEventType",
+	
+	
+	"SubscriptionTopicType",
+	
+	
+	"SubscriptionTopicCanFilterByType",
+	
+	
+	"SubscriptionTopicEventTriggerType",
+	
+	
+	"SubscriptionTopicNotificationShapeType",
+	
+	
+	"SubscriptionTopicResourceTriggerType",
+	
+	
+	"SubscriptionTopicResourceTriggerQueryCriteriaType",
+	
+	
+	"SubstanceType",
+	
+	
+	"SubstanceDefinitionType",
+	
+	
+	"SubstanceDefinitionCodeType",
+	
+	
+	"SubstanceDefinitionMoietyType",
+	
+	
+	"SubstanceDefinitionMolecularWeightType",
+	
+	
+	"SubstanceDefinitionNameType",
+	
+	
+	"SubstanceDefinitionNameOfficialType",
+	
+	
+	"SubstanceDefinitionPropertyType",
+	
+	
+	"SubstanceDefinitionRelationshipType",
+	
+	
+	"SubstanceDefinitionSourceMaterialType",
+	
+	
+	"SubstanceDefinitionStructureType",
+	
+	
+	"SubstanceDefinitionStructureRepresentationType",
+	
+	
+	"SubstanceIngredientType",
+	
+	
+	"SubstanceNucleicAcidType",
+	
+	
+	"SubstanceNucleicAcidSubunitType",
+	
+	
+	"SubstanceNucleicAcidSubunitLinkageType",
+	
+	
+	"SubstanceNucleicAcidSubunitSugarType",
+	
+	
+	"SubstancePolymerType",
+	
+	
+	"SubstancePolymerMonomerSetType",
+	
+	
+	"SubstancePolymerMonomerSetStartingMaterialType",
+	
+	
+	"SubstancePolymerRepeatType",
+	
+	
+	"SubstancePolymerRepeatRepeatUnitType",
+	
+	
+	"SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisationType",
+	
+	
+	"SubstancePolymerRepeatRepeatUnitStructuralRepresentationType",
+	
+	
+	"SubstanceProteinType",
+	
+	
+	"SubstanceProteinSubunitType",
+	
+	
+	"SubstanceReferenceInformationType",
+	
+	
+	"SubstanceReferenceInformationGeneType",
+	
+	
+	"SubstanceReferenceInformationGeneElementType",
+	
+	
+	"SubstanceReferenceInformationTargetType",
+	
+	
+	"SubstanceSourceMaterialType",
+	
+	
+	"SubstanceSourceMaterialFractionDescriptionType",
+	
+	
+	"SubstanceSourceMaterialOrganismType",
+	
+	
+	"SubstanceSourceMaterialOrganismAuthorType",
+	
+	
+	"SubstanceSourceMaterialOrganismHybridType",
+	
+	
+	"SubstanceSourceMaterialOrganismOrganismGeneralType",
+	
+	
+	"SubstanceSourceMaterialPartDescriptionType",
+	
+	
+	"SupplyDeliveryType",
+	
+	
+	"SupplyDeliverySuppliedItemType",
+	
+	
+	"SupplyRequestType",
+	
+	
+	"SupplyRequestParameterType",
+	
+	
+	"TaskType",
+	
+	
+	"TaskInputType",
+	
+	
+	"TaskOutputType",
+	
+	
+	"TaskRestrictionType",
+	
+	
+	"TerminologyCapabilitiesType",
+	
+	
+	"TerminologyCapabilitiesClosureType",
+	
+	
+	"TerminologyCapabilitiesCodeSystemType",
+	
+	
+	"TerminologyCapabilitiesCodeSystemVersionType",
+	
+	
+	"TerminologyCapabilitiesCodeSystemVersionFilterType",
+	
+	
+	"TerminologyCapabilitiesExpansionType",
+	
+	
+	"TerminologyCapabilitiesExpansionParameterType",
+	
+	
+	"TerminologyCapabilitiesImplementationType",
+	
+	
+	"TerminologyCapabilitiesSoftwareType",
+	
+	
+	"TerminologyCapabilitiesTranslationType",
+	
+	
+	"TerminologyCapabilitiesValidateCodeType",
+	
+	
+	"TestReportType",
+	
+	
+	"TestReportParticipantType",
+	
+	
+	"TestReportSetupType",
+	
+	
+	"TestReportSetupActionType",
+	
+	
+	"TestReportSetupActionAssertType",
+	
+	
+	"TestReportSetupActionOperationType",
+	
+	
+	"TestReportTeardownType",
+	
+	
+	"TestReportTeardownActionType",
+	
+	
+	"TestReportTestType",
+	
+	
+	"TestReportTestActionType",
+	
+	
+	"TestScriptType",
+	
+	
+	"TestScriptDestinationType",
+	
+	
+	"TestScriptFixtureType",
+	
+	
+	"TestScriptMetadataType",
+	
+	
+	"TestScriptMetadataCapabilityType",
+	
+	
+	"TestScriptMetadataLinkType",
+	
+	
+	"TestScriptOriginType",
+	
+	
+	"TestScriptScopeType",
+	
+	
+	"TestScriptSetupType",
+	
+	
+	"TestScriptSetupActionType",
+	
+	
+	"TestScriptSetupActionAssertType",
+	
+	
+	"TestScriptSetupActionOperationType",
+	
+	
+	"TestScriptSetupActionOperationRequestHeaderType",
+	
+	
+	"TestScriptTeardownType",
+	
+	
+	"TestScriptTeardownActionType",
+	
+	
+	"TestScriptTestType",
+	
+	
+	"TestScriptTestActionType",
+	
+	
+	"TestScriptVariableType",
+	
+	
+	"TimingType",
+	
+	
+	"TimingRepeatType",
+	
+	
+	"TransportType",
+	
+	
+	"TransportInputType",
+	
+	
+	"TransportOutputType",
+	
+	
+	"TransportRestrictionType",
+	
+	
+	"TriggerDefinitionType",
+	
+	
+	"UsageContextType",
+	
+	
+	"ValueSetType",
+	
+	
+	"ValueSetComposeType",
+	
+	
+	"ValueSetComposeIncludeType",
+	
+	
+	"ValueSetComposeIncludeConceptType",
+	
+	
+	"ValueSetComposeIncludeConceptDesignationType",
+	
+	
+	"ValueSetComposeIncludeFilterType",
+	
+	
+	"ValueSetExpansionType",
+	
+	
+	"ValueSetExpansionContainsType",
+	
+	
+	"ValueSetExpansionContainsPropertyType",
+	
+	
+	"ValueSetExpansionContainsPropertySubPropertyType",
+	
+	
+	"ValueSetExpansionParameterType",
+	
+	
+	"ValueSetExpansionPropertyType",
+	
+	
+	"ValueSetScopeType",
+	
+	
+	"VerificationResultType",
+	
+	
+	"VerificationResultAttestationType",
+	
+	
+	"VerificationResultPrimarySourceType",
+	
+	
+	"VerificationResultValidatorType",
+	
+	
+	"VirtualServiceDetailType",
+	
+	
+	"VisionPrescriptionType",
+	
+	
+	"VisionPrescriptionLensSpecificationType",
+	
+	
+	"VisionPrescriptionLensSpecificationPrismType",
+	
 ]

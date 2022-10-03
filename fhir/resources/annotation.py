@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/Annotation
-Release: R5
-Version: 4.5.0
-Build ID: 0d95498
-Last updated: 2021-04-03T00:34:11.075+00:00
+Release: 2022Sep
+Version: 5.0.0-ballot
+Build ID: 1505a88
+Last updated: 2022-09-10T04:52:37.223+10:00
 """
 import typing
 from pydantic import Field
@@ -18,7 +18,6 @@ from . import fhirtypes
 
 from . import datatype
 
-
 class Annotation(datatype.DataType):
     """Disclaimer: Any field name ends with ``__ext`` doesn't part of
     Resource StructureDefinition, instead used to enable Extensibility feature
@@ -28,75 +27,75 @@ class Annotation(datatype.DataType):
     A  text note which also  contains information about who made the statement
     and when.
     """
-
     resource_type = Field("Annotation", const=True)
-
+	
     authorReference: fhirtypes.ReferenceType = Field(
-        None,
-        alias="authorReference",
-        title="Individual responsible for the annotation",
-        description="The individual responsible for making the annotation.",
+		None,
+		alias="authorReference",
+		title="Individual responsible for the annotation",
+		description="The individual responsible for making the annotation.",
         # if property is element of this resource.
         element_property=True,
         # Choice of Data Types. i.e author[x]
-        one_of_many="author",
-        one_of_many_required=False,
+		one_of_many="author",
+		one_of_many_required=False,
         # note: Listed Resource Type(s) should be allowed as Reference.
-        enum_reference_types=[
-            "Practitioner",
-            "PractitionerRole",
-            "Patient",
-            "RelatedPerson",
-            "Organization",
-        ],
-    )
-
+		enum_reference_types=["Practitioner", "PractitionerRole", "Patient", "RelatedPerson", "Organization"],
+	)
+	
     authorString: fhirtypes.String = Field(
-        None,
-        alias="authorString",
-        title="Individual responsible for the annotation",
-        description="The individual responsible for making the annotation.",
+		None,
+		alias="authorString",
+		title="Individual responsible for the annotation",
+		description="The individual responsible for making the annotation.",
         # if property is element of this resource.
         element_property=True,
         # Choice of Data Types. i.e author[x]
-        one_of_many="author",
-        one_of_many_required=False,
-    )
+		one_of_many="author",
+		one_of_many_required=False,
+	)
     authorString__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
-        None, alias="_authorString", title="Extension field for ``authorString``."
-    )
-
-    text: fhirtypes.Markdown = Field(
         None,
-        alias="text",
-        title="The annotation  - text content (as markdown)",
-        description="The text of the annotation in markdown format.",
+        alias="_authorString",
+        title="Extension field for ``authorString``."
+    )
+	
+    text: fhirtypes.Markdown = Field(
+		None,
+		alias="text",
+		title="The annotation  - text content (as markdown)",
+		description="The text of the annotation in markdown format.",
         # if property is element of this resource.
         element_property=True,
         element_required=True,
-    )
+	)
     text__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
-        None, alias="_text", title="Extension field for ``text``."
-    )
-
-    time: fhirtypes.DateTime = Field(
         None,
-        alias="time",
-        title="When the annotation was made",
-        description="Indicates when this particular annotation was made.",
+        alias="_text",
+        title="Extension field for ``text``."
+    )
+	
+    time: fhirtypes.DateTime = Field(
+		None,
+		alias="time",
+		title="When the annotation was made",
+		description="Indicates when this particular annotation was made.",
         # if property is element of this resource.
         element_property=True,
-    )
+	)
     time__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
-        None, alias="_time", title="Extension field for ``time``."
+        None,
+        alias="_time",
+        title="Extension field for ``time``."
     )
-
     @classmethod
     def elements_sequence(cls):
-        """returning all elements names from ``Annotation`` according specification,
+        """returning all elements names from
+        ``Annotation`` according specification,
         with preserving original sequence order.
         """
         return ["id", "extension", "authorReference", "authorString", "time", "text"]
+
 
     @root_validator(pre=True, allow_reuse=True)
     def validate_required_primitive_elements_1226(
@@ -109,7 +108,8 @@ class Annotation(datatype.DataType):
         data type mandatory, it is possible to provide an extension that explains why
         the primitive value is not present.
         """
-        required_fields = [("text", "text__ext")]
+        required_fields = [
+			("text", "text__ext")]
         _missing = object()
 
         def _fallback():
@@ -173,7 +173,10 @@ class Annotation(datatype.DataType):
         choice of types, the authoring system must create a single element with a
         data type chosen from among the list of permitted data types.
         """
-        one_of_many_fields = {"author": ["authorReference", "authorString"]}
+        one_of_many_fields = {
+			"author": [
+			    "authorReference",
+			    "authorString"]}
         for prefix, fields in one_of_many_fields.items():
             assert cls.__fields__[fields[0]].field_info.extra["one_of_many"] == prefix
             required = (

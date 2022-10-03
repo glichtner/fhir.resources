@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/Contributor
-Release: R5
-Version: 4.5.0
-Build ID: 0d95498
-Last updated: 2021-04-03T00:34:11.075+00:00
+Release: 2022Sep
+Version: 5.0.0-ballot
+Build ID: 1505a88
+Last updated: 2022-09-10T04:52:37.223+10:00
 """
 import typing
 from pydantic import Field
@@ -18,7 +18,6 @@ from . import fhirtypes
 
 from . import datatype
 
-
 class Contributor(datatype.DataType):
     """Disclaimer: Any field name ends with ``__ext`` doesn't part of
     Resource StructureDefinition, instead used to enable Extensibility feature
@@ -28,59 +27,63 @@ class Contributor(datatype.DataType):
     A contributor to the content of a knowledge asset, including authors,
     editors, reviewers, and endorsers.
     """
-
     resource_type = Field("Contributor", const=True)
-
+	
     contact: typing.List[fhirtypes.ContactDetailType] = Field(
-        None,
-        alias="contact",
-        title="Contact details of the contributor",
-        description=(
-            "Contact details to assist a user in finding and communicating with the"
-            " contributor."
-        ),
+		None,
+		alias="contact",
+		title="Contact details of the contributor",
+		description=(
+    "Contact details to assist a user in finding and communicating with the"
+    " contributor."
+    ),
         # if property is element of this resource.
         element_property=True,
-    )
-
+	)
+	
     name: fhirtypes.String = Field(
-        None,
-        alias="name",
-        title="Who contributed the content",
-        description=(
-            "The name of the individual or organization responsible for the "
-            "contribution."
-        ),
+		None,
+		alias="name",
+		title="Who contributed the content",
+		description=(
+    "The name of the individual or organization responsible for the "
+    "contribution."
+    ),
         # if property is element of this resource.
         element_property=True,
         element_required=True,
-    )
+	)
     name__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
-        None, alias="_name", title="Extension field for ``name``."
-    )
-
-    type: fhirtypes.Code = Field(
         None,
-        alias="type",
-        title="author | editor | reviewer | endorser",
-        description="The type of contributor.",
+        alias="_name",
+        title="Extension field for ``name``."
+    )
+	
+    type: fhirtypes.Code = Field(
+		None,
+		alias="type",
+		title="author | editor | reviewer | endorser",
+		description="The type of contributor.",
         # if property is element of this resource.
         element_property=True,
         element_required=True,
         # note: Enum values can be used in validation,
         # but use in your own responsibilities, read official FHIR documentation.
-        enum_values=["author", "editor", "reviewer", "endorser"],
-    )
+		enum_values=["author", "editor", "reviewer", "endorser"],
+	)
     type__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
-        None, alias="_type", title="Extension field for ``type``."
+        None,
+        alias="_type",
+        title="Extension field for ``type``."
     )
-
     @classmethod
     def elements_sequence(cls):
-        """returning all elements names from ``Contributor`` according specification,
+        """returning all elements names from
+        ``Contributor`` according specification,
         with preserving original sequence order.
         """
         return ["id", "extension", "type", "name", "contact"]
+
 
     @root_validator(pre=True, allow_reuse=True)
     def validate_required_primitive_elements_1360(
@@ -93,7 +96,9 @@ class Contributor(datatype.DataType):
         data type mandatory, it is possible to provide an extension that explains why
         the primitive value is not present.
         """
-        required_fields = [("name", "name__ext"), ("type", "type__ext")]
+        required_fields = [
+			("name", "name__ext"),
+			("type", "type__ext")]
         _missing = object()
 
         def _fallback():

@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/SubscriptionTopic
-Release: R5
-Version: 4.5.0
-Build ID: 0d95498
-Last updated: 2021-04-03T00:34:11.075+00:00
+Release: 2022Sep
+Version: 5.0.0-ballot
+Build ID: 1505a88
+Last updated: 2022-09-10T04:52:37.223+10:00
 """
 from pydantic.validators import bytes_validator  # noqa: F401
 from fhir.resources import fhirtypes  # noqa: F401
@@ -12,28 +12,49 @@ from fhir.resources import subscriptiontopic
 
 
 def impl_subscriptiontopic_1(inst):
-    assert inst.id == "admission"
-    assert inst.resourceTrigger[0].canFilterBy[0].documentation == (
-        "Matching based on the Patient (subject) of an Encounter or "
-        "based on the Patient's group membership (in/not-in)."
+    assert inst.canFilterBy[0].description == (
+    "Matching based on the Patient (subject) of an Encounter or "
+    "based on the Patient's group membership (in/not-in)."
     )
-    assert inst.resourceTrigger[0].canFilterBy[0].searchModifier[0] == "="
-    assert inst.resourceTrigger[0].canFilterBy[0].searchModifier[1] == "in"
-    assert inst.resourceTrigger[0].canFilterBy[0].searchModifier[2] == "not-in"
-    assert inst.resourceTrigger[0].canFilterBy[0].searchParamName == "patient"
-    assert inst.resourceTrigger[0].description == "Beginning of a clinical encounter"
-    assert inst.resourceTrigger[0].fhirPathCriteria[0] == (
-        "%previous.status!='in-progress' and %current.status='in-" "progress'"
+    assert inst.canFilterBy[0].filterParameter == "patient"
+    assert inst.canFilterBy[0].modifier[0] == "="
+    assert inst.canFilterBy[0].modifier[1] == "in"
+    assert inst.canFilterBy[0].modifier[2] == "not-in"
+    assert inst.canFilterBy[0].resource == "Encounter"
+    assert inst.description == "Example admission topic"
+    assert inst.eventTrigger[0].description == "Patient admission is covered by HL7v2 ADT^A01"
+    assert inst.eventTrigger[0].event.coding[0].code == "A01"
+    assert inst.eventTrigger[0].event.coding[0].display == "ADT/ACK - Admit/visit notification"
+    assert inst.eventTrigger[0].event.coding[0].system == "http://terminology.hl7.org/CodeSystem/v2-0003"
+    assert inst.eventTrigger[0].resource == "http://hl7.org/fhir/StructureDefinition/Encounter"
+    assert inst.id == "admission"
+    assert inst.identifier[0].system == "urn:ietf:rfc:3986"
+    assert inst.identifier[0].value == "urn:oid:2.16.840.1.113883.4.642.24.1"
+    assert inst.notificationShape[0].include[0] == "Encounter:patient"
+    assert inst.notificationShape[0].include[1] == "Encounter:practitioner"
+    assert inst.notificationShape[0].include[2] == "Encounter:service-provider"
+    assert inst.notificationShape[0].include[3] == "Encounter:account"
+    assert inst.notificationShape[0].include[4] == "Encounter:diagnosis"
+    assert inst.notificationShape[0].include[5] == "Encounter:observation"
+    assert inst.notificationShape[0].include[6] == "Encounter:location"
+    assert inst.notificationShape[0].resource == "Encounter"
+    assert inst.resourceTrigger[0].description == "Encounter resource moving to state 'in-progress'"
+    assert inst.resourceTrigger[0].fhirPathCriteria == (
+    "%previous.status!='in-progress' and %current.status='in-"
+    "progress'"
     )
     assert inst.resourceTrigger[0].queryCriteria.current == "status=in-progress"
     assert inst.resourceTrigger[0].queryCriteria.previous == "status:not=in-progress"
     assert inst.resourceTrigger[0].queryCriteria.requireBoth is True
+    assert inst.resourceTrigger[0].queryCriteria.resultForCreate == "test-passes"
+    assert inst.resourceTrigger[0].queryCriteria.resultForDelete == "test-fails"
+    assert inst.resourceTrigger[0].resource == "http://hl7.org/fhir/StructureDefinition/Encounter"
+    assert inst.resourceTrigger[0].supportedInteraction[0] == "create"
+    assert inst.resourceTrigger[0].supportedInteraction[1] == "update"
     assert inst.status == "active"
     assert inst.text.status == "generated"
     assert inst.title == "admission"
-    assert inst.url == (
-        "http://argonautproject.org/subscription-" "ig/SubscriptionTopic/admission"
-    )
+    assert inst.url == "http://example.org/FHIR/R5/SubscriptionTopic/admission"
 
 
 def test_subscriptiontopic_1(base_settings):

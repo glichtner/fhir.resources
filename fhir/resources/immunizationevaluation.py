@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/ImmunizationEvaluation
-Release: R5
-Version: 4.5.0
-Build ID: 0d95498
-Last updated: 2021-04-03T00:34:11.075+00:00
+Release: 2022Sep
+Version: 5.0.0-ballot
+Build ID: 1505a88
+Last updated: 2022-09-10T04:52:37.223+10:00
 """
 import typing
 from pydantic import Field
@@ -18,7 +18,6 @@ from . import fhirtypes
 
 from . import domainresource
 
-
 class ImmunizationEvaluation(domainresource.DomainResource):
     """Disclaimer: Any field name ends with ``__ext`` doesn't part of
     Resource StructureDefinition, instead used to enable Extensibility feature
@@ -29,203 +28,193 @@ class ImmunizationEvaluation(domainresource.DomainResource):
     recommendations to determine if the administration is "valid" in relation
     to those  recommendations.
     """
-
     resource_type = Field("ImmunizationEvaluation", const=True)
-
+	
     authority: fhirtypes.ReferenceType = Field(
-        None,
-        alias="authority",
-        title="Who is responsible for publishing the recommendations",
-        description="Indicates the authority who published the protocol (e.g. ACIP).",
+		None,
+		alias="authority",
+		title="Who is responsible for publishing the recommendations",
+		description="Indicates the authority who published the protocol (e.g. ACIP).",
         # if property is element of this resource.
         element_property=True,
         # note: Listed Resource Type(s) should be allowed as Reference.
-        enum_reference_types=["Organization"],
-    )
-
+		enum_reference_types=["Organization"],
+	)
+	
     date: fhirtypes.DateTime = Field(
-        None,
-        alias="date",
-        title="Date evaluation was performed",
-        description=(
-            "The date the evaluation of the vaccine administration event was "
-            "performed."
-        ),
+		None,
+		alias="date",
+		title="Date evaluation was performed",
+		description=(
+    "The date the evaluation of the vaccine administration event was "
+    "performed."
+    ),
         # if property is element of this resource.
         element_property=True,
-    )
+	)
     date__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
-        None, alias="_date", title="Extension field for ``date``."
+        None,
+        alias="_date",
+        title="Extension field for ``date``."
     )
-
+	
     description: fhirtypes.String = Field(
-        None,
-        alias="description",
-        title="Evaluation notes",
-        description="Additional information about the evaluation.",
+		None,
+		alias="description",
+		title="Evaluation notes",
+		description="Additional information about the evaluation.",
         # if property is element of this resource.
         element_property=True,
-    )
+	)
     description__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
-        None, alias="_description", title="Extension field for ``description``."
+        None,
+        alias="_description",
+        title="Extension field for ``description``."
     )
-
+	
     doseNumber: fhirtypes.String = Field(
-        None,
-        alias="doseNumber",
-        title="Dose number within series",
-        description=(
-            "Nominal position in a series as determined by the outcome of the "
-            "evaluation process."
-        ),
+		None,
+		alias="doseNumber",
+		title="Dose number within series",
+		description=(
+    "Nominal position in a series as determined by the outcome of the "
+    "evaluation process."
+    ),
         # if property is element of this resource.
         element_property=True,
-    )
+	)
     doseNumber__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
-        None, alias="_doseNumber", title="Extension field for ``doseNumber``."
+        None,
+        alias="_doseNumber",
+        title="Extension field for ``doseNumber``."
     )
-
+	
     doseStatus: fhirtypes.CodeableConceptType = Field(
-        ...,
-        alias="doseStatus",
-        title="Status of the dose relative to published recommendations",
-        description=(
-            "Indicates if the dose is valid or not valid with respect to the "
-            "published recommendations."
-        ),
+		...,
+		alias="doseStatus",
+		title="Status of the dose relative to published recommendations",
+		description=(
+    "Indicates if the dose is valid or not valid with respect to the "
+    "published recommendations."
+    ),
         # if property is element of this resource.
         element_property=True,
-    )
-
+	)
+	
     doseStatusReason: typing.List[fhirtypes.CodeableConceptType] = Field(
-        None,
-        alias="doseStatusReason",
-        title="Reason for the dose status",
-        description=(
-            "Provides an explanation as to why the vaccine administration event is "
-            "valid or not relative to the published recommendations."
-        ),
+		None,
+		alias="doseStatusReason",
+		title="Reason why the doese is considered valid, invalid or some other status",
+		description=(
+    "Provides an explanation as to why the vaccine administration event is "
+    "valid or not relative to the published recommendations."
+    ),
         # if property is element of this resource.
         element_property=True,
-    )
-
+	)
+	
     identifier: typing.List[fhirtypes.IdentifierType] = Field(
-        None,
-        alias="identifier",
-        title="Business identifier",
-        description="A unique identifier assigned to this immunization evaluation record.",
+		None,
+		alias="identifier",
+		title="Business identifier",
+		description="A unique identifier assigned to this immunization evaluation record.",
         # if property is element of this resource.
         element_property=True,
-    )
-
+	)
+	
     immunizationEvent: fhirtypes.ReferenceType = Field(
-        ...,
-        alias="immunizationEvent",
-        title="Immunization being evaluated",
-        description="The vaccine administration event being evaluated.",
+		...,
+		alias="immunizationEvent",
+		title="Immunization being evaluated",
+		description="The vaccine administration event being evaluated.",
         # if property is element of this resource.
         element_property=True,
         # note: Listed Resource Type(s) should be allowed as Reference.
-        enum_reference_types=["Immunization"],
-    )
-
+		enum_reference_types=["Immunization"],
+	)
+	
     patient: fhirtypes.ReferenceType = Field(
-        ...,
-        alias="patient",
-        title="Who this evaluation is for",
-        description="The individual for whom the evaluation is being done.",
+		...,
+		alias="patient",
+		title="Who this evaluation is for",
+		description="The individual for whom the evaluation is being done.",
         # if property is element of this resource.
         element_property=True,
         # note: Listed Resource Type(s) should be allowed as Reference.
-        enum_reference_types=["Patient"],
-    )
-
+		enum_reference_types=["Patient"],
+	)
+	
     series: fhirtypes.String = Field(
-        None,
-        alias="series",
-        title="Name of vaccine series",
-        description=(
-            "One possible path to achieve presumed immunity against a disease - "
-            "within the context of an authority."
-        ),
+		None,
+		alias="series",
+		title="Name of vaccine series",
+		description=(
+    "One possible path to achieve presumed immunity against a disease - "
+    "within the context of an authority."
+    ),
         # if property is element of this resource.
         element_property=True,
-    )
+	)
     series__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
-        None, alias="_series", title="Extension field for ``series``."
-    )
-
-    seriesDoses: fhirtypes.String = Field(
         None,
-        alias="seriesDoses",
-        title="Recommended number of doses for immunity",
-        description=(
-            "The recommended number of doses to achieve immunity as determined by "
-            "the outcome of the evaluation process."
-        ),
+        alias="_series",
+        title="Extension field for ``series``."
+    )
+	
+    seriesDoses: fhirtypes.String = Field(
+		None,
+		alias="seriesDoses",
+		title="Recommended number of doses for immunity",
+		description=(
+    "The recommended number of doses to achieve immunity as determined by "
+    "the outcome of the evaluation process."
+    ),
         # if property is element of this resource.
         element_property=True,
-    )
+	)
     seriesDoses__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
-        None, alias="_seriesDoses", title="Extension field for ``seriesDoses``."
-    )
-
-    status: fhirtypes.Code = Field(
         None,
-        alias="status",
-        title="completed | entered-in-error",
-        description=(
-            "Indicates the current status of the evaluation of the vaccination "
-            "administration event."
-        ),
+        alias="_seriesDoses",
+        title="Extension field for ``seriesDoses``."
+    )
+	
+    status: fhirtypes.Code = Field(
+		None,
+		alias="status",
+		title="completed | entered-in-error",
+		description=(
+    "Indicates the current status of the evaluation of the vaccination "
+    "administration event."
+    ),
         # if property is element of this resource.
         element_property=True,
         element_required=True,
         # note: Enum values can be used in validation,
         # but use in your own responsibilities, read official FHIR documentation.
-        enum_values=["completed", "entered-in-error"],
-    )
+		enum_values=["completed", "entered-in-error"],
+	)
     status__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
-        None, alias="_status", title="Extension field for ``status``."
+        None,
+        alias="_status",
+        title="Extension field for ``status``."
     )
-
+	
     targetDisease: fhirtypes.CodeableConceptType = Field(
-        ...,
-        alias="targetDisease",
-        title="Evaluation target disease",
-        description="The vaccine preventable disease the dose is being evaluated against.",
+		...,
+		alias="targetDisease",
+		title="The vaccine preventable disease schedule being evaluated",
+		description="The vaccine preventable disease the dose is being evaluated against.",
         # if property is element of this resource.
         element_property=True,
-    )
-
+	)
     @classmethod
     def elements_sequence(cls):
-        """returning all elements names from ``ImmunizationEvaluation`` according specification,
+        """returning all elements names from
+        ``ImmunizationEvaluation`` according specification,
         with preserving original sequence order.
         """
-        return [
-            "id",
-            "meta",
-            "implicitRules",
-            "language",
-            "text",
-            "contained",
-            "extension",
-            "modifierExtension",
-            "identifier",
-            "status",
-            "patient",
-            "date",
-            "authority",
-            "targetDisease",
-            "immunizationEvent",
-            "doseStatus",
-            "doseStatusReason",
-            "description",
-            "series",
-            "doseNumber",
-            "seriesDoses",
-        ]
+        return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "identifier", "status", "patient", "date", "authority", "targetDisease", "immunizationEvent", "doseStatus", "doseStatusReason", "description", "series", "doseNumber", "seriesDoses"]
+
 
     @root_validator(pre=True, allow_reuse=True)
     def validate_required_primitive_elements_2515(
@@ -238,7 +227,8 @@ class ImmunizationEvaluation(domainresource.DomainResource):
         data type mandatory, it is possible to provide an extension that explains why
         the primitive value is not present.
         """
-        required_fields = [("status", "status__ext")]
+        required_fields = [
+			("status", "status__ext")]
         _missing = object()
 
         def _fallback():

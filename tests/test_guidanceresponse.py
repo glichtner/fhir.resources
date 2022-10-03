@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/GuidanceResponse
-Release: R5
-Version: 4.5.0
-Build ID: 0d95498
-Last updated: 2021-04-03T00:34:11.075+00:00
+Release: 2022Sep
+Version: 5.0.0-ballot
+Build ID: 1505a88
+Last updated: 2022-09-10T04:52:37.223+10:00
 """
 from pydantic.validators import bytes_validator  # noqa: F401
 from fhir.resources import fhirtypes  # noqa: F401
@@ -19,15 +19,12 @@ def impl_guidanceresponse_1(inst):
     assert inst.identifier[0].value == "guidanceResponse1"
     assert inst.meta.tag[0].code == "HTEST"
     assert inst.meta.tag[0].display == "test health data"
-    assert (
-        inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
-    )
+    assert inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
     assert inst.moduleUri == (
-        "http://someguidelineprovider.org/radiology-appropriateness-" "guidelines.html"
+    "http://someguidelineprovider.org/radiology-appropriateness-"
+    "guidelines.html"
     )
-    assert inst.occurrenceDateTime == fhirtypes.DateTime.validate(
-        "2017-03-10T16:02:00Z"
-    )
+    assert inst.occurrenceDateTime == fhirtypes.DateTime.validate("2017-03-10T16:02:00Z")
     assert inst.outputParameters.reference == "#outputParameters1"
     assert inst.performer.reference == "Device/software"
     assert inst.reason[0].concept.text == "Guideline Appropriate Ordering Assessment"
@@ -42,7 +39,9 @@ def test_guidanceresponse_1(base_settings):
     """No. 1 tests collection for GuidanceResponse.
     Test File: guidanceresponse-example.json
     """
-    filename = base_settings["unittest_data_dir"] / "guidanceresponse-example.json"
+    filename = (
+        base_settings["unittest_data_dir"] / "guidanceresponse-example.json"
+    )
     inst = guidanceresponse.GuidanceResponse.parse_file(
         filename, content_type="application/json", encoding="utf-8"
     )

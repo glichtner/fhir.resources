@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/SubstanceReferenceInformation
-Release: R5
-Version: 4.5.0
-Build ID: 0d95498
-Last updated: 2021-04-03T00:34:11.075+00:00
+Release: 2022Sep
+Version: 5.0.0-ballot
+Build ID: 1505a88
+Last updated: 2022-09-10T04:52:37.223+10:00
 """
 import typing
 from pydantic import Field
@@ -15,7 +15,6 @@ from . import fhirtypes
 
 from . import domainresource
 
-
 class SubstanceReferenceInformation(domainresource.DomainResource):
     """Disclaimer: Any field name ends with ``__ext`` doesn't part of
     Resource StructureDefinition, instead used to enable Extensibility feature
@@ -23,73 +22,59 @@ class SubstanceReferenceInformation(domainresource.DomainResource):
 
     Todo.
     """
-
     resource_type = Field("SubstanceReferenceInformation", const=True)
-
+	
     comment: fhirtypes.String = Field(
-        None,
-        alias="comment",
-        title="Todo",
-        description=None,
+		None,
+		alias="comment",
+		title="Todo",
+		description=None,
         # if property is element of this resource.
         element_property=True,
-    )
+	)
     comment__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
-        None, alias="_comment", title="Extension field for ``comment``."
+        None,
+        alias="_comment",
+        title="Extension field for ``comment``."
     )
-
+	
     gene: typing.List[fhirtypes.SubstanceReferenceInformationGeneType] = Field(
-        None,
-        alias="gene",
-        title="Todo",
-        description=None,
+		None,
+		alias="gene",
+		title="Todo",
+		description=None,
         # if property is element of this resource.
         element_property=True,
-    )
-
-    geneElement: typing.List[
-        fhirtypes.SubstanceReferenceInformationGeneElementType
-    ] = Field(
-        None,
-        alias="geneElement",
-        title="Todo",
-        description=None,
+	)
+	
+    geneElement: typing.List[fhirtypes.SubstanceReferenceInformationGeneElementType] = Field(
+		None,
+		alias="geneElement",
+		title="Todo",
+		description=None,
         # if property is element of this resource.
         element_property=True,
-    )
-
+	)
+	
     target: typing.List[fhirtypes.SubstanceReferenceInformationTargetType] = Field(
-        None,
-        alias="target",
-        title="Todo",
-        description=None,
+		None,
+		alias="target",
+		title="Todo",
+		description=None,
         # if property is element of this resource.
         element_property=True,
-    )
-
+	)
     @classmethod
     def elements_sequence(cls):
-        """returning all elements names from ``SubstanceReferenceInformation`` according specification,
+        """returning all elements names from
+        ``SubstanceReferenceInformation`` according specification,
         with preserving original sequence order.
         """
-        return [
-            "id",
-            "meta",
-            "implicitRules",
-            "language",
-            "text",
-            "contained",
-            "extension",
-            "modifierExtension",
-            "comment",
-            "gene",
-            "geneElement",
-            "target",
-        ]
+        return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "comment", "gene", "geneElement", "target"]
+
 
 
 from . import backboneelement
-
 
 class SubstanceReferenceInformationGene(backboneelement.BackboneElement):
     """Disclaimer: Any field name ends with ``__ext`` doesn't part of
@@ -98,51 +83,44 @@ class SubstanceReferenceInformationGene(backboneelement.BackboneElement):
 
     Todo.
     """
-
     resource_type = Field("SubstanceReferenceInformationGene", const=True)
-
+	
     gene: fhirtypes.CodeableConceptType = Field(
-        None,
-        alias="gene",
-        title="Todo",
-        description=None,
+		None,
+		alias="gene",
+		title="Todo",
+		description=None,
         # if property is element of this resource.
         element_property=True,
-    )
-
+	)
+	
     geneSequenceOrigin: fhirtypes.CodeableConceptType = Field(
-        None,
-        alias="geneSequenceOrigin",
-        title="Todo",
-        description=None,
+		None,
+		alias="geneSequenceOrigin",
+		title="Todo",
+		description=None,
         # if property is element of this resource.
         element_property=True,
-    )
-
+	)
+	
     source: typing.List[fhirtypes.ReferenceType] = Field(
-        None,
-        alias="source",
-        title="Todo",
-        description=None,
+		None,
+		alias="source",
+		title="Todo",
+		description=None,
         # if property is element of this resource.
         element_property=True,
         # note: Listed Resource Type(s) should be allowed as Reference.
-        enum_reference_types=["DocumentReference"],
-    )
-
+		enum_reference_types=["DocumentReference"],
+	)
     @classmethod
     def elements_sequence(cls):
-        """returning all elements names from ``SubstanceReferenceInformationGene`` according specification,
+        """returning all elements names from
+        ``SubstanceReferenceInformationGene`` according specification,
         with preserving original sequence order.
         """
-        return [
-            "id",
-            "extension",
-            "modifierExtension",
-            "geneSequenceOrigin",
-            "gene",
-            "source",
-        ]
+        return ["id", "extension", "modifierExtension", "geneSequenceOrigin", "gene", "source"]
+
 
 
 class SubstanceReferenceInformationGeneElement(backboneelement.BackboneElement):
@@ -152,44 +130,44 @@ class SubstanceReferenceInformationGeneElement(backboneelement.BackboneElement):
 
     Todo.
     """
-
     resource_type = Field("SubstanceReferenceInformationGeneElement", const=True)
-
+	
     element: fhirtypes.IdentifierType = Field(
-        None,
-        alias="element",
-        title="Todo",
-        description=None,
+		None,
+		alias="element",
+		title="Todo",
+		description=None,
         # if property is element of this resource.
         element_property=True,
-    )
-
+	)
+	
     source: typing.List[fhirtypes.ReferenceType] = Field(
-        None,
-        alias="source",
-        title="Todo",
-        description=None,
+		None,
+		alias="source",
+		title="Todo",
+		description=None,
         # if property is element of this resource.
         element_property=True,
         # note: Listed Resource Type(s) should be allowed as Reference.
-        enum_reference_types=["DocumentReference"],
-    )
-
+		enum_reference_types=["DocumentReference"],
+	)
+	
     type: fhirtypes.CodeableConceptType = Field(
-        None,
-        alias="type",
-        title="Todo",
-        description=None,
+		None,
+		alias="type",
+		title="Todo",
+		description=None,
         # if property is element of this resource.
         element_property=True,
-    )
-
+	)
     @classmethod
     def elements_sequence(cls):
-        """returning all elements names from ``SubstanceReferenceInformationGeneElement`` according specification,
+        """returning all elements names from
+        ``SubstanceReferenceInformationGeneElement`` according specification,
         with preserving original sequence order.
         """
         return ["id", "extension", "modifierExtension", "type", "element", "source"]
+
 
 
 class SubstanceReferenceInformationTarget(backboneelement.BackboneElement):
@@ -199,133 +177,121 @@ class SubstanceReferenceInformationTarget(backboneelement.BackboneElement):
 
     Todo.
     """
-
     resource_type = Field("SubstanceReferenceInformationTarget", const=True)
-
+	
     amountQuantity: fhirtypes.QuantityType = Field(
-        None,
-        alias="amountQuantity",
-        title="Todo",
-        description=None,
+		None,
+		alias="amountQuantity",
+		title="Todo",
+		description=None,
         # if property is element of this resource.
         element_property=True,
         # Choice of Data Types. i.e amount[x]
-        one_of_many="amount",
-        one_of_many_required=False,
-    )
-
+		one_of_many="amount",
+		one_of_many_required=False,
+	)
+	
     amountRange: fhirtypes.RangeType = Field(
-        None,
-        alias="amountRange",
-        title="Todo",
-        description=None,
+		None,
+		alias="amountRange",
+		title="Todo",
+		description=None,
         # if property is element of this resource.
         element_property=True,
         # Choice of Data Types. i.e amount[x]
-        one_of_many="amount",
-        one_of_many_required=False,
-    )
-
+		one_of_many="amount",
+		one_of_many_required=False,
+	)
+	
     amountString: fhirtypes.String = Field(
-        None,
-        alias="amountString",
-        title="Todo",
-        description=None,
+		None,
+		alias="amountString",
+		title="Todo",
+		description=None,
         # if property is element of this resource.
         element_property=True,
         # Choice of Data Types. i.e amount[x]
-        one_of_many="amount",
-        one_of_many_required=False,
-    )
+		one_of_many="amount",
+		one_of_many_required=False,
+	)
     amountString__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
-        None, alias="_amountString", title="Extension field for ``amountString``."
+        None,
+        alias="_amountString",
+        title="Extension field for ``amountString``."
     )
-
+	
     amountType: fhirtypes.CodeableConceptType = Field(
-        None,
-        alias="amountType",
-        title="Todo",
-        description=None,
+		None,
+		alias="amountType",
+		title="Todo",
+		description=None,
         # if property is element of this resource.
         element_property=True,
-    )
-
+	)
+	
     interaction: fhirtypes.CodeableConceptType = Field(
-        None,
-        alias="interaction",
-        title="Todo",
-        description=None,
+		None,
+		alias="interaction",
+		title="Todo",
+		description=None,
         # if property is element of this resource.
         element_property=True,
-    )
-
+	)
+	
     organism: fhirtypes.CodeableConceptType = Field(
-        None,
-        alias="organism",
-        title="Todo",
-        description=None,
+		None,
+		alias="organism",
+		title="Todo",
+		description=None,
         # if property is element of this resource.
         element_property=True,
-    )
-
+	)
+	
     organismType: fhirtypes.CodeableConceptType = Field(
-        None,
-        alias="organismType",
-        title="Todo",
-        description=None,
+		None,
+		alias="organismType",
+		title="Todo",
+		description=None,
         # if property is element of this resource.
         element_property=True,
-    )
-
+	)
+	
     source: typing.List[fhirtypes.ReferenceType] = Field(
-        None,
-        alias="source",
-        title="Todo",
-        description=None,
+		None,
+		alias="source",
+		title="Todo",
+		description=None,
         # if property is element of this resource.
         element_property=True,
         # note: Listed Resource Type(s) should be allowed as Reference.
-        enum_reference_types=["DocumentReference"],
-    )
-
+		enum_reference_types=["DocumentReference"],
+	)
+	
     target: fhirtypes.IdentifierType = Field(
-        None,
-        alias="target",
-        title="Todo",
-        description=None,
+		None,
+		alias="target",
+		title="Todo",
+		description=None,
         # if property is element of this resource.
         element_property=True,
-    )
-
+	)
+	
     type: fhirtypes.CodeableConceptType = Field(
-        None,
-        alias="type",
-        title="Todo",
-        description=None,
+		None,
+		alias="type",
+		title="Todo",
+		description=None,
         # if property is element of this resource.
         element_property=True,
-    )
-
+	)
     @classmethod
     def elements_sequence(cls):
-        """returning all elements names from ``SubstanceReferenceInformationTarget`` according specification,
+        """returning all elements names from
+        ``SubstanceReferenceInformationTarget`` according specification,
         with preserving original sequence order.
         """
-        return [
-            "id",
-            "extension",
-            "modifierExtension",
-            "target",
-            "type",
-            "interaction",
-            "organism",
-            "organismType",
-            "amountQuantity",
-            "amountRange",
-            "amountString",
-            "amountType",
-            "source",
-        ]
+        return ["id", "extension", "modifierExtension", "target", "type", "interaction", "organism", "organismType", "amountQuantity", "amountRange", "amountString", "amountType", "source"]
+
 
     @root_validator(pre=True, allow_reuse=True)
     def validate_one_of_many_3819(
@@ -344,8 +310,10 @@ class SubstanceReferenceInformationTarget(backboneelement.BackboneElement):
         data type chosen from among the list of permitted data types.
         """
         one_of_many_fields = {
-            "amount": ["amountQuantity", "amountRange", "amountString"]
-        }
+			"amount": [
+			    "amountQuantity",
+			    "amountRange",
+			    "amountString"]}
         for prefix, fields in one_of_many_fields.items():
             assert cls.__fields__[fields[0]].field_info.extra["one_of_many"] == prefix
             required = (

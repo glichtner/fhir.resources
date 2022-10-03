@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/Endpoint
-Release: R5
-Version: 4.5.0
-Build ID: 0d95498
-Last updated: 2021-04-03T00:34:11.075+00:00
+Release: 2022Sep
+Version: 5.0.0-ballot
+Build ID: 1505a88
+Last updated: 2022-09-10T04:52:37.223+10:00
 """
 from pydantic.validators import bytes_validator  # noqa: F401
 from fhir.resources import fhirtypes  # noqa: F401
@@ -12,29 +12,47 @@ from fhir.resources import endpoint
 
 
 def impl_endpoint_1(inst):
-    assert inst.address == "https://pacs.hospital.org/wado-rs"
-    assert inst.connectionType.code == "dicom-wado-rs"
-    assert inst.connectionType.system == (
-        "http://terminology.hl7.org/CodeSystem/endpoint-connection-" "type"
+    assert inst.address == "http://fhir3.healthintersections.com.au/open/CarePlan"
+    assert inst.connectionType[0].coding[0].code == "hl7-fhir-rest"
+    assert inst.connectionType[0].coding[0].system == (
+    "http://terminology.hl7.org/CodeSystem/endpoint-connection-"
+    "type"
     )
-    assert inst.id == "example-wadors"
+    assert inst.contact[0].system == "email"
+    assert inst.contact[0].use == "work"
+    assert inst.contact[0].value == "endpointmanager@example.org"
+    assert inst.description == (
+    "The CarePlan hub provides a test/dev environment for testing"
+    " submissions"
+    )
+    assert inst.environmentType[0].coding[0].code == "test"
+    assert inst.environmentType[0].coding[0].system == "http://hl7.org/fhir/endpoint-environment"
+    assert inst.environmentType[1].coding[0].code == "dev"
+    assert inst.environmentType[1].coding[0].system == "http://hl7.org/fhir/endpoint-environment"
+    assert inst.header[0] == "bearer-code BASGS534s4"
+    assert inst.id == "example"
+    assert inst.identifier[0].system == "http://example.org/enpoint-identifier"
+    assert inst.identifier[0].value == "epcp12"
+    assert inst.managingOrganization.reference == "Organization/hl7"
     assert inst.meta.tag[0].code == "HTEST"
     assert inst.meta.tag[0].display == "test health data"
-    assert (
-        inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
-    )
-    assert inst.name == "PACS Hospital DICOM WADO-RS endpoint"
-    assert inst.payloadMimeType[0] == "application/dicom"
-    assert inst.payloadType[0].text == "DICOM WADO-RS"
+    assert inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
+    assert inst.name == "Health Intersections CarePlan Hub"
+    assert inst.payloadMimeType[0] == "application/fhir+xml"
+    assert inst.payloadType[0].coding[0].code == "CarePlan"
+    assert inst.payloadType[0].coding[0].system == "http://hl7.org/fhir/fhir-types"
+    assert inst.period.start == fhirtypes.DateTime.validate("2014-09-01")
     assert inst.status == "active"
     assert inst.text.status == "generated"
 
 
 def test_endpoint_1(base_settings):
     """No. 1 tests collection for Endpoint.
-    Test File: endpoint-example-wadors.json
+    Test File: endpoint-example.json
     """
-    filename = base_settings["unittest_data_dir"] / "endpoint-example-wadors.json"
+    filename = (
+        base_settings["unittest_data_dir"] / "endpoint-example.json"
+    )
     inst = endpoint.Endpoint.parse_file(
         filename, content_type="application/json", encoding="utf-8"
     )
@@ -51,29 +69,29 @@ def test_endpoint_1(base_settings):
 
 
 def impl_endpoint_2(inst):
-    assert inst.address == "mailto:MARTIN.SMIETANKA@directnppes.com"
-    assert inst.connectionType.code == "direct-project"
-    assert inst.id == "direct-endpoint"
-    assert inst.managingOrganization.reference == "Organization/299"
+    assert inst.address == "https://pacs.hospital.org/IHEInvokeImageDisplay"
+    assert inst.connectionType[0].coding[0].code == "ihe-iid"
+    assert inst.connectionType[0].coding[0].system == (
+    "http://terminology.hl7.org/CodeSystem/endpoint-connection-"
+    "type"
+    )
+    assert inst.id == "example-iid"
     assert inst.meta.tag[0].code == "HTEST"
     assert inst.meta.tag[0].display == "test health data"
-    assert (
-        inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
-    )
-    assert inst.name == "MARTIN SMIETANKA"
-    assert (
-        inst.payloadType[0].coding[0].code == "urn:hl7-org:sdwg:ccda-structuredBody:1.1"
-    )
-    assert inst.payloadType[0].coding[0].system == "urn:oid:1.3.6.1.4.1.19376.1.2.3"
+    assert inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
+    assert inst.name == "PACS Hospital Invoke Image Display endpoint"
+    assert inst.payloadType[0].text == "DICOM IID"
     assert inst.status == "active"
     assert inst.text.status == "generated"
 
 
 def test_endpoint_2(base_settings):
     """No. 2 tests collection for Endpoint.
-    Test File: endpoint-example-direct.json
+    Test File: endpoint-example-iid.json
     """
-    filename = base_settings["unittest_data_dir"] / "endpoint-example-direct.json"
+    filename = (
+        base_settings["unittest_data_dir"] / "endpoint-example-iid.json"
+    )
     inst = endpoint.Endpoint.parse_file(
         filename, content_type="application/json", encoding="utf-8"
     )
@@ -90,38 +108,27 @@ def test_endpoint_2(base_settings):
 
 
 def impl_endpoint_3(inst):
-    assert inst.address == "http://fhir3.healthintersections.com.au/open/CarePlan"
-    assert inst.connectionType.code == "hl7-fhir-rest"
-    assert inst.connectionType.system == (
-        "http://terminology.hl7.org/CodeSystem/endpoint-connection-" "type"
-    )
-    assert inst.contact[0].system == "email"
-    assert inst.contact[0].use == "work"
-    assert inst.contact[0].value == "endpointmanager@example.org"
-    assert inst.header[0] == "bearer-code BASGS534s4"
-    assert inst.id == "example"
-    assert inst.identifier[0].system == "http://example.org/enpoint-identifier"
-    assert inst.identifier[0].value == "epcp12"
-    assert inst.managingOrganization.reference == "Organization/hl7"
+    assert inst.address == "mailto:MARTIN.SMIETANKA@directnppes.com"
+    assert inst.connectionType[0].coding[0].code == "direct-project"
+    assert inst.id == "direct-endpoint"
+    assert inst.managingOrganization.reference == "Organization/299"
     assert inst.meta.tag[0].code == "HTEST"
     assert inst.meta.tag[0].display == "test health data"
-    assert (
-        inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
-    )
-    assert inst.name == "Health Intersections CarePlan Hub"
-    assert inst.payloadMimeType[0] == "application/fhir+xml"
-    assert inst.payloadType[0].coding[0].code == "CarePlan"
-    assert inst.payloadType[0].coding[0].system == "http://hl7.org/fhir/resource-types"
-    assert inst.period.start == fhirtypes.DateTime.validate("2014-09-01")
+    assert inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
+    assert inst.name == "MARTIN SMIETANKA"
+    assert inst.payloadType[0].coding[0].code == "urn:hl7-org:sdwg:ccda-structuredBody:1.1"
+    assert inst.payloadType[0].coding[0].system == "urn:oid:1.3.6.1.4.1.19376.1.2.3"
     assert inst.status == "active"
     assert inst.text.status == "generated"
 
 
 def test_endpoint_3(base_settings):
     """No. 3 tests collection for Endpoint.
-    Test File: endpoint-example.json
+    Test File: endpoint-example-direct.json
     """
-    filename = base_settings["unittest_data_dir"] / "endpoint-example.json"
+    filename = (
+        base_settings["unittest_data_dir"] / "endpoint-example-direct.json"
+    )
     inst = endpoint.Endpoint.parse_file(
         filename, content_type="application/json", encoding="utf-8"
     )
@@ -138,28 +145,30 @@ def test_endpoint_3(base_settings):
 
 
 def impl_endpoint_4(inst):
-    assert inst.address == "https://pacs.hospital.org/IHEInvokeImageDisplay"
-    assert inst.connectionType.code == "ihe-iid"
-    assert inst.connectionType.system == (
-        "http://terminology.hl7.org/CodeSystem/endpoint-connection-" "type"
+    assert inst.address == "https://pacs.hospital.org/wado-rs"
+    assert inst.connectionType[0].coding[0].code == "dicom-wado-rs"
+    assert inst.connectionType[0].coding[0].system == (
+    "http://terminology.hl7.org/CodeSystem/endpoint-connection-"
+    "type"
     )
-    assert inst.id == "example-iid"
+    assert inst.id == "example-wadors"
     assert inst.meta.tag[0].code == "HTEST"
     assert inst.meta.tag[0].display == "test health data"
-    assert (
-        inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
-    )
-    assert inst.name == "PACS Hospital Invoke Image Display endpoint"
-    assert inst.payloadType[0].text == "DICOM IID"
+    assert inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
+    assert inst.name == "PACS Hospital DICOM WADO-RS endpoint"
+    assert inst.payloadMimeType[0] == "application/dicom"
+    assert inst.payloadType[0].text == "DICOM WADO-RS"
     assert inst.status == "active"
     assert inst.text.status == "generated"
 
 
 def test_endpoint_4(base_settings):
     """No. 4 tests collection for Endpoint.
-    Test File: endpoint-example-iid.json
+    Test File: endpoint-example-wadors.json
     """
-    filename = base_settings["unittest_data_dir"] / "endpoint-example-iid.json"
+    filename = (
+        base_settings["unittest_data_dir"] / "endpoint-example-wadors.json"
+    )
     inst = endpoint.Endpoint.parse_file(
         filename, content_type="application/json", encoding="utf-8"
     )

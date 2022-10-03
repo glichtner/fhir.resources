@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/ObservationDefinition
-Release: R5
-Version: 4.5.0
-Build ID: 0d95498
-Last updated: 2021-04-03T00:34:11.075+00:00
+Release: 2022Sep
+Version: 5.0.0-ballot
+Build ID: 1505a88
+Last updated: 2022-09-10T04:52:37.223+10:00
 """
 from pydantic.validators import bytes_validator  # noqa: F401
 from fhir.resources import fhirtypes  # noqa: F401
@@ -13,22 +13,14 @@ from fhir.resources import observationdefinition
 
 def impl_observationdefinition_1(inst):
     assert inst.category[0].coding[0].code == "laboratory"
-    assert (
-        inst.category[0].coding[0].system
-        == "http://terminology.hl7.org/CodeSystem/observation-category"
-    )
+    assert inst.category[0].coding[0].system == "http://terminology.hl7.org/CodeSystem/observation-category"
     assert inst.code.coding[0].code == "13980-8"
-    assert (
-        inst.code.coding[0].display
-        == "Albumin/Protein.total in Serum or Plasma by Electrophoresis"
-    )
+    assert inst.code.coding[0].display == "Albumin/Protein.total in Serum or Plasma by Electrophoresis"
     assert inst.code.coding[0].system == "http://loinc.org"
     assert inst.id == "example"
     assert inst.meta.tag[0].code == "HTEST"
     assert inst.meta.tag[0].display == "test health data"
-    assert (
-        inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
-    )
+    assert inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
     assert inst.method.coding[0].code == "115341008"
     assert inst.method.coding[0].display == "Total measurement"
     assert inst.method.coding[0].system == "http://snomed.info/sct"
@@ -36,18 +28,12 @@ def impl_observationdefinition_1(inst):
     assert inst.permittedDataType[0] == "Quantity"
     assert inst.qualifiedValue[0].context.coding[0].code == "normal"
     assert inst.qualifiedValue[0].context.coding[0].display == "Normal Range"
-    assert (
-        inst.qualifiedValue[0].context.coding[0].system
-        == "http://terminology.hl7.org/CodeSystem/referencerange-meaning"
-    )
+    assert inst.qualifiedValue[0].context.coding[0].system == "http://terminology.hl7.org/CodeSystem/referencerange-meaning"
     assert float(inst.qualifiedValue[0].range.low.value) == float(50)
     assert inst.qualifiedValue[0].rangeCategory == "reference"
     assert inst.qualifiedValue[1].context.coding[0].code == "normal"
     assert inst.qualifiedValue[1].context.coding[0].display == "Normal Range"
-    assert (
-        inst.qualifiedValue[1].context.coding[0].system
-        == "http://terminology.hl7.org/CodeSystem/referencerange-meaning"
-    )
+    assert inst.qualifiedValue[1].context.coding[0].system == "http://terminology.hl7.org/CodeSystem/referencerange-meaning"
     assert float(inst.qualifiedValue[1].range.high.value) == float(40)
     assert inst.qualifiedValue[1].rangeCategory == "critical"
     assert inst.quantitativeDetails.decimalPrecision == 0
@@ -62,7 +48,9 @@ def test_observationdefinition_1(base_settings):
     """No. 1 tests collection for ObservationDefinition.
     Test File: observationdefinition-example.json
     """
-    filename = base_settings["unittest_data_dir"] / "observationdefinition-example.json"
+    filename = (
+        base_settings["unittest_data_dir"] / "observationdefinition-example.json"
+    )
     inst = observationdefinition.ObservationDefinition.parse_file(
         filename, content_type="application/json", encoding="utf-8"
     )

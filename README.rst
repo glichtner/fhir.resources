@@ -1,6 +1,6 @@
-=======================================
-FHIR® Resources (Release R5 Preview #3)
-=======================================
+=========================================
+FHIR® Resources (Release R5 5.0.0-ballot)
+=========================================
 
 .. image:: https://www.hl7.org/fhir/assets/images/fhir-logo-www.png
         :target: https://www.hl7.org/implement/standards/product_brief.cfm?product_id=449
@@ -17,12 +17,12 @@ data validation, faster in performance and optionally ``orjson`` support has bee
 
 Package Origin
 --------------
-Forked from https://github.com/nazrulworld/fhir.resources, recreated to only include FHIR Release R5 Preview #3 resources.
+Forked from https://github.com/nazrulworld/fhir.resources, recreated to only include FHIR Release R5 5.0.0-ballot resources.
 
 FHIR® Version Info
 ------------------
 
-FHIR® (Release R5, version 4.5.0) - https://build.fhir.org
+FHIR® (Release R5, version 5.0.0-ballot) - https://hl7.org/fhir/2022Sep/
 
 Installation
 ------------

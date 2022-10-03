@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/SampledData
-Release: R5
-Version: 4.5.0
-Build ID: 0d95498
-Last updated: 2021-04-03T00:34:11.075+00:00
+Release: 2022Sep
+Version: 5.0.0-ballot
+Build ID: 1505a88
+Last updated: 2022-09-10T04:52:37.223+10:00
 """
 import typing
 from pydantic import Field
@@ -18,7 +18,6 @@ from . import fhirtypes
 
 from . import datatype
 
-
 class SampledData(datatype.DataType):
     """Disclaimer: Any field name ends with ``__ext`` doesn't part of
     Resource StructureDefinition, instead used to enable Extensibility feature
@@ -28,131 +27,151 @@ class SampledData(datatype.DataType):
     A series of measurements taken by a device, with upper and lower limits.
     There may be more than one dimension in the data.
     """
-
     resource_type = Field("SampledData", const=True)
-
+	
     data: fhirtypes.String = Field(
-        None,
-        alias="data",
-        title='Decimal values with spaces, or "E" | "U" | "L"',
-        description=(
-            "A series of data points which are decimal values separated by a single"
-            ' space (character u20). The special values "E" (error), "L" (below '
-            'detection limit) and "U" (above detection limit) can also be used in '
-            "place of a decimal value."
-        ),
+		None,
+		alias="data",
+		title="Decimal values with spaces, or \"E\" | \"U\" | \"L\"",
+		description=(
+    "A series of data points which are decimal values separated by a single"
+    " space (character u20). The special values \"E\" (error), \"L\" (below "
+    "detection limit) and \"U\" (above detection limit) can also be used in "
+    "place of a decimal value."
+    ),
         # if property is element of this resource.
         element_property=True,
-    )
+	)
     data__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
-        None, alias="_data", title="Extension field for ``data``."
+        None,
+        alias="_data",
+        title="Extension field for ``data``."
     )
-
+	
     dimensions: fhirtypes.PositiveInt = Field(
-        None,
-        alias="dimensions",
-        title="Number of sample points at each time point",
-        description=(
-            "The number of sample points at each time point. If this value is "
-            "greater than one, then the dimensions will be interlaced - all the "
-            "sample points for a point in time will be recorded at once."
-        ),
+		None,
+		alias="dimensions",
+		title="Number of sample points at each time point",
+		description=(
+    "The number of sample points at each time point. If this value is "
+    "greater than one, then the dimensions will be interlaced - all the "
+    "sample points for a point in time will be recorded at once."
+    ),
         # if property is element of this resource.
         element_property=True,
         element_required=True,
-    )
+	)
     dimensions__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
-        None, alias="_dimensions", title="Extension field for ``dimensions``."
+        None,
+        alias="_dimensions",
+        title="Extension field for ``dimensions``."
     )
-
+	
     factor: fhirtypes.Decimal = Field(
-        None,
-        alias="factor",
-        title="Multiply data by this before adding to origin",
-        description=(
-            "A correction factor that is applied to the sampled data points before "
-            "they are added to the origin."
-        ),
+		None,
+		alias="factor",
+		title="Multiply data by this before adding to origin",
+		description=(
+    "A correction factor that is applied to the sampled data points before "
+    "they are added to the origin."
+    ),
         # if property is element of this resource.
         element_property=True,
-    )
+	)
     factor__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
-        None, alias="_factor", title="Extension field for ``factor``."
-    )
-
-    lowerLimit: fhirtypes.Decimal = Field(
         None,
-        alias="lowerLimit",
-        title="Lower limit of detection",
-        description=(
-            "The lower limit of detection of the measured points. This is needed if"
-            ' any of the data points have the value "L" (lower than detection '
-            "limit)."
-        ),
-        # if property is element of this resource.
-        element_property=True,
+        alias="_factor",
+        title="Extension field for ``factor``."
     )
-    lowerLimit__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
-        None, alias="_lowerLimit", title="Extension field for ``lowerLimit``."
-    )
-
-    origin: fhirtypes.QuantityType = Field(
-        ...,
-        alias="origin",
-        title="Zero value and units",
-        description=(
-            "The base quantity that a measured value of zero represents. In "
-            "addition, this provides the units of the entire measurement series."
-        ),
-        # if property is element of this resource.
-        element_property=True,
-    )
-
-    period: fhirtypes.Decimal = Field(
-        None,
-        alias="period",
-        title="Number of milliseconds between samples",
-        description="The length of time between sampling times, measured in milliseconds.",
+	
+    interval: fhirtypes.Decimal = Field(
+		None,
+		alias="interval",
+		title="Number of intervalUnits between samples",
+		description=(
+    "Amount of intervalUnits between samples, eg. milliseconds for time-"
+    "based sampling."
+    ),
         # if property is element of this resource.
         element_property=True,
         element_required=True,
-    )
-    period__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
-        None, alias="_period", title="Extension field for ``period``."
-    )
-
-    upperLimit: fhirtypes.Decimal = Field(
+	)
+    interval__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
         None,
-        alias="upperLimit",
-        title="Upper limit of detection",
-        description=(
-            "The upper limit of detection of the measured points. This is needed if"
-            ' any of the data points have the value "U" (higher than detection '
-            "limit)."
-        ),
+        alias="_interval",
+        title="Extension field for ``interval``."
+    )
+	
+    intervalUnit: fhirtypes.Code = Field(
+		None,
+		alias="intervalUnit",
+		title="The measurement unit of the interval between samples",
+		description="The measurement unit in which the sample interval is expressed.",
         # if property is element of this resource.
         element_property=True,
+        element_required=True,
+	)
+    intervalUnit__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
+        None,
+        alias="_intervalUnit",
+        title="Extension field for ``intervalUnit``."
     )
+	
+    lowerLimit: fhirtypes.Decimal = Field(
+		None,
+		alias="lowerLimit",
+		title="Lower limit of detection",
+		description=(
+    "The lower limit of detection of the measured points. This is needed if"
+    " any of the data points have the value \"L\" (lower than detection "
+    "limit)."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+	)
+    lowerLimit__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
+        None,
+        alias="_lowerLimit",
+        title="Extension field for ``lowerLimit``."
+    )
+	
+    origin: fhirtypes.QuantityType = Field(
+		...,
+		alias="origin",
+		title="Zero value and units",
+		description=(
+    "The base quantity that a measured value of zero represents. In "
+    "addition, this provides the units of the entire measurement series."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+	)
+	
+    upperLimit: fhirtypes.Decimal = Field(
+		None,
+		alias="upperLimit",
+		title="Upper limit of detection",
+		description=(
+    "The upper limit of detection of the measured points. This is needed if"
+    " any of the data points have the value \"U\" (higher than detection "
+    "limit)."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+	)
     upperLimit__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
-        None, alias="_upperLimit", title="Extension field for ``upperLimit``."
+        None,
+        alias="_upperLimit",
+        title="Extension field for ``upperLimit``."
     )
-
     @classmethod
     def elements_sequence(cls):
-        """returning all elements names from ``SampledData`` according specification,
+        """returning all elements names from
+        ``SampledData`` according specification,
         with preserving original sequence order.
         """
-        return [
-            "id",
-            "extension",
-            "origin",
-            "period",
-            "factor",
-            "lowerLimit",
-            "upperLimit",
-            "dimensions",
-            "data",
-        ]
+        return ["id", "extension", "origin", "interval", "intervalUnit", "factor", "lowerLimit", "upperLimit", "dimensions", "data"]
+
 
     @root_validator(pre=True, allow_reuse=True)
     def validate_required_primitive_elements_1268(
@@ -165,7 +184,10 @@ class SampledData(datatype.DataType):
         data type mandatory, it is possible to provide an extension that explains why
         the primitive value is not present.
         """
-        required_fields = [("dimensions", "dimensions__ext"), ("period", "period__ext")]
+        required_fields = [
+			("dimensions", "dimensions__ext"),
+			("interval", "interval__ext"),
+			("intervalUnit", "intervalUnit__ext")]
         _missing = object()
 
         def _fallback():

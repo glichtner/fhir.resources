@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/NutritionIntake
-Release: R5
-Version: 4.5.0
-Build ID: 0d95498
-Last updated: 2021-04-03T00:34:11.075+00:00
+Release: 2022Sep
+Version: 5.0.0-ballot
+Build ID: 1505a88
+Last updated: 2022-09-10T04:52:37.223+10:00
 """
 import typing
 from pydantic import Field
@@ -17,7 +17,6 @@ from . import fhirtypes
 
 
 from . import domainresource
-
 
 class NutritionIntake(domainresource.DomainResource):
     """Disclaimer: Any field name ends with ``__ext`` doesn't part of
@@ -36,383 +35,327 @@ class NutritionIntake(domainresource.DomainResource):
     patient's memory, from a nutrition label,  or from a clinician documenting
     observed intake.
     """
-
     resource_type = Field("NutritionIntake", const=True)
-
+	
     basedOn: typing.List[fhirtypes.ReferenceType] = Field(
-        None,
-        alias="basedOn",
-        title="Fulfils plan, proposal or order",
-        description=(
-            "A plan, proposal or order that is fulfilled in whole or in part by "
-            "this event."
-        ),
+		None,
+		alias="basedOn",
+		title="Fulfils plan, proposal or order",
+		description=(
+    "A plan, proposal or order that is fulfilled in whole or in part by "
+    "this event."
+    ),
         # if property is element of this resource.
         element_property=True,
         # note: Listed Resource Type(s) should be allowed as Reference.
-        enum_reference_types=["NutritionOrder", "CarePlan", "ServiceRequest"],
-    )
-
+		enum_reference_types=["NutritionOrder", "CarePlan", "ServiceRequest"],
+	)
+	
     code: fhirtypes.CodeableConceptType = Field(
-        None,
-        alias="code",
-        title="Type of nutrition intake setting/reporting",
-        description=None,
+		None,
+		alias="code",
+		title="Code representing an overall type of nutrition intake",
+		description="Overall type of nutrition intake.",
         # if property is element of this resource.
         element_property=True,
-    )
-
+	)
+	
     consumedItem: typing.List[fhirtypes.NutritionIntakeConsumedItemType] = Field(
-        ...,
-        alias="consumedItem",
-        title="What food or fluid product or item was consumed",
-        description=None,
+		...,
+		alias="consumedItem",
+		title="What food or fluid product or item was consumed",
+		description=None,
         # if property is element of this resource.
         element_property=True,
-    )
-
+	)
+	
     derivedFrom: typing.List[fhirtypes.ReferenceType] = Field(
-        None,
-        alias="derivedFrom",
-        title="Additional supporting information",
-        description=(
-            "Allows linking the NutritionIntake to the underlying NutritionOrder, "
-            "or to other information, such as AllergyIntolerance, that supports or "
-            "is used to derive the NutritionIntake."
-        ),
+		None,
+		alias="derivedFrom",
+		title="Additional supporting information",
+		description=(
+    "Allows linking the NutritionIntake to the underlying NutritionOrder, "
+    "or to other information, such as AllergyIntolerance, that supports or "
+    "is used to derive the NutritionIntake."
+    ),
         # if property is element of this resource.
         element_property=True,
         # note: Listed Resource Type(s) should be allowed as Reference.
-        enum_reference_types=["Resource"],
-    )
-
+		enum_reference_types=["Resource"],
+	)
+	
     encounter: fhirtypes.ReferenceType = Field(
-        None,
-        alias="encounter",
-        title="Encounter associated with NutritionIntake",
-        description="The encounter that establishes the context for this NutritionIntake.",
+		None,
+		alias="encounter",
+		title="Encounter associated with NutritionIntake",
+		description="The encounter that establishes the context for this NutritionIntake.",
         # if property is element of this resource.
         element_property=True,
         # note: Listed Resource Type(s) should be allowed as Reference.
-        enum_reference_types=["Encounter"],
-    )
-
+		enum_reference_types=["Encounter"],
+	)
+	
     identifier: typing.List[fhirtypes.IdentifierType] = Field(
-        None,
-        alias="identifier",
-        title="External identifier",
-        description=(
-            "Identifiers associated with this Nutrition Intake that are defined by "
-            "business processes and/or used to refer to it when a direct URL "
-            "reference to the resource itself is not appropriate. They are business"
-            " identifiers assigned to this resource by the performer or other "
-            "systems and remain constant as the resource is updated and propagates "
-            "from server to server."
-        ),
+		None,
+		alias="identifier",
+		title="External identifier",
+		description=(
+    "Identifiers associated with this Nutrition Intake that are defined by "
+    "business processes and/or used to refer to it when a direct URL "
+    "reference to the resource itself is not appropriate. They are business"
+    " identifiers assigned to this resource by the performer or other "
+    "systems and remain constant as the resource is updated and propagates "
+    "from server to server."
+    ),
         # if property is element of this resource.
         element_property=True,
-    )
-
+	)
+	
     ingredientLabel: typing.List[fhirtypes.NutritionIntakeIngredientLabelType] = Field(
-        None,
-        alias="ingredientLabel",
-        title="Total nutrient for the whole meal, product, serving",
-        description="Total nutrient amounts for the whole meal, product, serving, etc.",
+		None,
+		alias="ingredientLabel",
+		title="Total nutrient for the whole meal, product, serving",
+		description="Total nutrient amounts for the whole meal, product, serving, etc.",
         # if property is element of this resource.
         element_property=True,
-    )
-
+	)
+	
     instantiatesCanonical: typing.List[fhirtypes.Canonical] = Field(
-        None,
-        alias="instantiatesCanonical",
-        title="Instantiates FHIR protocol or definition",
-        description=None,
+		None,
+		alias="instantiatesCanonical",
+		title="Instantiates FHIR protocol or definition",
+		description=None,
         # if property is element of this resource.
         element_property=True,
         # note: Listed Resource Type(s) should be allowed as Reference.
-        enum_reference_types=[
-            "ActivityDefinition",
-            "EventDefinition",
-            "EvidenceVariable",
-            "Measure",
-            "OperationDefinition",
-            "PlanDefinition",
-            "Questionnaire",
-            "SubscriptionTopic",
-        ],
-    )
-    instantiatesCanonical__ext: typing.List[
-        typing.Union[fhirtypes.FHIRPrimitiveExtensionType, None]
-    ] = Field(
+		enum_reference_types=["ActivityDefinition", "ChargeItemDefinition", "EventDefinition", "Measure", "MessageDefinition", "ObservationDefinition", "OperationDefinition", "PlanDefinition", "Questionnaire", "SubscriptionTopic", "TestScript"],
+	)
+    instantiatesCanonical__ext: typing.List[typing.Union[fhirtypes.FHIRPrimitiveExtensionType, None]] = Field(
         None,
         alias="_instantiatesCanonical",
-        title="Extension field for ``instantiatesCanonical``.",
+        title="Extension field for ``instantiatesCanonical``."
     )
-
+	
     instantiatesUri: typing.List[fhirtypes.Uri] = Field(
-        None,
-        alias="instantiatesUri",
-        title="Instantiates external protocol or definition",
-        description=None,
+		None,
+		alias="instantiatesUri",
+		title="Instantiates external protocol or definition",
+		description=None,
         # if property is element of this resource.
         element_property=True,
-    )
-    instantiatesUri__ext: typing.List[
-        typing.Union[fhirtypes.FHIRPrimitiveExtensionType, None]
-    ] = Field(
-        None, alias="_instantiatesUri", title="Extension field for ``instantiatesUri``."
-    )
-
-    location: fhirtypes.ReferenceType = Field(
+	)
+    instantiatesUri__ext: typing.List[typing.Union[fhirtypes.FHIRPrimitiveExtensionType, None]] = Field(
         None,
-        alias="location",
-        title="Where the intake occurred",
-        description=None,
+        alias="_instantiatesUri",
+        title="Extension field for ``instantiatesUri``."
+    )
+	
+    location: fhirtypes.ReferenceType = Field(
+		None,
+		alias="location",
+		title="Where the intake occurred",
+		description=None,
         # if property is element of this resource.
         element_property=True,
         # note: Listed Resource Type(s) should be allowed as Reference.
-        enum_reference_types=["Location"],
-    )
-
+		enum_reference_types=["Location"],
+	)
+	
     note: typing.List[fhirtypes.AnnotationType] = Field(
-        None,
-        alias="note",
-        title="Further information about the consumption",
-        description=(
-            "Provides extra information about the Nutrition Intake that is not "
-            "conveyed by the other attributes."
-        ),
+		None,
+		alias="note",
+		title="Further information about the consumption",
+		description=(
+    "Provides extra information about the Nutrition Intake that is not "
+    "conveyed by the other attributes."
+    ),
         # if property is element of this resource.
         element_property=True,
-    )
-
+	)
+	
     occurrenceDateTime: fhirtypes.DateTime = Field(
-        None,
-        alias="occurrenceDateTime",
-        title="The date/time or interval when the food or fluid is/was consumed",
-        description=(
-            "The interval of time during which it is being asserted that the "
-            "patient is/was consuming the food or fluid."
-        ),
+		None,
+		alias="occurrenceDateTime",
+		title="The date/time or interval when the food or fluid is/was consumed",
+		description=(
+    "The interval of time during which it is being asserted that the "
+    "patient is/was consuming the food or fluid."
+    ),
         # if property is element of this resource.
         element_property=True,
         # Choice of Data Types. i.e occurrence[x]
-        one_of_many="occurrence",
-        one_of_many_required=False,
-    )
+		one_of_many="occurrence",
+		one_of_many_required=False,
+	)
     occurrenceDateTime__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
         None,
         alias="_occurrenceDateTime",
-        title="Extension field for ``occurrenceDateTime``.",
+        title="Extension field for ``occurrenceDateTime``."
     )
-
+	
     occurrencePeriod: fhirtypes.PeriodType = Field(
-        None,
-        alias="occurrencePeriod",
-        title="The date/time or interval when the food or fluid is/was consumed",
-        description=(
-            "The interval of time during which it is being asserted that the "
-            "patient is/was consuming the food or fluid."
-        ),
+		None,
+		alias="occurrencePeriod",
+		title="The date/time or interval when the food or fluid is/was consumed",
+		description=(
+    "The interval of time during which it is being asserted that the "
+    "patient is/was consuming the food or fluid."
+    ),
         # if property is element of this resource.
         element_property=True,
         # Choice of Data Types. i.e occurrence[x]
-        one_of_many="occurrence",
-        one_of_many_required=False,
-    )
-
+		one_of_many="occurrence",
+		one_of_many_required=False,
+	)
+	
     partOf: typing.List[fhirtypes.ReferenceType] = Field(
-        None,
-        alias="partOf",
-        title="Part of referenced event",
-        description="A larger event of which this particular event is a component or step.",
+		None,
+		alias="partOf",
+		title="Part of referenced event",
+		description="A larger event of which this particular event is a component or step.",
         # if property is element of this resource.
         element_property=True,
         # note: Listed Resource Type(s) should be allowed as Reference.
-        enum_reference_types=["NutritionIntake", "Procedure", "Observation"],
-    )
-
+		enum_reference_types=["NutritionIntake", "Procedure", "Observation"],
+	)
+	
     performer: typing.List[fhirtypes.NutritionIntakePerformerType] = Field(
-        None,
-        alias="performer",
-        title="Who was performed in the intake",
-        description="Who performed the intake and how they were involved.",
+		None,
+		alias="performer",
+		title="Who was performed in the intake",
+		description="Who performed the intake and how they were involved.",
         # if property is element of this resource.
         element_property=True,
-    )
-
+	)
+	
     reason: typing.List[fhirtypes.CodeableReferenceType] = Field(
-        None,
-        alias="reason",
-        title="Reason for why the food or fluid is /was consumed",
-        description=(
-            "A reason, Condition or observation for why the food or fluid is /was "
-            "consumed."
-        ),
+		None,
+		alias="reason",
+		title="Reason for why the food or fluid is /was consumed",
+		description=(
+    "A reason, Condition or observation for why the food or fluid is /was "
+    "consumed."
+    ),
         # if property is element of this resource.
         element_property=True,
         # note: Listed Resource Type(s) should be allowed as Reference.
-        enum_reference_types=[
-            "Condition",
-            "Observation",
-            "DiagnosticReport",
-            "DocumentReference",
-        ],
-    )
-
+		enum_reference_types=["Condition", "Observation", "DiagnosticReport", "DocumentReference"],
+	)
+	
     recorded: fhirtypes.DateTime = Field(
-        None,
-        alias="recorded",
-        title="When the intake was recorded",
-        description=(
-            "The date when the Nutrition Intake was asserted by the information "
-            "source."
-        ),
+		None,
+		alias="recorded",
+		title="When the intake was recorded",
+		description=(
+    "The date when the Nutrition Intake was asserted by the information "
+    "source."
+    ),
         # if property is element of this resource.
         element_property=True,
-    )
+	)
     recorded__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
-        None, alias="_recorded", title="Extension field for ``recorded``."
+        None,
+        alias="_recorded",
+        title="Extension field for ``recorded``."
     )
-
+	
     reportedBoolean: bool = Field(
-        None,
-        alias="reportedBoolean",
-        title=(
-            "Person or organization that provided the information about the "
-            "consumption of this food or fluid"
-        ),
-        description=(
-            "The person or organization that provided the information about the "
-            "consumption of this food or fluid. Note: Use derivedFrom when a "
-            "NutritionIntake is derived from other resources."
-        ),
+		None,
+		alias="reportedBoolean",
+		title=(
+    "Person or organization that provided the information about the "
+    "consumption of this food or fluid"
+    ),
+		description=(
+    "The person or organization that provided the information about the "
+    "consumption of this food or fluid. Note: Use derivedFrom when a "
+    "NutritionIntake is derived from other resources."
+    ),
         # if property is element of this resource.
         element_property=True,
         # Choice of Data Types. i.e reported[x]
-        one_of_many="reported",
-        one_of_many_required=False,
-    )
+		one_of_many="reported",
+		one_of_many_required=False,
+	)
     reportedBoolean__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
-        None, alias="_reportedBoolean", title="Extension field for ``reportedBoolean``."
-    )
-
-    reportedReference: fhirtypes.ReferenceType = Field(
         None,
-        alias="reportedReference",
-        title=(
-            "Person or organization that provided the information about the "
-            "consumption of this food or fluid"
-        ),
-        description=(
-            "The person or organization that provided the information about the "
-            "consumption of this food or fluid. Note: Use derivedFrom when a "
-            "NutritionIntake is derived from other resources."
-        ),
+        alias="_reportedBoolean",
+        title="Extension field for ``reportedBoolean``."
+    )
+	
+    reportedReference: fhirtypes.ReferenceType = Field(
+		None,
+		alias="reportedReference",
+		title=(
+    "Person or organization that provided the information about the "
+    "consumption of this food or fluid"
+    ),
+		description=(
+    "The person or organization that provided the information about the "
+    "consumption of this food or fluid. Note: Use derivedFrom when a "
+    "NutritionIntake is derived from other resources."
+    ),
         # if property is element of this resource.
         element_property=True,
         # Choice of Data Types. i.e reported[x]
-        one_of_many="reported",
-        one_of_many_required=False,
+		one_of_many="reported",
+		one_of_many_required=False,
         # note: Listed Resource Type(s) should be allowed as Reference.
-        enum_reference_types=[
-            "Patient",
-            "RelatedPerson",
-            "Practitioner",
-            "PractitionerRole",
-            "Organization",
-        ],
-    )
-
+		enum_reference_types=["Patient", "RelatedPerson", "Practitioner", "PractitionerRole", "Organization"],
+	)
+	
     status: fhirtypes.Code = Field(
-        None,
-        alias="status",
-        title=(
-            "preparation | in-progress | not-done | on-hold | stopped | completed |"
-            " entered-in-error | unknown"
-        ),
-        description=(
-            "A code representing the patient or other source's judgment about the "
-            "state of the intake that this assertion is about.  Generally, this "
-            "will be active or completed."
-        ),
+		None,
+		alias="status",
+		title=(
+    "preparation | in-progress | not-done | on-hold | stopped | completed |"
+    " entered-in-error | unknown"
+    ),
+		description=(
+    "A code representing the patient or other source's judgment about the "
+    "state of the intake that this assertion is about.  Generally, this "
+    "will be active or completed."
+    ),
         # if property is element of this resource.
         element_property=True,
         element_required=True,
         # note: Enum values can be used in validation,
         # but use in your own responsibilities, read official FHIR documentation.
-        enum_values=[
-            "preparation",
-            "in-progress",
-            "not-done",
-            "on-hold",
-            "stopped",
-            "completed",
-            "entered-in-error",
-            "unknown",
-        ],
-    )
+		enum_values=["preparation", "in-progress", "not-done", "on-hold", "stopped", "completed", "entered-in-error", "unknown"],
+	)
     status__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
-        None, alias="_status", title="Extension field for ``status``."
-    )
-
-    statusReason: typing.List[fhirtypes.CodeableConceptType] = Field(
         None,
-        alias="statusReason",
-        title="Reason for current status",
-        description="Captures the reason for the current state of the NutritionIntake.",
+        alias="_status",
+        title="Extension field for ``status``."
+    )
+	
+    statusReason: typing.List[fhirtypes.CodeableConceptType] = Field(
+		None,
+		alias="statusReason",
+		title="Reason for current status",
+		description="Captures the reason for the current state of the NutritionIntake.",
         # if property is element of this resource.
         element_property=True,
-    )
-
+	)
+	
     subject: fhirtypes.ReferenceType = Field(
-        ...,
-        alias="subject",
-        title="Who is/was consuming the food or fluid",
-        description="The person, animal or group who is/was consuming the food or fluid.",
+		...,
+		alias="subject",
+		title="Who is/was consuming the food or fluid",
+		description="The person, animal or group who is/was consuming the food or fluid.",
         # if property is element of this resource.
         element_property=True,
         # note: Listed Resource Type(s) should be allowed as Reference.
-        enum_reference_types=["Patient", "Group"],
-    )
-
+		enum_reference_types=["Patient", "Group"],
+	)
     @classmethod
     def elements_sequence(cls):
-        """returning all elements names from ``NutritionIntake`` according specification,
+        """returning all elements names from
+        ``NutritionIntake`` according specification,
         with preserving original sequence order.
         """
-        return [
-            "id",
-            "meta",
-            "implicitRules",
-            "language",
-            "text",
-            "contained",
-            "extension",
-            "modifierExtension",
-            "identifier",
-            "instantiatesCanonical",
-            "instantiatesUri",
-            "basedOn",
-            "partOf",
-            "status",
-            "statusReason",
-            "code",
-            "subject",
-            "encounter",
-            "occurrenceDateTime",
-            "occurrencePeriod",
-            "recorded",
-            "reportedBoolean",
-            "reportedReference",
-            "consumedItem",
-            "ingredientLabel",
-            "performer",
-            "location",
-            "derivedFrom",
-            "reason",
-            "note",
-        ]
+        return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "identifier", "instantiatesCanonical", "instantiatesUri", "basedOn", "partOf", "status", "statusReason", "code", "subject", "encounter", "occurrenceDateTime", "occurrencePeriod", "recorded", "reportedBoolean", "reportedReference", "consumedItem", "ingredientLabel", "performer", "location", "derivedFrom", "reason", "note"]
+
 
     @root_validator(pre=True, allow_reuse=True)
     def validate_required_primitive_elements_1755(
@@ -425,7 +368,8 @@ class NutritionIntake(domainresource.DomainResource):
         data type mandatory, it is possible to provide an extension that explains why
         the primitive value is not present.
         """
-        required_fields = [("status", "status__ext")]
+        required_fields = [
+			("status", "status__ext")]
         _missing = object()
 
         def _fallback():
@@ -490,9 +434,12 @@ class NutritionIntake(domainresource.DomainResource):
         data type chosen from among the list of permitted data types.
         """
         one_of_many_fields = {
-            "occurrence": ["occurrenceDateTime", "occurrencePeriod"],
-            "reported": ["reportedBoolean", "reportedReference"],
-        }
+			"occurrence": [
+			    "occurrenceDateTime",
+			    "occurrencePeriod"],
+			"reported": [
+			    "reportedBoolean",
+			    "reportedReference"]}
         for prefix, fields in one_of_many_fields.items():
             assert cls.__fields__[fields[0]].field_info.extra["one_of_many"] == prefix
             required = (
@@ -517,7 +464,6 @@ class NutritionIntake(domainresource.DomainResource):
 
 from . import backboneelement
 
-
 class NutritionIntakeConsumedItem(backboneelement.BackboneElement):
     """Disclaimer: Any field name ends with ``__ext`` doesn't part of
     Resource StructureDefinition, instead used to enable Extensibility feature
@@ -525,114 +471,105 @@ class NutritionIntakeConsumedItem(backboneelement.BackboneElement):
 
     What food or fluid product or item was consumed.
     """
-
     resource_type = Field("NutritionIntakeConsumedItem", const=True)
-
+	
     amount: fhirtypes.QuantityType = Field(
-        None,
-        alias="amount",
-        title="Quantity of the specified food",
-        description=None,
+		None,
+		alias="amount",
+		title="Quantity of the specified food",
+		description=None,
         # if property is element of this resource.
         element_property=True,
-    )
-
+	)
+	
     notConsumed: bool = Field(
-        None,
-        alias="notConsumed",
-        title=(
-            "Flag to indicate if the food or fluid item was refused or otherwise "
-            "not consumed"
-        ),
-        description=(
-            "Indicator when a patient is in a setting where it is helpful to know "
-            "if food was not consumed, such as it was refused, held (as in tube "
-            "feedings), or otherwise not provided. If a consumption is being "
-            "recorded from an app, such as MyFitnessPal, this indicator will likely"
-            " not be used."
-        ),
+		None,
+		alias="notConsumed",
+		title=(
+    "Flag to indicate if the food or fluid item was refused or otherwise "
+    "not consumed"
+    ),
+		description=(
+    "Indicator when a patient is in a setting where it is helpful to know "
+    "if food was not consumed, such as it was refused, held (as in tube "
+    "feedings), or otherwise not provided. If a consumption is being "
+    "recorded from an app, such as MyFitnessPal, this indicator will likely"
+    " not be used."
+    ),
         # if property is element of this resource.
         element_property=True,
-    )
+	)
     notConsumed__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
-        None, alias="_notConsumed", title="Extension field for ``notConsumed``."
-    )
-
-    notConsumedReason: fhirtypes.CodeableConceptType = Field(
         None,
-        alias="notConsumedReason",
-        title="Reason food or fluid was not consumed",
-        description=(
-            "Document the reason the food or fluid was not consumed, such as "
-            "refused, held, etc."
-        ),
+        alias="_notConsumed",
+        title="Extension field for ``notConsumed``."
+    )
+	
+    notConsumedReason: fhirtypes.CodeableConceptType = Field(
+		None,
+		alias="notConsumedReason",
+		title="Reason food or fluid was not consumed",
+		description=(
+    "Document the reason the food or fluid was not consumed, such as "
+    "refused, held, etc."
+    ),
         # if property is element of this resource.
         element_property=True,
-    )
-
+	)
+	
     nutritionProduct: fhirtypes.CodeableReferenceType = Field(
-        ...,
-        alias="nutritionProduct",
-        title="Code that identifies the food or fluid product that was consumed",
-        description=(
-            "Identifies the food or fluid product that was consumed. This is "
-            "potentially a link to a resource representing the details of the food "
-            "product (TBD) or a simple attribute carrying a code that identifies "
-            "the food from a known list of foods."
-        ),
+		...,
+		alias="nutritionProduct",
+		title="Code that identifies the food or fluid product that was consumed",
+		description=(
+    "Identifies the food or fluid product that was consumed. This is "
+    "potentially a link to a resource representing the details of the food "
+    "product (TBD) or a simple attribute carrying a code that identifies "
+    "the food from a known list of foods."
+    ),
         # if property is element of this resource.
         element_property=True,
         # note: Listed Resource Type(s) should be allowed as Reference.
-        enum_reference_types=["NutritionProduct"],
-    )
-
+		enum_reference_types=["NutritionProduct"],
+	)
+	
     rate: fhirtypes.QuantityType = Field(
-        None,
-        alias="rate",
-        title="Rate at which enteral feeding was administered",
-        description=None,
+		None,
+		alias="rate",
+		title="Rate at which enteral feeding was administered",
+		description=None,
         # if property is element of this resource.
         element_property=True,
-    )
-
+	)
+	
     schedule: fhirtypes.TimingType = Field(
-        None,
-        alias="schedule",
-        title="Scheduled frequency of consumption",
-        description=None,
+		None,
+		alias="schedule",
+		title="Scheduled frequency of consumption",
+		description=None,
         # if property is element of this resource.
         element_property=True,
-    )
-
+	)
+	
     type: fhirtypes.CodeableConceptType = Field(
-        ...,
-        alias="type",
-        title="The type of food or fluid product",
-        description=(
-            "Indicates what a category of item that was consumed: eg., food, fluid,"
-            " enteral, etc."
-        ),
+		...,
+		alias="type",
+		title="The type of food or fluid product",
+		description=(
+    "Indicates what a category of item that was consumed: eg., food, fluid,"
+    " enteral, etc."
+    ),
         # if property is element of this resource.
         element_property=True,
-    )
-
+	)
     @classmethod
     def elements_sequence(cls):
-        """returning all elements names from ``NutritionIntakeConsumedItem`` according specification,
+        """returning all elements names from
+        ``NutritionIntakeConsumedItem`` according specification,
         with preserving original sequence order.
         """
-        return [
-            "id",
-            "extension",
-            "modifierExtension",
-            "type",
-            "nutritionProduct",
-            "schedule",
-            "amount",
-            "rate",
-            "notConsumed",
-            "notConsumedReason",
-        ]
+        return ["id", "extension", "modifierExtension", "type", "nutritionProduct", "schedule", "amount", "rate", "notConsumed", "notConsumedReason"]
+
 
 
 class NutritionIntakeIngredientLabel(backboneelement.BackboneElement):
@@ -643,38 +580,38 @@ class NutritionIntakeIngredientLabel(backboneelement.BackboneElement):
     Total nutrient for the whole meal, product, serving.
     Total nutrient amounts for the whole meal, product, serving, etc.
     """
-
     resource_type = Field("NutritionIntakeIngredientLabel", const=True)
-
+	
     amount: fhirtypes.QuantityType = Field(
-        ...,
-        alias="amount",
-        title="Total amount of nutrient consumed",
-        description=None,
+		...,
+		alias="amount",
+		title="Total amount of nutrient consumed",
+		description=None,
         # if property is element of this resource.
         element_property=True,
-    )
-
+	)
+	
     nutrient: fhirtypes.CodeableReferenceType = Field(
-        ...,
-        alias="nutrient",
-        title="Total nutrient consumed",
-        description=(
-            "Total nutrient consumed. This could be a macronutrient (protein, fat, "
-            "carbohydrate), or a vitamin and mineral."
-        ),
+		...,
+		alias="nutrient",
+		title="Total nutrient consumed",
+		description=(
+    "Total nutrient consumed. This could be a macronutrient (protein, fat, "
+    "carbohydrate), or a vitamin and mineral."
+    ),
         # if property is element of this resource.
         element_property=True,
         # note: Listed Resource Type(s) should be allowed as Reference.
-        enum_reference_types=["Substance"],
-    )
-
+		enum_reference_types=["Substance"],
+	)
     @classmethod
     def elements_sequence(cls):
-        """returning all elements names from ``NutritionIntakeIngredientLabel`` according specification,
+        """returning all elements names from
+        ``NutritionIntakeIngredientLabel`` according specification,
         with preserving original sequence order.
         """
         return ["id", "extension", "modifierExtension", "nutrient", "amount"]
+
 
 
 class NutritionIntakePerformer(backboneelement.BackboneElement):
@@ -685,40 +622,32 @@ class NutritionIntakePerformer(backboneelement.BackboneElement):
     Who was performed in the intake.
     Who performed the intake and how they were involved.
     """
-
     resource_type = Field("NutritionIntakePerformer", const=True)
-
+	
     actor: fhirtypes.ReferenceType = Field(
-        ...,
-        alias="actor",
-        title="Who performed the intake",
-        description=None,
+		...,
+		alias="actor",
+		title="Who performed the intake",
+		description=None,
         # if property is element of this resource.
         element_property=True,
         # note: Listed Resource Type(s) should be allowed as Reference.
-        enum_reference_types=[
-            "Practitioner",
-            "PractitionerRole",
-            "Organization",
-            "CareTeam",
-            "Patient",
-            "Device",
-            "RelatedPerson",
-        ],
-    )
-
+		enum_reference_types=["Practitioner", "PractitionerRole", "Organization", "CareTeam", "Patient", "Device", "RelatedPerson"],
+	)
+	
     function: fhirtypes.CodeableConceptType = Field(
-        None,
-        alias="function",
-        title="Type of performer",
-        description=None,
+		None,
+		alias="function",
+		title="Type of performer",
+		description=None,
         # if property is element of this resource.
         element_property=True,
-    )
-
+	)
     @classmethod
     def elements_sequence(cls):
-        """returning all elements names from ``NutritionIntakePerformer`` according specification,
+        """returning all elements names from
+        ``NutritionIntakePerformer`` according specification,
         with preserving original sequence order.
         """
         return ["id", "extension", "modifierExtension", "function", "actor"]
+

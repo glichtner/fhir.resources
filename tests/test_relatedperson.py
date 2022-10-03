@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/RelatedPerson
-Release: R5
-Version: 4.5.0
-Build ID: 0d95498
-Last updated: 2021-04-03T00:34:11.075+00:00
+Release: 2022Sep
+Version: 5.0.0-ballot
+Build ID: 1505a88
+Last updated: 2022-09-10T04:52:37.223+10:00
 """
 from pydantic.validators import bytes_validator  # noqa: F401
 from fhir.resources import fhirtypes  # noqa: F401
@@ -12,42 +12,40 @@ from fhir.resources import relatedperson
 
 
 def impl_relatedperson_1(inst):
-    assert inst.address[0].city == "PleasantVille"
-    assert inst.address[0].line[0] == "534 Erewhon St"
-    assert inst.address[0].postalCode == "3999"
-    assert inst.address[0].state == "Vic"
+    assert inst.active is True
+    assert inst.address[0].line[0] == "2222 Home Street"
     assert inst.address[0].use == "home"
-    assert inst.gender == "male"
-    assert inst.id == "peter"
+    assert inst.birthDate == fhirtypes.Date.validate("1973-05-31")
+    assert inst.gender == "female"
+    assert inst.id == "newborn-mom"
+    assert inst.identifier[0].system == "http://hl7.org/fhir/sid/us-ssn"
+    assert inst.identifier[0].type.coding[0].code == "SS"
+    assert inst.identifier[0].type.coding[0].system == "http://terminology.hl7.org/CodeSystem/v2-0203"
+    assert inst.identifier[0].value == "444222222"
     assert inst.meta.tag[0].code == "HTEST"
     assert inst.meta.tag[0].display == "test health data"
-    assert (
-        inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
-    )
-    assert inst.name[0].family == "Chalmers"
-    assert inst.name[0].given[0] == "Peter"
-    assert inst.name[0].given[1] == "James"
+    assert inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
+    assert inst.name[0].family == "Everywoman"
+    assert inst.name[0].given[0] == "Eve"
     assert inst.name[0].use == "official"
-    assert inst.patient.reference == "Patient/animal"
-    assert inst.period.start == fhirtypes.DateTime.validate("2012-03-11")
-    assert inst.photo[0].contentType == "image/jpeg"
-    assert inst.photo[0].url == "Binary/f012"
-    assert inst.relationship[0].coding[0].code == "C"
-    assert (
-        inst.relationship[0].coding[0].system
-        == "http://terminology.hl7.org/CodeSystem/v2-0131"
-    )
+    assert inst.patient.reference == "Patient/newborn"
+    assert inst.relationship[0].coding[0].code == "NMTH"
+    assert inst.relationship[0].coding[0].display == "natural mother"
+    assert inst.relationship[0].coding[0].system == "http://terminology.hl7.org/CodeSystem/v3-RoleCode"
+    assert inst.relationship[0].text == "Natural Mother"
     assert inst.telecom[0].system == "phone"
     assert inst.telecom[0].use == "work"
-    assert inst.telecom[0].value == "(03) 5555 6473"
+    assert inst.telecom[0].value == "555-555-2003"
     assert inst.text.status == "generated"
 
 
 def test_relatedperson_1(base_settings):
     """No. 1 tests collection for RelatedPerson.
-    Test File: relatedperson-example-peter.json
+    Test File: relatedperson-example-newborn-mom.json
     """
-    filename = base_settings["unittest_data_dir"] / "relatedperson-example-peter.json"
+    filename = (
+        base_settings["unittest_data_dir"] / "relatedperson-example-newborn-mom.json"
+    )
     inst = relatedperson.RelatedPerson.parse_file(
         filename, content_type="application/json", encoding="utf-8"
     )
@@ -64,40 +62,38 @@ def test_relatedperson_1(base_settings):
 
 
 def impl_relatedperson_2(inst):
-    assert inst.gender == "female"
-    assert inst.id == "f001"
-    assert inst.identifier[0].system == "urn:oid:2.16.840.1.113883.2.4.6.3"
-    assert inst.identifier[0].type.text == "BSN"
-    assert inst.identifier[0].use == "official"
+    assert inst.address[0].city == "PleasantVille"
+    assert inst.address[0].line[0] == "534 Erewhon St"
+    assert inst.address[0].postalCode == "3999"
+    assert inst.address[0].state == "Vic"
+    assert inst.address[0].use == "home"
+    assert inst.gender == "male"
+    assert inst.id == "peter"
     assert inst.meta.tag[0].code == "HTEST"
     assert inst.meta.tag[0].display == "test health data"
-    assert (
-        inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
-    )
-    assert inst.name[0].family == "Abels"
-    assert inst.name[0].given[0] == "Sarah"
-    assert inst.name[0].use == "usual"
-    assert inst.patient.reference == "Patient/f001"
-    assert inst.relationship[0].coding[0].code == "SIGOTHR"
-    assert (
-        inst.relationship[0].coding[0].system
-        == "http://terminology.hl7.org/CodeSystem/v3-RoleCode"
-    )
+    assert inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
+    assert inst.name[0].family == "Chalmers"
+    assert inst.name[0].given[0] == "Peter"
+    assert inst.name[0].given[1] == "James"
+    assert inst.name[0].use == "official"
+    assert inst.patient.reference == "Patient/animal"
+    assert inst.period.start == fhirtypes.DateTime.validate("2012-03-11")
+    assert inst.photo[0].contentType == "image/jpeg"
+    assert inst.photo[0].url == "Binary/f012"
+    assert inst.relationship[0].coding[0].code == "C"
+    assert inst.relationship[0].coding[0].system == "http://terminology.hl7.org/CodeSystem/v2-0131"
     assert inst.telecom[0].system == "phone"
-    assert inst.telecom[0].use == "mobile"
-    assert inst.telecom[0].value == "0690383372"
-    assert inst.telecom[1].system == "email"
-    assert inst.telecom[1].use == "home"
-    assert inst.telecom[1].value == "s.abels@kpn.nl"
+    assert inst.telecom[0].use == "work"
+    assert inst.telecom[0].value == "(03) 5555 6473"
     assert inst.text.status == "generated"
 
 
 def test_relatedperson_2(base_settings):
     """No. 2 tests collection for RelatedPerson.
-    Test File: relatedperson-example-f001-sarah.json
+    Test File: relatedperson-example-peter.json
     """
     filename = (
-        base_settings["unittest_data_dir"] / "relatedperson-example-f001-sarah.json"
+        base_settings["unittest_data_dir"] / "relatedperson-example-peter.json"
     )
     inst = relatedperson.RelatedPerson.parse_file(
         filename, content_type="application/json", encoding="utf-8"
@@ -120,19 +116,14 @@ def impl_relatedperson_3(inst):
     assert inst.id == "f002"
     assert inst.meta.tag[0].code == "HTEST"
     assert inst.meta.tag[0].display == "test health data"
-    assert (
-        inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
-    )
+    assert inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
     assert inst.name[0].text == "Ariadne Bor-Jansma"
     assert inst.name[0].use == "usual"
     assert inst.patient.reference == "Patient/f201"
     assert inst.period.start == fhirtypes.DateTime.validate("1975")
     assert inst.photo[0].contentType == "image/jpeg"
     assert inst.relationship[0].coding[0].code == "SIGOTHR"
-    assert (
-        inst.relationship[0].coding[0].system
-        == "http://terminology.hl7.org/CodeSystem/v3-RoleCode"
-    )
+    assert inst.relationship[0].coding[0].system == "http://terminology.hl7.org/CodeSystem/v3-RoleCode"
     assert inst.telecom[0].system == "phone"
     assert inst.telecom[0].use == "home"
     assert inst.telecom[0].value == "+31201234567"
@@ -175,24 +166,16 @@ def impl_relatedperson_4(inst):
     assert inst.identifier[0].value == "272117510400399"
     assert inst.meta.tag[0].code == "HTEST"
     assert inst.meta.tag[0].display == "test health data"
-    assert (
-        inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
-    )
+    assert inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
     assert inst.name[0].family == "du Marché"
     assert inst.name[0].given[0] == "Bénédicte"
     assert inst.patient.reference == "Patient/example"
     assert inst.photo[0].contentType == "image/jpeg"
     assert inst.photo[0].url == "Binary/f016"
     assert inst.relationship[0].coding[0].code == "N"
-    assert (
-        inst.relationship[0].coding[0].system
-        == "http://terminology.hl7.org/CodeSystem/v2-0131"
-    )
+    assert inst.relationship[0].coding[0].system == "http://terminology.hl7.org/CodeSystem/v2-0131"
     assert inst.relationship[0].coding[1].code == "WIFE"
-    assert (
-        inst.relationship[0].coding[1].system
-        == "http://terminology.hl7.org/CodeSystem/v3-RoleCode"
-    )
+    assert inst.relationship[0].coding[1].system == "http://terminology.hl7.org/CodeSystem/v3-RoleCode"
     assert inst.telecom[0].system == "phone"
     assert inst.telecom[0].value == "+33 (237) 998327"
     assert inst.text.status == "generated"
@@ -202,7 +185,9 @@ def test_relatedperson_4(base_settings):
     """No. 4 tests collection for RelatedPerson.
     Test File: relatedperson-example.json
     """
-    filename = base_settings["unittest_data_dir"] / "relatedperson-example.json"
+    filename = (
+        base_settings["unittest_data_dir"] / "relatedperson-example.json"
+    )
     inst = relatedperson.RelatedPerson.parse_file(
         filename, content_type="application/json", encoding="utf-8"
     )
@@ -220,46 +205,37 @@ def test_relatedperson_4(base_settings):
 
 def impl_relatedperson_5(inst):
     assert inst.active is True
-    assert inst.address[0].line[0] == "2222 Home Street"
-    assert inst.address[0].use == "home"
-    assert inst.birthDate == fhirtypes.Date.validate("1973-05-31")
-    assert inst.gender == "female"
-    assert inst.id == "newborn-mom"
-    assert inst.identifier[0].system == "http://hl7.org/fhir/sid/us-ssn"
-    assert inst.identifier[0].type.coding[0].code == "SS"
-    assert (
-        inst.identifier[0].type.coding[0].system
-        == "http://terminology.hl7.org/CodeSystem/v2-0203"
-    )
-    assert inst.identifier[0].value == "444222222"
+    assert inst.birthDate == fhirtypes.Date.validate("2000-01-01")
+    assert inst.gender == "male"
+    assert inst.id == "relatedPersonDenovoFather"
+    assert inst.identifier[0].assigner.display == "Child Hospital"
+    assert inst.identifier[0].period.start == fhirtypes.DateTime.validate("2021-01-01")
+    assert inst.identifier[0].system == "http://www.somesystemabc.net/identifiers/persons"
+    assert inst.identifier[0].type.coding[0].code == "MR"
+    assert inst.identifier[0].type.coding[0].display == "Medical record number"
+    assert inst.identifier[0].type.coding[0].system == "http://terminology.hl7.org/CodeSystem/v2-0203"
+    assert inst.identifier[0].use == "temp"
+    assert inst.identifier[0].value == "11113"
     assert inst.meta.tag[0].code == "HTEST"
     assert inst.meta.tag[0].display == "test health data"
-    assert (
-        inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
-    )
-    assert inst.name[0].family == "Everywoman"
-    assert inst.name[0].given[0] == "Eve"
+    assert inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
+    assert inst.name[0].family == "Doe"
+    assert inst.name[0].given[0] == "John"
+    assert inst.name[0].given[1] == "Father"
     assert inst.name[0].use == "official"
-    assert inst.patient.reference == "Patient/newborn"
-    assert inst.relationship[0].coding[0].code == "NMTH"
-    assert inst.relationship[0].coding[0].display == "natural mother"
-    assert (
-        inst.relationship[0].coding[0].system
-        == "http://terminology.hl7.org/CodeSystem/v3-RoleCode"
-    )
-    assert inst.relationship[0].text == "Natural Mother"
-    assert inst.telecom[0].system == "phone"
-    assert inst.telecom[0].use == "work"
-    assert inst.telecom[0].value == "555-555-2003"
+    assert inst.patient.reference == "Patient/denovoChild"
+    assert inst.relationship[0].coding[0].code == "NFTH"
+    assert inst.relationship[0].coding[0].display == "natural Father"
+    assert inst.relationship[0].coding[0].system == "http://terminology.hl7.org/CodeSystem/v3-RoleCode"
     assert inst.text.status == "generated"
 
 
 def test_relatedperson_5(base_settings):
     """No. 5 tests collection for RelatedPerson.
-    Test File: relatedperson-example-newborn-mom.json
+    Test File: RelatedPerson-denovoFather.json
     """
     filename = (
-        base_settings["unittest_data_dir"] / "relatedperson-example-newborn-mom.json"
+        base_settings["unittest_data_dir"] / "RelatedPerson-denovoFather.json"
     )
     inst = relatedperson.RelatedPerson.parse_file(
         filename, content_type="application/json", encoding="utf-8"
@@ -274,3 +250,98 @@ def test_relatedperson_5(base_settings):
 
     inst2 = relatedperson.RelatedPerson(**data)
     impl_relatedperson_5(inst2)
+
+
+def impl_relatedperson_6(inst):
+    assert inst.active is True
+    assert inst.birthDate == fhirtypes.Date.validate("2000-01-01")
+    assert inst.gender == "female"
+    assert inst.id == "relatedPersonDenovoMother"
+    assert inst.identifier[0].assigner.display == "Child Hospital"
+    assert inst.identifier[0].period.start == fhirtypes.DateTime.validate("2021-01-01")
+    assert inst.identifier[0].system == "http://www.somesystemabc.net/identifiers/persons"
+    assert inst.identifier[0].type.coding[0].code == "MR"
+    assert inst.identifier[0].type.coding[0].display == "Medical record number"
+    assert inst.identifier[0].type.coding[0].system == "http://terminology.hl7.org/CodeSystem/v2-0203"
+    assert inst.identifier[0].use == "temp"
+    assert inst.identifier[0].value == "11112"
+    assert inst.meta.tag[0].code == "HTEST"
+    assert inst.meta.tag[0].display == "test health data"
+    assert inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
+    assert inst.name[0].family == "Doe"
+    assert inst.name[0].given[0] == "Jane"
+    assert inst.name[0].given[1] == "Mother"
+    assert inst.name[0].use == "official"
+    assert inst.patient.reference == "Patient/denovoChild"
+    assert inst.relationship[0].coding[0].code == "NMTH"
+    assert inst.relationship[0].coding[0].display == "natural mother"
+    assert inst.relationship[0].coding[0].system == "http://terminology.hl7.org/CodeSystem/v3-RoleCode"
+    assert inst.text.status == "generated"
+
+
+def test_relatedperson_6(base_settings):
+    """No. 6 tests collection for RelatedPerson.
+    Test File: RelatedPerson-denovoMother.json
+    """
+    filename = (
+        base_settings["unittest_data_dir"] / "RelatedPerson-denovoMother.json"
+    )
+    inst = relatedperson.RelatedPerson.parse_file(
+        filename, content_type="application/json", encoding="utf-8"
+    )
+    assert "RelatedPerson" == inst.resource_type
+
+    impl_relatedperson_6(inst)
+
+    # testing reverse by generating data from itself and create again.
+    data = inst.dict()
+    assert "RelatedPerson" == data["resourceType"]
+
+    inst2 = relatedperson.RelatedPerson(**data)
+    impl_relatedperson_6(inst2)
+
+
+def impl_relatedperson_7(inst):
+    assert inst.gender == "female"
+    assert inst.id == "f001"
+    assert inst.identifier[0].system == "urn:oid:2.16.840.1.113883.2.4.6.3"
+    assert inst.identifier[0].type.text == "BSN"
+    assert inst.identifier[0].use == "official"
+    assert inst.meta.tag[0].code == "HTEST"
+    assert inst.meta.tag[0].display == "test health data"
+    assert inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
+    assert inst.name[0].family == "Abels"
+    assert inst.name[0].given[0] == "Sarah"
+    assert inst.name[0].use == "usual"
+    assert inst.patient.reference == "Patient/f001"
+    assert inst.relationship[0].coding[0].code == "SIGOTHR"
+    assert inst.relationship[0].coding[0].system == "http://terminology.hl7.org/CodeSystem/v3-RoleCode"
+    assert inst.telecom[0].system == "phone"
+    assert inst.telecom[0].use == "mobile"
+    assert inst.telecom[0].value == "0690383372"
+    assert inst.telecom[1].system == "email"
+    assert inst.telecom[1].use == "home"
+    assert inst.telecom[1].value == "s.abels@kpn.nl"
+    assert inst.text.status == "generated"
+
+
+def test_relatedperson_7(base_settings):
+    """No. 7 tests collection for RelatedPerson.
+    Test File: relatedperson-example-f001-sarah.json
+    """
+    filename = (
+        base_settings["unittest_data_dir"] / "relatedperson-example-f001-sarah.json"
+    )
+    inst = relatedperson.RelatedPerson.parse_file(
+        filename, content_type="application/json", encoding="utf-8"
+    )
+    assert "RelatedPerson" == inst.resource_type
+
+    impl_relatedperson_7(inst)
+
+    # testing reverse by generating data from itself and create again.
+    data = inst.dict()
+    assert "RelatedPerson" == data["resourceType"]
+
+    inst2 = relatedperson.RelatedPerson(**data)
+    impl_relatedperson_7(inst2)

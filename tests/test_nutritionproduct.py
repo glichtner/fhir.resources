@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/NutritionProduct
-Release: R5
-Version: 4.5.0
-Build ID: 0d95498
-Last updated: 2021-04-03T00:34:11.075+00:00
+Release: 2022Sep
+Version: 5.0.0-ballot
+Build ID: 1505a88
+Last updated: 2022-09-10T04:52:37.223+10:00
 """
 from pydantic.validators import bytes_validator  # noqa: F401
 from fhir.resources import fhirtypes  # noqa: F401
@@ -12,15 +12,20 @@ from fhir.resources import nutritionproduct
 
 
 def impl_nutritionproduct_1(inst):
+    assert inst.category[0].coding[0].code == "227313005"
+    assert inst.category[0].coding[0].system == "http://snomed.info/sct"
+    assert inst.code.coding[0].code == "227507002"
+    assert inst.code.coding[0].system == "http://snomed.info/sct"
     assert inst.id == "example"
+    assert inst.instance[0].identifier[0].system == "http://example.org/foodserials"
+    assert inst.instance[0].identifier[0].value == "77239487"
     assert inst.meta.tag[0].code == "HTEST"
     assert inst.meta.tag[0].display == "test health data"
-    assert (
-        inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
-    )
+    assert inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
     assert inst.status == "active"
     assert inst.text.div == (
-        '<div xmlns="http://www.w3.org/1999/xhtml">[Put rendering ' "here]</div>"
+    "<div xmlns=\"http://www.w3.org/1999/xhtml\">[Put rendering "
+    "here]</div>"
     )
     assert inst.text.status == "generated"
 
@@ -29,7 +34,9 @@ def test_nutritionproduct_1(base_settings):
     """No. 1 tests collection for NutritionProduct.
     Test File: nutritionproduct-example.json
     """
-    filename = base_settings["unittest_data_dir"] / "nutritionproduct-example.json"
+    filename = (
+        base_settings["unittest_data_dir"] / "nutritionproduct-example.json"
+    )
     inst = nutritionproduct.NutritionProduct.parse_file(
         filename, content_type="application/json", encoding="utf-8"
     )

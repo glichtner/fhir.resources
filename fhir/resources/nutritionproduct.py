@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/NutritionProduct
-Release: R5
-Version: 4.5.0
-Build ID: 0d95498
-Last updated: 2021-04-03T00:34:11.075+00:00
+Release: 2022Sep
+Version: 5.0.0-ballot
+Build ID: 1505a88
+Last updated: 2022-09-10T04:52:37.223+10:00
 """
 import typing
 from pydantic import Field
@@ -18,167 +18,150 @@ from . import fhirtypes
 
 from . import domainresource
 
-
 class NutritionProduct(domainresource.DomainResource):
     """Disclaimer: Any field name ends with ``__ext`` doesn't part of
     Resource StructureDefinition, instead used to enable Extensibility feature
     for FHIR Primitive Data Types.
 
-    A product used for nutritional purposes.
-    A food or fluid product that is consumed by patients.
+    A product used for nutritional purposes (i.e. food or supplement).
+    A food or supplement that is consumed by patients.
     """
-
     resource_type = Field("NutritionProduct", const=True)
-
+	
     category: typing.List[fhirtypes.CodeableConceptType] = Field(
-        None,
-        alias="category",
-        title=(
-            "A category or class of the nutrition product (halal, kosher, gluten "
-            "free, vegan, etc)"
-        ),
-        description=(
-            "Nutrition products can have different classifications - according to "
-            "its nutritional properties, preparation methods, etc."
-        ),
+		None,
+		alias="category",
+		title=(
+    "Broad product groups or categories used to classify the product, such "
+    "as Legume and Legume Products, Beverages, or Beef Products"
+    ),
+		description=(
+    "Nutrition products can have different classifications - according to "
+    "its nutritional properties, preparation methods, etc."
+    ),
         # if property is element of this resource.
         element_property=True,
-    )
-
+	)
+	
+    characteristic: typing.List[fhirtypes.NutritionProductCharacteristicType] = Field(
+		None,
+		alias="characteristic",
+		title="Specifies descriptive properties of the nutrition product",
+		description=None,
+        # if property is element of this resource.
+        element_property=True,
+	)
+	
     code: fhirtypes.CodeableConceptType = Field(
-        None,
-        alias="code",
-        title="A code designating a specific type of nutritional product",
-        description=(
-            "The code assigned to the product, for example a manufacturer number or"
-            " other terminology."
-        ),
+		None,
+		alias="code",
+		title=(
+    "A code that can identify the detailed nutrients and ingredients in a "
+    "specific food product"
+    ),
+		description=(
+    "The code assigned to the product, for example a USDA NDB number, a "
+    "USDA FDC ID number, or a Langual code."
+    ),
         # if property is element of this resource.
         element_property=True,
-    )
-
+	)
+	
     ingredient: typing.List[fhirtypes.NutritionProductIngredientType] = Field(
-        None,
-        alias="ingredient",
-        title="Ingredients contained in this product",
-        description=None,
+		None,
+		alias="ingredient",
+		title="Ingredients contained in this product",
+		description=None,
         # if property is element of this resource.
         element_property=True,
-    )
-
-    instance: fhirtypes.NutritionProductInstanceType = Field(
-        None,
-        alias="instance",
-        title=(
-            "One or several physical instances or occurrences of the nutrition "
-            "product"
-        ),
-        description=(
-            "Conveys instance-level information about this product item. One or "
-            "several physical, countable instances or occurrences of the product."
-        ),
+	)
+	
+    instance: typing.List[fhirtypes.NutritionProductInstanceType] = Field(
+		None,
+		alias="instance",
+		title=(
+    "One or several physical instances or occurrences of the nutrition "
+    "product"
+    ),
+		description=(
+    "Conveys instance-level information about this product item. One or "
+    "several physical, countable instances or occurrences of the product."
+    ),
         # if property is element of this resource.
         element_property=True,
-    )
-
+	)
+	
     knownAllergen: typing.List[fhirtypes.CodeableReferenceType] = Field(
-        None,
-        alias="knownAllergen",
-        title="Known or suspected allergens that are a part of this product",
-        description=(
-            "Allergens that are known or suspected to be a part of this nutrition "
-            "product."
-        ),
+		None,
+		alias="knownAllergen",
+		title="Known or suspected allergens that are a part of this product",
+		description=(
+    "Allergens that are known or suspected to be a part of this nutrition "
+    "product."
+    ),
         # if property is element of this resource.
         element_property=True,
         # note: Listed Resource Type(s) should be allowed as Reference.
-        enum_reference_types=["Substance"],
-    )
-
+		enum_reference_types=["Substance"],
+	)
+	
     manufacturer: typing.List[fhirtypes.ReferenceType] = Field(
-        None,
-        alias="manufacturer",
-        title="Manufacturer, representative or officially responsible for the product",
-        description=(
-            "The organisation (manufacturer, representative or legal authorisation "
-            "holder) that is responsible for the device."
-        ),
+		None,
+		alias="manufacturer",
+		title="Manufacturer, representative or officially responsible for the product",
+		description=(
+    "The organisation (manufacturer, representative or legal authorisation "
+    "holder) that is responsible for the device."
+    ),
         # if property is element of this resource.
         element_property=True,
         # note: Listed Resource Type(s) should be allowed as Reference.
-        enum_reference_types=["Organization"],
-    )
-
+		enum_reference_types=["Organization"],
+	)
+	
     note: typing.List[fhirtypes.AnnotationType] = Field(
-        None,
-        alias="note",
-        title="Comments made about the product",
-        description=None,
+		None,
+		alias="note",
+		title="Comments made about the product",
+		description=None,
         # if property is element of this resource.
         element_property=True,
-    )
-
+	)
+	
     nutrient: typing.List[fhirtypes.NutritionProductNutrientType] = Field(
-        None,
-        alias="nutrient",
-        title="The product's nutritional information expressed by the nutrients",
-        description=None,
+		None,
+		alias="nutrient",
+		title="The product's nutritional information expressed by the nutrients",
+		description=None,
         # if property is element of this resource.
         element_property=True,
-    )
-
-    productCharacteristic: typing.List[
-        fhirtypes.NutritionProductProductCharacteristicType
-    ] = Field(
-        None,
-        alias="productCharacteristic",
-        title="Specifies descriptive properties of the nutrition product",
-        description=None,
-        # if property is element of this resource.
-        element_property=True,
-    )
-
+	)
+	
     status: fhirtypes.Code = Field(
-        None,
-        alias="status",
-        title="active | inactive | entered-in-error",
-        description="The current state of the product.",
+		None,
+		alias="status",
+		title="active | inactive | entered-in-error",
+		description="The current state of the product.",
         # if property is element of this resource.
         element_property=True,
         element_required=True,
         # note: Enum values can be used in validation,
         # but use in your own responsibilities, read official FHIR documentation.
-        enum_values=["active", "inactive", "entered-in-error"],
-    )
+		enum_values=["active", "inactive", "entered-in-error"],
+	)
     status__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
-        None, alias="_status", title="Extension field for ``status``."
+        None,
+        alias="_status",
+        title="Extension field for ``status``."
     )
-
     @classmethod
     def elements_sequence(cls):
-        """returning all elements names from ``NutritionProduct`` according specification,
+        """returning all elements names from
+        ``NutritionProduct`` according specification,
         with preserving original sequence order.
         """
-        return [
-            "id",
-            "meta",
-            "implicitRules",
-            "language",
-            "text",
-            "contained",
-            "extension",
-            "modifierExtension",
-            "status",
-            "category",
-            "code",
-            "manufacturer",
-            "nutrient",
-            "ingredient",
-            "knownAllergen",
-            "productCharacteristic",
-            "instance",
-            "note",
-        ]
+        return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "code", "status", "category", "manufacturer", "nutrient", "ingredient", "knownAllergen", "characteristic", "instance", "note"]
+
 
     @root_validator(pre=True, allow_reuse=True)
     def validate_required_primitive_elements_1903(
@@ -191,7 +174,8 @@ class NutritionProduct(domainresource.DomainResource):
         data type mandatory, it is possible to provide an extension that explains why
         the primitive value is not present.
         """
-        required_fields = [("status", "status__ext")]
+        required_fields = [
+			("status", "status__ext")]
         _missing = object()
 
         def _fallback():
@@ -242,305 +226,124 @@ class NutritionProduct(domainresource.DomainResource):
 
 from . import backboneelement
 
-
-class NutritionProductIngredient(backboneelement.BackboneElement):
-    """Disclaimer: Any field name ends with ``__ext`` doesn't part of
-    Resource StructureDefinition, instead used to enable Extensibility feature
-    for FHIR Primitive Data Types.
-
-    Ingredients contained in this product.
-    """
-
-    resource_type = Field("NutritionProductIngredient", const=True)
-
-    amount: typing.List[fhirtypes.RatioType] = Field(
-        None,
-        alias="amount",
-        title="The amount of ingredient that is in the product",
-        description=None,
-        # if property is element of this resource.
-        element_property=True,
-    )
-
-    item: fhirtypes.CodeableReferenceType = Field(
-        ...,
-        alias="item",
-        title="The ingredient contained in the product",
-        description=None,
-        # if property is element of this resource.
-        element_property=True,
-        # note: Listed Resource Type(s) should be allowed as Reference.
-        enum_reference_types=["NutritionProduct"],
-    )
-
-    @classmethod
-    def elements_sequence(cls):
-        """returning all elements names from ``NutritionProductIngredient`` according specification,
-        with preserving original sequence order.
-        """
-        return ["id", "extension", "modifierExtension", "item", "amount"]
-
-
-class NutritionProductInstance(backboneelement.BackboneElement):
-    """Disclaimer: Any field name ends with ``__ext`` doesn't part of
-    Resource StructureDefinition, instead used to enable Extensibility feature
-    for FHIR Primitive Data Types.
-
-    One or several physical instances or occurrences of the nutrition product.
-    Conveys instance-level information about this product item. One or several
-    physical, countable instances or occurrences of the product.
-    """
-
-    resource_type = Field("NutritionProductInstance", const=True)
-
-    expiry: fhirtypes.DateTime = Field(
-        None,
-        alias="expiry",
-        title="The expiry date or date and time for the product",
-        description=(
-            "The time after which the product is no longer expected to be in proper"
-            " condition, or its use is not advised or not allowed."
-        ),
-        # if property is element of this resource.
-        element_property=True,
-    )
-    expiry__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
-        None, alias="_expiry", title="Extension field for ``expiry``."
-    )
-
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
-        None,
-        alias="identifier",
-        title="The identifier for the physical instance, typically a serial number",
-        description=None,
-        # if property is element of this resource.
-        element_property=True,
-    )
-
-    lotNumber: fhirtypes.String = Field(
-        None,
-        alias="lotNumber",
-        title="The identification of the batch or lot of the product",
-        description=None,
-        # if property is element of this resource.
-        element_property=True,
-    )
-    lotNumber__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
-        None, alias="_lotNumber", title="Extension field for ``lotNumber``."
-    )
-
-    quantity: fhirtypes.QuantityType = Field(
-        None,
-        alias="quantity",
-        title="The amount of items or instances",
-        description=(
-            "The amount of items or instances that the resource considers, for "
-            "instance when referring to 2 identical units together."
-        ),
-        # if property is element of this resource.
-        element_property=True,
-    )
-
-    useBy: fhirtypes.DateTime = Field(
-        None,
-        alias="useBy",
-        title=(
-            "The date until which the product is expected to be good for " "consumption"
-        ),
-        description=(
-            "The time after which the product is no longer expected to be in proper"
-            " condition, or its use is not advised or not allowed."
-        ),
-        # if property is element of this resource.
-        element_property=True,
-    )
-    useBy__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
-        None, alias="_useBy", title="Extension field for ``useBy``."
-    )
-
-    @classmethod
-    def elements_sequence(cls):
-        """returning all elements names from ``NutritionProductInstance`` according specification,
-        with preserving original sequence order.
-        """
-        return [
-            "id",
-            "extension",
-            "modifierExtension",
-            "quantity",
-            "identifier",
-            "lotNumber",
-            "expiry",
-            "useBy",
-        ]
-
-
-class NutritionProductNutrient(backboneelement.BackboneElement):
-    """Disclaimer: Any field name ends with ``__ext`` doesn't part of
-    Resource StructureDefinition, instead used to enable Extensibility feature
-    for FHIR Primitive Data Types.
-
-    The product's nutritional information expressed by the nutrients.
-    """
-
-    resource_type = Field("NutritionProductNutrient", const=True)
-
-    amount: typing.List[fhirtypes.RatioType] = Field(
-        None,
-        alias="amount",
-        title=(
-            "The amount of nutrient expressed in one or more units: X per pack / "
-            "per serving / per dose"
-        ),
-        description=None,
-        # if property is element of this resource.
-        element_property=True,
-    )
-
-    item: fhirtypes.CodeableReferenceType = Field(
-        None,
-        alias="item",
-        title="The (relevant) nutrients in the product",
-        description=None,
-        # if property is element of this resource.
-        element_property=True,
-        # note: Listed Resource Type(s) should be allowed as Reference.
-        enum_reference_types=["Substance"],
-    )
-
-    @classmethod
-    def elements_sequence(cls):
-        """returning all elements names from ``NutritionProductNutrient`` according specification,
-        with preserving original sequence order.
-        """
-        return ["id", "extension", "modifierExtension", "item", "amount"]
-
-
-class NutritionProductProductCharacteristic(backboneelement.BackboneElement):
+class NutritionProductCharacteristic(backboneelement.BackboneElement):
     """Disclaimer: Any field name ends with ``__ext`` doesn't part of
     Resource StructureDefinition, instead used to enable Extensibility feature
     for FHIR Primitive Data Types.
 
     Specifies descriptive properties of the nutrition product.
     """
-
-    resource_type = Field("NutritionProductProductCharacteristic", const=True)
-
+    resource_type = Field("NutritionProductCharacteristic", const=True)
+	
     type: fhirtypes.CodeableConceptType = Field(
-        ...,
-        alias="type",
-        title="Code specifying the type of characteristic",
-        description=(
-            "A code specifying which characteristic of the product is being "
-            "described (for example, colour, shape)."
-        ),
+		...,
+		alias="type",
+		title="Code specifying the type of characteristic",
+		description=(
+    "A code specifying which characteristic of the product is being "
+    "described (for example, colour, shape)."
+    ),
         # if property is element of this resource.
         element_property=True,
-    )
-
+	)
+	
     valueAttachment: fhirtypes.AttachmentType = Field(
-        None,
-        alias="valueAttachment",
-        title="The value of the characteristic",
-        description="The actual characteristic value corresponding to the type.",
+		None,
+		alias="valueAttachment",
+		title="The value of the characteristic",
+		description="The actual characteristic value corresponding to the type.",
         # if property is element of this resource.
         element_property=True,
         # Choice of Data Types. i.e value[x]
-        one_of_many="value",
-        one_of_many_required=True,
-    )
-
+		one_of_many="value",
+		one_of_many_required=True,
+	)
+	
     valueBase64Binary: fhirtypes.Base64Binary = Field(
-        None,
-        alias="valueBase64Binary",
-        title="The value of the characteristic",
-        description="The actual characteristic value corresponding to the type.",
+		None,
+		alias="valueBase64Binary",
+		title="The value of the characteristic",
+		description="The actual characteristic value corresponding to the type.",
         # if property is element of this resource.
         element_property=True,
         # Choice of Data Types. i.e value[x]
-        one_of_many="value",
-        one_of_many_required=True,
-    )
+		one_of_many="value",
+		one_of_many_required=True,
+	)
     valueBase64Binary__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
         None,
         alias="_valueBase64Binary",
-        title="Extension field for ``valueBase64Binary``.",
+        title="Extension field for ``valueBase64Binary``."
     )
-
+	
     valueBoolean: bool = Field(
-        None,
-        alias="valueBoolean",
-        title="The value of the characteristic",
-        description="The actual characteristic value corresponding to the type.",
+		None,
+		alias="valueBoolean",
+		title="The value of the characteristic",
+		description="The actual characteristic value corresponding to the type.",
         # if property is element of this resource.
         element_property=True,
         # Choice of Data Types. i.e value[x]
-        one_of_many="value",
-        one_of_many_required=True,
-    )
+		one_of_many="value",
+		one_of_many_required=True,
+	)
     valueBoolean__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
-        None, alias="_valueBoolean", title="Extension field for ``valueBoolean``."
+        None,
+        alias="_valueBoolean",
+        title="Extension field for ``valueBoolean``."
     )
-
+	
     valueCodeableConcept: fhirtypes.CodeableConceptType = Field(
-        None,
-        alias="valueCodeableConcept",
-        title="The value of the characteristic",
-        description="The actual characteristic value corresponding to the type.",
+		None,
+		alias="valueCodeableConcept",
+		title="The value of the characteristic",
+		description="The actual characteristic value corresponding to the type.",
         # if property is element of this resource.
         element_property=True,
         # Choice of Data Types. i.e value[x]
-        one_of_many="value",
-        one_of_many_required=True,
-    )
-
+		one_of_many="value",
+		one_of_many_required=True,
+	)
+	
     valueQuantity: fhirtypes.QuantityType = Field(
-        None,
-        alias="valueQuantity",
-        title="The value of the characteristic",
-        description="The actual characteristic value corresponding to the type.",
+		None,
+		alias="valueQuantity",
+		title="The value of the characteristic",
+		description="The actual characteristic value corresponding to the type.",
         # if property is element of this resource.
         element_property=True,
         # Choice of Data Types. i.e value[x]
-        one_of_many="value",
-        one_of_many_required=True,
-    )
-
+		one_of_many="value",
+		one_of_many_required=True,
+	)
+	
     valueString: fhirtypes.String = Field(
-        None,
-        alias="valueString",
-        title="The value of the characteristic",
-        description="The actual characteristic value corresponding to the type.",
+		None,
+		alias="valueString",
+		title="The value of the characteristic",
+		description="The actual characteristic value corresponding to the type.",
         # if property is element of this resource.
         element_property=True,
         # Choice of Data Types. i.e value[x]
-        one_of_many="value",
-        one_of_many_required=True,
-    )
+		one_of_many="value",
+		one_of_many_required=True,
+	)
     valueString__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
-        None, alias="_valueString", title="Extension field for ``valueString``."
+        None,
+        alias="_valueString",
+        title="Extension field for ``valueString``."
     )
-
     @classmethod
     def elements_sequence(cls):
-        """returning all elements names from ``NutritionProductProductCharacteristic`` according specification,
+        """returning all elements names from
+        ``NutritionProductCharacteristic`` according specification,
         with preserving original sequence order.
         """
-        return [
-            "id",
-            "extension",
-            "modifierExtension",
-            "type",
-            "valueCodeableConcept",
-            "valueString",
-            "valueQuantity",
-            "valueBase64Binary",
-            "valueAttachment",
-            "valueBoolean",
-        ]
+        return ["id", "extension", "modifierExtension", "type", "valueCodeableConcept", "valueString", "valueQuantity", "valueBase64Binary", "valueAttachment", "valueBoolean"]
+
 
     @root_validator(pre=True, allow_reuse=True)
-    def validate_one_of_many_4072(
+    def validate_one_of_many_3335(
         cls, values: typing.Dict[str, typing.Any]
     ) -> typing.Dict[str, typing.Any]:
         """https://www.hl7.org/fhir/formats.html#choice
@@ -556,15 +359,13 @@ class NutritionProductProductCharacteristic(backboneelement.BackboneElement):
         data type chosen from among the list of permitted data types.
         """
         one_of_many_fields = {
-            "value": [
-                "valueAttachment",
-                "valueBase64Binary",
-                "valueBoolean",
-                "valueCodeableConcept",
-                "valueQuantity",
-                "valueString",
-            ]
-        }
+			"value": [
+			    "valueAttachment",
+			    "valueBase64Binary",
+			    "valueBoolean",
+			    "valueCodeableConcept",
+			    "valueQuantity",
+			    "valueString"]}
         for prefix, fields in one_of_many_fields.items():
             assert cls.__fields__[fields[0]].field_info.extra["one_of_many"] == prefix
             required = (
@@ -585,3 +386,204 @@ class NutritionProductProductCharacteristic(backboneelement.BackboneElement):
                 raise ValueError(f"Expect any of field value from this list {fields}.")
 
         return values
+
+
+class NutritionProductIngredient(backboneelement.BackboneElement):
+    """Disclaimer: Any field name ends with ``__ext`` doesn't part of
+    Resource StructureDefinition, instead used to enable Extensibility feature
+    for FHIR Primitive Data Types.
+
+    Ingredients contained in this product.
+    """
+    resource_type = Field("NutritionProductIngredient", const=True)
+	
+    amount: typing.List[fhirtypes.RatioType] = Field(
+		None,
+		alias="amount",
+		title="The amount of ingredient that is in the product",
+		description=None,
+        # if property is element of this resource.
+        element_property=True,
+	)
+	
+    item: fhirtypes.CodeableReferenceType = Field(
+		...,
+		alias="item",
+		title="The ingredient contained in the product",
+		description=None,
+        # if property is element of this resource.
+        element_property=True,
+        # note: Listed Resource Type(s) should be allowed as Reference.
+		enum_reference_types=["NutritionProduct"],
+	)
+    @classmethod
+    def elements_sequence(cls):
+        """returning all elements names from
+        ``NutritionProductIngredient`` according specification,
+        with preserving original sequence order.
+        """
+        return ["id", "extension", "modifierExtension", "item", "amount"]
+
+
+
+class NutritionProductInstance(backboneelement.BackboneElement):
+    """Disclaimer: Any field name ends with ``__ext`` doesn't part of
+    Resource StructureDefinition, instead used to enable Extensibility feature
+    for FHIR Primitive Data Types.
+
+    One or several physical instances or occurrences of the nutrition product.
+    Conveys instance-level information about this product item. One or several
+    physical, countable instances or occurrences of the product.
+    """
+    resource_type = Field("NutritionProductInstance", const=True)
+	
+    biologicalSourceEvent: fhirtypes.IdentifierType = Field(
+		None,
+		alias="biologicalSourceEvent",
+		title=(
+    "An identifier that supports traceability to the event during which "
+    "material in this product from one or more biological entities was "
+    "obtained or pooled"
+    ),
+		description=None,
+        # if property is element of this resource.
+        element_property=True,
+	)
+	
+    expiry: fhirtypes.DateTime = Field(
+		None,
+		alias="expiry",
+		title="The expiry date or date and time for the product",
+		description=(
+    "The time after which the product is no longer expected to be in proper"
+    " condition, or its use is not advised or not allowed."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+	)
+    expiry__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
+        None,
+        alias="_expiry",
+        title="Extension field for ``expiry``."
+    )
+	
+    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+		None,
+		alias="identifier",
+		title=(
+    "The identifier for the physical instance, typically a serial number or"
+    " manufacturer number"
+    ),
+		description=None,
+        # if property is element of this resource.
+        element_property=True,
+	)
+	
+    lotNumber: fhirtypes.String = Field(
+		None,
+		alias="lotNumber",
+		title="The identification of the batch or lot of the product",
+		description=None,
+        # if property is element of this resource.
+        element_property=True,
+	)
+    lotNumber__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
+        None,
+        alias="_lotNumber",
+        title="Extension field for ``lotNumber``."
+    )
+	
+    name: fhirtypes.String = Field(
+		None,
+		alias="name",
+		title="The name for the specific product",
+		description=None,
+        # if property is element of this resource.
+        element_property=True,
+	)
+    name__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
+        None,
+        alias="_name",
+        title="Extension field for ``name``."
+    )
+	
+    quantity: fhirtypes.QuantityType = Field(
+		None,
+		alias="quantity",
+		title="The amount of items or instances",
+		description=(
+    "The amount of items or instances that the resource considers, for "
+    "instance when referring to 2 identical units together."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+	)
+	
+    useBy: fhirtypes.DateTime = Field(
+		None,
+		alias="useBy",
+		title=(
+    "The date until which the product is expected to be good for "
+    "consumption"
+    ),
+		description=(
+    "The time after which the product is no longer expected to be in proper"
+    " condition, or its use is not advised or not allowed."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+	)
+    useBy__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
+        None,
+        alias="_useBy",
+        title="Extension field for ``useBy``."
+    )
+    @classmethod
+    def elements_sequence(cls):
+        """returning all elements names from
+        ``NutritionProductInstance`` according specification,
+        with preserving original sequence order.
+        """
+        return ["id", "extension", "modifierExtension", "quantity", "identifier", "name", "lotNumber", "expiry", "useBy", "biologicalSourceEvent"]
+
+
+
+class NutritionProductNutrient(backboneelement.BackboneElement):
+    """Disclaimer: Any field name ends with ``__ext`` doesn't part of
+    Resource StructureDefinition, instead used to enable Extensibility feature
+    for FHIR Primitive Data Types.
+
+    The product's nutritional information expressed by the nutrients.
+    """
+    resource_type = Field("NutritionProductNutrient", const=True)
+	
+    amount: typing.List[fhirtypes.RatioType] = Field(
+		None,
+		alias="amount",
+		title=(
+    "The amount of nutrient expressed in one or more units: X per pack / "
+    "per serving / per dose"
+    ),
+		description=None,
+        # if property is element of this resource.
+        element_property=True,
+	)
+	
+    item: fhirtypes.CodeableReferenceType = Field(
+		None,
+		alias="item",
+		title="The (relevant) nutrients in the product",
+		description=None,
+        # if property is element of this resource.
+        element_property=True,
+        # note: Listed Resource Type(s) should be allowed as Reference.
+		enum_reference_types=["Substance"],
+	)
+    @classmethod
+    def elements_sequence(cls):
+        """returning all elements names from
+        ``NutritionProductNutrient`` according specification,
+        with preserving original sequence order.
+        """
+        return ["id", "extension", "modifierExtension", "item", "amount"]
+

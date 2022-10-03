@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/CodeSystem
-Release: R5
-Version: 4.5.0
-Build ID: 0d95498
-Last updated: 2021-04-03T00:34:11.075+00:00
+Release: 2022Sep
+Version: 5.0.0-ballot
+Build ID: 1505a88
+Last updated: 2022-09-10T04:52:37.223+10:00
 """
 from pydantic.validators import bytes_validator  # noqa: F401
 from fhir.resources import fhirtypes  # noqa: F401
@@ -13,48 +13,62 @@ from fhir.resources import codesystem
 
 def impl_codesystem_1(inst):
     assert inst.caseSensitive is True
-    assert inst.concept[0].code == "policy"
-    assert inst.concept[0].definition == "To be completed"
-    assert inst.concept[0].display == "Policy"
-    assert inst.contact[0].name == "FHIR project team"
+    assert inst.concept[0].code == "lost"
+    assert inst.concept[0].definition == "The device is lost."
+    assert inst.concept[0].display == "Lost"
+    assert inst.concept[1].code == "damaged"
+    assert inst.concept[1].definition == "The device is damaged."
+    assert inst.concept[1].display == "Damaged"
+    assert inst.concept[2].code == "destroyed"
+    assert inst.concept[2].definition == "The device is destroyed."
+    assert inst.concept[2].display == "Destroyed"
+    assert inst.concept[3].code == "available"
+    assert inst.concept[3].definition == "The device is available."
+    assert inst.concept[3].display == "Available"
     assert inst.contact[0].telecom[0].system == "url"
     assert inst.contact[0].telecom[0].value == "http://hl7.org/fhir"
+    assert inst.contact[0].telecom[1].system == "email"
+    assert inst.contact[0].telecom[1].value == "fhir@lists.hl7.org"
     assert inst.content == "complete"
-    assert inst.date == fhirtypes.DateTime.validate("2017-02-13")
-    assert inst.description == (
-        "This CodeSystem contains FHIR-defined contract security "
-        "classification types."
-    )
-    assert inst.experimental is True
+    assert inst.date == fhirtypes.DateTime.validate("2021-01-05T10:01:24+11:00")
+    assert inst.description == "The record status of the device."
+    assert inst.experimental is False
     assert inst.extension[0].url == (
-        "http://hl7.org/fhir/StructureDefinition/structuredefinition-" "wg"
+    "http://hl7.org/fhir/StructureDefinition/structuredefinition-"
+    "wg"
     )
-    assert inst.extension[0].valueCode == "fm"
-    assert inst.id == "contract-security-classification"
+    assert inst.extension[0].valueCode == "oo"
+    assert inst.extension[1].url == (
+    "http://hl7.org/fhir/StructureDefinition/structuredefinition-"
+    "standards-status"
+    )
+    assert inst.extension[1].valueCode == "trial-use"
+    assert inst.extension[2].url == (
+    "http://hl7.org/fhir/StructureDefinition/structuredefinition-"
+    "fmm"
+    )
+    assert inst.extension[2].valueInteger == 2
+    assert inst.id == "device-availability-status"
     assert inst.identifier[0].system == "urn:ietf:rfc:3986"
-    assert inst.identifier[0].value == "urn:oid:2.16.840.1.113883.4.642.1.1219"
-    assert inst.meta.lastUpdated == fhirtypes.Instant.validate(
-        "2021-04-03T00:34:11.075+00:00"
-    )
-    assert (
-        inst.meta.profile[0]
-        == "http://hl7.org/fhir/StructureDefinition/shareablecodesystem"
-    )
-    assert inst.name == "ContractSecurityClassification"
-    assert inst.publisher == "HL7 International"
+    assert inst.identifier[0].value == "urn:oid:2.16.840.1.113883.4.642.4.2048"
+    assert inst.meta.lastUpdated == fhirtypes.Instant.validate("2022-09-10T04:52:37.223+10:00")
+    assert inst.meta.profile[0] == "http://hl7.org/fhir/StructureDefinition/shareablecodesystem"
+    assert inst.name == "FHIRDeviceAvailabilityStatus"
+    assert inst.publisher == "HL7 (FHIR Project)"
     assert inst.status == "draft"
     assert inst.text.status == "generated"
-    assert inst.url == "http://hl7.org/fhir/contract-security-classification"
-    assert inst.version == "4.5.0"
+    assert inst.title == "FHIRDeviceAvailabilityStatus"
+    assert inst.url == "http://hl7.org/fhir/device-availability-status"
+    assert inst.valueSet == "http://hl7.org/fhir/ValueSet/device-availability-status"
+    assert inst.version == "5.0.0-ballot"
 
 
 def test_codesystem_1(base_settings):
     """No. 1 tests collection for CodeSystem.
-    Test File: codesystem-contract-security-classification.json
+    Test File: codesystem-device-availability-status.json
     """
     filename = (
-        base_settings["unittest_data_dir"]
-        / "codesystem-contract-security-classification.json"
+        base_settings["unittest_data_dir"] / "codesystem-device-availability-status.json"
     )
     inst = codesystem.CodeSystem.parse_file(
         filename, content_type="application/json", encoding="utf-8"
@@ -73,80 +87,64 @@ def test_codesystem_1(base_settings):
 
 def impl_codesystem_2(inst):
     assert inst.caseSensitive is True
-    assert inst.concept[0].code == "Patient"
-    assert (
-        inst.concept[0].definition
-        == "The compartment definition is for the patient compartment."
+    assert inst.concept[0].code == "snapshot"
+    assert inst.concept[0].definition == (
+    "The inventory report is a current absolute snapshot, i.e. it"
+    " represents the quantities at hand."
     )
-    assert inst.concept[0].display == "Patient"
-    assert inst.concept[1].code == "Encounter"
-    assert (
-        inst.concept[1].definition
-        == "The compartment definition is for the encounter compartment."
+    assert inst.concept[0].display == "Snapshot"
+    assert inst.concept[1].code == "difference"
+    assert inst.concept[1].definition == (
+    "The inventory report is about the difference between a "
+    "previous count and a current count, i.e. it represents the "
+    "items that have been added/subtracted from inventory."
     )
-    assert inst.concept[1].display == "Encounter"
-    assert inst.concept[2].code == "RelatedPerson"
-    assert inst.concept[2].definition == (
-        "The compartment definition is for the related-person " "compartment."
-    )
-    assert inst.concept[2].display == "RelatedPerson"
-    assert inst.concept[3].code == "Practitioner"
-    assert inst.concept[3].definition == (
-        "The compartment definition is for the practitioner " "compartment."
-    )
-    assert inst.concept[3].display == "Practitioner"
-    assert inst.concept[4].code == "Device"
-    assert (
-        inst.concept[4].definition
-        == "The compartment definition is for the device compartment."
-    )
-    assert inst.concept[4].display == "Device"
+    assert inst.concept[1].display == "Difference"
     assert inst.contact[0].telecom[0].system == "url"
     assert inst.contact[0].telecom[0].value == "http://hl7.org/fhir"
     assert inst.contact[0].telecom[1].system == "email"
     assert inst.contact[0].telecom[1].value == "fhir@lists.hl7.org"
     assert inst.content == "complete"
     assert inst.date == fhirtypes.DateTime.validate("2021-01-05T10:01:24+11:00")
-    assert inst.description == "Which type a compartment definition describes."
+    assert inst.description == "The type of count."
     assert inst.experimental is False
     assert inst.extension[0].url == (
-        "http://hl7.org/fhir/StructureDefinition/structuredefinition-" "wg"
+    "http://hl7.org/fhir/StructureDefinition/structuredefinition-"
+    "wg"
     )
-    assert inst.extension[0].valueCode == "fhir"
+    assert inst.extension[0].valueCode == "oo"
     assert inst.extension[1].url == (
-        "http://hl7.org/fhir/StructureDefinition/structuredefinition-"
-        "standards-status"
+    "http://hl7.org/fhir/StructureDefinition/structuredefinition-"
+    "standards-status"
     )
     assert inst.extension[1].valueCode == "trial-use"
     assert inst.extension[2].url == (
-        "http://hl7.org/fhir/StructureDefinition/structuredefinition-" "fmm"
+    "http://hl7.org/fhir/StructureDefinition/structuredefinition-"
+    "fmm"
     )
-    assert inst.extension[2].valueInteger == 1
-    assert inst.id == "compartment-type"
+    assert inst.extension[2].valueInteger == 0
+    assert inst.id == "inventoryreport-counttype"
     assert inst.identifier[0].system == "urn:ietf:rfc:3986"
-    assert inst.identifier[0].value == "urn:oid:2.16.840.1.113883.4.642.1.787"
-    assert inst.meta.lastUpdated == fhirtypes.Instant.validate(
-        "2021-04-03T11:34:11.075+11:00"
-    )
-    assert (
-        inst.meta.profile[0]
-        == "http://hl7.org/fhir/StructureDefinition/shareablecodesystem"
-    )
-    assert inst.name == "CompartmentType"
+    assert inst.identifier[0].value == "urn:oid:2.16.840.1.113883.4.642.4.1926"
+    assert inst.meta.lastUpdated == fhirtypes.Instant.validate("2022-09-10T04:52:37.223+10:00")
+    assert inst.meta.profile[0] == "http://hl7.org/fhir/StructureDefinition/shareablecodesystem"
+    assert inst.name == "InventoryCountType"
     assert inst.publisher == "HL7 (FHIR Project)"
     assert inst.status == "draft"
     assert inst.text.status == "generated"
-    assert inst.title == "CompartmentType"
-    assert inst.url == "http://hl7.org/fhir/compartment-type"
-    assert inst.valueSet == "http://hl7.org/fhir/ValueSet/compartment-type"
-    assert inst.version == "4.5.0"
+    assert inst.title == "InventoryCountType"
+    assert inst.url == "http://hl7.org/fhir/inventoryreport-counttype"
+    assert inst.valueSet == "http://hl7.org/fhir/ValueSet/inventoryreport-counttype"
+    assert inst.version == "5.0.0-ballot"
 
 
 def test_codesystem_2(base_settings):
     """No. 2 tests collection for CodeSystem.
-    Test File: codesystem-compartment-type.json
+    Test File: codesystem-inventoryreport-counttype.json
     """
-    filename = base_settings["unittest_data_dir"] / "codesystem-compartment-type.json"
+    filename = (
+        base_settings["unittest_data_dir"] / "codesystem-inventoryreport-counttype.json"
+    )
     inst = codesystem.CodeSystem.parse_file(
         filename, content_type="application/json", encoding="utf-8"
     )
@@ -164,78 +162,87 @@ def test_codesystem_2(base_settings):
 
 def impl_codesystem_3(inst):
     assert inst.caseSensitive is True
-    assert inst.concept[0].code == "usual"
-    assert inst.concept[0].definition == (
-        "The identifier recommended for display and use in real-world" " interactions."
+    assert inst.concept[0].code == "high"
+    assert inst.concept[0].definition == "High quality evidence."
+    assert inst.concept[0].display == "High quality"
+    assert inst.concept[1].code == "moderate"
+    assert inst.concept[1].definition == "Moderate quality evidence."
+    assert inst.concept[1].display == "Moderate quality"
+    assert inst.concept[2].code == "low"
+    assert inst.concept[2].definition == "Low quality evidence."
+    assert inst.concept[2].display == "Low quality"
+    assert inst.concept[3].code == "very-low"
+    assert inst.concept[3].definition == "Very low quality evidence."
+    assert inst.concept[3].display == "Very low quality"
+    assert inst.concept[4].code == "no-concern"
+    assert inst.concept[4].definition == "no serious concern."
+    assert inst.concept[4].display == "no serious concern"
+    assert inst.concept[5].code == "serious-concern"
+    assert inst.concept[5].definition == "serious concern."
+    assert inst.concept[5].display == "serious concern"
+    assert inst.concept[6].code == "very-serious-concern"
+    assert inst.concept[6].definition == "very serious concern."
+    assert inst.concept[6].display == "very serious concern"
+    assert inst.concept[7].code == "extremely-serious-concern"
+    assert inst.concept[7].definition == "extremely serious concern."
+    assert inst.concept[7].display == "extremely serious concern"
+    assert inst.concept[8].code == "present"
+    assert inst.concept[8].definition == (
+    "possible reason for increasing quality rating was checked "
+    "and found to be present."
     )
-    assert inst.concept[0].display == "Usual"
-    assert inst.concept[1].code == "official"
-    assert inst.concept[1].display == "Official"
-    assert inst.concept[2].code == "temp"
-    assert inst.concept[2].definition == "A temporary identifier."
-    assert inst.concept[2].display == "Temp"
-    assert inst.concept[3].code == "secondary"
-    assert inst.concept[3].definition == (
-        "An identifier that was assigned in secondary use - it serves"
-        " to identify the object in a relative context, but cannot be"
-        " consistently assigned to the same object again in a "
-        "different context."
+    assert inst.concept[8].display == "present"
+    assert inst.concept[9].code == "absent"
+    assert inst.concept[9].definition == (
+    "possible reason for increasing quality rating was checked "
+    "and found to be absent."
     )
-    assert inst.concept[3].display == "Secondary"
-    assert inst.concept[4].code == "old"
-    assert inst.concept[4].definition == (
-        "The identifier id no longer considered valid, but may be "
-        "relevant for search purposes.  E.g. Changes to identifier "
-        "schemes, account merges, etc."
-    )
-    assert inst.concept[4].display == "Old"
+    assert inst.concept[9].display == "absent"
     assert inst.contact[0].telecom[0].system == "url"
     assert inst.contact[0].telecom[0].value == "http://hl7.org/fhir"
     assert inst.contact[0].telecom[1].system == "email"
     assert inst.contact[0].telecom[1].value == "fhir@lists.hl7.org"
     assert inst.content == "complete"
-    assert inst.date == fhirtypes.DateTime.validate("2021-04-03T00:34:11+00:00")
-    assert inst.description == "Identifies the purpose for this identifier, if known ."
+    assert inst.date == fhirtypes.DateTime.validate("2020-12-28T16:55:11+11:00")
+    assert inst.description == "The assessment of quality, confidence, or certainty."
     assert inst.experimental is False
     assert inst.extension[0].url == (
-        "http://hl7.org/fhir/StructureDefinition/structuredefinition-" "wg"
+    "http://hl7.org/fhir/StructureDefinition/structuredefinition-"
+    "wg"
     )
-    assert inst.extension[0].valueCode == "fhir"
+    assert inst.extension[0].valueCode == "cds"
     assert inst.extension[1].url == (
-        "http://hl7.org/fhir/StructureDefinition/structuredefinition-"
-        "standards-status"
+    "http://hl7.org/fhir/StructureDefinition/structuredefinition-"
+    "standards-status"
     )
-    assert inst.extension[1].valueCode == "normative"
+    assert inst.extension[1].valueCode == "trial-use"
     assert inst.extension[2].url == (
-        "http://hl7.org/fhir/StructureDefinition/structuredefinition-"
-        "normative-version"
+    "http://hl7.org/fhir/StructureDefinition/structuredefinition-"
+    "fmm"
     )
-    assert inst.extension[2].valueCode == "4.0.0"
-    assert inst.extension[3].url == (
-        "http://hl7.org/fhir/StructureDefinition/structuredefinition-" "fmm"
-    )
-    assert inst.extension[3].valueInteger == 5
-    assert inst.id == "identifier-use"
+    assert inst.extension[2].valueInteger == 1
+    assert inst.id == "certainty-rating"
     assert inst.identifier[0].system == "urn:ietf:rfc:3986"
-    assert inst.identifier[0].value == "urn:oid:2.16.840.1.113883.4.642.1.58"
-    assert inst.meta.lastUpdated == fhirtypes.Instant.validate(
-        "2021-04-03T00:34:11.075+00:00"
-    )
-    assert inst.name == "IdentifierUse"
+    assert inst.identifier[0].value == "urn:oid:2.16.840.1.113883.4.642.4.1941"
+    assert inst.meta.lastUpdated == fhirtypes.Instant.validate("2022-09-10T04:52:37.223+10:00")
+    assert inst.meta.profile[0] == "http://hl7.org/fhir/StructureDefinition/shareablecodesystem"
+    assert inst.name == "EvidenceCertaintyRating"
     assert inst.publisher == "HL7 (FHIR Project)"
-    assert inst.status == "active"
+    assert inst.status == "draft"
     assert inst.text.status == "generated"
-    assert inst.title == "IdentifierUse"
-    assert inst.url == "http://hl7.org/fhir/identifier-use"
-    assert inst.valueSet == "http://hl7.org/fhir/ValueSet/identifier-use"
-    assert inst.version == "4.5.0"
+    assert inst.title == "EvidenceCertaintyRating"
+    assert inst.url == "http://terminology.hl7.org/CodeSystem/certainty-rating"
+    assert inst.valueSet == "http://hl7.org/fhir/ValueSet/certainty-rating"
+    assert inst.version == "5.0.0-ballot"
 
 
 def test_codesystem_3(base_settings):
     """No. 3 tests collection for CodeSystem.
-    Test File: codesystem-identifier-use.json
+    Test File: codesystem-certainty-rating.json
     """
-    filename = base_settings["unittest_data_dir"] / "codesystem-identifier-use.json"
+    filename = (
+        base_settings["unittest_data_dir"] / "codesystem-certainty-rating.json"
+    )
     inst = codesystem.CodeSystem.parse_file(
         filename, content_type="application/json", encoding="utf-8"
     )
@@ -253,98 +260,66 @@ def test_codesystem_3(base_settings):
 
 def impl_codesystem_4(inst):
     assert inst.caseSensitive is True
-    assert inst.concept[0].code == "std-MA"
-    assert inst.concept[0].definition == (
-        "A meta-analysis of the summary data of estimates from "
-        "individual studies or data sets."
-    )
-    assert inst.concept[0].display == "summary data meta-analysis"
-    assert inst.concept[1].code == "IPD-MA"
-    assert inst.concept[1].definition == (
-        "A meta-analysis of the individual participant data from "
-        "individual studies or data sets."
-    )
-    assert inst.concept[1].display == "individual patient data meta-analysis"
-    assert inst.concept[2].code == "indirect-NMA"
-    assert inst.concept[2].definition == (
-        "An indirect meta-analysis derived from 2 or more direct "
-        "comparisons in a network meta-analysis."
-    )
-    assert inst.concept[2].display == "indirect network meta-analysis"
-    assert inst.concept[3].code == "combined-NMA"
-    assert inst.concept[3].definition == (
-        "An composite meta-analysis derived from direct comparisons "
-        "and indirect comparisons in a network meta-analysis."
-    )
-    assert (
-        inst.concept[3].display == "combined direct plus indirect network meta-analysis"
-    )
-    assert inst.concept[4].code == "range"
-    assert inst.concept[4].definition == "A range of results across a body of evidence."
-    assert inst.concept[4].display == "range of results"
-    assert inst.concept[5].code == "classification"
-    assert inst.concept[5].definition == (
-        "An approach describing a body of evidence by categorically "
-        "classifying individual studies (eg 3 studies showed beneft "
-        "and 2 studied found no effect)."
-    )
-    assert inst.concept[5].display == "classifcation of results"
-    assert inst.concept[6].code == "NotApplicable"
-    assert inst.concept[6].definition == (
-        "Not applicable because the evidence is not from a synthesis "
-        "but from a single study. Used fo explicitly state that it's "
-        "not a synthesis."
-    )
-    assert inst.concept[6].display == "not applicable"
+    assert inst.concept[0].code == "first"
+    assert inst.concept[0].definition == "Only process this rule for the first in the list."
+    assert inst.concept[0].display == "First"
+    assert inst.concept[1].code == "not_first"
+    assert inst.concept[1].definition == "Process this rule for all but the first."
+    assert inst.concept[1].display == "All but the first"
+    assert inst.concept[2].code == "last"
+    assert inst.concept[2].definition == "Only process this rule for the last in the list."
+    assert inst.concept[2].display == "Last"
+    assert inst.concept[3].code == "not_last"
+    assert inst.concept[3].definition == "Process this rule for all but the last."
+    assert inst.concept[3].display == "All but the last"
+    assert inst.concept[4].code == "only_one"
+    assert inst.concept[4].definition == "Only process this rule is there is only item."
+    assert inst.concept[4].display == "Enforce only one"
     assert inst.contact[0].telecom[0].system == "url"
     assert inst.contact[0].telecom[0].value == "http://hl7.org/fhir"
     assert inst.contact[0].telecom[1].system == "email"
     assert inst.contact[0].telecom[1].value == "fhir@lists.hl7.org"
     assert inst.content == "complete"
-    assert inst.date == fhirtypes.DateTime.validate("2020-12-28T16:55:11+11:00")
-    assert inst.description == (
-        "Types of combining results from a body of evidence (eg. "
-        "summary data meta-analysis)."
-    )
+    assert inst.date == fhirtypes.DateTime.validate("2021-01-05T10:01:24+11:00")
+    assert inst.description == "If field is a list, how to manage the source."
     assert inst.experimental is False
     assert inst.extension[0].url == (
-        "http://hl7.org/fhir/StructureDefinition/structuredefinition-" "wg"
+    "http://hl7.org/fhir/StructureDefinition/structuredefinition-"
+    "wg"
     )
-    assert inst.extension[0].valueCode == "cds"
+    assert inst.extension[0].valueCode == "fhir"
     assert inst.extension[1].url == (
-        "http://hl7.org/fhir/StructureDefinition/structuredefinition-"
-        "standards-status"
+    "http://hl7.org/fhir/StructureDefinition/structuredefinition-"
+    "standards-status"
     )
     assert inst.extension[1].valueCode == "trial-use"
     assert inst.extension[2].url == (
-        "http://hl7.org/fhir/StructureDefinition/structuredefinition-" "fmm"
+    "http://hl7.org/fhir/StructureDefinition/structuredefinition-"
+    "fmm"
     )
-    assert inst.extension[2].valueInteger == 1
-    assert inst.id == "synthesis-type"
+    assert inst.extension[2].valueInteger == 2
+    assert inst.id == "map-source-list-mode"
     assert inst.identifier[0].system == "urn:ietf:rfc:3986"
-    assert inst.identifier[0].value == "urn:oid:2.16.840.1.113883.4.642.1.1348"
-    assert inst.meta.lastUpdated == fhirtypes.Instant.validate(
-        "2021-04-03T11:34:11.075+11:00"
-    )
-    assert (
-        inst.meta.profile[0]
-        == "http://hl7.org/fhir/StructureDefinition/shareablecodesystem"
-    )
-    assert inst.name == "SynthesisType"
+    assert inst.identifier[0].value == "urn:oid:2.16.840.1.113883.4.642.4.684"
+    assert inst.meta.lastUpdated == fhirtypes.Instant.validate("2022-09-10T04:52:37.223+10:00")
+    assert inst.meta.profile[0] == "http://hl7.org/fhir/StructureDefinition/shareablecodesystem"
+    assert inst.name == "StructureMapSourceListMode"
     assert inst.publisher == "HL7 (FHIR Project)"
     assert inst.status == "draft"
     assert inst.text.status == "generated"
-    assert inst.title == "SynthesisType"
-    assert inst.url == "http://terminology.hl7.org/CodeSystem/synthesis-type"
-    assert inst.valueSet == "http://hl7.org/fhir/ValueSet/synthesis-type"
-    assert inst.version == "4.5.0"
+    assert inst.title == "StructureMapSourceListMode"
+    assert inst.url == "http://hl7.org/fhir/map-source-list-mode"
+    assert inst.valueSet == "http://hl7.org/fhir/ValueSet/map-source-list-mode"
+    assert inst.version == "5.0.0-ballot"
 
 
 def test_codesystem_4(base_settings):
     """No. 4 tests collection for CodeSystem.
-    Test File: codesystem-synthesis-type.json
+    Test File: codesystem-map-source-list-mode.json
     """
-    filename = base_settings["unittest_data_dir"] / "codesystem-synthesis-type.json"
+    filename = (
+        base_settings["unittest_data_dir"] / "codesystem-map-source-list-mode.json"
+    )
     inst = codesystem.CodeSystem.parse_file(
         filename, content_type="application/json", encoding="utf-8"
     )
@@ -362,79 +337,63 @@ def test_codesystem_4(base_settings):
 
 def impl_codesystem_5(inst):
     assert inst.caseSensitive is True
-    assert inst.concept[0].code == "classification"
+    assert inst.concept[0].code == "planned"
     assert inst.concept[0].definition == (
-        "The report is primarily a listing of classifiers about the " "report subject."
+    "The patient is planned to be moved to this location at some "
+    "point in the future."
     )
-    assert inst.concept[0].display == "Classification"
-    assert inst.concept[1].code == "search-results"
-    assert inst.concept[1].definition == (
-        "The report is a composition of results generated in response"
-        " to a search query."
-    )
-    assert inst.concept[1].display == "Search Results"
-    assert inst.concept[2].code == "resources-compiled"
-    assert inst.concept[2].definition == (
-        "The report is a composition containing one or more FHIR "
-        "resources in the content."
-    )
-    assert inst.concept[2].display == "Resource Compilation"
-    assert inst.concept[3].code == "text-structured"
-    assert (
-        inst.concept[3].definition
-        == "The report is a structured representation of text."
-    )
-    assert inst.concept[3].display == "Structured Text"
+    assert inst.concept[0].display == "Planned"
+    assert inst.concept[1].code == "active"
+    assert inst.concept[1].display == "Active"
+    assert inst.concept[2].code == "reserved"
+    assert inst.concept[2].definition == "This location is held empty for this patient."
+    assert inst.concept[2].display == "Reserved"
+    assert inst.concept[3].code == "completed"
+    assert inst.concept[3].display == "Completed"
     assert inst.contact[0].telecom[0].system == "url"
     assert inst.contact[0].telecom[0].value == "http://hl7.org/fhir"
     assert inst.contact[0].telecom[1].system == "email"
     assert inst.contact[0].telecom[1].value == "fhir@lists.hl7.org"
     assert inst.content == "complete"
-    assert inst.date == fhirtypes.DateTime.validate("2020-12-28T16:55:11+11:00")
-    assert inst.description == (
-        "The kind of report, such as grouping of classifiers, search "
-        "results, or human-compiled expression."
-    )
+    assert inst.date == fhirtypes.DateTime.validate("2021-01-05T10:01:24+11:00")
+    assert inst.description == "The status of the location."
     assert inst.experimental is False
     assert inst.extension[0].url == (
-        "http://hl7.org/fhir/StructureDefinition/structuredefinition-" "wg"
+    "http://hl7.org/fhir/StructureDefinition/structuredefinition-"
+    "wg"
     )
-    assert inst.extension[0].valueCode == "cds"
+    assert inst.extension[0].valueCode == "pa"
     assert inst.extension[1].url == (
-        "http://hl7.org/fhir/StructureDefinition/structuredefinition-"
-        "standards-status"
+    "http://hl7.org/fhir/StructureDefinition/structuredefinition-"
+    "standards-status"
     )
-    assert inst.extension[1].valueCode == "draft"
+    assert inst.extension[1].valueCode == "trial-use"
     assert inst.extension[2].url == (
-        "http://hl7.org/fhir/StructureDefinition/structuredefinition-" "fmm"
+    "http://hl7.org/fhir/StructureDefinition/structuredefinition-"
+    "fmm"
     )
-    assert inst.extension[2].valueInteger == 1
-    assert inst.id == "evidence-report-type"
+    assert inst.extension[2].valueInteger == 2
+    assert inst.id == "encounter-location-status"
     assert inst.identifier[0].system == "urn:ietf:rfc:3986"
-    assert inst.identifier[0].value == "urn:oid:2.16.840.1.113883.4.642.1.0"
-    assert inst.meta.lastUpdated == fhirtypes.Instant.validate(
-        "2021-04-03T11:34:11.075+11:00"
-    )
-    assert (
-        inst.meta.profile[0]
-        == "http://hl7.org/fhir/StructureDefinition/shareablecodesystem"
-    )
-    assert inst.name == "EvidenceReportType"
+    assert inst.identifier[0].value == "urn:oid:2.16.840.1.113883.4.642.4.263"
+    assert inst.meta.lastUpdated == fhirtypes.Instant.validate("2022-09-10T04:52:37.223+10:00")
+    assert inst.meta.profile[0] == "http://hl7.org/fhir/StructureDefinition/shareablecodesystem"
+    assert inst.name == "EncounterLocationStatus"
     assert inst.publisher == "HL7 (FHIR Project)"
     assert inst.status == "draft"
     assert inst.text.status == "generated"
-    assert inst.title == "EvidenceReportType"
-    assert inst.url == "http://terminology.hl7.org/CodeSystem/evidence-report-type"
-    assert inst.valueSet == "http://hl7.org/fhir/ValueSet/evidence-report-type"
-    assert inst.version == "4.5.0"
+    assert inst.title == "EncounterLocationStatus"
+    assert inst.url == "http://hl7.org/fhir/encounter-location-status"
+    assert inst.valueSet == "http://hl7.org/fhir/ValueSet/encounter-location-status"
+    assert inst.version == "5.0.0-ballot"
 
 
 def test_codesystem_5(base_settings):
     """No. 5 tests collection for CodeSystem.
-    Test File: codesystem-evidence-report-type.json
+    Test File: codesystem-encounter-location-status.json
     """
     filename = (
-        base_settings["unittest_data_dir"] / "codesystem-evidence-report-type.json"
+        base_settings["unittest_data_dir"] / "codesystem-encounter-location-status.json"
     )
     inst = codesystem.CodeSystem.parse_file(
         filename, content_type="application/json", encoding="utf-8"
@@ -453,46 +412,58 @@ def test_codesystem_5(base_settings):
 
 def impl_codesystem_6(inst):
     assert inst.caseSensitive is True
-    assert inst.concept[0].code == "NL1"
-    assert inst.concept[0].display == "Own Name"
-    assert inst.concept[1].code == "NL2"
-    assert inst.concept[1].display == "Partner Name"
-    assert inst.concept[2].code == "NL3"
-    assert inst.concept[2].display == "Partner Name followed by Maiden Name"
-    assert inst.concept[3].code == "NL4"
-    assert inst.concept[3].display == "Own Name followed by Partner Name"
+    assert inst.concept[0].code == "Average"
+    assert inst.concept[0].display == "Average"
+    assert inst.concept[1].code == "Approximately"
+    assert inst.concept[1].display == "Approximately"
+    assert inst.concept[2].code == "LessThan"
+    assert inst.concept[2].display == "Less Than"
+    assert inst.concept[3].code == "MoreThan"
+    assert inst.concept[3].display == "More Than"
     assert inst.contact[0].telecom[0].system == "url"
     assert inst.contact[0].telecom[0].value == "http://hl7.org/fhir"
     assert inst.contact[0].telecom[1].system == "email"
     assert inst.contact[0].telecom[1].value == "fhir@lists.hl7.org"
     assert inst.content == "complete"
-    assert inst.date == fhirtypes.DateTime.validate("2021-04-03T00:34:11+00:00")
-    assert inst.description == (
-        "A code that represents the preferred display order of the "
-        "components of a human name."
-    )
+    assert inst.date == fhirtypes.DateTime.validate("2021-01-05T10:01:24+11:00")
+    assert inst.description == "The type of a numeric quantity measurement."
     assert inst.experimental is False
-    assert inst.id == "name-assembly-order"
-    assert inst.identifier[0].system == "urn:ietf:rfc:3986"
-    assert inst.identifier[0].value == "urn:oid:2.16.840.1.113883.4.642.1.1266"
-    assert inst.meta.lastUpdated == fhirtypes.Instant.validate(
-        "2021-04-03T00:34:11.075+00:00"
+    assert inst.extension[0].url == (
+    "http://hl7.org/fhir/StructureDefinition/structuredefinition-"
+    "wg"
     )
-    assert inst.name == "HumanNameAssemblyOrder"
+    assert inst.extension[0].valueCode == "brr"
+    assert inst.extension[1].url == (
+    "http://hl7.org/fhir/StructureDefinition/structuredefinition-"
+    "standards-status"
+    )
+    assert inst.extension[1].valueCode == "trial-use"
+    assert inst.extension[2].url == (
+    "http://hl7.org/fhir/StructureDefinition/structuredefinition-"
+    "fmm"
+    )
+    assert inst.extension[2].valueInteger == 1
+    assert inst.id == "substance-amount-type"
+    assert inst.identifier[0].system == "urn:ietf:rfc:3986"
+    assert inst.identifier[0].value == "urn:oid:2.16.840.1.113883.4.642.4.2086"
+    assert inst.meta.lastUpdated == fhirtypes.Instant.validate("2022-09-10T05:52:37.223+11:00")
+    assert inst.meta.profile[0] == "http://hl7.org/fhir/StructureDefinition/shareablecodesystem"
+    assert inst.name == "SubstanceAmountType"
     assert inst.publisher == "HL7 (FHIR Project)"
     assert inst.status == "draft"
     assert inst.text.status == "generated"
-    assert inst.title == "HumanNameAssemblyOrder"
-    assert inst.url == "http://terminology.hl7.org/CodeSystem/name-assembly-order"
-    assert inst.version == "4.5.0"
+    assert inst.title == "SubstanceAmountType"
+    assert inst.url == "http://hl7.org/fhir/substance-amount-type"
+    assert inst.valueSet == "http://hl7.org/fhir/ValueSet/substance-amount-type"
+    assert inst.version == "5.0.0-ballot"
 
 
 def test_codesystem_6(base_settings):
     """No. 6 tests collection for CodeSystem.
-    Test File: codesystem-name-assembly-order.json
+    Test File: codesystem-substance-amount-type.json
     """
     filename = (
-        base_settings["unittest_data_dir"] / "codesystem-name-assembly-order.json"
+        base_settings["unittest_data_dir"] / "codesystem-substance-amount-type.json"
     )
     inst = codesystem.CodeSystem.parse_file(
         filename, content_type="application/json", encoding="utf-8"
@@ -511,98 +482,58 @@ def test_codesystem_6(base_settings):
 
 def impl_codesystem_7(inst):
     assert inst.caseSensitive is True
-    assert inst.concept[0].code == "active"
-    assert inst.concept[0].definition == "Study is opened for accrual."
-    assert inst.concept[0].display == "Active"
-    assert inst.concept[1].code == "administratively-completed"
-    assert inst.concept[1].definition == (
-        "Study is completed prematurely and will not resume; patients"
-        " are no longer examined nor treated."
-    )
-    assert inst.concept[1].display == "Administratively Completed"
-    assert inst.concept[2].code == "approved"
-    assert inst.concept[2].definition == "Protocol is approved by the review board."
-    assert inst.concept[2].display == "Approved"
-    assert inst.concept[3].code == "closed-to-accrual"
-    assert inst.concept[3].definition == (
-        "Study is closed for accrual; patients can be examined and " "treated."
-    )
-    assert inst.concept[3].display == "Closed to Accrual"
-    assert inst.concept[4].code == "closed-to-accrual-and-intervention"
-    assert inst.concept[4].display == "Closed to Accrual and Intervention"
-    assert inst.concept[5].code == "completed"
-    assert inst.concept[5].display == "Completed"
-    assert inst.concept[6].code == "disapproved"
-    assert inst.concept[6].definition == "Protocol was disapproved by the review board."
-    assert inst.concept[6].display == "Disapproved"
-    assert inst.concept[7].code == "in-review"
-    assert (
-        inst.concept[7].definition
-        == "Protocol is submitted to the review board for approval."
-    )
-    assert inst.concept[7].display == "In Review"
-    assert inst.concept[8].code == "temporarily-closed-to-accrual"
-    assert inst.concept[8].definition == (
-        "Study is temporarily closed for accrual; can be potentially "
-        "resumed in the future; patients can be examined and treated."
-    )
-    assert inst.concept[8].display == "Temporarily Closed to Accrual"
-    assert inst.concept[9].code == "temporarily-closed-to-accrual-and-intervention"
-    assert inst.concept[9].definition == (
-        "Study is temporarily closed for accrual and intervention and"
-        " potentially can be resumed in the future."
-    )
-    assert inst.concept[9].display == "Temporarily Closed to Accrual and Intervention"
+    assert inst.concept[0].code == "Pregnancy"
+    assert inst.concept[0].display == "Pregnancy and Lactation"
+    assert inst.concept[1].code == "Overdose"
+    assert inst.concept[1].display == "Overdose"
+    assert inst.concept[2].code == "DriveAndMachines"
+    assert inst.concept[2].display == "Effects on Ability to Drive and Use Machines"
     assert inst.contact[0].telecom[0].system == "url"
     assert inst.contact[0].telecom[0].value == "http://hl7.org/fhir"
     assert inst.contact[0].telecom[1].system == "email"
     assert inst.contact[0].telecom[1].value == "fhir@lists.hl7.org"
     assert inst.content == "complete"
     assert inst.date == fhirtypes.DateTime.validate("2021-01-05T10:01:24+11:00")
-    assert (
-        inst.description
-        == "Codes that convey the current status of the research study."
-    )
     assert inst.experimental is False
     assert inst.extension[0].url == (
-        "http://hl7.org/fhir/StructureDefinition/structuredefinition-" "wg"
+    "http://hl7.org/fhir/StructureDefinition/structuredefinition-"
+    "wg"
     )
     assert inst.extension[0].valueCode == "brr"
     assert inst.extension[1].url == (
-        "http://hl7.org/fhir/StructureDefinition/structuredefinition-"
-        "standards-status"
+    "http://hl7.org/fhir/StructureDefinition/structuredefinition-"
+    "standards-status"
     )
     assert inst.extension[1].valueCode == "trial-use"
     assert inst.extension[2].url == (
-        "http://hl7.org/fhir/StructureDefinition/structuredefinition-" "fmm"
+    "http://hl7.org/fhir/StructureDefinition/structuredefinition-"
+    "fmm"
     )
-    assert inst.extension[2].valueInteger == 0
-    assert inst.id == "research-study-status"
+    assert inst.extension[2].valueInteger == 1
+    assert inst.id == "clinical-use-definition-category"
     assert inst.identifier[0].system == "urn:ietf:rfc:3986"
-    assert inst.identifier[0].value == "urn:oid:2.16.840.1.113883.4.642.1.820"
-    assert inst.meta.lastUpdated == fhirtypes.Instant.validate(
-        "2021-04-03T11:34:11.075+11:00"
-    )
-    assert (
-        inst.meta.profile[0]
-        == "http://hl7.org/fhir/StructureDefinition/shareablecodesystem"
-    )
-    assert inst.name == "ResearchStudyStatus"
+    assert inst.identifier[0].value == "urn:oid:2.16.840.1.113883.4.642.4.1993"
+    assert inst.meta.lastUpdated == fhirtypes.Instant.validate("2022-09-10T05:52:37.223+11:00")
+    assert inst.meta.profile[0] == "http://hl7.org/fhir/StructureDefinition/shareablecodesystem"
+    assert inst.name == "ClinicalUseDefinitionCategory"
     assert inst.publisher == "HL7 (FHIR Project)"
     assert inst.status == "draft"
     assert inst.text.status == "generated"
-    assert inst.title == "ResearchStudyStatus"
-    assert inst.url == "http://hl7.org/fhir/research-study-status"
-    assert inst.valueSet == "http://hl7.org/fhir/ValueSet/research-study-status"
-    assert inst.version == "4.5.0"
+    assert inst.title == "ClinicalUseDefinitionCategory"
+    assert inst.url == "http://hl7.org/fhir/clinical-use-definition-category"
+    assert inst.valueSet == (
+    "http://hl7.org/fhir/ValueSet/clinical-use-definition-"
+    "category"
+    )
+    assert inst.version == "5.0.0-ballot"
 
 
 def test_codesystem_7(base_settings):
     """No. 7 tests collection for CodeSystem.
-    Test File: codesystem-research-study-status.json
+    Test File: codesystem-clinical-use-definition-category.json
     """
     filename = (
-        base_settings["unittest_data_dir"] / "codesystem-research-study-status.json"
+        base_settings["unittest_data_dir"] / "codesystem-clinical-use-definition-category.json"
     )
     inst = codesystem.CodeSystem.parse_file(
         filename, content_type="application/json", encoding="utf-8"
@@ -621,71 +552,79 @@ def test_codesystem_7(base_settings):
 
 def impl_codesystem_8(inst):
     assert inst.caseSensitive is True
-    assert inst.concept[0].code == "codesystem"
+    assert inst.concept[0].code == "continuous"
     assert inst.concept[0].definition == (
-        "The naming system is used to define concepts and symbols to "
-        "represent those concepts; e.g. UCUM, LOINC, NDC code, local "
-        "lab codes, etc."
+    "A continuous variable is one for which, within the limits "
+    "the variable ranges, any value is possible (from STATO "
+    "http://purl.obolibrary.org/obo/STATO_0000251)."
     )
-    assert inst.concept[0].display == "Code System"
-    assert inst.concept[1].code == "identifier"
+    assert inst.concept[0].display == "continuous variable"
+    assert inst.concept[1].code == "dichotomous"
     assert inst.concept[1].definition == (
-        "The naming system is used to manage identifiers (e.g. "
-        "license numbers, order numbers, etc.)."
+    "A dichotomous variable is a categorical variable which is "
+    "defined to have only 2 categories or possible values (from "
+    "STATO http://purl.obolibrary.org/obo/STATO_0000090)."
     )
-    assert inst.concept[1].display == "Identifier"
-    assert inst.concept[2].code == "root"
+    assert inst.concept[1].display == "dichotomous variable"
+    assert inst.concept[2].code == "ordinal"
     assert inst.concept[2].definition == (
-        "The naming system is used as the root for other identifiers "
-        "and naming systems."
+    "An ordinal variable is a categorical variable where the "
+    "discrete possible values are ordered or correspond to an "
+    "implicit ranking (from STATO "
+    "http://purl.obolibrary.org/obo/STATO_0000228)."
     )
-    assert inst.concept[2].display == "Root"
+    assert inst.concept[2].display == "ordinal variable"
+    assert inst.concept[3].code == "polychotomous"
+    assert inst.concept[3].display == "polychotomous variable"
     assert inst.contact[0].telecom[0].system == "url"
     assert inst.contact[0].telecom[0].value == "http://hl7.org/fhir"
     assert inst.contact[0].telecom[1].system == "email"
     assert inst.contact[0].telecom[1].value == "fhir@lists.hl7.org"
     assert inst.content == "complete"
     assert inst.date == fhirtypes.DateTime.validate("2021-01-05T10:01:24+11:00")
-    assert inst.description == "Identifies the purpose of the naming system."
+    assert inst.description == (
+    "The handling of the variable in statistical analysis for "
+    "exposures or outcomes (E.g. Dichotomous, Continuous, "
+    "Descriptive)."
+    )
     assert inst.experimental is False
     assert inst.extension[0].url == (
-        "http://hl7.org/fhir/StructureDefinition/structuredefinition-" "wg"
+    "http://hl7.org/fhir/StructureDefinition/structuredefinition-"
+    "wg"
     )
-    assert inst.extension[0].valueCode == "fhir"
+    assert inst.extension[0].valueCode == "cds"
     assert inst.extension[1].url == (
-        "http://hl7.org/fhir/StructureDefinition/structuredefinition-"
-        "standards-status"
+    "http://hl7.org/fhir/StructureDefinition/structuredefinition-"
+    "standards-status"
     )
     assert inst.extension[1].valueCode == "trial-use"
     assert inst.extension[2].url == (
-        "http://hl7.org/fhir/StructureDefinition/structuredefinition-" "fmm"
+    "http://hl7.org/fhir/StructureDefinition/structuredefinition-"
+    "fmm"
     )
-    assert inst.extension[2].valueInteger == 1
-    assert inst.id == "namingsystem-type"
+    assert inst.extension[2].valueInteger == 5
+    assert inst.id == "variable-handling"
     assert inst.identifier[0].system == "urn:ietf:rfc:3986"
-    assert inst.identifier[0].value == "urn:oid:2.16.840.1.113883.4.642.1.491"
-    assert inst.meta.lastUpdated == fhirtypes.Instant.validate(
-        "2021-04-03T11:34:11.075+11:00"
-    )
-    assert (
-        inst.meta.profile[0]
-        == "http://hl7.org/fhir/StructureDefinition/shareablecodesystem"
-    )
-    assert inst.name == "NamingSystemType"
+    assert inst.identifier[0].value == "urn:oid:2.16.840.1.113883.4.642.4.1956"
+    assert inst.meta.lastUpdated == fhirtypes.Instant.validate("2022-09-10T04:52:37.223+10:00")
+    assert inst.meta.profile[0] == "http://hl7.org/fhir/StructureDefinition/shareablecodesystem"
+    assert inst.name == "EvidenceVariableHandling"
     assert inst.publisher == "HL7 (FHIR Project)"
     assert inst.status == "draft"
     assert inst.text.status == "generated"
-    assert inst.title == "NamingSystemType"
-    assert inst.url == "http://hl7.org/fhir/namingsystem-type"
-    assert inst.valueSet == "http://hl7.org/fhir/ValueSet/namingsystem-type"
-    assert inst.version == "4.5.0"
+    assert inst.title == "EvidenceVariableHandling"
+    assert inst.url == "http://hl7.org/fhir/variable-handling"
+    assert inst.valueSet == "http://hl7.org/fhir/ValueSet/variable-handling"
+    assert inst.version == "5.0.0-ballot"
 
 
 def test_codesystem_8(base_settings):
     """No. 8 tests collection for CodeSystem.
-    Test File: codesystem-namingsystem-type.json
+    Test File: codesystem-variable-handling.json
     """
-    filename = base_settings["unittest_data_dir"] / "codesystem-namingsystem-type.json"
+    filename = (
+        base_settings["unittest_data_dir"] / "codesystem-variable-handling.json"
+    )
     inst = codesystem.CodeSystem.parse_file(
         filename, content_type="application/json", encoding="utf-8"
     )
@@ -703,77 +642,88 @@ def test_codesystem_8(base_settings):
 
 def impl_codesystem_9(inst):
     assert inst.caseSensitive is True
-    assert inst.concept[0].code == "food"
+    assert inst.concept[0].code == "any"
     assert inst.concept[0].definition == (
-        "Any substance consumed to provide nutritional support for " "the body."
+    "Any number of the actions in the group may be chosen, from "
+    "zero to all."
     )
-    assert inst.concept[0].display == "Food"
-    assert inst.concept[1].code == "medication"
-    assert (
-        inst.concept[1].definition
-        == "Substances administered to achieve a physiological effect."
+    assert inst.concept[0].display == "Any"
+    assert inst.concept[1].code == "all"
+    assert inst.concept[1].definition == (
+    "All the actions in the group must be selected as a single "
+    "unit."
     )
-    assert inst.concept[1].display == "Medication"
-    assert inst.concept[2].code == "environment"
+    assert inst.concept[1].display == "All"
+    assert inst.concept[2].code == "all-or-none"
     assert inst.concept[2].definition == (
-        "Any substances that are encountered in the environment, "
-        "including any substance not already classified as food, "
-        "medication, or biologic."
+    "All the actions in the group are meant to be chosen as a "
+    "single unit: either all must be selected by the end user, or"
+    " none may be selected."
     )
-    assert inst.concept[2].display == "Environment"
-    assert inst.concept[3].code == "biologic"
-    assert inst.concept[3].display == "Biologic"
+    assert inst.concept[2].display == "All Or None"
+    assert inst.concept[3].code == "exactly-one"
+    assert inst.concept[3].definition == (
+    "The end user must choose one and only one of the selectable "
+    "actions in the group. The user SHALL NOT choose none of the "
+    "actions in the group."
+    )
+    assert inst.concept[3].display == "Exactly One"
+    assert inst.concept[4].code == "at-most-one"
+    assert inst.concept[4].definition == (
+    "The end user may choose zero or at most one of the actions "
+    "in the group."
+    )
+    assert inst.concept[4].display == "At Most One"
+    assert inst.concept[5].code == "one-or-more"
+    assert inst.concept[5].definition == (
+    "The end user must choose a minimum of one, and as many "
+    "additional as desired."
+    )
+    assert inst.concept[5].display == "One Or More"
     assert inst.contact[0].telecom[0].system == "url"
     assert inst.contact[0].telecom[0].value == "http://hl7.org/fhir"
     assert inst.contact[0].telecom[1].system == "email"
     assert inst.contact[0].telecom[1].value == "fhir@lists.hl7.org"
     assert inst.content == "complete"
     assert inst.date == fhirtypes.DateTime.validate("2021-01-05T10:01:24+11:00")
-    assert inst.description == (
-        "Category of an identified substance associated with "
-        "allergies or intolerances."
-    )
+    assert inst.description == "Defines selection behavior of a group."
     assert inst.experimental is False
     assert inst.extension[0].url == (
-        "http://hl7.org/fhir/StructureDefinition/structuredefinition-" "wg"
+    "http://hl7.org/fhir/StructureDefinition/structuredefinition-"
+    "wg"
     )
-    assert inst.extension[0].valueCode == "pc"
+    assert inst.extension[0].valueCode == "cds"
     assert inst.extension[1].url == (
-        "http://hl7.org/fhir/StructureDefinition/structuredefinition-"
-        "standards-status"
+    "http://hl7.org/fhir/StructureDefinition/structuredefinition-"
+    "standards-status"
     )
     assert inst.extension[1].valueCode == "trial-use"
     assert inst.extension[2].url == (
-        "http://hl7.org/fhir/StructureDefinition/structuredefinition-" "fmm"
+    "http://hl7.org/fhir/StructureDefinition/structuredefinition-"
+    "fmm"
     )
     assert inst.extension[2].valueInteger == 3
-    assert inst.id == "allergy-intolerance-category"
+    assert inst.id == "action-selection-behavior"
     assert inst.identifier[0].system == "urn:ietf:rfc:3986"
-    assert inst.identifier[0].value == "urn:oid:2.16.840.1.113883.4.642.1.134"
-    assert inst.meta.lastUpdated == fhirtypes.Instant.validate(
-        "2021-04-03T11:34:11.075+11:00"
-    )
-    assert (
-        inst.meta.profile[0]
-        == "http://hl7.org/fhir/StructureDefinition/shareablecodesystem"
-    )
-    assert inst.name == "AllergyIntoleranceCategory"
+    assert inst.identifier[0].value == "urn:oid:2.16.840.1.113883.4.642.4.802"
+    assert inst.meta.lastUpdated == fhirtypes.Instant.validate("2022-09-10T04:52:37.223+10:00")
+    assert inst.meta.profile[0] == "http://hl7.org/fhir/StructureDefinition/shareablecodesystem"
+    assert inst.name == "ActionSelectionBehavior"
     assert inst.publisher == "HL7 (FHIR Project)"
     assert inst.status == "draft"
     assert inst.text.status == "generated"
-    assert inst.title == "AllergyIntoleranceCategory"
-    assert inst.url == "http://hl7.org/fhir/allergy-intolerance-category"
-    assert inst.valueSet == "http://hl7.org/fhir/ValueSet/allergy-intolerance-category"
-    assert inst.version == "4.5.0"
+    assert inst.title == "ActionSelectionBehavior"
+    assert inst.url == "http://hl7.org/fhir/action-selection-behavior"
+    assert inst.valueSet == "http://hl7.org/fhir/ValueSet/action-selection-behavior"
+    assert inst.version == "5.0.0-ballot"
 
 
 def test_codesystem_9(base_settings):
     """No. 9 tests collection for CodeSystem.
-    Test File: codesystem-allergy-intolerance-category.json
+    Test File: codesystem-action-selection-behavior.json
     """
     filename = (
-        base_settings["unittest_data_dir"]
-        / "codesystem-allergy-intolerance-category.json"
+        base_settings["unittest_data_dir"] / "codesystem-action-selection-behavior.json"
     )
     inst = codesystem.CodeSystem.parse_file(
         filename, content_type="application/json", encoding="utf-8"
@@ -792,78 +742,81 @@ def test_codesystem_9(base_settings):
 
 def impl_codesystem_10(inst):
     assert inst.caseSensitive is True
-    assert inst.concept[0].code == "mon"
-    assert inst.concept[0].definition == "Monday."
-    assert inst.concept[0].display == "Monday"
-    assert inst.concept[1].code == "tue"
-    assert inst.concept[1].definition == "Tuesday."
-    assert inst.concept[1].display == "Tuesday"
-    assert inst.concept[2].code == "wed"
-    assert inst.concept[2].definition == "Wednesday."
-    assert inst.concept[2].display == "Wednesday"
-    assert inst.concept[3].code == "thu"
-    assert inst.concept[3].definition == "Thursday."
-    assert inst.concept[3].display == "Thursday"
-    assert inst.concept[4].code == "fri"
-    assert inst.concept[4].definition == "Friday."
-    assert inst.concept[4].display == "Friday"
-    assert inst.concept[5].code == "sat"
-    assert inst.concept[5].definition == "Saturday."
-    assert inst.concept[5].display == "Saturday"
-    assert inst.concept[6].code == "sun"
-    assert inst.concept[6].definition == "Sunday."
-    assert inst.concept[6].display == "Sunday"
+    assert inst.concept[0].code == "pubmed-pubstatus-received"
+    assert inst.concept[0].definition == "PubMed Pubstatus of Received"
+    assert inst.concept[0].display == "PubMed Pubstatus of Received"
+    assert inst.concept[1].code == "pubmed-pubstatus-accepted"
+    assert inst.concept[1].definition == "PubMed Pubstatus of Accepted"
+    assert inst.concept[1].display == "PubMed Pubstatus of Accepted"
+    assert inst.concept[2].code == "pubmed-pubstatus-epublish"
+    assert inst.concept[2].definition == "PubMed Pubstatus of Epublish"
+    assert inst.concept[2].display == "PubMed Pubstatus of Epublish"
+    assert inst.concept[3].code == "pubmed-pubstatus-ppublish"
+    assert inst.concept[3].definition == "PubMed Pubstatus of Ppublish"
+    assert inst.concept[3].display == "PubMed Pubstatus of Ppublish"
+    assert inst.concept[4].code == "pubmed-pubstatus-revised"
+    assert inst.concept[4].definition == "PubMed Pubstatus of Revised"
+    assert inst.concept[4].display == "PubMed Pubstatus of Revised"
+    assert inst.concept[5].code == "pubmed-pubstatus-aheadofprint"
+    assert inst.concept[5].definition == "PubMed Pubstatus of aheadofprint"
+    assert inst.concept[5].display == "PubMed Pubstatus of aheadofprint"
+    assert inst.concept[6].code == "pubmed-pubstatus-retracted"
+    assert inst.concept[6].definition == "PubMed Pubstatus of Retracted"
+    assert inst.concept[6].display == "PubMed Pubstatus of Retracted"
+    assert inst.concept[7].code == "pubmed-pubstatus-ecollection"
+    assert inst.concept[7].definition == "PubMed Pubstatus of Ecollection"
+    assert inst.concept[7].display == "PubMed Pubstatus of Ecollection"
+    assert inst.concept[8].code == "pubmed-pubstatus-pmc"
+    assert inst.concept[8].definition == "PubMed Pubstatus of PMC"
+    assert inst.concept[8].display == "PubMed Pubstatus of PMC"
+    assert inst.concept[9].code == "pubmed-pubstatus-pmcr"
+    assert inst.concept[9].definition == "PubMed Pubstatus of PMCr"
+    assert inst.concept[9].display == "PubMed Pubstatus of PMCr"
     assert inst.contact[0].telecom[0].system == "url"
     assert inst.contact[0].telecom[0].value == "http://hl7.org/fhir"
     assert inst.contact[0].telecom[1].system == "email"
     assert inst.contact[0].telecom[1].value == "fhir@lists.hl7.org"
     assert inst.content == "complete"
-    assert inst.date == fhirtypes.DateTime.validate("2021-01-05T10:01:24+11:00")
-    assert inst.description == "The days of the week."
+    assert inst.date == fhirtypes.DateTime.validate("2021-03-11T10:55:11.085+11:00")
+    assert inst.description == "Citation status type"
     assert inst.experimental is False
     assert inst.extension[0].url == (
-        "http://hl7.org/fhir/StructureDefinition/structuredefinition-" "wg"
+    "http://hl7.org/fhir/StructureDefinition/structuredefinition-"
+    "wg"
     )
-    assert inst.extension[0].valueCode == "pa"
+    assert inst.extension[0].valueCode == "cds"
     assert inst.extension[1].url == (
-        "http://hl7.org/fhir/StructureDefinition/structuredefinition-"
-        "standards-status"
+    "http://hl7.org/fhir/StructureDefinition/structuredefinition-"
+    "standards-status"
     )
-    assert inst.extension[1].valueCode == "normative"
+    assert inst.extension[1].valueCode == "trial-use"
     assert inst.extension[2].url == (
-        "http://hl7.org/fhir/StructureDefinition/structuredefinition-"
-        "normative-version"
+    "http://hl7.org/fhir/StructureDefinition/structuredefinition-"
+    "fmm"
     )
-    assert inst.extension[2].valueCode == "4.0.0"
-    assert inst.extension[3].url == (
-        "http://hl7.org/fhir/StructureDefinition/structuredefinition-" "fmm"
-    )
-    assert inst.extension[3].valueInteger == 5
-    assert inst.id == "days-of-week"
+    assert inst.extension[2].valueInteger == 0
+    assert inst.id == "citation-status-type"
     assert inst.identifier[0].system == "urn:ietf:rfc:3986"
-    assert inst.identifier[0].value == "urn:oid:2.16.840.1.113883.4.642.1.513"
-    assert inst.meta.lastUpdated == fhirtypes.Instant.validate(
-        "2021-04-03T11:34:11.075+11:00"
-    )
-    assert (
-        inst.meta.profile[0]
-        == "http://hl7.org/fhir/StructureDefinition/shareablecodesystem"
-    )
-    assert inst.name == "DaysOfWeek"
+    assert inst.identifier[0].value == "urn:oid:2.16.840.1.113883.4.642.4.1878"
+    assert inst.meta.lastUpdated == fhirtypes.Instant.validate("2022-09-10T04:52:37.223+10:00")
+    assert inst.meta.profile[0] == "http://hl7.org/fhir/StructureDefinition/shareablecodesystem"
+    assert inst.name == "CitationStatusType"
     assert inst.publisher == "HL7 (FHIR Project)"
-    assert inst.status == "active"
+    assert inst.status == "draft"
     assert inst.text.status == "generated"
-    assert inst.title == "DaysOfWeek"
-    assert inst.url == "http://hl7.org/fhir/days-of-week"
-    assert inst.valueSet == "http://hl7.org/fhir/ValueSet/days-of-week"
-    assert inst.version == "4.5.0"
+    assert inst.title == "CitationStatusType"
+    assert inst.url == "http://terminology.hl7.org/CodeSystem/citation-status-type"
+    assert inst.valueSet == "http://hl7.org/fhir/ValueSet/citation-status-type"
+    assert inst.version == "5.0.0-ballot"
 
 
 def test_codesystem_10(base_settings):
     """No. 10 tests collection for CodeSystem.
-    Test File: codesystem-days-of-week.json
+    Test File: codesystem-citation-status-type.json
     """
-    filename = base_settings["unittest_data_dir"] / "codesystem-days-of-week.json"
+    filename = (
+        base_settings["unittest_data_dir"] / "codesystem-citation-status-type.json"
+    )
     inst = codesystem.CodeSystem.parse_file(
         filename, content_type="application/json", encoding="utf-8"
     )
