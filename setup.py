@@ -64,7 +64,6 @@ setup(
     include_package_data=True,
     keywords="fhir, resources, python, hl7, health IT, healthcare",
     name="fhir.resources",
-    namespace_packages=["fhir"],
     packages=find_packages(exclude=["ez_setup"]),
     package_data={"fhir.resources": ["py.typed"]},
     setup_requires=setup_requirements,
