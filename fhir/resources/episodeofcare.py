@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/EpisodeOfCare
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 import typing
 from pydantic import Field
@@ -78,7 +78,10 @@ class EpisodeOfCare(domainresource.DomainResource):
     diagnosis: typing.List[fhirtypes.EpisodeOfCareDiagnosisType] = Field(
 		None,
 		alias="diagnosis",
-		title="The list of diagnosis relevant to this episode of care",
+		title=(
+    "The list of medical conditions that were addressed during the episode "
+    "of care"
+    ),
 		description=None,
         # if property is element of this resource.
         element_property=True,
@@ -131,6 +134,18 @@ class EpisodeOfCare(domainresource.DomainResource):
     "The interval during which the managing organization assumes the "
     "defined responsibility."
     ),
+        # if property is element of this resource.
+        element_property=True,
+	)
+	
+    reason: typing.List[fhirtypes.EpisodeOfCareReasonType] = Field(
+		None,
+		alias="reason",
+		title=(
+    "The list of medical reasons that are expected to be addressed during "
+    "the episode of care"
+    ),
+		description=None,
         # if property is element of this resource.
         element_property=True,
 	)
@@ -202,7 +217,7 @@ class EpisodeOfCare(domainresource.DomainResource):
         ``EpisodeOfCare`` according specification,
         with preserving original sequence order.
         """
-        return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "identifier", "status", "statusHistory", "type", "diagnosis", "patient", "managingOrganization", "period", "referralRequest", "careManager", "careTeam", "account"]
+        return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "identifier", "status", "statusHistory", "type", "reason", "diagnosis", "patient", "managingOrganization", "period", "referralRequest", "careManager", "careTeam", "account"]
 
 
     @root_validator(pre=True, allow_reuse=True)
@@ -273,17 +288,18 @@ class EpisodeOfCareDiagnosis(backboneelement.BackboneElement):
     Resource StructureDefinition, instead used to enable Extensibility feature
     for FHIR Primitive Data Types.
 
-    The list of diagnosis relevant to this episode of care.
+    The list of medical conditions that were addressed during the episode of
+    care.
     """
     resource_type = Field("EpisodeOfCareDiagnosis", const=True)
 	
-    condition: fhirtypes.CodeableReferenceType = Field(
-		...,
+    condition: typing.List[fhirtypes.CodeableReferenceType] = Field(
+		None,
 		alias="condition",
-		title="Conditions/problems/diagnoses this episode of care is for",
+		title="The medical condition that was addressed during the episode of care",
 		description=(
-    "A list of conditions/problems/diagnoses that this episode of care is "
-    "intended to be providing care for."
+    "The medical condition that was addressed during the episode of care, "
+    "expressed as a text, code or a reference to another resource."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -291,23 +307,9 @@ class EpisodeOfCareDiagnosis(backboneelement.BackboneElement):
 		enum_reference_types=["Condition"],
 	)
 	
-    rank: fhirtypes.PositiveInt = Field(
+    use: fhirtypes.CodeableConceptType = Field(
 		None,
-		alias="rank",
-		title="Ranking of the diagnosis (for each role type)",
-		description=None,
-        # if property is element of this resource.
-        element_property=True,
-	)
-    rank__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
-        None,
-        alias="_rank",
-        title="Extension field for ``rank``."
-    )
-	
-    role: fhirtypes.CodeableConceptType = Field(
-		None,
-		alias="role",
+		alias="use",
 		title=(
     "Role that this diagnosis has within the episode of care (e.g. "
     "admission, billing, discharge \u2026)"
@@ -322,7 +324,53 @@ class EpisodeOfCareDiagnosis(backboneelement.BackboneElement):
         ``EpisodeOfCareDiagnosis`` according specification,
         with preserving original sequence order.
         """
-        return ["id", "extension", "modifierExtension", "condition", "role", "rank"]
+        return ["id", "extension", "modifierExtension", "condition", "use"]
+
+
+
+class EpisodeOfCareReason(backboneelement.BackboneElement):
+    """Disclaimer: Any field name ends with ``__ext`` doesn't part of
+    Resource StructureDefinition, instead used to enable Extensibility feature
+    for FHIR Primitive Data Types.
+
+    The list of medical reasons that are expected to be addressed during the
+    episode of care.
+    """
+    resource_type = Field("EpisodeOfCareReason", const=True)
+	
+    use: fhirtypes.CodeableConceptType = Field(
+		None,
+		alias="use",
+		title="What the reason value should be used for/as",
+		description=(
+    "What the reason value should be used as e.g. Chief Complaint, Health "
+    "Concern, Health Maintenance (including screening)."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+	)
+	
+    value: typing.List[fhirtypes.CodeableReferenceType] = Field(
+		None,
+		alias="value",
+		title="Medical reason to be addressed",
+		description=(
+    "The medical reason that is expected to be addressed during the episode"
+    " of care, expressed as a text, code or a reference to another "
+    "resource."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+        # note: Listed Resource Type(s) should be allowed as Reference.
+		enum_reference_types=["Condition", "Procedure", "Observation", "HealthcareService"],
+	)
+    @classmethod
+    def elements_sequence(cls):
+        """returning all elements names from
+        ``EpisodeOfCareReason`` according specification,
+        with preserving original sequence order.
+        """
+        return ["id", "extension", "modifierExtension", "use", "value"]
 
 
 

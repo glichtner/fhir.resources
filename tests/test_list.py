@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/List
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 from pydantic.validators import bytes_validator  # noqa: F401
 from fhir.resources import fhirtypes  # noqa: F401
@@ -75,7 +75,7 @@ def impl_list_2(inst):
     assert inst.mode == "changes"
     assert inst.source.reference == "Patient/example"
     assert inst.status == "current"
-    assert inst.subject.reference == "Patient/example"
+    assert inst.subject[0].reference == "Patient/example"
     assert inst.text.status == "generated"
 
 
@@ -212,8 +212,8 @@ def impl_list_5(inst):
     assert inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
     assert inst.mode == "snapshot"
     assert inst.status == "current"
-    assert inst.subject.display == "Pam Taylor"
-    assert inst.subject.reference == "Patient/example"
+    assert inst.subject[0].display == "Pam Taylor"
+    assert inst.subject[0].reference == "Patient/example"
     assert inst.text.status == "generated"
 
 
@@ -257,8 +257,8 @@ def impl_list_6(inst):
     "still alive."
     )
     assert inst.status == "current"
-    assert inst.subject.display == "Roel"
-    assert inst.subject.reference == "Patient/f201"
+    assert inst.subject[0].display == "Roel"
+    assert inst.subject[0].reference == "Patient/f201"
     assert inst.text.status == "generated"
 
 
@@ -312,8 +312,8 @@ def impl_list_7(inst):
     assert inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
     assert inst.mode == "snapshot"
     assert inst.status == "current"
-    assert inst.subject.display == "Peter Patient"
-    assert inst.subject.reference == "Patient/example"
+    assert inst.subject[0].display == "Peter Patient"
+    assert inst.subject[0].reference == "Patient/example"
     assert inst.text.status == "generated"
 
 
@@ -340,6 +340,53 @@ def test_list_7(base_settings):
 
 
 def impl_list_8(inst):
+    assert inst.code.text == "History and Physical"
+    assert inst.contained[0].id == "a1"
+    assert inst.date == fhirtypes.DateTime.validate("2004-12-25T23:50:50-05:00")
+    assert inst.entry[0].item.reference == "DocumentReference/example"
+    assert inst.id == "example-xds"
+    assert inst.identifier[0].system == "http://example.org/documents"
+    assert inst.identifier[0].type.coding[0].code == "master"
+    assert inst.identifier[0].type.coding[0].system == "http://ihe.net/fhir/CodeSystem/identifier-type"
+    assert inst.identifier[0].value == "23425234234-2346"
+    assert inst.identifier[1].system == "http://example.org/documents"
+    assert inst.identifier[1].type.coding[0].code == "set"
+    assert inst.identifier[1].type.coding[0].system == "http://ihe.net/fhir/CodeSystem/identifier-type"
+    assert inst.identifier[1].value == "23425234234-2347"
+    assert inst.meta.tag[0].code == "HTEST"
+    assert inst.meta.tag[0].display == "test health data"
+    assert inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
+    assert inst.mode == "working"
+    assert inst.source.reference == "#a1"
+    assert inst.status == "current"
+    assert inst.subject[0].reference == "Patient/xcda"
+    assert inst.text.status == "generated"
+    assert inst.title == "Physical"
+
+
+def test_list_8(base_settings):
+    """No. 8 tests collection for List.
+    Test File: list-example-xds.json
+    """
+    filename = (
+        base_settings["unittest_data_dir"] / "list-example-xds.json"
+    )
+    inst = list.List.parse_file(
+        filename, content_type="application/json", encoding="utf-8"
+    )
+    assert "List" == inst.resource_type
+
+    impl_list_8(inst)
+
+    # testing reverse by generating data from itself and create again.
+    data = inst.dict()
+    assert "List" == data["resourceType"]
+
+    inst2 = list.List(**data)
+    impl_list_8(inst2)
+
+
+def impl_list_9(inst):
     assert inst.code.coding[0].code == "8670-2"
     assert inst.code.coding[0].display == "History of family member diseases"
     assert inst.code.coding[0].system == "http://loinc.org"
@@ -369,13 +416,13 @@ def impl_list_8(inst):
     assert inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
     assert inst.mode == "snapshot"
     assert inst.status == "current"
-    assert inst.subject.display == "Annie Proband, female, born 1966"
-    assert inst.subject.reference == "Patient/proband"
+    assert inst.subject[0].display == "Annie Proband, female, born 1966"
+    assert inst.subject[0].reference == "Patient/proband"
     assert inst.text.status == "generated"
 
 
-def test_list_8(base_settings):
-    """No. 8 tests collection for List.
+def test_list_9(base_settings):
+    """No. 9 tests collection for List.
     Test File: list-example-familyhistory-genetics-profile-annie.json
     """
     filename = (
@@ -386,17 +433,17 @@ def test_list_8(base_settings):
     )
     assert "List" == inst.resource_type
 
-    impl_list_8(inst)
+    impl_list_9(inst)
 
     # testing reverse by generating data from itself and create again.
     data = inst.dict()
     assert "List" == data["resourceType"]
 
     inst2 = list.List(**data)
-    impl_list_8(inst2)
+    impl_list_9(inst2)
 
 
-def impl_list_9(inst):
+def impl_list_10(inst):
     assert inst.code.coding[0].code == "182836005"
     assert inst.code.coding[0].display == "Review of medication"
     assert inst.code.coding[0].system == "http://snomed.info/sct"
@@ -416,55 +463,12 @@ def impl_list_9(inst):
     assert inst.text.status == "generated"
 
 
-def test_list_9(base_settings):
-    """No. 9 tests collection for List.
+def test_list_10(base_settings):
+    """No. 10 tests collection for List.
     Test File: list-example-empty.json
     """
     filename = (
         base_settings["unittest_data_dir"] / "list-example-empty.json"
-    )
-    inst = list.List.parse_file(
-        filename, content_type="application/json", encoding="utf-8"
-    )
-    assert "List" == inst.resource_type
-
-    impl_list_9(inst)
-
-    # testing reverse by generating data from itself and create again.
-    data = inst.dict()
-    assert "List" == data["resourceType"]
-
-    inst2 = list.List(**data)
-    impl_list_9(inst2)
-
-
-def impl_list_10(inst):
-    assert inst.date == fhirtypes.DateTime.validate("2018-02-21T12:17:00+11:00")
-    assert inst.entry[0].item.reference == "Patient/example"
-    assert inst.entry[1].item.reference == "Patient/pat1"
-    assert inst.entry[2].item.reference == "Patient/pat2"
-    assert inst.entry[3].item.reference == "Patient/pat3"
-    assert inst.entry[4].item.reference == "Patient/pat4"
-    assert inst.entry[5].item.reference == "Patient/1"
-    assert inst.entry[6].item.reference == "Patient/2"
-    assert inst.entry[7].item.reference == "Patient/3"
-    assert inst.entry[8].item.reference == "Patient/4"
-    assert inst.entry[9].item.reference == "Patient/5"
-    assert inst.id == "long"
-    assert inst.meta.tag[0].code == "HTEST"
-    assert inst.meta.tag[0].display == "test health data"
-    assert inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
-    assert inst.mode == "changes"
-    assert inst.status == "current"
-    assert inst.text.status == "generated"
-
-
-def test_list_10(base_settings):
-    """No. 10 tests collection for List.
-    Test File: list-example-long.json
-    """
-    filename = (
-        base_settings["unittest_data_dir"] / "list-example-long.json"
     )
     inst = list.List.parse_file(
         filename, content_type="application/json", encoding="utf-8"

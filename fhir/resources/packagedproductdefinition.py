@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/PackagedProductDefinition
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 import typing
 from pydantic import Field
@@ -38,7 +38,7 @@ class PackagedProductDefinition(domainresource.DomainResource):
 		enum_reference_types=["DocumentReference"],
 	)
 	
-    characteristic: typing.List[fhirtypes.CodeableConceptType] = Field(
+    characteristic: typing.List[fhirtypes.PackagedProductDefinitionPackagingPropertyType] = Field(
 		None,
 		alias="characteristic",
 		title=(
@@ -59,7 +59,8 @@ class PackagedProductDefinition(domainresource.DomainResource):
 		title=(
     "A total of the complete count of contained items of a particular "
     "type/form, independent of sub-packaging or organization. This can be "
-    "considered as the pack size"
+    "considered as the pack size. See also packaging.containedItem.amount "
+    "(especially the long definition)"
     ),
 		description=(
     "A total of the complete count of contained items of a particular "
@@ -278,7 +279,7 @@ class PackagedProductDefinition(domainresource.DomainResource):
         ``PackagedProductDefinition`` according specification,
         with preserving original sequence order.
         """
-        return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "identifier", "name", "type", "packageFor", "status", "statusDate", "containedItemQuantity", "description", "legalStatusOfSupply", "marketingStatus", "characteristic", "copackagedIndicator", "manufacturer", "attachedDocument", "packaging"]
+        return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "identifier", "name", "type", "packageFor", "status", "statusDate", "containedItemQuantity", "description", "legalStatusOfSupply", "marketingStatus", "copackagedIndicator", "manufacturer", "attachedDocument", "packaging", "characteristic"]
 
 
 
@@ -359,6 +360,27 @@ class PackagedProductDefinitionPackaging(backboneelement.BackboneElement):
         element_property=True,
 	)
 	
+    componentPart: bool = Field(
+		None,
+		alias="componentPart",
+		title=(
+    "Is this a part of the packaging (e.g. a cap or bottle stopper), rather"
+    " than the packaging itself (e.g. a bottle or vial)"
+    ),
+		description=(
+    "Is this a part of the packaging (e.g. a cap or bottle stopper), rather"
+    " than the packaging itself (e.g. a bottle or vial). The latter type "
+    "are designed be a container, but the former are not."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+	)
+    componentPart__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
+        None,
+        alias="_componentPart",
+        title="Extension field for ``componentPart``."
+    )
+	
     containedItem: typing.List[fhirtypes.PackagedProductDefinitionPackagingContainedItemType] = Field(
 		None,
 		alias="containedItem",
@@ -414,13 +436,13 @@ class PackagedProductDefinitionPackaging(backboneelement.BackboneElement):
 		None,
 		alias="packaging",
 		title=(
-    "Allows containers (and parts of containers) within containers, still a"
-    " single packaged product"
+    "Allows containers (and parts of containers) within containers, still "
+    "as a part of single packaged product"
     ),
 		description=(
-    "Allows containers (and parts of containers) parwithin containers, "
-    "still a single packaged product.  See also PackagedProductDefinition.p"
-    "ackaging.containedItem.item(PackagedProductDefinition)."
+    "Allows containers (and parts of containers) within containers, still "
+    "as a part of a single packaged product. See also PackagedProductDefini"
+    "tion.packaging.containedItem.item(PackagedProductDefinition)."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -481,7 +503,7 @@ class PackagedProductDefinitionPackaging(backboneelement.BackboneElement):
         ``PackagedProductDefinitionPackaging`` according specification,
         with preserving original sequence order.
         """
-        return ["id", "extension", "modifierExtension", "identifier", "type", "quantity", "material", "alternateMaterial", "shelfLifeStorage", "manufacturer", "property", "containedItem", "packaging"]
+        return ["id", "extension", "modifierExtension", "identifier", "type", "componentPart", "quantity", "material", "alternateMaterial", "shelfLifeStorage", "manufacturer", "property", "containedItem", "packaging"]
 
 
 
@@ -497,7 +519,12 @@ class PackagedProductDefinitionPackagingContainedItem(backboneelement.BackboneEl
     amount: fhirtypes.QuantityType = Field(
 		None,
 		alias="amount",
-		title="The number of this type of item within this packaging",
+		title=(
+    "The number of this type of item within this packaging or for "
+    "continuous items such as liquids it is the quantity (for example "
+    "25ml). See also PackagedProductDefinition.containedItemQuantity "
+    "(especially the long definition)"
+    ),
 		description=None,
         # if property is element of this resource.
         element_property=True,

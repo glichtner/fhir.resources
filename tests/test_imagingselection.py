@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/ImagingSelection
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 from pydantic.validators import bytes_validator  # noqa: F401
 from fhir.resources import fhirtypes  # noqa: F401
@@ -26,17 +26,17 @@ def impl_imagingselection_1(inst):
     "urn:oid:1.2.840.113747.20080222.1899142719348233292660249885"
     "86343.2.1"
     )
-    assert float(inst.imageRegion[0].coordinate[0]) == float(-50.0)
-    assert float(inst.imageRegion[0].coordinate[1]) == float(-50.0)
-    assert float(inst.imageRegion[0].coordinate[2]) == float(-50.0)
-    assert float(inst.imageRegion[0].coordinate[3]) == float(50.0)
-    assert float(inst.imageRegion[0].coordinate[4]) == float(50.0)
-    assert float(inst.imageRegion[0].coordinate[5]) == float(50.0)
-    assert float(inst.imageRegion[0].coordinate[6]) == float(25.0)
-    assert float(inst.imageRegion[0].coordinate[7]) == float(-25.0)
-    assert float(inst.imageRegion[0].coordinate[8]) == float(0.0)
-    assert float(inst.imageRegion[0].coordinate[9]) == float(-25.0)
-    assert inst.imageRegion[0].regionType == "ellipse"
+    assert float(inst.instance[0].imageRegion3D[0].coordinate[0]) == float(-50.0)
+    assert float(inst.instance[0].imageRegion3D[0].coordinate[1]) == float(-50.0)
+    assert float(inst.instance[0].imageRegion3D[0].coordinate[2]) == float(-50.0)
+    assert float(inst.instance[0].imageRegion3D[0].coordinate[3]) == float(50.0)
+    assert float(inst.instance[0].imageRegion3D[0].coordinate[4]) == float(50.0)
+    assert float(inst.instance[0].imageRegion3D[0].coordinate[5]) == float(50.0)
+    assert float(inst.instance[0].imageRegion3D[0].coordinate[6]) == float(25.0)
+    assert float(inst.instance[0].imageRegion3D[0].coordinate[7]) == float(-25.0)
+    assert float(inst.instance[0].imageRegion3D[0].coordinate[8]) == float(0.0)
+    assert float(inst.instance[0].imageRegion3D[0].coordinate[9]) == float(-25.0)
+    assert inst.instance[0].imageRegion3D[0].regionType == "ellipse"
     assert inst.instance[0].sopClass.code == "urn:oid:1.2.840.10008.5.1.4.1.1.2.1"
     assert inst.instance[0].sopClass.system == "urn:ietf:rfc:3986"
     assert inst.instance[0].uid == (
@@ -257,15 +257,15 @@ def impl_imagingselection_5(inst):
     "urn:oid:1.2.840.113747.20080222.3248567223100954657132726086"
     "516575.2.1"
     )
-    assert float(inst.instance[0].imageRegion[0].coordinate[0]) == float(0.25)
-    assert float(inst.instance[0].imageRegion[0].coordinate[1]) == float(0.25)
-    assert float(inst.instance[0].imageRegion[0].coordinate[2]) == float(0.75)
-    assert float(inst.instance[0].imageRegion[0].coordinate[3]) == float(0.25)
-    assert float(inst.instance[0].imageRegion[0].coordinate[4]) == float(0.75)
-    assert float(inst.instance[0].imageRegion[0].coordinate[5]) == float(0.75)
-    assert float(inst.instance[0].imageRegion[0].coordinate[6]) == float(0.25)
-    assert float(inst.instance[0].imageRegion[0].coordinate[7]) == float(0.75)
-    assert inst.instance[0].imageRegion[0].regionType == "polyline"
+    assert float(inst.instance[0].imageRegion2D[0].coordinate[0]) == float(0.25)
+    assert float(inst.instance[0].imageRegion2D[0].coordinate[1]) == float(0.25)
+    assert float(inst.instance[0].imageRegion2D[0].coordinate[2]) == float(0.75)
+    assert float(inst.instance[0].imageRegion2D[0].coordinate[3]) == float(0.25)
+    assert float(inst.instance[0].imageRegion2D[0].coordinate[4]) == float(0.75)
+    assert float(inst.instance[0].imageRegion2D[0].coordinate[5]) == float(0.75)
+    assert float(inst.instance[0].imageRegion2D[0].coordinate[6]) == float(0.25)
+    assert float(inst.instance[0].imageRegion2D[0].coordinate[7]) == float(0.75)
+    assert inst.instance[0].imageRegion2D[0].regionType == "polyline"
     assert inst.instance[0].sopClass.code == "urn:oid:1.2.840.10008.5.1.4.1.1.2"
     assert inst.instance[0].sopClass.system == "urn:ietf:rfc:3986"
     assert inst.instance[0].uid == (

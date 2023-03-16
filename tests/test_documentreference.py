@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/DocumentReference
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 from pydantic.validators import bytes_validator  # noqa: F401
 from fhir.resources import fhirtypes  # noqa: F401
@@ -81,6 +81,7 @@ def impl_documentreference_1(inst):
     assert inst.text.status == "extensions"
     assert inst.type.coding[0].code == "55107-7"
     assert inst.type.coding[0].system == "http://loinc.org"
+    assert inst.version == "urn:uuid:0c287d32-01e3-4d87-9953-9fcc9404eb21"
 
 
 def test_documentreference_1(base_settings):

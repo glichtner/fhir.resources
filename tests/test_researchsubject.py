@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/ResearchSubject
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 from pydantic.validators import bytes_validator  # noqa: F401
 from fhir.resources import fhirtypes  # noqa: F401
@@ -12,39 +12,44 @@ from fhir.resources import researchsubject
 
 
 def impl_researchsubject_1(inst):
-    assert inst.id == "example"
-    assert inst.identifier[0].system == "http://example.org/studysubjectids"
-    assert inst.identifier[0].type.text == "Subject id"
-    assert inst.identifier[0].value == "123"
+    assert inst.actualComparisonGroup == "ap303"
+    assert inst.assignedComparisonGroup == "placebo"
+    assert inst.id == "example-crossover-placebo-to-drug"
+    assert inst.identifier[0].value == "ecsr45"
     assert inst.meta.tag[0].code == "HTEST"
     assert inst.meta.tag[0].display == "test health data"
     assert inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
-    assert inst.progress[0].startDate == fhirtypes.DateTime.validate("2019-06-10")
-    assert inst.progress[0].subjectState.coding[0].code == "on-study"
-    assert inst.progress[0].subjectState.coding[0].system == "http://terminology.hl7.org/CodeSystem/research-subject-state"
-    assert inst.progress[0].type.coding[0].code == "state"
-    assert inst.progress[1].milestone.coding[0].code == "SignedUp"
-    assert inst.progress[1].startDate == fhirtypes.DateTime.validate("2019-06-06")
-    assert inst.progress[1].type.coding[0].code == "milestone"
-    assert inst.progress[2].milestone.coding[0].code == "Randomized"
-    assert inst.progress[2].startDate == fhirtypes.DateTime.validate("2019-06-10")
-    assert inst.progress[2].type.coding[0].code == "milestone"
-    assert inst.status == "active"
-    assert inst.study.reference == "ResearchStudy/example"
-    assert inst.subject.reference == "Patient/example"
-    assert inst.text.div == (
-    "<div xmlns=\"http://www.w3.org/1999/xhtml\">[Put rendering "
-    "here]</div>"
+    assert inst.period.start == fhirtypes.DateTime.validate("2022-06-10")
+    assert inst.progress[0].type.coding[0].code == "Enrollment"
+    assert inst.progress[0].type.coding[0].system == (
+    "http://terminology.hl7.org/CodeSystem/research-subject-"
+    "state-type"
     )
+    assert inst.progress[0].type.text == "Enrollment status"
+    assert inst.progress[1].reason.coding[0].code == "informedConsentSigned"
+    assert inst.progress[1].reason.text == "Informed consent signed"
+    assert inst.progress[1].startDate == fhirtypes.DateTime.validate("2022-06-10")
+    assert inst.progress[1].subjectState.coding[0].code == "on-study"
+    assert inst.progress[1].subjectState.coding[0].system == "http://terminology.hl7.org/CodeSystem/research-subject-state"
+    assert inst.progress[1].subjectState.text == "On-study"
+    assert inst.progress[1].type.coding[0].code == "Enrollment"
+    assert inst.progress[1].type.coding[0].system == (
+    "http://terminology.hl7.org/CodeSystem/research-subject-"
+    "state-type"
+    )
+    assert inst.progress[1].type.text == "Enrollment status"
+    assert inst.status == "active"
+    assert inst.study.reference == "example-ctgov-study-record"
+    assert inst.subject.reference == "cfsb1676546565857"
     assert inst.text.status == "generated"
 
 
 def test_researchsubject_1(base_settings):
     """No. 1 tests collection for ResearchSubject.
-    Test File: researchsubject-example.json
+    Test File: researchsubject-example-crossover-placebo-to-drug.json
     """
     filename = (
-        base_settings["unittest_data_dir"] / "researchsubject-example.json"
+        base_settings["unittest_data_dir"] / "researchsubject-example-crossover-placebo-to-drug.json"
     )
     inst = researchsubject.ResearchSubject.parse_file(
         filename, content_type="application/json", encoding="utf-8"

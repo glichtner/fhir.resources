@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/SubscriptionStatus
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 import typing
 from pydantic import Field
@@ -129,7 +129,7 @@ class SubscriptionStatus(domainresource.DomainResource):
     "handshake | heartbeat | event-notification | query-status | query-"
     "event"
     ),
-		description="The type of event being conveyed with this notificaiton.",
+		description="The type of event being conveyed with this notification.",
         # if property is element of this resource.
         element_property=True,
         element_required=True,
@@ -228,7 +228,7 @@ class SubscriptionStatusNotificationEvent(backboneelement.BackboneElement):
     additionalContext: typing.List[fhirtypes.ReferenceType] = Field(
 		None,
 		alias="additionalContext",
-		title="Additional context for this event",
+		title="References related to the focus resource and/or context of this event",
 		description=(
     "Additional context information for this event. Generally, this will "
     "contain references to additional resources included with the event "
@@ -244,8 +244,11 @@ class SubscriptionStatusNotificationEvent(backboneelement.BackboneElement):
     eventNumber: fhirtypes.Integer64 = Field(
 		None,
 		alias="eventNumber",
-		title="Event number",
-		description="The sequential number of this event in this subscription context.",
+		title="Sequencing index of this event",
+		description=(
+    "Either the sequential number of this event in this subscription "
+    "context or a relative event number for this notification."
+    ),
         # if property is element of this resource.
         element_property=True,
         element_required=True,
@@ -259,7 +262,7 @@ class SubscriptionStatusNotificationEvent(backboneelement.BackboneElement):
     focus: fhirtypes.ReferenceType = Field(
 		None,
 		alias="focus",
-		title="The focus of this event",
+		title="Reference to the primary resource or information of this event",
 		description=(
     "The focus of this event. While this will usually be a reference to the"
     " focus resource of the event, it MAY contain a reference to a non-FHIR"
@@ -275,7 +278,7 @@ class SubscriptionStatusNotificationEvent(backboneelement.BackboneElement):
 		None,
 		alias="timestamp",
 		title="The instant this event occurred",
-		description="The actual time this event occured on the server.",
+		description="The actual time this event occurred on the server.",
         # if property is element of this resource.
         element_property=True,
 	)

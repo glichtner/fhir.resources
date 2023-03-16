@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/GenomicStudy
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 from pydantic.validators import bytes_validator  # noqa: F401
 from fhir.resources import fhirtypes  # noqa: F401
@@ -50,7 +50,6 @@ def impl_genomicstudy_1(inst):
     assert inst.analysis[0].regionsCalled[0].reference == "DocumentReference/SimpleVariantAnalysis_called"
     assert inst.analysis[0].regionsStudied[0].reference == "DocumentReference/WES_FullSequencedRegion_GRCh38"
     assert inst.analysis[0].specimen[0].reference == "Specimen/genomicSpecimen"
-    assert inst.analysis[0].subject.reference == "Patient/genomicPatient"
     assert inst.analysis[0].title == "Simple variant analysis"
     assert inst.analysis[1].changeType[0].coding[0].code == "SO:0001019"
     assert inst.analysis[1].changeType[0].coding[0].display == "CNV"
@@ -82,7 +81,6 @@ def impl_genomicstudy_1(inst):
     assert inst.analysis[1].regionsCalled[0].reference == "DocumentReference/CNVAnalysis_called"
     assert inst.analysis[1].regionsStudied[0].reference == "DocumentReference/WES_FullSequencedRegion_GRCh38"
     assert inst.analysis[1].specimen[0].reference == "Specimen/genomicSpecimen"
-    assert inst.analysis[1].subject.reference == "Patient/genomicPatient"
     assert inst.analysis[1].title == "CNV analysis"
     assert inst.basedOn[0].reference == "ServiceRequest/genomicServiceRequest2"
     assert inst.description == (
@@ -106,9 +104,7 @@ def impl_genomicstudy_1(inst):
     assert inst.reason[0].concept.coding[0].system == "http://snomed.info/sct"
     assert inst.referrer.reference == "Practitioner/practitioner01"
     assert inst.startDate == fhirtypes.DateTime.validate("2019-03-01")
-    assert inst.status.coding[0].code == "registered"
-    assert inst.status.coding[0].display == "Registered"
-    assert inst.status.coding[0].system == "http://hl7.org/fhir/genomicstudy-status"
+    assert inst.status == "registered"
     assert inst.subject.reference == "Patient/genomicPatient"
     assert inst.text.status == "additional"
     assert inst.type[0].coding[0].code == "443968007"
@@ -161,13 +157,13 @@ def impl_genomicstudy_2(inst):
     "Type.html"
     )
     assert inst.analysis[0].specimen[0].reference == "Specimen/denovo-1"
-    assert inst.analysis[0].subject.reference == "Patient/denovoChild"
     assert inst.analysis[0].title == (
     "Proband Sequence Variation Detection Using Next Generation "
     "Sequencing"
     )
     assert inst.analysis[1].date == fhirtypes.DateTime.validate("2021-01-01T01:01:10-06:00")
     assert inst.analysis[1].device[0].device.reference == "Device/NGS-device"
+    assert inst.analysis[1].focus[0].reference == "Patient/denovoMother"
     assert inst.analysis[1].identifier[0].system == "http://www.somesystemabc.net/identifiers/genomicAnalyses"
     assert inst.analysis[1].identifier[0].use == "temp"
     assert inst.analysis[1].identifier[0].value == "urn:uuid:1111-1111-1111-1112"
@@ -187,13 +183,13 @@ def impl_genomicstudy_2(inst):
     "Type.html"
     )
     assert inst.analysis[1].specimen[0].reference == "Specimen/denovo-2"
-    assert inst.analysis[1].subject.reference == "Patient/denovoMother"
     assert inst.analysis[1].title == (
     "Maternal Sequence Variation Detection Using Next Generation "
     "Sequencing"
     )
     assert inst.analysis[2].date == fhirtypes.DateTime.validate("2021-01-01T01:01:10-06:00")
     assert inst.analysis[2].device[0].device.reference == "Device/NGS-device"
+    assert inst.analysis[2].focus[0].reference == "Patient/denovoFather"
     assert inst.analysis[2].identifier[0].system == "http://www.somesystemabc.net/identifiers/genomicAnalyses"
     assert inst.analysis[2].identifier[0].use == "temp"
     assert inst.analysis[2].identifier[0].value == "urn:uuid:1111-1111-1111-1113"
@@ -213,7 +209,6 @@ def impl_genomicstudy_2(inst):
     "Type.html"
     )
     assert inst.analysis[2].specimen[0].reference == "Specimen/denovo-3"
-    assert inst.analysis[2].subject.reference == "Patient/denovoFather"
     assert inst.analysis[2].title == (
     "Paternal Sequence Variation Detection Using Next Generation "
     "Sequencing"
@@ -244,7 +239,6 @@ def impl_genomicstudy_2(inst):
     "http://terminology.hl7.org/3.1.0/CodeSystem-v3-Participation"
     "Type.html"
     )
-    assert inst.analysis[3].subject.reference == "Patient/denovoChild"
     assert inst.analysis[3].title == "De Novo Mutation Detection and Interpretation"
     assert inst.basedOn[0].reference == "ServiceRequest/genomicServiceRequest"
     assert inst.description == "De novo mutation study of the patient."
@@ -266,9 +260,7 @@ def impl_genomicstudy_2(inst):
     assert inst.reason[0].concept.coding[0].system == "http://snomed.info/sct"
     assert inst.referrer.reference == "Practitioner/practitioner01"
     assert inst.startDate == fhirtypes.DateTime.validate("2021-01-01")
-    assert inst.status.coding[0].code == "unknown"
-    assert inst.status.coding[0].display == "Unknown"
-    assert inst.status.coding[0].system == "http://hl7.org/fhir/genomicstudy-status"
+    assert inst.status == "unknown"
     assert inst.subject.reference == "Patient/denovoChild"
     assert inst.text.status == "additional"
     assert inst.type[0].coding[0].code == "fam-var-segr"
@@ -301,6 +293,7 @@ def test_genomicstudy_2(base_settings):
 def impl_genomicstudy_3(inst):
     assert inst.analysis[0].date == fhirtypes.DateTime.validate("2022-07-01T01:01:10-06:00")
     assert inst.analysis[0].device[0].device.reference == "Device/NGS-device"
+    assert inst.analysis[0].focus[0].reference == "Patient/mother"
     assert inst.analysis[0].identifier[0].system == "http://www.somesystemabc.net/identifiers/genomicAnalyses"
     assert inst.analysis[0].identifier[0].use == "temp"
     assert inst.analysis[0].identifier[0].value == "urn:uuid:1111-1111-1111-1112"
@@ -317,13 +310,13 @@ def impl_genomicstudy_3(inst):
     "Type.html"
     )
     assert inst.analysis[0].specimen[0].reference == "Specimen/specimenMother"
-    assert inst.analysis[0].subject.reference == "Patient/mother"
     assert inst.analysis[0].title == (
     "Maternal Sequence Variation Detection Using Next Generation "
     "Sequencing"
     )
     assert inst.analysis[1].date == fhirtypes.DateTime.validate("2022-07-01T01:01:10-06:00")
     assert inst.analysis[1].device[0].device.reference == "Device/NGS-device"
+    assert inst.analysis[1].focus[0].reference == "Patient/father"
     assert inst.analysis[1].identifier[0].system == "http://www.somesystemabc.net/identifiers/genomicAnalyses"
     assert inst.analysis[1].identifier[0].use == "temp"
     assert inst.analysis[1].identifier[0].value == "urn:uuid:1111-1111-1111-1113"
@@ -340,13 +333,15 @@ def impl_genomicstudy_3(inst):
     "Type.html"
     )
     assert inst.analysis[1].specimen[0].reference == "Specimen/specimenFather"
-    assert inst.analysis[1].subject.reference == "Patient/father"
     assert inst.analysis[1].title == (
     "Paternal Sequence Variation Detection Using Next Generation "
     "Sequencing"
     )
     assert inst.analysis[2].date == fhirtypes.DateTime.validate("2022-07-01T03:01:10-06:00")
     assert inst.analysis[2].device[0].device.reference == "Device/Triodenovo-SW"
+    assert inst.analysis[2].focus[0].reference == "Patient/denovoChild"
+    assert inst.analysis[2].focus[1].reference == "RelatedPerson/relatedPersonDenovoFather"
+    assert inst.analysis[2].focus[2].reference == "RelatedPerson/relatedPersonDenovoMother"
     assert inst.analysis[2].identifier[0].system == "http://www.somesystemabc.net/identifiers/genomicAnalyses"
     assert inst.analysis[2].identifier[0].use == "temp"
     assert inst.analysis[2].identifier[0].value == "urn:uuid:1111-1111-1111-1114"
@@ -378,7 +373,6 @@ def impl_genomicstudy_3(inst):
     "http://terminology.hl7.org/3.1.0/CodeSystem-v3-Participation"
     "Type.html"
     )
-    assert inst.analysis[2].subject.reference == "Patient/proband"
     assert inst.analysis[2].title == "De Novo Mutation Detection and Interpretation"
     assert inst.basedOn[0].reference == "ServiceRequest/genomicSRProband"
     assert inst.basedOn[1].reference == "ServiceRequest/genomicSRMother"
@@ -401,9 +395,7 @@ def impl_genomicstudy_3(inst):
     assert inst.reason[0].concept.coding[0].system == "http://snomed.info/sct"
     assert inst.referrer.reference == "Practitioner/practitioner01"
     assert inst.startDate == fhirtypes.DateTime.validate("2022-05-01")
-    assert inst.status.coding[0].code == "available"
-    assert inst.status.coding[0].display == "Available"
-    assert inst.status.coding[0].system == "http://hl7.org/fhir/genomicstudy-status"
+    assert inst.status == "available"
     assert inst.subject.reference == "Patient/proband"
     assert inst.text.status == "additional"
     assert inst.type[0].coding[0].code == "trio"

@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/Citation
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 import typing
 from pydantic import Field
@@ -36,7 +36,7 @@ class Citation(domainresource.DomainResource):
     approvalDate: fhirtypes.Date = Field(
 		None,
 		alias="approvalDate",
-		title="When the citation was approved by publisher",
+		title="When the citation record was approved by publisher",
 		description=(
     "The date on which the resource content was approved by the publisher. "
     "Approval happens once when the content is officially approved for "
@@ -54,8 +54,8 @@ class Citation(domainresource.DomainResource):
     author: typing.List[fhirtypes.ContactDetailType] = Field(
 		None,
 		alias="author",
-		title="Who authored the Citation",
-		description=None,
+		title="Who authored the citation record",
+		description="Who authored or created the citation record.",
         # if property is element of this resource.
         element_property=True,
 	)
@@ -81,7 +81,7 @@ class Citation(domainresource.DomainResource):
     contact: typing.List[fhirtypes.ContactDetailType] = Field(
 		None,
 		alias="contact",
-		title="Contact details for the publisher of the Citation Resource",
+		title="Contact details for the publisher of the citation record",
 		description=(
     "Contact details to assist a user in finding and communicating with the"
     " publisher."
@@ -94,8 +94,8 @@ class Citation(domainresource.DomainResource):
 		None,
 		alias="copyright",
 		title=(
-    "Use and/or publishing restrictions for the Citation, not for the cited"
-    " artifact"
+    "Use and/or publishing restrictions for the citation record, not for "
+    "the cited artifact"
     ),
 		description=None,
         # if property is element of this resource.
@@ -107,10 +107,32 @@ class Citation(domainresource.DomainResource):
         title="Extension field for ``copyright``."
     )
 	
+    copyrightLabel: fhirtypes.String = Field(
+		None,
+		alias="copyrightLabel",
+		title=(
+    "Copyright holder and year(s) for the ciation record, not for the cited"
+    " artifact"
+    ),
+		description=(
+    "A short string (<50 characters), suitable for inclusion in a page "
+    "footer that identifies the copyright holder, effective period, and "
+    "optionally whether rights are resctricted. (e.g. 'All rights "
+    "reserved', 'Some rights reserved')."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+	)
+    copyrightLabel__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
+        None,
+        alias="_copyrightLabel",
+        title="Extension field for ``copyrightLabel``."
+    )
+	
     currentState: typing.List[fhirtypes.CodeableConceptType] = Field(
 		None,
 		alias="currentState",
-		title="The status of the citation",
+		title="The status of the citation record",
 		description=None,
         # if property is element of this resource.
         element_property=True,
@@ -121,10 +143,11 @@ class Citation(domainresource.DomainResource):
 		alias="date",
 		title="Date last changed",
 		description=(
-    "The date  (and optionally time) when the citation was published. The "
-    "date must change when the business version changes and it must change "
-    "if the status code changes. In addition, it should change when the "
-    "substantive content of the citation changes."
+    "The date (and optionally time) when the citation record was last "
+    "significantly changed. The date must change when the business version "
+    "changes and it must change if the status code changes. In addition, it"
+    " should change when the substantive content of the citation record "
+    "changes."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -155,8 +178,8 @@ class Citation(domainresource.DomainResource):
     editor: typing.List[fhirtypes.ContactDetailType] = Field(
 		None,
 		alias="editor",
-		title="Who edited the Citation",
-		description=None,
+		title="Who edited the citation record",
+		description="Who edited or revised the citation record.",
         # if property is element of this resource.
         element_property=True,
 	)
@@ -164,10 +187,10 @@ class Citation(domainresource.DomainResource):
     effectivePeriod: fhirtypes.PeriodType = Field(
 		None,
 		alias="effectivePeriod",
-		title="When the citation is expected to be used",
+		title="When the citation record is expected to be used",
 		description=(
-    "The period during which the citation content was or is planned to be "
-    "in active use."
+    "The period during which the citation record content was or is planned "
+    "to be in active use."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -176,7 +199,7 @@ class Citation(domainresource.DomainResource):
     endorser: typing.List[fhirtypes.ContactDetailType] = Field(
 		None,
 		alias="endorser",
-		title="Who endorsed the Citation",
+		title="Who endorsed the citation record",
 		description=None,
         # if property is element of this resource.
         element_property=True,
@@ -187,9 +210,9 @@ class Citation(domainresource.DomainResource):
 		alias="experimental",
 		title="For testing purposes, not real usage",
 		description=(
-    "A Boolean value to indicate that this citation is authored for testing"
-    " purposes (or education/evaluation/marketing) and is not intended to "
-    "be used for genuine usage."
+    "A Boolean value to indicate that this citation record is authored for "
+    "testing purposes (or education/evaluation/marketing) and is not "
+    "intended to be used for genuine usage."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -203,11 +226,11 @@ class Citation(domainresource.DomainResource):
     identifier: typing.List[fhirtypes.IdentifierType] = Field(
 		None,
 		alias="identifier",
-		title="Identifier for the Citation resource itself",
+		title="Identifier for the citation record itself",
 		description=(
-    "A formal identifier that is used to identify this citation when it is "
-    "represented in other formats, or referenced in a specification, model,"
-    " design or an instance."
+    "A formal identifier that is used to identify this citation record when"
+    " it is represented in other formats, or referenced in a specification,"
+    " model, design or an instance."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -216,10 +239,10 @@ class Citation(domainresource.DomainResource):
     jurisdiction: typing.List[fhirtypes.CodeableConceptType] = Field(
 		None,
 		alias="jurisdiction",
-		title="Intended jurisdiction for citation (if applicable)",
+		title="Intended jurisdiction for citation record (if applicable)",
 		description=(
-    "A legal or geographic region in which the citation is intended to be "
-    "used."
+    "A legal or geographic region in which the citation record is intended "
+    "to be used."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -228,7 +251,7 @@ class Citation(domainresource.DomainResource):
     lastReviewDate: fhirtypes.Date = Field(
 		None,
 		alias="lastReviewDate",
-		title="When the citation was last reviewed",
+		title="When the citation record was last reviewed by the publisher",
 		description=(
     "The date on which the resource content was last reviewed. Review "
     "happens periodically after approval but does not change the original "
@@ -246,11 +269,11 @@ class Citation(domainresource.DomainResource):
     name: fhirtypes.String = Field(
 		None,
 		alias="name",
-		title="Name for this citation (computer friendly)",
+		title="Name for this citation record (computer friendly)",
 		description=(
-    "A natural language name identifying the citation. This name should be "
-    "usable as an identifier for the module by machine processing "
-    "applications such as code generation."
+    "A natural language name identifying the citation record. This name "
+    "should be usable as an identifier for the module by machine processing"
+    " applications such as code generation."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -274,12 +297,12 @@ class Citation(domainresource.DomainResource):
 		None,
 		alias="publisher",
 		title=(
-    "The publisher of the Citation, not the publisher of the article or "
-    "artifact being cited"
+    "The publisher of the citation record, not the publisher of the article"
+    " or artifact being cited"
     ),
 		description=(
-    "The name of the organization or individual that published the "
-    "citation."
+    "The name of the organization or individual that published the citation"
+    " record."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -310,7 +333,7 @@ class Citation(domainresource.DomainResource):
     relatedArtifact: typing.List[fhirtypes.RelatedArtifactType] = Field(
 		None,
 		alias="relatedArtifact",
-		title="Artifact related to the Citation Resource",
+		title="Artifact related to the citation record",
 		description=None,
         # if property is element of this resource.
         element_property=True,
@@ -319,7 +342,7 @@ class Citation(domainresource.DomainResource):
     reviewer: typing.List[fhirtypes.ContactDetailType] = Field(
 		None,
 		alias="reviewer",
-		title="Who reviewed the Citation",
+		title="Who reviewed the citation record",
 		description=None,
         # if property is element of this resource.
         element_property=True,
@@ -349,8 +372,11 @@ class Citation(domainresource.DomainResource):
     statusDate: typing.List[fhirtypes.CitationStatusDateType] = Field(
 		None,
 		alias="statusDate",
-		title="An effective date or period for a status of the citation",
-		description=None,
+		title="An effective date or period for a status of the citation record",
+		description=(
+    "The state or status of the citation record paired with an effective "
+    "date or period for that state."
+    ),
         # if property is element of this resource.
         element_property=True,
 	)
@@ -358,7 +384,7 @@ class Citation(domainresource.DomainResource):
     summary: typing.List[fhirtypes.CitationSummaryType] = Field(
 		None,
 		alias="summary",
-		title="A human-readable display of the citation",
+		title="A human-readable display of key concepts to represent the citation",
 		description=None,
         # if property is element of this resource.
         element_property=True,
@@ -367,8 +393,8 @@ class Citation(domainresource.DomainResource):
     title: fhirtypes.String = Field(
 		None,
 		alias="title",
-		title="Name for this citation (human friendly)",
-		description="A short, descriptive, user-friendly title for the citation.",
+		title="Name for this citation record (human friendly)",
+		description="A short, descriptive, user-friendly title for the citation record.",
         # if property is element of this resource.
         element_property=True,
 	)
@@ -382,12 +408,12 @@ class Citation(domainresource.DomainResource):
 		None,
 		alias="url",
 		title=(
-    "Canonical identifier for this citation, represented as a globally "
-    "unique URI"
+    "Canonical identifier for this citation record, represented as a "
+    "globally unique URI"
     ),
 		description=(
-    "An absolute URI that is used to identify this citation when it is "
-    "referenced in a specification, model, design or an instance; also "
+    "An absolute URI that is used to identify this citation record when it "
+    "is referenced in a specification, model, design or an instance; also "
     "called its canonical identifier. This SHOULD be globally unique and "
     "SHOULD be a literal address at which an authoritative instance of this"
     " summary is (or will be) published. This URL can be the target of a "
@@ -406,13 +432,13 @@ class Citation(domainresource.DomainResource):
     useContext: typing.List[fhirtypes.UsageContextType] = Field(
 		None,
 		alias="useContext",
-		title="The context that the Citation Resource content is intended to support",
+		title="The context that the citation record content is intended to support",
 		description=(
     "The content was developed with a focus and intent of supporting the "
     "contexts that are listed. These contexts may be general categories "
     "(gender, age, ...) or may be references to specific programs "
     "(insurance plans, studies, ...) and may be used to assist with "
-    "indexing and searching for appropriate citation instances."
+    "indexing and searching for appropriate citation record instances."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -421,15 +447,15 @@ class Citation(domainresource.DomainResource):
     version: fhirtypes.String = Field(
 		None,
 		alias="version",
-		title="Business version of the citation",
+		title="Business version of the citation record",
 		description=(
     "The identifier that is used to identify this version of the citation "
-    "when it is referenced in a specification, model, design or instance. "
-    "This is an arbitrary value managed by the citation author and is not "
-    "expected to be globally unique. For example, it might be a timestamp "
-    "(e.g. yyyymmdd) if a managed version is not available. There is also "
-    "no expectation that versions can be placed in a lexicographical "
-    "sequence."
+    "record when it is referenced in a specification, model, design or "
+    "instance. This is an arbitrary value managed by the citation record "
+    "author and is not expected to be globally unique. For example, it "
+    "might be a timestamp (e.g. yyyymmdd) if a managed version is not "
+    "available. There is also no expectation that versions can be placed in"
+    " a lexicographical sequence."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -439,13 +465,48 @@ class Citation(domainresource.DomainResource):
         alias="_version",
         title="Extension field for ``version``."
     )
+	
+    versionAlgorithmCoding: fhirtypes.CodingType = Field(
+		None,
+		alias="versionAlgorithmCoding",
+		title="How to compare versions",
+		description=(
+    "Indicates the mechanism used to compare versions to determine which is"
+    " more current."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+        # Choice of Data Types. i.e versionAlgorithm[x]
+		one_of_many="versionAlgorithm",
+		one_of_many_required=False,
+	)
+	
+    versionAlgorithmString: fhirtypes.String = Field(
+		None,
+		alias="versionAlgorithmString",
+		title="How to compare versions",
+		description=(
+    "Indicates the mechanism used to compare versions to determine which is"
+    " more current."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+        # Choice of Data Types. i.e versionAlgorithm[x]
+		one_of_many="versionAlgorithm",
+		one_of_many_required=False,
+	)
+    versionAlgorithmString__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
+        None,
+        alias="_versionAlgorithmString",
+        title="Extension field for ``versionAlgorithmString``."
+    )
     @classmethod
     def elements_sequence(cls):
         """returning all elements names from
         ``Citation`` according specification,
         with preserving original sequence order.
         """
-        return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "url", "identifier", "version", "name", "title", "status", "experimental", "date", "publisher", "contact", "description", "useContext", "jurisdiction", "purpose", "copyright", "approvalDate", "lastReviewDate", "effectivePeriod", "author", "editor", "reviewer", "endorser", "summary", "classification", "note", "currentState", "statusDate", "relatedArtifact", "citedArtifact"]
+        return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "url", "identifier", "version", "versionAlgorithmString", "versionAlgorithmCoding", "name", "title", "status", "experimental", "date", "publisher", "contact", "description", "useContext", "jurisdiction", "purpose", "copyright", "copyrightLabel", "approvalDate", "lastReviewDate", "effectivePeriod", "author", "editor", "reviewer", "endorser", "summary", "classification", "note", "currentState", "statusDate", "relatedArtifact", "citedArtifact"]
 
 
     @root_validator(pre=True, allow_reuse=True)
@@ -508,6 +569,47 @@ class Citation(domainresource.DomainResource):
 
         return values
 
+    @root_validator(pre=True, allow_reuse=True)
+    def validate_one_of_many_1004(
+        cls, values: typing.Dict[str, typing.Any]
+    ) -> typing.Dict[str, typing.Any]:
+        """https://www.hl7.org/fhir/formats.html#choice
+        A few elements have a choice of more than one data type for their content.
+        All such elements have a name that takes the form nnn[x].
+        The "nnn" part of the name is constant, and the "[x]" is replaced with
+        the title-cased name of the type that is actually used.
+        The table view shows each of these names explicitly.
+
+        Elements that have a choice of data type cannot repeat - they must have a
+        maximum cardinality of 1. When constructing an instance of an element with a
+        choice of types, the authoring system must create a single element with a
+        data type chosen from among the list of permitted data types.
+        """
+        one_of_many_fields = {
+			"versionAlgorithm": [
+			    "versionAlgorithmCoding",
+			    "versionAlgorithmString"]}
+        for prefix, fields in one_of_many_fields.items():
+            assert cls.__fields__[fields[0]].field_info.extra["one_of_many"] == prefix
+            required = (
+                cls.__fields__[fields[0]].field_info.extra["one_of_many_required"]
+                is True
+            )
+            found = False
+            for field in fields:
+                if field in values and values[field] is not None:
+                    if found is True:
+                        raise ValueError(
+                            "Any of one field value is expected from "
+                            f"this list {fields}, but got multiple!"
+                        )
+                    else:
+                        found = True
+            if required is True and found is False:
+                raise ValueError(f"Expect any of field value from this list {fields}.")
+
+        return values
+
 
 from . import backboneelement
 
@@ -524,7 +626,10 @@ class CitationCitedArtifact(backboneelement.BackboneElement):
 		None,
 		alias="abstract",
 		title="Summary of the article or artifact",
-		description=None,
+		description=(
+    "The abstract may be used to convey article-contained abstracts, "
+    "externally-created abstracts, or other descriptive summaries."
+    ),
         # if property is element of this resource.
         element_property=True,
 	)
@@ -576,11 +681,11 @@ class CitationCitedArtifact(backboneelement.BackboneElement):
     identifier: typing.List[fhirtypes.IdentifierType] = Field(
 		None,
 		alias="identifier",
-		title="May include DOI, PMID, PMCID, etc.",
+		title="Unique identifier. May include DOI, PMID, PMCID, etc",
 		description=(
-    "A formal identifier that is used to identify this citation when it is "
-    "represented in other formats, or referenced in a specification, model,"
-    " design or an instance."
+    "A formal identifier that is used to identify the cited artifact when "
+    "it is represented in other formats, or referenced in a specification, "
+    "model, design or an instance."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -619,10 +724,13 @@ class CitationCitedArtifact(backboneelement.BackboneElement):
     relatedIdentifier: typing.List[fhirtypes.IdentifierType] = Field(
 		None,
 		alias="relatedIdentifier",
-		title="May include trial registry identifiers",
+		title=(
+    "Identifier not unique to the cited artifact. May include trial "
+    "registry identifiers"
+    ),
 		description=(
     "A formal identifier that is used to identify things closely related to"
-    " this citation."
+    " the cited artifact."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -641,7 +749,10 @@ class CitationCitedArtifact(backboneelement.BackboneElement):
 		None,
 		alias="statusDate",
 		title="An effective date or period for a status of the cited artifact",
-		description=None,
+		description=(
+    "An effective date or period, historical or future, actual or expected,"
+    " for a status of the cited artifact."
+    ),
         # if property is element of this resource.
         element_property=True,
 	)
@@ -688,6 +799,8 @@ class CitationCitedArtifactAbstract(backboneelement.BackboneElement):
     for FHIR Primitive Data Types.
 
     Summary of the article or artifact.
+    The abstract may be used to convey article-contained abstracts, externally-
+    created abstracts, or other descriptive summaries.
     """
     resource_type = Field("CitationCitedArtifactAbstract", const=True)
 	
@@ -709,7 +822,7 @@ class CitationCitedArtifactAbstract(backboneelement.BackboneElement):
 		None,
 		alias="language",
 		title="Used to express the specific language",
-		description=None,
+		description="Used to express the specific language of the abstract.",
         # if property is element of this resource.
         element_property=True,
 	)
@@ -733,7 +846,7 @@ class CitationCitedArtifactAbstract(backboneelement.BackboneElement):
 		None,
 		alias="type",
 		title="The kind of abstract",
-		description="Used to express the reason or specific aspect for the abstract.",
+		description="Used to express the reason for or classification of the abstract.",
         # if property is element of this resource.
         element_property=True,
 	)
@@ -819,8 +932,8 @@ class CitationCitedArtifactClassification(backboneelement.BackboneElement):
     artifactAssessment: typing.List[fhirtypes.ReferenceType] = Field(
 		None,
 		alias="artifactAssessment",
-		title="Complex or externally created classification ",
-		description="Complex or externally created classification.",
+		title="Complex or externally created classification",
+		description=None,
         # if property is element of this resource.
         element_property=True,
         # note: Listed Resource Type(s) should be allowed as Reference.
@@ -882,8 +995,11 @@ class CitationCitedArtifactContributorship(backboneelement.BackboneElement):
     entry: typing.List[fhirtypes.CitationCitedArtifactContributorshipEntryType] = Field(
 		None,
 		alias="entry",
-		title="An individual entity named in the list",
-		description="An individual entity named in the author list or contributor list.",
+		title="An individual entity named as a contributor",
+		description=(
+    "An individual entity named as a contributor, for example in the author"
+    " list or contributor list."
+    ),
         # if property is element of this resource.
         element_property=True,
 	)
@@ -893,7 +1009,7 @@ class CitationCitedArtifactContributorship(backboneelement.BackboneElement):
 		alias="summary",
 		title=(
     "Used to record a display of the author/contributor list without "
-    "separate coding for each list member"
+    "separate data element for each list member"
     ),
 		description=None,
         # if property is element of this resource.
@@ -914,8 +1030,9 @@ class CitationCitedArtifactContributorshipEntry(backboneelement.BackboneElement)
     Resource StructureDefinition, instead used to enable Extensibility feature
     for FHIR Primitive Data Types.
 
-    An individual entity named in the list.
-    An individual entity named in the author list or contributor list.
+    An individual entity named as a contributor.
+    An individual entity named as a contributor, for example in the author list
+    or contributor list.
     """
     resource_type = Field("CitationCitedArtifactContributorshipEntry", const=True)
 	
@@ -923,7 +1040,7 @@ class CitationCitedArtifactContributorshipEntry(backboneelement.BackboneElement)
 		None,
 		alias="affiliation",
 		title="Organizational affiliation",
-		description="Organization affiliated with the entity.",
+		description="Organization affiliated with the contributor.",
         # if property is element of this resource.
         element_property=True,
         # note: Listed Resource Type(s) should be allowed as Reference.
@@ -954,7 +1071,7 @@ class CitationCitedArtifactContributorshipEntry(backboneelement.BackboneElement)
     contributor: fhirtypes.ReferenceType = Field(
 		...,
 		alias="contributor",
-		title="The identity of the individual entity",
+		title="The identity of the individual contributor",
 		description=None,
         # if property is element of this resource.
         element_property=True,
@@ -965,10 +1082,7 @@ class CitationCitedArtifactContributorshipEntry(backboneelement.BackboneElement)
     correspondingContact: bool = Field(
 		None,
 		alias="correspondingContact",
-		title=(
-    "Indication of which contributor is the corresponding contributor for "
-    "the role"
-    ),
+		title="Whether the contributor is the corresponding contributor for the role",
 		description=None,
         # if property is element of this resource.
         element_property=True,
@@ -1014,7 +1128,7 @@ class CitationCitedArtifactContributorshipEntry(backboneelement.BackboneElement)
     role: fhirtypes.CodeableConceptType = Field(
 		None,
 		alias="role",
-		title="The role of the contributor (e.g. author, editor, reviewer)",
+		title="The role of the contributor (e.g. author, editor, reviewer, funder)",
 		description=None,
         # if property is element of this resource.
         element_property=True,
@@ -1076,7 +1190,7 @@ class CitationCitedArtifactContributorshipSummary(backboneelement.BackboneElemen
     for FHIR Primitive Data Types.
 
     Used to record a display of the author/contributor list without separate
-    coding for each list member.
+    data element for each list member.
     """
     resource_type = Field("CitationCitedArtifactContributorshipSummary", const=True)
 	
@@ -1093,7 +1207,10 @@ class CitationCitedArtifactContributorshipSummary(backboneelement.BackboneElemen
 		None,
 		alias="style",
 		title="The format for the display string",
-		description=None,
+		description=(
+    "The format for the display string, such as author last name with first"
+    " letter capitalized followed by forename initials."
+    ),
         # if property is element of this resource.
         element_property=True,
 	)
@@ -1101,7 +1218,10 @@ class CitationCitedArtifactContributorshipSummary(backboneelement.BackboneElemen
     type: fhirtypes.CodeableConceptType = Field(
 		None,
 		alias="type",
-		title="Either authorList or contributorshipStatement",
+		title=(
+    "Such as author list, contributorship statement, funding statement, "
+    "acknowledgements statement, or conflicts of interest statement"
+    ),
 		description=(
     "Used most commonly to express an author list or a contributorship "
     "statement."
@@ -1280,11 +1400,7 @@ class CitationCitedArtifactPublicationForm(backboneelement.BackboneElement):
     "The date the article was added to the database, or the date the "
     "article was released"
     ),
-		description=(
-    "The date the article was added to the database, or the date the "
-    "article was released (which may differ from the journal issue "
-    "publication date)."
-    ),
+		description=None,
         # if property is element of this resource.
         element_property=True,
 	)
@@ -1300,7 +1416,15 @@ class CitationCitedArtifactPublicationForm(backboneelement.BackboneElement):
 		title="Internet or Print",
 		description=(
     "Describes the form of the medium cited. Common codes are \"Internet\" or"
-    " \"Print\"."
+    " \"Print\". The CitedMedium value set has 6 codes. The codes internet, "
+    "print, and offline-digital-storage are the common codes for a typical "
+    "publication form, though internet and print are more common for study "
+    "citations. Three additional codes (each appending one of the primary "
+    "codes with \"-without-issue\" are used for situations when a study is "
+    "published both within an issue (of a periodical release as commonly "
+    "done for journals) AND is published separately from the issue (as "
+    "commonly done with early online publication), to represent specific "
+    "identification of the publication form not associated with the issue."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -1337,7 +1461,10 @@ class CitationCitedArtifactPublicationForm(backboneelement.BackboneElement):
     issue: fhirtypes.String = Field(
 		None,
 		alias="issue",
-		title="Issue, part or supplement of journal in which the article is published",
+		title=(
+    "Issue, part or supplement of journal or other collection in which the "
+    "article is published"
+    ),
 		description=None,
         # if property is element of this resource.
         element_property=True,
@@ -1351,8 +1478,11 @@ class CitationCitedArtifactPublicationForm(backboneelement.BackboneElement):
     language: typing.List[fhirtypes.CodeableConceptType] = Field(
 		None,
 		alias="language",
-		title="Language in which this form of the article is published",
-		description=None,
+		title="Language(s) in which this form of the article is published",
+		description=(
+    "The language or languages in which this form of the article is "
+    "published."
+    ),
         # if property is element of this resource.
         element_property=True,
 	)
@@ -1389,7 +1519,10 @@ class CitationCitedArtifactPublicationForm(backboneelement.BackboneElement):
 		None,
 		alias="pageCount",
 		title="Number of pages or screens",
-		description="Actual or approximate number of pages or screens.",
+		description=(
+    "Actual or approximate number of pages or screens. Distinct from "
+    "reporting the page numbers."
+    ),
         # if property is element of this resource.
         element_property=True,
 	)
@@ -1413,38 +1546,10 @@ class CitationCitedArtifactPublicationForm(backboneelement.BackboneElement):
         title="Extension field for ``pageString``."
     )
 	
-    publicationDateDay: fhirtypes.String = Field(
-		None,
-		alias="publicationDateDay",
-		title="Day on which the issue of the journal was published",
-		description=None,
-        # if property is element of this resource.
-        element_property=True,
-	)
-    publicationDateDay__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
-        None,
-        alias="_publicationDateDay",
-        title="Extension field for ``publicationDateDay``."
-    )
-	
-    publicationDateMonth: fhirtypes.String = Field(
-		None,
-		alias="publicationDateMonth",
-		title="Month on which the issue of the journal was published",
-		description=None,
-        # if property is element of this resource.
-        element_property=True,
-	)
-    publicationDateMonth__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
-        None,
-        alias="_publicationDateMonth",
-        title="Extension field for ``publicationDateMonth``."
-    )
-	
     publicationDateSeason: fhirtypes.String = Field(
 		None,
 		alias="publicationDateSeason",
-		title="Season on which the issue of the journal was published",
+		title="Season in which the cited artifact was published",
 		description="Spring, Summer, Fall/Autumn, Winter.",
         # if property is element of this resource.
         element_property=True,
@@ -1459,8 +1564,8 @@ class CitationCitedArtifactPublicationForm(backboneelement.BackboneElement):
 		None,
 		alias="publicationDateText",
 		title=(
-    "Text representation of the date of which the issue of the journal was "
-    "published"
+    "Text representation of the date on which the issue of the cited "
+    "artifact was published"
     ),
 		description=None,
         # if property is element of this resource.
@@ -1470,20 +1575,6 @@ class CitationCitedArtifactPublicationForm(backboneelement.BackboneElement):
         None,
         alias="_publicationDateText",
         title="Extension field for ``publicationDateText``."
-    )
-	
-    publicationDateYear: fhirtypes.String = Field(
-		None,
-		alias="publicationDateYear",
-		title="Year on which the issue of the journal was published",
-		description=None,
-        # if property is element of this resource.
-        element_property=True,
-	)
-    publicationDateYear__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
-        None,
-        alias="_publicationDateYear",
-        title="Extension field for ``publicationDateYear``."
     )
 	
     publishedIn: fhirtypes.CitationCitedArtifactPublicationFormPublishedInType = Field(
@@ -1498,7 +1589,10 @@ class CitationCitedArtifactPublicationForm(backboneelement.BackboneElement):
     volume: fhirtypes.String = Field(
 		None,
 		alias="volume",
-		title="Volume number of journal in which the article is published",
+		title=(
+    "Volume number of journal or other collection in which the article is "
+    "published"
+    ),
 		description=None,
         # if property is element of this resource.
         element_property=True,
@@ -1514,7 +1608,7 @@ class CitationCitedArtifactPublicationForm(backboneelement.BackboneElement):
         ``CitationCitedArtifactPublicationForm`` according specification,
         with preserving original sequence order.
         """
-        return ["id", "extension", "modifierExtension", "publishedIn", "citedMedium", "volume", "issue", "publicationDateYear", "publicationDateMonth", "publicationDateDay", "publicationDateSeason", "publicationDateText", "articleDate", "lastRevisionDate", "language", "accessionNumber", "pageString", "firstPage", "lastPage", "pageCount", "copyright"]
+        return ["id", "extension", "modifierExtension", "publishedIn", "citedMedium", "volume", "issue", "articleDate", "publicationDateText", "publicationDateSeason", "lastRevisionDate", "language", "accessionNumber", "pageString", "firstPage", "lastPage", "pageCount", "copyright"]
 
 
 
@@ -1542,7 +1636,7 @@ class CitationCitedArtifactPublicationFormPublishedIn(backboneelement.BackboneEl
     publisher: fhirtypes.ReferenceType = Field(
 		None,
 		alias="publisher",
-		title="Name of the publisher",
+		title="Name of or resource describing the publisher",
 		description=None,
         # if property is element of this resource.
         element_property=True,
@@ -1653,8 +1747,9 @@ class CitationCitedArtifactRelatesTo(backboneelement.BackboneElement):
 		alias="document",
 		title="What document is being referenced",
 		description=(
-    "The document being referenced, represented as an attachment. This is "
-    "exclusive with the resource element."
+    "The document being referenced, represented as an attachment. Do not "
+    "use this element if using the resource element to provide the "
+    "canonical to the related artifact."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -1665,7 +1760,7 @@ class CitationCitedArtifactRelatesTo(backboneelement.BackboneElement):
 		alias="label",
 		title="Short label",
 		description=(
-    "A short label that can be used to reference the citation from "
+    "A short label that can be used to reference the related artifact from "
     "elsewhere in the containing artifact, such as a footnote index."
     ),
         # if property is element of this resource.
@@ -1808,6 +1903,8 @@ class CitationCitedArtifactStatusDate(backboneelement.BackboneElement):
     for FHIR Primitive Data Types.
 
     An effective date or period for a status of the cited artifact.
+    An effective date or period, historical or future, actual or expected, for
+    a status of the cited artifact.
     """
     resource_type = Field("CitationCitedArtifactStatusDate", const=True)
 	
@@ -1815,7 +1912,7 @@ class CitationCitedArtifactStatusDate(backboneelement.BackboneElement):
 		...,
 		alias="activity",
 		title="Classification of the status",
-		description=None,
+		description="A definition of the status associated with a date or period.",
         # if property is element of this resource.
         element_property=True,
 	)
@@ -1865,7 +1962,7 @@ class CitationCitedArtifactTitle(backboneelement.BackboneElement):
 		None,
 		alias="language",
 		title="Used to express the specific language",
-		description=None,
+		description="Used to express the specific language of the title.",
         # if property is element of this resource.
         element_property=True,
 	)
@@ -1889,7 +1986,7 @@ class CitationCitedArtifactTitle(backboneelement.BackboneElement):
 		None,
 		alias="type",
 		title="The kind of title",
-		description="Used to express the reason or specific aspect for the title.",
+		description="Used to express the reason for or classification of the title.",
         # if property is element of this resource.
         element_property=True,
 	)
@@ -2080,7 +2177,7 @@ class CitationCitedArtifactWebLocation(backboneelement.BackboneElement):
 		None,
 		alias="classifier",
 		title="Code the reason for different URLs, e.g. abstract and full-text",
-		description=None,
+		description="A characterization of the object expected at the web location.",
         # if property is element of this resource.
         element_property=True,
 	)
@@ -2149,7 +2246,9 @@ class CitationStatusDate(backboneelement.BackboneElement):
     Resource StructureDefinition, instead used to enable Extensibility feature
     for FHIR Primitive Data Types.
 
-    An effective date or period for a status of the citation.
+    An effective date or period for a status of the citation record.
+    The state or status of the citation record paired with an effective date or
+    period for that state.
     """
     resource_type = Field("CitationStatusDate", const=True)
 	
@@ -2157,7 +2256,10 @@ class CitationStatusDate(backboneelement.BackboneElement):
 		...,
 		alias="activity",
 		title="Classification of the status",
-		description=None,
+		description=(
+    "The state or status of the citation record (that will be paired with "
+    "the period)."
+    ),
         # if property is element of this resource.
         element_property=True,
 	)
@@ -2166,7 +2268,10 @@ class CitationStatusDate(backboneelement.BackboneElement):
 		None,
 		alias="actual",
 		title="Either occurred or expected",
-		description=None,
+		description=(
+    "Whether the status date is actual (has occurred) or expected "
+    "(estimated or anticipated)."
+    ),
         # if property is element of this resource.
         element_property=True,
 	)
@@ -2199,14 +2304,14 @@ class CitationSummary(backboneelement.BackboneElement):
     Resource StructureDefinition, instead used to enable Extensibility feature
     for FHIR Primitive Data Types.
 
-    A human-readable display of the citation.
+    A human-readable display of key concepts to represent the citation.
     """
     resource_type = Field("CitationSummary", const=True)
 	
     style: fhirtypes.CodeableConceptType = Field(
 		None,
 		alias="style",
-		title="Format for display of the citation",
+		title="Format for display of the citation summary",
 		description=None,
         # if property is element of this resource.
         element_property=True,
@@ -2215,7 +2320,7 @@ class CitationSummary(backboneelement.BackboneElement):
     text: fhirtypes.Markdown = Field(
 		None,
 		alias="text",
-		title="The human-readable display of the citation",
+		title="The human-readable display of the citation summary",
 		description=None,
         # if property is element of this resource.
         element_property=True,

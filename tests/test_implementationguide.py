@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/ImplementationGuide
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 from pydantic.validators import bytes_validator  # noqa: F401
 from fhir.resources import fhirtypes  # noqa: F401
@@ -46,20 +46,21 @@ def impl_implementationguide_1(inst):
     assert inst.license == "CC0-1.0"
     assert inst.manifest.image[0] == "fhir.png"
     assert inst.manifest.other[0] == "fhir.css"
-    assert inst.manifest.page[0].anchor[0] == "patient-test"
+    assert inst.manifest.page[0].anchor[0] == "patient-example"
     assert inst.manifest.page[0].anchor[1] == "tx"
     assert inst.manifest.page[0].anchor[2] == "uml"
-    assert inst.manifest.page[0].name == "patient-test.html"
+    assert inst.manifest.page[0].name == "patient-example.html"
     assert inst.manifest.page[0].title == "Test Patient Example"
     assert inst.manifest.rendering == "http://hl7.org/fhir/us/daf"
     assert inst.manifest.resource[0].profile[0] == "http://hl7.org/fhir/us/core/StructureDefinition/patient"
     assert inst.manifest.resource[0].reference.reference == "Patient/test"
-    assert inst.manifest.resource[0].relativePath == "patient-test.html#patient-test"
-    assert inst.name == "Data Access Framework (DAF)"
+    assert inst.manifest.resource[0].relativePath == "patient-example.html"
+    assert inst.name == "DataAccessFrameworkDAF"
     assert inst.packageId == "hl7.fhir.us.daf"
     assert inst.publisher == "ONC / HL7 Joint project"
     assert inst.status == "draft"
     assert inst.text.status == "generated"
+    assert inst.title == "Data Access Framework (DAF)"
     assert inst.url == "http://hl7.org/fhir/us/daf"
     assert inst.version == "0"
 

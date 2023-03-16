@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/MeasureReport
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 import typing
 from pydantic import Field
@@ -35,7 +35,7 @@ class MeasureReport(domainresource.DomainResource):
 		alias="dataUpdateType",
 		title="incremental | snapshot",
 		description=(
-    "Indicates whether the data submitted in an data-exchange report "
+    "Indicates whether the data submitted in a data-exchange report "
     "represents a snapshot or incremental update. A snapshot update "
     "replaces all previously submitted data for the receiver, whereas an "
     "incremental update represents only updated and/or changed data and "
@@ -248,6 +248,23 @@ class MeasureReport(domainresource.DomainResource):
 		enum_reference_types=["CareTeam", "Device", "Group", "HealthcareService", "Location", "Organization", "Patient", "Practitioner", "PractitionerRole", "RelatedPerson"],
 	)
 	
+    supplementalData: typing.List[fhirtypes.ReferenceType] = Field(
+		None,
+		alias="supplementalData",
+		title="Additional information collected for the report",
+		description=(
+    "A reference to a Resource that represents additional information "
+    "collected for the report. If the value of the supplemental data is not"
+    " a Resource (i.e. evaluating the supplementalData expression for this "
+    "case in the measure results in a value that is not a FHIR Resource), "
+    "it is reported as a reference to a contained Observation resource."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+        # note: Listed Resource Type(s) should be allowed as Reference.
+		enum_reference_types=["Resource"],
+	)
+	
     type: fhirtypes.Code = Field(
 		None,
 		alias="type",
@@ -279,7 +296,7 @@ class MeasureReport(domainresource.DomainResource):
         ``MeasureReport`` according specification,
         with preserving original sequence order.
         """
-        return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "identifier", "status", "type", "dataUpdateType", "measure", "subject", "date", "reporter", "reportingVendor", "location", "period", "inputParameters", "scoring", "improvementNotation", "group", "evaluatedResource"]
+        return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "identifier", "status", "type", "dataUpdateType", "measure", "subject", "date", "reporter", "reportingVendor", "location", "period", "inputParameters", "scoring", "improvementNotation", "group", "supplementalData", "evaluatedResource"]
 
 
     @root_validator(pre=True, allow_reuse=True)
@@ -368,6 +385,23 @@ class MeasureReportGroup(backboneelement.BackboneElement):
         # if property is element of this resource.
         element_property=True,
 	)
+	
+    linkId: fhirtypes.String = Field(
+		None,
+		alias="linkId",
+		title="Pointer to specific group from Measure",
+		description=(
+    "The group from the Measure that corresponds to this group in the "
+    "MeasureReport resource."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+	)
+    linkId__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
+        None,
+        alias="_linkId",
+        title="Extension field for ``linkId``."
+    )
 	
     measureScoreCodeableConcept: fhirtypes.CodeableConceptType = Field(
 		None,
@@ -493,13 +527,27 @@ class MeasureReportGroup(backboneelement.BackboneElement):
         # if property is element of this resource.
         element_property=True,
 	)
+	
+    subject: fhirtypes.ReferenceType = Field(
+		None,
+		alias="subject",
+		title="What individual(s) the report is for",
+		description=(
+    "Optional subject identifying the individual or individuals the report "
+    "is for."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+        # note: Listed Resource Type(s) should be allowed as Reference.
+		enum_reference_types=["CareTeam", "Device", "Group", "HealthcareService", "Location", "Organization", "Patient", "Practitioner", "PractitionerRole", "RelatedPerson"],
+	)
     @classmethod
     def elements_sequence(cls):
         """returning all elements names from
         ``MeasureReportGroup`` according specification,
         with preserving original sequence order.
         """
-        return ["id", "extension", "modifierExtension", "code", "population", "measureScoreQuantity", "measureScoreDateTime", "measureScoreCodeableConcept", "measureScorePeriod", "measureScoreRange", "measureScoreDuration", "stratifier"]
+        return ["id", "extension", "modifierExtension", "linkId", "code", "subject", "population", "measureScoreQuantity", "measureScoreDateTime", "measureScoreCodeableConcept", "measureScorePeriod", "measureScoreRange", "measureScoreDuration", "stratifier"]
 
 
     @root_validator(pre=True, allow_reuse=True)
@@ -586,12 +634,43 @@ class MeasureReportGroupPopulation(backboneelement.BackboneElement):
         title="Extension field for ``count``."
     )
 	
+    linkId: fhirtypes.String = Field(
+		None,
+		alias="linkId",
+		title="Pointer to specific population from Measure",
+		description=(
+    "The population from the Measure that corresponds to this population in"
+    " the MeasureReport resource."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+	)
+    linkId__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
+        None,
+        alias="_linkId",
+        title="Extension field for ``linkId``."
+    )
+	
+    subjectReport: typing.List[fhirtypes.ReferenceType] = Field(
+		None,
+		alias="subjectReport",
+		title="For subject-list reports, a subject result in this population",
+		description=(
+    "A reference to an individual level MeasureReport resource for a member"
+    " of the population."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+        # note: Listed Resource Type(s) should be allowed as Reference.
+		enum_reference_types=["MeasureReport"],
+	)
+	
     subjectResults: fhirtypes.ReferenceType = Field(
 		None,
 		alias="subjectResults",
 		title="For subject-list reports, the subject results in this population",
 		description=(
-    "This element refers to a List of subject level MeasureReport "
+    "This element refers to a List of individual level MeasureReport "
     "resources, one for each subject in this population."
     ),
         # if property is element of this resource.
@@ -599,13 +678,27 @@ class MeasureReportGroupPopulation(backboneelement.BackboneElement):
         # note: Listed Resource Type(s) should be allowed as Reference.
 		enum_reference_types=["List"],
 	)
+	
+    subjects: fhirtypes.ReferenceType = Field(
+		None,
+		alias="subjects",
+		title="What individual(s) in the population",
+		description=(
+    "Optional Group identifying the individuals that make up the "
+    "population."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+        # note: Listed Resource Type(s) should be allowed as Reference.
+		enum_reference_types=["Group"],
+	)
     @classmethod
     def elements_sequence(cls):
         """returning all elements names from
         ``MeasureReportGroupPopulation`` according specification,
         with preserving original sequence order.
         """
-        return ["id", "extension", "modifierExtension", "code", "count", "subjectResults"]
+        return ["id", "extension", "modifierExtension", "linkId", "code", "count", "subjectResults", "subjectReport", "subjects"]
 
 
 
@@ -629,6 +722,23 @@ class MeasureReportGroupStratifier(backboneelement.BackboneElement):
         element_property=True,
 	)
 	
+    linkId: fhirtypes.String = Field(
+		None,
+		alias="linkId",
+		title="Pointer to specific stratifier from Measure",
+		description=(
+    "The stratifier from the Measure that corresponds to this stratifier in"
+    " the MeasureReport resource."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+	)
+    linkId__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
+        None,
+        alias="_linkId",
+        title="Extension field for ``linkId``."
+    )
+	
     stratum: typing.List[fhirtypes.MeasureReportGroupStratifierStratumType] = Field(
 		None,
 		alias="stratum",
@@ -650,7 +760,7 @@ class MeasureReportGroupStratifier(backboneelement.BackboneElement):
         ``MeasureReportGroupStratifier`` according specification,
         with preserving original sequence order.
         """
-        return ["id", "extension", "modifierExtension", "code", "stratum"]
+        return ["id", "extension", "modifierExtension", "linkId", "code", "stratum"]
 
 
 
@@ -953,6 +1063,23 @@ class MeasureReportGroupStratifierStratumComponent(backboneelement.BackboneEleme
         element_property=True,
 	)
 	
+    linkId: fhirtypes.String = Field(
+		None,
+		alias="linkId",
+		title="Pointer to specific stratifier component from Measure",
+		description=(
+    "The stratifier component from the Measure that corresponds to this "
+    "stratifier component in the MeasureReport resource."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+	)
+    linkId__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
+        None,
+        alias="_linkId",
+        title="Extension field for ``linkId``."
+    )
+	
     valueBoolean: bool = Field(
 		None,
 		alias="valueBoolean",
@@ -1023,7 +1150,7 @@ class MeasureReportGroupStratifierStratumComponent(backboneelement.BackboneEleme
         ``MeasureReportGroupStratifierStratumComponent`` according specification,
         with preserving original sequence order.
         """
-        return ["id", "extension", "modifierExtension", "code", "valueCodeableConcept", "valueBoolean", "valueQuantity", "valueRange", "valueReference"]
+        return ["id", "extension", "modifierExtension", "linkId", "code", "valueCodeableConcept", "valueBoolean", "valueQuantity", "valueRange", "valueReference"]
 
 
     @root_validator(pre=True, allow_reuse=True)
@@ -1109,12 +1236,43 @@ class MeasureReportGroupStratifierStratumPopulation(backboneelement.BackboneElem
         title="Extension field for ``count``."
     )
 	
+    linkId: fhirtypes.String = Field(
+		None,
+		alias="linkId",
+		title="Pointer to specific population from Measure",
+		description=(
+    "The population from the Measure that corresponds to this population in"
+    " the MeasureReport resource."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+	)
+    linkId__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
+        None,
+        alias="_linkId",
+        title="Extension field for ``linkId``."
+    )
+	
+    subjectReport: typing.List[fhirtypes.ReferenceType] = Field(
+		None,
+		alias="subjectReport",
+		title="For subject-list reports, a subject result in this population",
+		description=(
+    "A reference to an individual level MeasureReport resource for a member"
+    " of the population."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+        # note: Listed Resource Type(s) should be allowed as Reference.
+		enum_reference_types=["MeasureReport"],
+	)
+	
     subjectResults: fhirtypes.ReferenceType = Field(
 		None,
 		alias="subjectResults",
 		title="For subject-list reports, the subject results in this population",
 		description=(
-    "This element refers to a List of subject level MeasureReport "
+    "This element refers to a List of individual level MeasureReport "
     "resources, one for each subject in this population in this stratum."
     ),
         # if property is element of this resource.
@@ -1122,11 +1280,25 @@ class MeasureReportGroupStratifierStratumPopulation(backboneelement.BackboneElem
         # note: Listed Resource Type(s) should be allowed as Reference.
 		enum_reference_types=["List"],
 	)
+	
+    subjects: fhirtypes.ReferenceType = Field(
+		None,
+		alias="subjects",
+		title="What individual(s) in the population",
+		description=(
+    "Optional Group identifying the individuals that make up the "
+    "population."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+        # note: Listed Resource Type(s) should be allowed as Reference.
+		enum_reference_types=["Group"],
+	)
     @classmethod
     def elements_sequence(cls):
         """returning all elements names from
         ``MeasureReportGroupStratifierStratumPopulation`` according specification,
         with preserving original sequence order.
         """
-        return ["id", "extension", "modifierExtension", "code", "count", "subjectResults"]
+        return ["id", "extension", "modifierExtension", "linkId", "code", "count", "subjectResults", "subjectReport", "subjects"]
 

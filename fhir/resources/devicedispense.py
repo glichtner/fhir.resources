@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/DeviceDispense
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 import typing
 from pydantic import Field
@@ -178,6 +178,22 @@ class DeviceDispense(domainresource.DomainResource):
         element_property=True,
 	)
 	
+    receiver: fhirtypes.ReferenceType = Field(
+		None,
+		alias="receiver",
+		title="Who collected the device or where the medication was delivered",
+		description=(
+    "Identifies the person who picked up the device or the person or "
+    "location where the device was delivered.  This may be a patient or "
+    "their caregiver, but some cases exist where it can be a healthcare "
+    "professional or a location."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+        # note: Listed Resource Type(s) should be allowed as Reference.
+		enum_reference_types=["Patient", "Practitioner", "RelatedPerson", "Location", "PractitionerRole"],
+	)
+	
     status: fhirtypes.Code = Field(
 		None,
 		alias="status",
@@ -221,7 +237,7 @@ class DeviceDispense(domainresource.DomainResource):
         # if property is element of this resource.
         element_property=True,
         # note: Listed Resource Type(s) should be allowed as Reference.
-		enum_reference_types=["Patient"],
+		enum_reference_types=["Patient", "Practitioner"],
 	)
 	
     supportingInformation: typing.List[fhirtypes.ReferenceType] = Field(
@@ -238,7 +254,7 @@ class DeviceDispense(domainresource.DomainResource):
     type: fhirtypes.CodeableConceptType = Field(
 		None,
 		alias="type",
-		title="Trial fill, partial fill, emergency fill, etc.",
+		title="Trial fill, partial fill, emergency fill, etc",
 		description="Indicates the type of dispensing event that is performed.",
         # if property is element of this resource.
         element_property=True,
@@ -280,7 +296,7 @@ class DeviceDispense(domainresource.DomainResource):
         ``DeviceDispense`` according specification,
         with preserving original sequence order.
         """
-        return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "identifier", "basedOn", "partOf", "status", "statusReason", "category", "device", "subject", "encounter", "supportingInformation", "performer", "location", "type", "quantity", "preparedDate", "whenHandedOver", "destination", "note", "usageInstruction", "eventHistory"]
+        return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "identifier", "basedOn", "partOf", "status", "statusReason", "category", "device", "subject", "receiver", "encounter", "supportingInformation", "performer", "location", "type", "quantity", "preparedDate", "whenHandedOver", "destination", "note", "usageInstruction", "eventHistory"]
 
 
     @root_validator(pre=True, allow_reuse=True)

@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/DataRequirement
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 import typing
 from pydantic import Field
@@ -88,8 +88,8 @@ class DataRequirement(datatype.DataType):
     "required for this element, only that the consuming system must "
     "understand the element and be able to provide values for it if they "
     "are available.   The value of mustSupport SHALL be a FHIRPath "
-    "resolveable on the type of the DataRequirement. The path SHALL consist"
-    " only of identifiers, constant indexers, and .resolve() (see the "
+    "resolvable on the type of the DataRequirement. The path SHALL consist "
+    "only of identifiers, constant indexers, and .resolve() (see the "
     "[Simple FHIRPath Profile](fhirpath.html#simple) for full details)."
     ),
         # if property is element of this resource.
@@ -346,14 +346,14 @@ class DataRequirementCodeFilter(element.Element):
 		title="A code-valued attribute to filter on",
 		description=(
     "The code-valued attribute of the filter. The specified path SHALL be a"
-    " FHIRPath resolveable on the specified type of the DataRequirement, "
-    "and SHALL consist only of identifiers, constant indexers, and "
-    ".resolve(). The path is allowed to contain qualifiers (.) to traverse "
-    "sub-elements, as well as indexers ([x]) to traverse multiple-"
-    "cardinality sub-elements (see the [Simple FHIRPath "
-    "Profile](fhirpath.html#simple) for full details). Note that the index "
-    "must be an integer constant. The path must resolve to an element of "
-    "type code, Coding, or CodeableConcept."
+    " FHIRPath resolvable on the specified type of the DataRequirement, and"
+    " SHALL consist only of identifiers, constant indexers, and .resolve()."
+    " The path is allowed to contain qualifiers (.) to traverse sub-"
+    "elements, as well as indexers ([x]) to traverse multiple-cardinality "
+    "sub-elements (see the [Simple FHIRPath Profile](fhirpath.html#simple) "
+    "for full details). Note that the index must be an integer constant. "
+    "The path must resolve to an element of type code, Coding, or "
+    "CodeableConcept."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -385,7 +385,7 @@ class DataRequirementCodeFilter(element.Element):
     valueSet: fhirtypes.Canonical = Field(
 		None,
 		alias="valueSet",
-		title="Valueset for the filter",
+		title="ValueSet for the filter",
 		description=(
     "The valueset for the code filter. The valueSet and code elements are "
     "additive. If valueSet is specified, the filter will return only those "
@@ -430,14 +430,14 @@ class DataRequirementDateFilter(element.Element):
 		title="A date-valued attribute to filter on",
 		description=(
     "The date-valued attribute of the filter. The specified path SHALL be a"
-    " FHIRPath resolveable on the specified type of the DataRequirement, "
-    "and SHALL consist only of identifiers, constant indexers, and "
-    ".resolve(). The path is allowed to contain qualifiers (.) to traverse "
-    "sub-elements, as well as indexers ([x]) to traverse multiple-"
-    "cardinality sub-elements (see the [Simple FHIRPath "
-    "Profile](fhirpath.html#simple) for full details). Note that the index "
-    "must be an integer constant. The path must resolve to an element of "
-    "type date, dateTime, Period, Schedule, or Timing."
+    " FHIRPath resolvable on the specified type of the DataRequirement, and"
+    " SHALL consist only of identifiers, constant indexers, and .resolve()."
+    " The path is allowed to contain qualifiers (.) to traverse sub-"
+    "elements, as well as indexers ([x]) to traverse multiple-cardinality "
+    "sub-elements (see the [Simple FHIRPath Profile](fhirpath.html#simple) "
+    "for full details). Note that the index must be an integer constant. "
+    "The path must resolve to an element of type date, dateTime, Period, "
+    "Schedule, or Timing."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -736,7 +736,7 @@ class DataRequirementValueFilter(element.Element):
 		title="An attribute to filter on",
 		description=(
     "The attribute of the filter. The specified path SHALL be a FHIRPath "
-    "resolveable on the specified type of the DataRequirement, and SHALL "
+    "resolvable on the specified type of the DataRequirement, and SHALL "
     "consist only of identifiers, constant indexers, and .resolve(). The "
     "path is allowed to contain qualifiers (.) to traverse sub-elements, as"
     " well as indexers ([x]) to traverse multiple-cardinality sub-elements "

@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/MarketingStatus
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 from pydantic import Field
 from . import fhirtypes
@@ -27,7 +27,7 @@ class MarketingStatus(backbonetype.BackboneType):
 		None,
 		alias="country",
 		title=(
-    "The country in which the marketing authorisation has been granted "
+    "The country in which the marketing authorization has been granted "
     "shall be specified It should be specified using the ISO 3166 \u2011 1 "
     "alpha-2 code elements"
     ),
@@ -41,7 +41,7 @@ class MarketingStatus(backbonetype.BackboneType):
 		alias="dateRange",
 		title=(
     "The date when the Medicinal Product is placed on the market by the "
-    "Marketing Authorisation Holder (or where applicable, the "
+    "Marketing Authorization Holder (or where applicable, the "
     "manufacturer/distributor) in a country and/or jurisdiction shall be "
     "provided A complete date consisting of day, month and year shall be "
     "specified using the ISO 8601 date format NOTE \u201cPlaced on the market\u201d "
@@ -58,7 +58,7 @@ class MarketingStatus(backbonetype.BackboneType):
 		alias="jurisdiction",
 		title=(
     "Where a Medicines Regulatory Agency has granted a marketing "
-    "authorisation for which specific provisions within a jurisdiction "
+    "authorization for which specific provisions within a jurisdiction "
     "apply, the jurisdiction can be specified using an appropriate "
     "controlled terminology The controlled term and the controlled term "
     "identifier shall be specified"
@@ -73,7 +73,7 @@ class MarketingStatus(backbonetype.BackboneType):
 		alias="restoreDate",
 		title=(
     "The date when the Medicinal Product is placed on the market by the "
-    "Marketing Authorisation Holder (or where applicable, the "
+    "Marketing Authorization Holder (or where applicable, the "
     "manufacturer/distributor) in a country and/or jurisdiction shall be "
     "provided A complete date consisting of day, month and year shall be "
     "specified using the ISO 8601 date format NOTE \u201cPlaced on the market\u201d "

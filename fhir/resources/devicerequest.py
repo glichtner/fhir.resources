@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/DeviceRequest
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 import typing
 from pydantic import Field
@@ -130,7 +130,15 @@ class DeviceRequest(domainresource.DomainResource):
 		None,
 		alias="groupIdentifier",
 		title="Identifier of composite request",
-		description="Composite request this is part of.",
+		description=(
+    "A shared identifier common to multiple independent Request instances "
+    "that were activated/authorized more or less simultaneously by a single"
+    " author.  The presence of the same identifier on each request ties "
+    "those requests together and may have business ramifications in terms "
+    "of reporting of results, billing, etc.  E.g. a requisition number "
+    "shared by a set of lab tests ordered together, or a prescription "
+    "number shared by all meds ordered at one time."
+    ),
         # if property is element of this resource.
         element_property=True,
 	)
@@ -303,7 +311,7 @@ class DeviceRequest(domainresource.DomainResource):
         element_property=True,
 	)
 	
-    performer: fhirtypes.ReferenceType = Field(
+    performer: fhirtypes.CodeableReferenceType = Field(
 		None,
 		alias="performer",
 		title="Requested Filler",
@@ -315,18 +323,6 @@ class DeviceRequest(domainresource.DomainResource):
         element_property=True,
         # note: Listed Resource Type(s) should be allowed as Reference.
 		enum_reference_types=["Practitioner", "PractitionerRole", "Organization", "CareTeam", "HealthcareService", "Patient", "Device", "RelatedPerson"],
-	)
-	
-    performerType: fhirtypes.CodeableConceptType = Field(
-		None,
-		alias="performerType",
-		title="Filler role",
-		description=(
-    "The desired kind of individual or entity to provide the device to the "
-    "subject of the request (e.g., patient, location)."
-    ),
-        # if property is element of this resource.
-        element_property=True,
 	)
 	
     priority: fhirtypes.Code = Field(
@@ -464,7 +460,7 @@ class DeviceRequest(domainresource.DomainResource):
         ``DeviceRequest`` according specification,
         with preserving original sequence order.
         """
-        return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "identifier", "instantiatesCanonical", "instantiatesUri", "basedOn", "replaces", "groupIdentifier", "status", "intent", "priority", "doNotPerform", "code", "quantity", "parameter", "subject", "encounter", "occurrenceDateTime", "occurrencePeriod", "occurrenceTiming", "authoredOn", "requester", "performerType", "performer", "reason", "asNeeded", "asNeededFor", "insurance", "supportingInfo", "note", "relevantHistory"]
+        return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "identifier", "instantiatesCanonical", "instantiatesUri", "basedOn", "replaces", "groupIdentifier", "status", "intent", "priority", "doNotPerform", "code", "quantity", "parameter", "subject", "encounter", "occurrenceDateTime", "occurrencePeriod", "occurrenceTiming", "authoredOn", "requester", "performer", "reason", "asNeeded", "asNeededFor", "insurance", "supportingInfo", "note", "relevantHistory"]
 
 
     @root_validator(pre=True, allow_reuse=True)

@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/StructureDefinition
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 import typing
 from pydantic import Field
@@ -87,7 +87,9 @@ class StructureDefinition(domainresource.DomainResource):
 		title="If an extension, where it can be used in instances",
 		description=(
     "Identifies the types of resource or data type elements to which the "
-    "extension can be applied."
+    "extension can be applied. For more guidance on using the 'context' "
+    "element, see the [defining extensions page](defining-"
+    "extensions.html#context)."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -155,11 +157,11 @@ class StructureDefinition(domainresource.DomainResource):
 		alias="date",
 		title="Date last changed",
 		description=(
-    "The date  (and optionally time) when the structure definition was "
-    "published. The date must change when the business version changes and "
-    "it must change if the status code changes. In addition, it should "
-    "change when the substantive content of the structure definition "
-    "changes."
+    "The date  (and optionally time) when the structure definition was last"
+    " significantly changed. The date must change when the business version"
+    " changes and it must change if the status code changes. In addition, "
+    "it should change when the substantive content of the structure "
+    "definition changes."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -435,7 +437,7 @@ class StructureDefinition(domainresource.DomainResource):
     " abstract type).  References are URLs that are relative to "
     "http://hl7.org/fhir/StructureDefinition e.g. \"string\" is a reference "
     "to http://hl7.org/fhir/StructureDefinition/string. Absolute URLs are "
-    "only allowed in logical models."
+    "only allowed in logical models, where they are required."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -497,10 +499,12 @@ class StructureDefinition(domainresource.DomainResource):
     "The identifier that is used to identify this version of the structure "
     "definition when it is referenced in a specification, model, design or "
     "instance. This is an arbitrary value managed by the structure "
-    "definition author and is not expected to be globally unique. For "
-    "example, it might be a timestamp (e.g. yyyymmdd) if a managed version "
-    "is not available. There is also no expectation that versions can be "
-    "placed in a lexicographical sequence."
+    "definition author and is not expected to be globally unique. There is "
+    "no expectation that versions can be placed in a lexicographical "
+    "sequence, so authors are encouraged to populate the "
+    "StructureDefinition.versionAlgorithm[x] element to enable comparisons."
+    " If there is no managed version available, authors can consider using "
+    "ISO date/time syntax (e.g., '2023-01-01')."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -670,7 +674,8 @@ class StructureDefinitionContext(backboneelement.BackboneElement):
 
     If an extension, where it can be used in instances.
     Identifies the types of resource or data type elements to which the
-    extension can be applied.
+    extension can be applied. For more guidance on using the 'context' element,
+    see the [defining extensions page](defining-extensions.html#context).
     """
     resource_type = Field("StructureDefinitionContext", const=True)
 	
@@ -825,7 +830,7 @@ class StructureDefinitionMapping(backboneelement.BackboneElement):
     comment: fhirtypes.String = Field(
 		None,
 		alias="comment",
-		title="Versions, Issues, Scope limitations etc.",
+		title="Versions, Issues, Scope limitations etc",
 		description=(
     "Comments about this mapping, including version notes, issues, scope "
     "limitations, and other important notes for usage."

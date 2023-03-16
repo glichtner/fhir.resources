@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/MedicationAdministration
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 import typing
 from pydantic import Field
@@ -59,13 +59,13 @@ class MedicationAdministration(domainresource.DomainResource):
         element_property=True,
 	)
 	
-    device: typing.List[fhirtypes.ReferenceType] = Field(
+    device: typing.List[fhirtypes.CodeableReferenceType] = Field(
 		None,
 		alias="device",
 		title="Device used to administer",
 		description=(
-    "The device used in administering the medication to the patient.  For "
-    "example, a particular infusion pump."
+    "The device that is to be used for the administration of the medication"
+    " (for example, PCA Pump)."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -174,7 +174,10 @@ class MedicationAdministration(domainresource.DomainResource):
     occurenceDateTime: fhirtypes.DateTime = Field(
 		None,
 		alias="occurenceDateTime",
-		title="Start and end time of administration",
+		title=(
+    "Specific date/time or interval of time during which the administration"
+    " took place (or did not take place)"
+    ),
 		description=(
     "A specific date/time or interval of time during which the "
     "administration took place (or did not take place). For many "
@@ -196,7 +199,30 @@ class MedicationAdministration(domainresource.DomainResource):
     occurencePeriod: fhirtypes.PeriodType = Field(
 		None,
 		alias="occurencePeriod",
-		title="Start and end time of administration",
+		title=(
+    "Specific date/time or interval of time during which the administration"
+    " took place (or did not take place)"
+    ),
+		description=(
+    "A specific date/time or interval of time during which the "
+    "administration took place (or did not take place). For many "
+    "administrations, such as swallowing a tablet the use of dateTime is "
+    "more appropriate."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+        # Choice of Data Types. i.e occurence[x]
+		one_of_many="occurence",
+		one_of_many_required=True,
+	)
+	
+    occurenceTiming: fhirtypes.TimingType = Field(
+		None,
+		alias="occurenceTiming",
+		title=(
+    "Specific date/time or interval of time during which the administration"
+    " took place (or did not take place)"
+    ),
 		description=(
     "A specific date/time or interval of time during which the "
     "administration took place (or did not take place). For many "
@@ -218,7 +244,7 @@ class MedicationAdministration(domainresource.DomainResource):
         # if property is element of this resource.
         element_property=True,
         # note: Listed Resource Type(s) should be allowed as Reference.
-		enum_reference_types=["MedicationAdministration", "Procedure"],
+		enum_reference_types=["MedicationAdministration", "Procedure", "MedicationDispense"],
 	)
 	
     performer: typing.List[fhirtypes.MedicationAdministrationPerformerType] = Field(
@@ -229,12 +255,11 @@ class MedicationAdministration(domainresource.DomainResource):
     "performance they did"
     ),
 		description=(
-    "Indicates who or what performed the medication administration and how "
-    "they were involved. For devices, this is the device that is actually "
-    "performing the administration of the medication.  An IV Pump would be "
-    "an example of a device that is performing the administration.  Both "
-    "the IV Pump and the practitioner that set the rate or bolus on the "
-    "pump can be listed as performers."
+    "The performer of the medication treatment.  For devices this is the "
+    "device that performed the administration of the medication.  An IV "
+    "Pump would be an example of a device that is performing the "
+    "administration. Both the IV Pump and the practitioner that set the "
+    "rate or bolus on the pump can be listed as performers."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -370,7 +395,7 @@ class MedicationAdministration(domainresource.DomainResource):
         ``MedicationAdministration`` according specification,
         with preserving original sequence order.
         """
-        return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "identifier", "basedOn", "partOf", "status", "statusReason", "category", "medication", "subject", "encounter", "supportingInformation", "occurenceDateTime", "occurencePeriod", "recorded", "isSubPotent", "subPotentReason", "performer", "reason", "request", "device", "note", "dosage", "eventHistory"]
+        return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "identifier", "basedOn", "partOf", "status", "statusReason", "category", "medication", "subject", "encounter", "supportingInformation", "occurenceDateTime", "occurencePeriod", "occurenceTiming", "recorded", "isSubPotent", "subPotentReason", "performer", "reason", "request", "device", "note", "dosage", "eventHistory"]
 
 
     @root_validator(pre=True, allow_reuse=True)
@@ -452,7 +477,8 @@ class MedicationAdministration(domainresource.DomainResource):
         one_of_many_fields = {
 			"occurence": [
 			    "occurenceDateTime",
-			    "occurencePeriod"]}
+			    "occurencePeriod",
+			    "occurenceTiming"]}
         for prefix, fields in one_of_many_fields.items():
             assert cls.__fields__[fields[0]].field_info.extra["one_of_many"] == prefix
             required = (
@@ -653,19 +679,18 @@ class MedicationAdministrationPerformer(backboneelement.BackboneElement):
 
     Who or what performed the medication administration and what type of
     performance they did.
-    Indicates who or what performed the medication administration and how they
-    were involved. For devices, this is the device that is actually performing
-    the administration of the medication.  An IV Pump would be an example of a
-    device that is performing the administration.  Both the IV Pump and the
-    practitioner that set the rate or bolus on the pump can be listed as
-    performers.
+    The performer of the medication treatment.  For devices this is the device
+    that performed the administration of the medication.  An IV Pump would be
+    an example of a device that is performing the administration. Both the IV
+    Pump and the practitioner that set the rate or bolus on the pump can be
+    listed as performers.
     """
     resource_type = Field("MedicationAdministrationPerformer", const=True)
 	
-    actor: fhirtypes.ReferenceType = Field(
+    actor: fhirtypes.CodeableReferenceType = Field(
 		...,
 		alias="actor",
-		title="Who performed the medication administration",
+		title="Who or what performed the medication administration",
 		description="Indicates who or what performed the medication administration.",
         # if property is element of this resource.
         element_property=True,

@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/Practitioner
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 from pydantic.validators import bytes_validator  # noqa: F401
 from fhir.resources import fhirtypes  # noqa: F401
@@ -217,10 +217,9 @@ def impl_practitioner_5(inst):
     assert inst.address[0].postalCode == "1105 AZ"
     assert inst.address[0].use == "work"
     assert inst.birthDate == fhirtypes.Date.validate("1980-02-04")
-    assert inst.communication[0].coding[0].code == "nl"
-    assert inst.communication[0].coding[0].display == "Netherlands"
-    assert inst.communication[0].coding[0].system == "urn:ietf:bcp:47"
-    assert inst.communication[0].text == "Language"
+    assert inst.communication[0].language.coding[0].code == "nl"
+    assert inst.communication[0].language.coding[0].display == "Dutch"
+    assert inst.communication[0].language.coding[0].system == "urn:ietf:bcp:47"
     assert inst.gender == "male"
     assert inst.id == "f004"
     assert inst.identifier[0].system == "urn:oid:2.16.528.1.1007.3.1"
@@ -431,9 +430,9 @@ def impl_practitioner_9(inst):
     assert inst.address[0].postalCode == "1105 AZ"
     assert inst.address[0].use == "work"
     assert inst.birthDate == fhirtypes.Date.validate("1963-07-01")
-    assert inst.communication[0].coding[0].code == "nl"
-    assert inst.communication[0].coding[0].display == "Dutch"
-    assert inst.communication[0].coding[0].system == "urn:ietf:bcp:47"
+    assert inst.communication[0].language.coding[0].code == "nl"
+    assert inst.communication[0].language.coding[0].display == "Dutch"
+    assert inst.communication[0].language.coding[0].system == "urn:ietf:bcp:47"
     assert inst.gender == "male"
     assert inst.id == "f003"
     assert inst.identifier[0].system == "urn:oid:2.16.528.1.1007.3.1"

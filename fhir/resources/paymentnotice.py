@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/PaymentNotice
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 import typing
 from pydantic import Field
@@ -56,7 +56,7 @@ class PaymentNotice(domainresource.DomainResource):
     identifier: typing.List[fhirtypes.IdentifierType] = Field(
 		None,
 		alias="identifier",
-		title="Business Identifier for the payment noctice",
+		title="Business Identifier for the payment notice",
 		description="A unique identifier assigned to this payment notice.",
         # if property is element of this resource.
         element_property=True,
@@ -77,7 +77,7 @@ class PaymentNotice(domainresource.DomainResource):
 	)
 	
     payment: fhirtypes.ReferenceType = Field(
-		...,
+		None,
 		alias="payment",
 		title="Payment reference",
 		description="A reference to the payment which is the subject of this notice.",
@@ -110,20 +110,6 @@ class PaymentNotice(domainresource.DomainResource):
         element_property=True,
 	)
 	
-    provider: fhirtypes.ReferenceType = Field(
-		None,
-		alias="provider",
-		title="Responsible practitioner",
-		description=(
-    "The practitioner who is responsible for the services rendered to the "
-    "patient."
-    ),
-        # if property is element of this resource.
-        element_property=True,
-        # note: Listed Resource Type(s) should be allowed as Reference.
-		enum_reference_types=["Practitioner", "PractitionerRole", "Organization"],
-	)
-	
     recipient: fhirtypes.ReferenceType = Field(
 		...,
 		alias="recipient",
@@ -133,6 +119,17 @@ class PaymentNotice(domainresource.DomainResource):
         element_property=True,
         # note: Listed Resource Type(s) should be allowed as Reference.
 		enum_reference_types=["Organization"],
+	)
+	
+    reporter: fhirtypes.ReferenceType = Field(
+		None,
+		alias="reporter",
+		title="Responsible practitioner",
+		description="The party who reports the payment notice.",
+        # if property is element of this resource.
+        element_property=True,
+        # note: Listed Resource Type(s) should be allowed as Reference.
+		enum_reference_types=["Practitioner", "PractitionerRole", "Organization"],
 	)
 	
     request: fhirtypes.ReferenceType = Field(
@@ -180,7 +177,7 @@ class PaymentNotice(domainresource.DomainResource):
         ``PaymentNotice`` according specification,
         with preserving original sequence order.
         """
-        return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "identifier", "status", "request", "response", "created", "provider", "payment", "paymentDate", "payee", "recipient", "amount", "paymentStatus"]
+        return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "identifier", "status", "request", "response", "created", "reporter", "payment", "paymentDate", "payee", "recipient", "amount", "paymentStatus"]
 
 
     @root_validator(pre=True, allow_reuse=True)

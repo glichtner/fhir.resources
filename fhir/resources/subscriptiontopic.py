@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/SubscriptionTopic
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 import typing
 from pydantic import Field
@@ -247,6 +247,24 @@ class SubscriptionTopic(domainresource.DomainResource):
         title="Extension field for ``lastReviewDate``."
     )
 	
+    name: fhirtypes.String = Field(
+		None,
+		alias="name",
+		title="Name for this subscription topic (computer friendly)",
+		description=(
+    "A natural language name identifying the subscription topic This name "
+    "should be usable as an identifier for the module by machine processing"
+    " applications such as code generation."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+	)
+    name__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
+        None,
+        alias="_name",
+        title="Extension field for ``name``."
+    )
+	
     notificationShape: typing.List[fhirtypes.SubscriptionTopicNotificationShapeType] = Field(
 		None,
 		alias="notificationShape",
@@ -409,13 +427,48 @@ class SubscriptionTopic(domainresource.DomainResource):
         alias="_version",
         title="Extension field for ``version``."
     )
+	
+    versionAlgorithmCoding: fhirtypes.CodingType = Field(
+		None,
+		alias="versionAlgorithmCoding",
+		title="How to compare versions",
+		description=(
+    "Indicates the mechanism used to compare versions to determine which is"
+    " more current."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+        # Choice of Data Types. i.e versionAlgorithm[x]
+		one_of_many="versionAlgorithm",
+		one_of_many_required=False,
+	)
+	
+    versionAlgorithmString: fhirtypes.String = Field(
+		None,
+		alias="versionAlgorithmString",
+		title="How to compare versions",
+		description=(
+    "Indicates the mechanism used to compare versions to determine which is"
+    " more current."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+        # Choice of Data Types. i.e versionAlgorithm[x]
+		one_of_many="versionAlgorithm",
+		one_of_many_required=False,
+	)
+    versionAlgorithmString__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
+        None,
+        alias="_versionAlgorithmString",
+        title="Extension field for ``versionAlgorithmString``."
+    )
     @classmethod
     def elements_sequence(cls):
         """returning all elements names from
         ``SubscriptionTopic`` according specification,
         with preserving original sequence order.
         """
-        return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "url", "identifier", "version", "title", "derivedFrom", "status", "experimental", "date", "publisher", "contact", "description", "useContext", "jurisdiction", "purpose", "copyright", "copyrightLabel", "approvalDate", "lastReviewDate", "effectivePeriod", "resourceTrigger", "eventTrigger", "canFilterBy", "notificationShape"]
+        return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "url", "identifier", "version", "versionAlgorithmString", "versionAlgorithmCoding", "name", "title", "derivedFrom", "status", "experimental", "date", "publisher", "contact", "description", "useContext", "jurisdiction", "purpose", "copyright", "copyrightLabel", "approvalDate", "lastReviewDate", "effectivePeriod", "resourceTrigger", "eventTrigger", "canFilterBy", "notificationShape"]
 
 
     @root_validator(pre=True, allow_reuse=True)
@@ -479,6 +532,47 @@ class SubscriptionTopic(domainresource.DomainResource):
 
         return values
 
+    @root_validator(pre=True, allow_reuse=True)
+    def validate_one_of_many_1978(
+        cls, values: typing.Dict[str, typing.Any]
+    ) -> typing.Dict[str, typing.Any]:
+        """https://www.hl7.org/fhir/formats.html#choice
+        A few elements have a choice of more than one data type for their content.
+        All such elements have a name that takes the form nnn[x].
+        The "nnn" part of the name is constant, and the "[x]" is replaced with
+        the title-cased name of the type that is actually used.
+        The table view shows each of these names explicitly.
+
+        Elements that have a choice of data type cannot repeat - they must have a
+        maximum cardinality of 1. When constructing an instance of an element with a
+        choice of types, the authoring system must create a single element with a
+        data type chosen from among the list of permitted data types.
+        """
+        one_of_many_fields = {
+			"versionAlgorithm": [
+			    "versionAlgorithmCoding",
+			    "versionAlgorithmString"]}
+        for prefix, fields in one_of_many_fields.items():
+            assert cls.__fields__[fields[0]].field_info.extra["one_of_many"] == prefix
+            required = (
+                cls.__fields__[fields[0]].field_info.extra["one_of_many_required"]
+                is True
+            )
+            found = False
+            for field in fields:
+                if field in values and values[field] is not None:
+                    if found is True:
+                        raise ValueError(
+                            "Any of one field value is expected from "
+                            f"this list {fields}, but got multiple!"
+                        )
+                    else:
+                        found = True
+            if required is True and found is False:
+                raise ValueError(f"Expect any of field value from this list {fields}.")
+
+        return values
+
 
 from . import backboneelement
 
@@ -494,6 +588,23 @@ class SubscriptionTopicCanFilterBy(backboneelement.BackboneElement):
     parameters defined within this SubscriptionTopic context (e.g., hub.event).
     """
     resource_type = Field("SubscriptionTopicCanFilterBy", const=True)
+	
+    comparator: typing.List[fhirtypes.Code] = Field(
+		None,
+		alias="comparator",
+		title="eq | ne | gt | lt | ge | le | sa | eb | ap",
+		description="Comparators allowed for the filter parameter.",
+        # if property is element of this resource.
+        element_property=True,
+        # note: Enum values can be used in validation,
+        # but use in your own responsibilities, read official FHIR documentation.
+		enum_values=["eq", "ne", "gt", "lt", "ge", "le", "sa", "eb", "ap"],
+	)
+    comparator__ext: typing.List[typing.Union[fhirtypes.FHIRPrimitiveExtensionType, None]] = Field(
+        None,
+        alias="_comparator",
+        title="Extension field for ``comparator``."
+    )
 	
     description: fhirtypes.Markdown = Field(
 		None,
@@ -555,20 +666,15 @@ class SubscriptionTopicCanFilterBy(backboneelement.BackboneElement):
 		None,
 		alias="modifier",
 		title=(
-    "= | eq | ne | gt | lt | ge | le | sa | eb | ap | above | below | in | "
-    "not-in | of-type"
+    "missing | exact | contains | not | text | in | not-in | below | above "
+    "| type | identifier | of-type | code-text | text-advanced | iterate"
     ),
-		description=(
-    "Allowable operators to apply when determining matches (Search "
-    "Modifiers).  If the filterParameter is a SearchParameter, this list of"
-    " modifiers SHALL be a strict subset of the modifiers defined on that "
-    "SearchParameter."
-    ),
+		description="Modifiers allowed for the filter parameter.",
         # if property is element of this resource.
         element_property=True,
         # note: Enum values can be used in validation,
         # but use in your own responsibilities, read official FHIR documentation.
-		enum_values=["=", "eq", "ne", "gt", "lt", "ge", "le", "sa", "eb", "ap", "above", "below", "in", "not-in", "of-type"],
+		enum_values=["missing", "exact", "contains", "not", "text", "in", "not-in", "below", "above", "type", "identifier", "of-type", "code-text", "text-advanced", "iterate"],
 	)
     modifier__ext: typing.List[typing.Union[fhirtypes.FHIRPrimitiveExtensionType, None]] = Field(
         None,
@@ -601,7 +707,7 @@ class SubscriptionTopicCanFilterBy(backboneelement.BackboneElement):
         ``SubscriptionTopicCanFilterBy`` according specification,
         with preserving original sequence order.
         """
-        return ["id", "extension", "modifierExtension", "description", "resource", "filterParameter", "filterDefinition", "modifier"]
+        return ["id", "extension", "modifierExtension", "description", "resource", "filterParameter", "filterDefinition", "comparator", "modifier"]
 
 
     @root_validator(pre=True, allow_reuse=True)
@@ -842,9 +948,9 @@ class SubscriptionTopicNotificationShape(backboneelement.BackboneElement):
     ),
 		description=(
     "URL of the Resource that is the type used in this shape. This is the "
-    "\"focus\" of the topic (or one of them if there are more than one) and "
-    "the root resource for this shape definition. It will be the same, a "
-    "generality, or a specificity of "
+    "'focus' resource of the topic (or one of them if there are more than "
+    "one) and the root resource for this shape definition. It will be the "
+    "same, a generality, or a specificity of "
     "SubscriptionTopic.resourceTrigger.resource or "
     "SubscriptionTopic.eventTrigger.resource when they are present."
     ),
@@ -1041,7 +1147,8 @@ class SubscriptionTopicResourceTrigger(backboneelement.BackboneElement):
 		description=(
     "The FHIR RESTful interaction which can be used to trigger a "
     "notification for the SubscriptionTopic. Multiple values are considered"
-    " OR joined (e.g., CREATE or UPDATE)."
+    " OR joined (e.g., CREATE or UPDATE). If not present, all supported "
+    "interactions are assumed."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -1174,9 +1281,11 @@ class SubscriptionTopicResourceTriggerQueryCriteria(backboneelement.BackboneElem
 		alias="requireBoth",
 		title="Both must be true flag",
 		description=(
-    "If set to true, both current and previous criteria must evaluate true "
-    "to  trigger a notification for this topic.  Otherwise a notification "
-    "for this topic will be triggered if either one evaluates to true."
+    "If set to `true`, both the `current` and `previous` query criteria "
+    "must evaluate `true` to trigger a notification for this topic.  If set"
+    " to `false` or not present, a notification for this topic will be "
+    "triggered if either the `current` or `previous` tests evaluate to "
+    "`true`."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -1192,8 +1301,10 @@ class SubscriptionTopicResourceTriggerQueryCriteria(backboneelement.BackboneElem
 		alias="resultForCreate",
 		title="test-passes | test-fails",
 		description=(
-    "For \"create\" interactions, should the \"previous\" criteria count as an "
-    "automatic pass or an automatic fail."
+    "For `create` interactions, should the `previous` criteria count as an "
+    "automatic pass or an automatic fail. If not present, the testing "
+    "behavior during `create` interactions is unspecified (server "
+    "discretion)."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -1212,8 +1323,10 @@ class SubscriptionTopicResourceTriggerQueryCriteria(backboneelement.BackboneElem
 		alias="resultForDelete",
 		title="test-passes | test-fails",
 		description=(
-    "For \"delete\" interactions, should the \"current\" criteria count as an "
-    "automatic pass or an automatic fail."
+    "For 'delete' interactions, should the 'current' query criteria count "
+    "as an automatic pass or an automatic fail. If not present, the testing"
+    " behavior during `delete` interactions is unspecified (server "
+    "discretion)."
     ),
         # if property is element of this resource.
         element_property=True,

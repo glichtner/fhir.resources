@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/Bundle
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 import typing
 from pydantic import Field
@@ -68,7 +68,14 @@ class Bundle(resource.Resource):
 		None,
 		alias="link",
 		title="Links related to this Bundle",
-		description="A series of links that provide context to this bundle.",
+		description=(
+    "A series of links that provide context to this bundle. The behavior of"
+    " navigation link types (next/prev/first/last) are well defined for "
+    "searchset and history Bundles but are not currently defined for other "
+    "types. Implementers who choose to use such link relationships for "
+    "other bundle types will need to negotiate behavior with their "
+    "interoperability partners."
+    ),
         # if property is element of this resource.
         element_property=True,
 	)
@@ -230,12 +237,13 @@ class BundleEntry(backboneelement.BackboneElement):
     "UUID/OID, etc.)"
     ),
 		description=(
-    "The Absolute URL for the resource.  The fullUrl SHALL NOT disagree "
-    "with the id in the resource - i.e. if the fullUrl is not a urn:uuid, "
-    "the URL shall be version-independent URL consistent with the "
-    "Resource.id. The fullUrl is a version independent reference to the "
-    "resource. Even when not required, fullUrl MAY be set to a urn:uuid to "
-    "allow referencing entries in a transaction. The fullUrl can be an "
+    "The Absolute URL for the resource. Except for transactions and "
+    "batches, each entry in a Bundle must have a fullUrl. The fullUrl SHALL"
+    " NOT disagree with the id in the resource - i.e. if the fullUrl is not"
+    " a urn:uuid, the URL shall be version-independent URL consistent with "
+    "the Resource.id. The fullUrl is a version independent reference to the"
+    " resource. Even when not required, fullUrl MAY be set to a urn:uuid to"
+    " allow referencing entries in a transaction. The fullUrl can be an "
     "arbitrary URI and is not limited to urn:uuid, urn:oid, http, and "
     "https. The fullUrl element SHALL have a value except when:  * invoking"
     " a create * invoking or responding to an operation where the body is "
@@ -690,7 +698,7 @@ class BundleEntrySearch(backboneelement.BackboneElement):
     mode: fhirtypes.Code = Field(
 		None,
 		alias="mode",
-		title="match | include | outcome - why this is in the result set",
+		title="match | include - why this is in the result set",
 		description=(
     "Why this entry is in the result set - whether it's included as a match"
     " or because of an _include requirement, or to convey information or "
@@ -700,7 +708,7 @@ class BundleEntrySearch(backboneelement.BackboneElement):
         element_property=True,
         # note: Enum values can be used in validation,
         # but use in your own responsibilities, read official FHIR documentation.
-		enum_values=["match", "include", "outcome"],
+		enum_values=["match", "include"],
 	)
     mode__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
         None,
@@ -737,7 +745,11 @@ class BundleLink(backboneelement.BackboneElement):
     for FHIR Primitive Data Types.
 
     Links related to this Bundle.
-    A series of links that provide context to this bundle.
+    A series of links that provide context to this bundle. The behavior of
+    navigation link types (next/prev/first/last) are well defined for searchset
+    and history Bundles but are not currently defined for other types.
+    Implementers who choose to use such link relationships for other bundle
+    types will need to negotiate behavior with their interoperability partners.
     """
     resource_type = Field("BundleLink", const=True)
 	

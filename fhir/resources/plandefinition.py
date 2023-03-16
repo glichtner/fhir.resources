@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/PlanDefinition
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 import typing
 from pydantic import Field
@@ -156,15 +156,35 @@ class PlanDefinition(domainresource.DomainResource):
         title="Extension field for ``copyright``."
     )
 	
+    copyrightLabel: fhirtypes.String = Field(
+		None,
+		alias="copyrightLabel",
+		title="Copyright holder and year(s)",
+		description=(
+    "A short string (<50 characters), suitable for inclusion in a page "
+    "footer that identifies the copyright holder, effective period, and "
+    "optionally whether rights are resctricted. (e.g. 'All rights "
+    "reserved', 'Some rights reserved')."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+	)
+    copyrightLabel__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
+        None,
+        alias="_copyrightLabel",
+        title="Extension field for ``copyrightLabel``."
+    )
+	
     date: fhirtypes.DateTime = Field(
 		None,
 		alias="date",
 		title="Date last changed",
 		description=(
-    "The date  (and optionally time) when the plan definition was "
-    "published. The date must change when the business version changes and "
-    "it must change if the status code changes. In addition, it should "
-    "change when the substantive content of the plan definition changes."
+    "The date  (and optionally time) when the plan definition was last "
+    "significantly changed. The date must change when the business version "
+    "changes and it must change if the status code changes. In addition, it"
+    " should change when the substantive content of the plan definition "
+    "changes."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -221,8 +241,9 @@ class PlanDefinition(domainresource.DomainResource):
 		alias="endorser",
 		title="Who endorsed the content",
 		description=(
-    "An individual or organization responsible for officially endorsing the"
-    " content for use in some setting."
+    "An individual or organization asserted by the publisher to be "
+    "responsible for officially endorsing the content for use in some "
+    "setting."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -289,7 +310,7 @@ class PlanDefinition(domainresource.DomainResource):
     lastReviewDate: fhirtypes.Date = Field(
 		None,
 		alias="lastReviewDate",
-		title="When the plan definition was last reviewed",
+		title="When the plan definition was last reviewed by the publisher",
 		description=(
     "The date on which the resource content was last reviewed. Review "
     "happens periodically after approval but does not change the original "
@@ -392,8 +413,8 @@ class PlanDefinition(domainresource.DomainResource):
 		alias="reviewer",
 		title="Who reviewed the content",
 		description=(
-    "An individual or organization primarily responsible for review of some"
-    " aspect of the content."
+    "An individual or organization asserted by the publisher to be "
+    "primarily responsible for review of some aspect of the content."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -570,7 +591,7 @@ class PlanDefinition(domainresource.DomainResource):
         title="Extension field for ``url``."
     )
 	
-    usage: fhirtypes.String = Field(
+    usage: fhirtypes.Markdown = Field(
 		None,
 		alias="usage",
 		title="Describes the clinical usage of the plan",
@@ -628,13 +649,48 @@ class PlanDefinition(domainresource.DomainResource):
         alias="_version",
         title="Extension field for ``version``."
     )
+	
+    versionAlgorithmCoding: fhirtypes.CodingType = Field(
+		None,
+		alias="versionAlgorithmCoding",
+		title="How to compare versions",
+		description=(
+    "Indicates the mechanism used to compare versions to determine which is"
+    " more current."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+        # Choice of Data Types. i.e versionAlgorithm[x]
+		one_of_many="versionAlgorithm",
+		one_of_many_required=False,
+	)
+	
+    versionAlgorithmString: fhirtypes.String = Field(
+		None,
+		alias="versionAlgorithmString",
+		title="How to compare versions",
+		description=(
+    "Indicates the mechanism used to compare versions to determine which is"
+    " more current."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+        # Choice of Data Types. i.e versionAlgorithm[x]
+		one_of_many="versionAlgorithm",
+		one_of_many_required=False,
+	)
+    versionAlgorithmString__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
+        None,
+        alias="_versionAlgorithmString",
+        title="Extension field for ``versionAlgorithmString``."
+    )
     @classmethod
     def elements_sequence(cls):
         """returning all elements names from
         ``PlanDefinition`` according specification,
         with preserving original sequence order.
         """
-        return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "url", "identifier", "version", "name", "title", "subtitle", "type", "status", "experimental", "subjectCodeableConcept", "subjectReference", "subjectCanonical", "date", "publisher", "contact", "description", "useContext", "jurisdiction", "purpose", "usage", "copyright", "approvalDate", "lastReviewDate", "effectivePeriod", "topic", "author", "editor", "reviewer", "endorser", "relatedArtifact", "library", "goal", "actor", "action", "asNeededBoolean", "asNeededCodeableConcept"]
+        return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "url", "identifier", "version", "versionAlgorithmString", "versionAlgorithmCoding", "name", "title", "subtitle", "type", "status", "experimental", "subjectCodeableConcept", "subjectReference", "subjectCanonical", "date", "publisher", "contact", "description", "useContext", "jurisdiction", "purpose", "usage", "copyright", "copyrightLabel", "approvalDate", "lastReviewDate", "effectivePeriod", "topic", "author", "editor", "reviewer", "endorser", "relatedArtifact", "library", "goal", "actor", "action", "asNeededBoolean", "asNeededCodeableConcept"]
 
 
     @root_validator(pre=True, allow_reuse=True)
@@ -720,7 +776,10 @@ class PlanDefinition(domainresource.DomainResource):
 			"subject": [
 			    "subjectCanonical",
 			    "subjectCodeableConcept",
-			    "subjectReference"]}
+			    "subjectReference"],
+			"versionAlgorithm": [
+			    "versionAlgorithmCoding",
+			    "versionAlgorithmString"]}
         for prefix, fields in one_of_many_fields.items():
             assert cls.__fields__[fields[0]].field_info.extra["one_of_many"] == prefix
             required = (
@@ -823,11 +882,11 @@ class PlanDefinitionAction(backboneelement.BackboneElement):
 		title="Description of the activity to be performed",
 		description=(
     "A reference to an ActivityDefinition that describes the action to be "
-    "taken in detail, a PlanDefinition that describes a series of actions "
-    "to be taken, a Questionnaire that should be filled out, a "
-    "SpecimenDefinition describing a specimen to be collected, or an "
-    "ObservationDefinition that specifies what observation should be "
-    "captured."
+    "taken in detail, a MessageDefinition describing a message to be snet, "
+    "a PlanDefinition that describes a series of actions to be taken, a "
+    "Questionnaire that should be filled out, a SpecimenDefinition "
+    "describing a specimen to be collected, or an ObservationDefinition "
+    "that specifies what observation should be captured."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -835,7 +894,7 @@ class PlanDefinitionAction(backboneelement.BackboneElement):
 		one_of_many="definition",
 		one_of_many_required=False,
         # note: Listed Resource Type(s) should be allowed as Reference.
-		enum_reference_types=["ActivityDefinition", "ObservationDefinition", "PlanDefinition", "Questionnaire", "SpecimenDefinition"],
+		enum_reference_types=["ActivityDefinition", "MessageDefinition", "ObservationDefinition", "PlanDefinition", "Questionnaire", "SpecimenDefinition"],
 	)
     definitionCanonical__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
         None,
@@ -849,11 +908,11 @@ class PlanDefinitionAction(backboneelement.BackboneElement):
 		title="Description of the activity to be performed",
 		description=(
     "A reference to an ActivityDefinition that describes the action to be "
-    "taken in detail, a PlanDefinition that describes a series of actions "
-    "to be taken, a Questionnaire that should be filled out, a "
-    "SpecimenDefinition describing a specimen to be collected, or an "
-    "ObservationDefinition that specifies what observation should be "
-    "captured."
+    "taken in detail, a MessageDefinition describing a message to be snet, "
+    "a PlanDefinition that describes a series of actions to be taken, a "
+    "Questionnaire that should be filled out, a SpecimenDefinition "
+    "describing a specimen to be collected, or an ObservationDefinition "
+    "that specifies what observation should be captured."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -867,7 +926,7 @@ class PlanDefinitionAction(backboneelement.BackboneElement):
         title="Extension field for ``definitionUri``."
     )
 	
-    description: fhirtypes.String = Field(
+    description: fhirtypes.Markdown = Field(
 		None,
 		alias="description",
 		title="Brief description of the action",
@@ -1183,7 +1242,7 @@ class PlanDefinitionAction(backboneelement.BackboneElement):
 		enum_reference_types=["Group"],
 	)
 	
-    textEquivalent: fhirtypes.String = Field(
+    textEquivalent: fhirtypes.Markdown = Field(
 		None,
 		alias="textEquivalent",
 		title=(
@@ -1512,7 +1571,7 @@ class PlanDefinitionActionDynamicValue(backboneelement.BackboneElement):
 		description=(
     "The path to the element to be customized. This is the path on the "
     "resource that will hold the result of the calculation defined by the "
-    "expression. The specified path SHALL be a FHIRPath resolveable on the "
+    "expression. The specified path SHALL be a FHIRPath resolvable on the "
     "specified target type of the ActivityDefinition, and SHALL consist "
     "only of identifiers, constant indexers, and a restricted subset of "
     "functions. The path is allowed to contain qualifiers (.) to traverse "
@@ -1696,7 +1755,7 @@ class PlanDefinitionActionParticipant(backboneelement.BackboneElement):
     function: fhirtypes.CodeableConceptType = Field(
 		None,
 		alias="function",
-		title="E.g. Author, Reviewer, Witness, etc.",
+		title="E.g. Author, Reviewer, Witness, etc",
 		description=(
     "Indicates how the actor will be involved in the action - author, "
     "reviewer, witness, etc."
@@ -1785,6 +1844,26 @@ class PlanDefinitionActionRelatedAction(backboneelement.BackboneElement):
     """
     resource_type = Field("PlanDefinitionActionRelatedAction", const=True)
 	
+    endRelationship: fhirtypes.Code = Field(
+		None,
+		alias="endRelationship",
+		title=(
+    "before | before-start | before-end | concurrent | concurrent-with-"
+    "start | concurrent-with-end | after | after-start | after-end"
+    ),
+		description="The relationship of the end of this action to the related action.",
+        # if property is element of this resource.
+        element_property=True,
+        # note: Enum values can be used in validation,
+        # but use in your own responsibilities, read official FHIR documentation.
+		enum_values=["before", "before-start", "before-end", "concurrent", "concurrent-with-start", "concurrent-with-end", "after", "after-start", "after-end"],
+	)
+    endRelationship__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
+        None,
+        alias="_endRelationship",
+        title="Extension field for ``endRelationship``."
+    )
+	
     offsetDuration: fhirtypes.DurationType = Field(
 		None,
 		alias="offsetDuration",
@@ -1819,16 +1898,16 @@ class PlanDefinitionActionRelatedAction(backboneelement.BackboneElement):
 		None,
 		alias="relationship",
 		title=(
-    "before-start | before | before-end | concurrent-with-start | "
-    "concurrent | concurrent-with-end | after-start | after | after-end"
+    "before | before-start | before-end | concurrent | concurrent-with-"
+    "start | concurrent-with-end | after | after-start | after-end"
     ),
-		description="The relationship of this action to the related action.",
+		description="The relationship of the start of this action to the related action.",
         # if property is element of this resource.
         element_property=True,
         element_required=True,
         # note: Enum values can be used in validation,
         # but use in your own responsibilities, read official FHIR documentation.
-		enum_values=["before-start", "before", "before-end", "concurrent-with-start", "concurrent", "concurrent-with-end", "after-start", "after", "after-end"],
+		enum_values=["before", "before-start", "before-end", "concurrent", "concurrent-with-start", "concurrent-with-end", "after", "after-start", "after-end"],
 	)
     relationship__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
         None,
@@ -1856,7 +1935,7 @@ class PlanDefinitionActionRelatedAction(backboneelement.BackboneElement):
         ``PlanDefinitionActionRelatedAction`` according specification,
         with preserving original sequence order.
         """
-        return ["id", "extension", "modifierExtension", "targetId", "relationship", "offsetDuration", "offsetRange"]
+        return ["id", "extension", "modifierExtension", "targetId", "relationship", "endRelationship", "offsetDuration", "offsetRange"]
 
 
     @root_validator(pre=True, allow_reuse=True)

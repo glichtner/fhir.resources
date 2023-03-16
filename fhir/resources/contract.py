@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/Contract
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 import typing
 from pydantic import Field
@@ -305,8 +305,8 @@ class Contract(domainresource.DomainResource):
     "definition, derivative, or instance, which identify key state "
     "transitions or updates that are likely to be relevant to a user "
     "looking at the current version of the Contract.  The Provence.entity "
-    "indicates the target that was changed in the update. "
-    "http://build.fhir.org/provenance-definitions.html#Provenance.entity."
+    "indicates the target that was changed in the update (see "
+    "[Provenance.entity](provenance-definitions.html#Provenance.entity))."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -643,10 +643,10 @@ class ContractContentDefinition(backboneelement.BackboneElement):
 		alias="publicationDate",
 		title="When published",
 		description=(
-    "The date (and optionally time) when the contract was published. The "
-    "date must change when the business version changes and it must change "
-    "if the status code changes. In addition, it should change when the "
-    "substantive content of the contract changes."
+    "The date (and optionally time) when the contract was last "
+    "significantly changed. The date must change when the business version "
+    "changes and it must change if the status code changes. In addition, it"
+    " should change when the substantive content of the contract changes."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -1344,7 +1344,7 @@ class ContractTermAction(backboneelement.BackboneElement):
 		alias="context",
 		title="Episode associated with action",
 		description=(
-    "Encounter or Episode with primary association to specified term "
+    "Encounter or Episode with primary association to the specified term "
     "activity."
     ),
         # if property is element of this resource.

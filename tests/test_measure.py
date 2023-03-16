@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/Measure
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 from pydantic.validators import bytes_validator  # noqa: F401
 from fhir.resources import fhirtypes  # noqa: F401
@@ -12,6 +12,7 @@ from fhir.resources import measure
 
 
 def impl_measure_1(inst):
+    assert inst.description == "Screening for Alcohol Misuse"
     assert inst.group[0].id == "Main"
     assert inst.group[0].population[0].code.coding[0].code == "initial-population"
     assert inst.group[0].population[0].criteria.expression == "Initial Population"
@@ -26,6 +27,7 @@ def impl_measure_1(inst):
     assert inst.meta.tag[0].code == "HTEST"
     assert inst.meta.tag[0].display == "test health data"
     assert inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
+    assert inst.name == "ScreeningForAlcoholMisuse"
     assert inst.scoring.coding[0].code == "proportion"
     assert inst.status == "draft"
     assert inst.text.status == "generated"
@@ -189,6 +191,7 @@ def test_measure_2(base_settings):
 
 
 def impl_measure_3(inst):
+    assert inst.description == "Screening for Depression"
     assert inst.group[0].id == "Main"
     assert inst.group[0].population[0].code.coding[0].code == "initial-population"
     assert inst.group[0].population[0].criteria.expression == "Initial Population"
@@ -203,6 +206,7 @@ def impl_measure_3(inst):
     assert inst.meta.tag[0].code == "HTEST"
     assert inst.meta.tag[0].display == "test health data"
     assert inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
+    assert inst.name == "ScreeningForDepression"
     assert inst.scoring.coding[0].code == "proportion"
     assert inst.status == "draft"
     assert inst.text.status == "generated"
@@ -278,6 +282,7 @@ def impl_measure_4(inst):
     assert inst.meta.tag[0].code == "HTEST"
     assert inst.meta.tag[0].display == "test health data"
     assert inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
+    assert inst.name == "ExclusiveBreastfeedingMeasure"
     assert inst.purpose == (
     "Measure of newborns who were fed breast milk only since "
     "birth"
@@ -341,10 +346,12 @@ def test_measure_4(base_settings):
 
 def impl_measure_5(inst):
     assert inst.compositeScoring.coding[0].code == "opportunity"
+    assert inst.description == "Behavioral Assessment Composite Measure"
     assert inst.id == "composite-example"
     assert inst.meta.tag[0].code == "HTEST"
     assert inst.meta.tag[0].display == "test health data"
     assert inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
+    assert inst.name == "BehavioralAssessmentCompositeMeasure"
     assert inst.relatedArtifact[0].resource == "http://example.org/fhir/Measure/component-a-example"
     assert inst.relatedArtifact[0].type == "composed-of"
     assert inst.relatedArtifact[1].resource == "http://example.org/fhir/Measure/component-b-example"
@@ -424,6 +431,7 @@ def impl_measure_6(inst):
     assert inst.meta.tag[0].code == "HTEST"
     assert inst.meta.tag[0].display == "test health data"
     assert inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
+    assert inst.name == "ExclusiveBreastfeedingMeasure"
     assert inst.purpose == (
     "Measure of newborns who were fed breast milk only since "
     "birth"

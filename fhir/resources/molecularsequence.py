@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/MolecularSequence
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 import typing
 from pydantic import Field
@@ -33,6 +33,26 @@ class MolecularSequence(domainresource.DomainResource):
         element_property=True,
         # note: Listed Resource Type(s) should be allowed as Reference.
 		enum_reference_types=["Device"],
+	)
+	
+    focus: typing.List[fhirtypes.ReferenceType] = Field(
+		None,
+		alias="focus",
+		title=(
+    "What the molecular sequence is about, when it is not about the subject"
+    " of record"
+    ),
+		description=(
+    "The actual focus of a molecular sequence when it is not the patient of"
+    " record representing something or someone associated with the patient "
+    "such as a spouse, parent, child, or sibling. For example, in trio "
+    "testing, the subject would be the child (proband) and the focus would "
+    "be the parent."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+        # note: Listed Resource Type(s) should be allowed as Reference.
+		enum_reference_types=["Resource"],
 	)
 	
     formatted: typing.List[fhirtypes.AttachmentType] = Field(
@@ -112,7 +132,7 @@ class MolecularSequence(domainresource.DomainResource):
         # if property is element of this resource.
         element_property=True,
         # note: Listed Resource Type(s) should be allowed as Reference.
-		enum_reference_types=["Patient", "Group", "Device", "Location", "Organization", "Procedure", "Practitioner", "Medication", "Substance", "BiologicallyDerivedProduct", "NutritionProduct"],
+		enum_reference_types=["Patient", "Group", "Substance", "BiologicallyDerivedProduct", "NutritionProduct"],
 	)
 	
     type: fhirtypes.Code = Field(
@@ -137,7 +157,7 @@ class MolecularSequence(domainresource.DomainResource):
         ``MolecularSequence`` according specification,
         with preserving original sequence order.
         """
-        return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "identifier", "type", "subject", "specimen", "device", "performer", "literal", "formatted", "relative"]
+        return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "identifier", "type", "subject", "focus", "specimen", "device", "performer", "literal", "formatted", "relative"]
 
 
 

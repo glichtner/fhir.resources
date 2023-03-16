@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/BiologicallyDerivedProduct
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 from pydantic.validators import bytes_validator  # noqa: F401
 from fhir.resources import fhirtypes  # noqa: F401
@@ -28,19 +28,19 @@ def impl_biologicallyderivedproduct_1(inst):
     assert inst.productCategory.code == "cells"
     assert inst.productCode.coding[0].code == "S1128"
     assert inst.productStatus.code == "available"
-    assert inst.property[0].type.code == "62"
+    assert inst.property[0].type.coding[0].code == "ABORhD"
     assert inst.property[0].valueCodeableConcept.coding[0].code == "62"
     assert inst.property[0].valueCodeableConcept.coding[0].display == "A RhD Positive"
     assert inst.property[0].valueCodeableConcept.coding[0].system == "https://www.isbt128.org/uri/ABORhD"
-    assert inst.property[1].type.code == "CollectionType"
+    assert inst.property[1].type.coding[0].code == "CollectionType"
     assert inst.property[1].valueCodeableConcept.coding[0].code == "1"
     assert inst.property[1].valueCodeableConcept.coding[0].display == "For Autologous Use Only"
     assert inst.property[1].valueCodeableConcept.coding[0].system == "https://www.isbt128.org/uri/CollectionType"
-    assert inst.property[2].type.code == "BagVolume"
+    assert inst.property[2].type.coding[0].code == "BagVolume"
     assert inst.property[2].valueQuantity.system == "http://unitsofmeasure.org"
     assert inst.property[2].valueQuantity.unit == "mL"
     assert float(inst.property[2].valueQuantity.value) == float(50)
-    assert inst.property[3].type.code == "74838-4"
+    assert inst.property[3].type.coding[0].code == "74838-4"
     assert inst.property[3].valueQuantity.system == "https://ucum.org/"
     assert inst.property[3].valueQuantity.unit == "10*6/mL"
     assert float(inst.property[3].valueQuantity.value) == float(2.6)
@@ -88,11 +88,11 @@ def impl_biologicallyderivedproduct_2(inst):
     assert inst.processingFacility[0].reference == "Organization/A9999"
     assert inst.productCode.coding[0].code == "E0398"
     assert inst.productStatus.code == "available"
-    assert inst.property[0].type.code == "ABORhD"
+    assert inst.property[0].type.coding[0].code == "ABORhD"
     assert inst.property[0].valueCodeableConcept.coding[0].code == "62"
     assert inst.property[0].valueCodeableConcept.coding[0].display == "A RhD Positive"
     assert inst.property[0].valueCodeableConcept.coding[0].system == "https://www.isbt128.org/uri/ABORhD"
-    assert inst.property[1].type.code == "V"
+    assert inst.property[1].type.coding[0].code == "Donor"
     assert inst.property[1].valueCodeableConcept.coding[0].code == "V"
     assert inst.property[1].valueCodeableConcept.coding[0].display == "Volunteer"
     assert inst.property[1].valueCodeableConcept.coding[0].system == "https://www.isbt128.org/uri/CollectionType"

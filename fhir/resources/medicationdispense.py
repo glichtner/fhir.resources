@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/MedicationDispense
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 import typing
 from pydantic import Field
@@ -82,10 +82,10 @@ class MedicationDispense(domainresource.DomainResource):
     destination: fhirtypes.ReferenceType = Field(
 		None,
 		alias="destination",
-		title="Where the medication was sent",
+		title="Where the medication was/will be sent",
 		description=(
-    "Identification of the facility/location where the medication was "
-    "shipped to, as part of the dispense event."
+    "Identification of the facility/location where the medication was/will "
+    "be shipped to, as part of the dispense event."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -264,7 +264,7 @@ class MedicationDispense(domainresource.DomainResource):
         title="Extension field for ``recorded``."
     )
 	
-    renderedDosageInstruction: fhirtypes.String = Field(
+    renderedDosageInstruction: fhirtypes.Markdown = Field(
 		None,
 		alias="renderedDosageInstruction",
 		title="Full representation of the dosage instructions",
@@ -369,7 +369,7 @@ class MedicationDispense(domainresource.DomainResource):
     type: fhirtypes.CodeableConceptType = Field(
 		None,
 		alias="type",
-		title="Trial fill, partial fill, emergency fill, etc.",
+		title="Trial fill, partial fill, emergency fill, etc",
 		description=(
     "Indicates the type of dispensing event that is performed. For example,"
     " Trial Fill, Completion of Trial, Partial Fill, Emergency Fill, "

@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/Procedure
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 import typing
 from pydantic import Field
@@ -83,7 +83,7 @@ class Procedure(domainresource.DomainResource):
         element_property=True,
 	)
 	
-    complication: typing.List[fhirtypes.CodeableConceptType] = Field(
+    complication: typing.List[fhirtypes.CodeableReferenceType] = Field(
 		None,
 		alias="complication",
 		title="Complication following the procedure",
@@ -92,18 +92,6 @@ class Procedure(domainresource.DomainResource):
     "immediate post-performance period. These are generally tracked "
     "separately from the notes, which will typically describe the procedure"
     " itself rather than any 'post procedure' issues."
-    ),
-        # if property is element of this resource.
-        element_property=True,
-	)
-	
-    complicationDetail: typing.List[fhirtypes.ReferenceType] = Field(
-		None,
-		alias="complicationDetail",
-		title="A condition that is a result of the procedure",
-		description=(
-    "Any complications that occurred during the procedure, or in the "
-    "immediate post-performance period."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -160,7 +148,7 @@ class Procedure(domainresource.DomainResource):
         # if property is element of this resource.
         element_property=True,
         # note: Listed Resource Type(s) should be allowed as Reference.
-		enum_reference_types=["Patient", "Group", "RelatedPerson", "Practitioner", "Organization", "CareTeam", "PractitionerRole"],
+		enum_reference_types=["Patient", "Group", "RelatedPerson", "Practitioner", "Organization", "CareTeam", "PractitionerRole", "Specimen"],
 	)
 	
     followUp: typing.List[fhirtypes.CodeableConceptType] = Field(
@@ -586,7 +574,7 @@ class Procedure(domainresource.DomainResource):
         ``Procedure`` according specification,
         with preserving original sequence order.
         """
-        return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "identifier", "instantiatesCanonical", "instantiatesUri", "basedOn", "partOf", "status", "statusReason", "category", "code", "subject", "focus", "encounter", "occurrenceDateTime", "occurrencePeriod", "occurrenceString", "occurrenceAge", "occurrenceRange", "occurrenceTiming", "recorded", "recorder", "reportedBoolean", "reportedReference", "performer", "location", "reason", "bodySite", "outcome", "report", "complication", "complicationDetail", "followUp", "note", "focalDevice", "used", "supportingInfo"]
+        return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "identifier", "instantiatesCanonical", "instantiatesUri", "basedOn", "partOf", "status", "statusReason", "category", "code", "subject", "focus", "encounter", "occurrenceDateTime", "occurrencePeriod", "occurrenceString", "occurrenceAge", "occurrenceRange", "occurrenceTiming", "recorded", "recorder", "reportedBoolean", "reportedReference", "performer", "location", "reason", "bodySite", "outcome", "report", "complication", "followUp", "note", "focalDevice", "used", "supportingInfo"]
 
 
     @root_validator(pre=True, allow_reuse=True)
@@ -778,7 +766,10 @@ class ProcedurePerformer(backboneelement.BackboneElement):
 		None,
 		alias="onBehalfOf",
 		title="Organization the device or practitioner was acting for",
-		description="The organization the device or practitioner was acting on behalf of.",
+		description=(
+    "The Organization the Patient, RelatedPerson, Device, CareTeam, and "
+    "HealthcareService was acting on behalf of."
+    ),
         # if property is element of this resource.
         element_property=True,
         # note: Listed Resource Type(s) should be allowed as Reference.

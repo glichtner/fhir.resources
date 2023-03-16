@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/ExampleScenario
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 import typing
 from pydantic import Field
@@ -93,11 +93,11 @@ class ExampleScenario(domainresource.DomainResource):
 		alias="date",
 		title="Date last changed",
 		description=(
-    "The date  (and optionally time) when the example scenario was "
-    "published. The date must change when the business version changes and "
-    "it must change if the status code changes. In addition, it should "
-    "change when the substantive content of the example scenario changes. "
-    "(e.g. the 'content logical definition')."
+    "The date  (and optionally time) when the example scenario was last "
+    "significantly changed. The date must change when the business version "
+    "changes and it must change if the status code changes. In addition, it"
+    " should change when the substantive content of the example scenario "
+    "changes. (e.g. the 'content logical definition')."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -1072,13 +1072,31 @@ class ExampleScenarioInstanceVersion(backboneelement.BackboneElement):
         alias="_key",
         title="Extension field for ``key``."
     )
+	
+    title: fhirtypes.String = Field(
+		None,
+		alias="title",
+		title="Label for instance version",
+		description=(
+    "A short descriptive label the version to be used in tables or "
+    "diagrams."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+        element_required=True,
+	)
+    title__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
+        None,
+        alias="_title",
+        title="Extension field for ``title``."
+    )
     @classmethod
     def elements_sequence(cls):
         """returning all elements names from
         ``ExampleScenarioInstanceVersion`` according specification,
         with preserving original sequence order.
         """
-        return ["id", "extension", "modifierExtension", "key", "description", "content"]
+        return ["id", "extension", "modifierExtension", "key", "title", "description", "content"]
 
 
     @root_validator(pre=True, allow_reuse=True)
@@ -1093,7 +1111,8 @@ class ExampleScenarioInstanceVersion(backboneelement.BackboneElement):
         the primitive value is not present.
         """
         required_fields = [
-			("key", "key__ext")]
+			("key", "key__ext"),
+			("title", "title__ext")]
         _missing = object()
 
         def _fallback():

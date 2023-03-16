@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/Questionnaire
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 import typing
 from pydantic import Field
@@ -115,10 +115,11 @@ class Questionnaire(domainresource.DomainResource):
 		alias="date",
 		title="Date last formally published",
 		description=(
-    "The date  (and optionally time) when the questionnaire was published. "
-    "The date must change when the business version changes and it must "
-    "change if the status code changes. In addition, it should change when "
-    "the substantive content of the questionnaire changes."
+    "The date  (and optionally time) when the questionnaire was last "
+    "significantly changed. The date must change when the business version "
+    "changes and it must change if the status code changes. In addition, it"
+    " should change when the substantive content of the questionnaire "
+    "changes."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -132,7 +133,7 @@ class Questionnaire(domainresource.DomainResource):
     derivedFrom: typing.List[fhirtypes.Canonical] = Field(
 		None,
 		alias="derivedFrom",
-		title="Instantiates protocol or definition",
+		title="Based on Questionnaire",
 		description="The URL of a Questionnaire that this Questionnaire is based on.",
         # if property is element of this resource.
         element_property=True,
@@ -232,7 +233,7 @@ class Questionnaire(domainresource.DomainResource):
     lastReviewDate: fhirtypes.Date = Field(
 		None,
 		alias="lastReviewDate",
-		title="When the questionnaire was last reviewed",
+		title="When the questionnaire was last reviewed by the publisher",
 		description=(
     "The date on which the resource content was last reviewed. Review "
     "happens periodically after approval but does not change the original "
@@ -577,7 +578,7 @@ class QuestionnaireItem(backboneelement.BackboneElement):
 		title="optionsOnly | optionsOrType | optionsOrString",
 		description=(
     "For items that have a defined set of allowed answers (via answerOption"
-    " or answerValueset), indicates whether values *other* than those "
+    " or answerValueSet), indicates whether values *other* than those "
     "specified can be selected."
     ),
         # if property is element of this resource.
@@ -604,7 +605,7 @@ class QuestionnaireItem(backboneelement.BackboneElement):
     answerValueSet: fhirtypes.Canonical = Field(
 		None,
 		alias="answerValueSet",
-		title="Valueset containing permitted answers",
+		title="ValueSet containing permitted answers",
 		description=(
     "A reference to a value set containing a list of values representing "
     "permitted answers for a question."
@@ -638,10 +639,11 @@ class QuestionnaireItem(backboneelement.BackboneElement):
 		title="ElementDefinition - details for the item",
 		description=(
     "This element is a URI that refers to an "
-    "[ElementDefinition](elementdefinition.html) that provides information "
-    "about this item, including information that might otherwise be "
-    "included in the instance of the Questionnaire resource. A detailed "
-    "description of the construction of the URI is shown in "
+    "[ElementDefinition](elementdefinition.html) or to an "
+    "[ObservationDefinition](observationdefinition.html) that provides "
+    "information about this item, including information that might "
+    "otherwise be included in the instance of the Questionnaire resource. A"
+    " detailed description of the construction of the URI is shown in "
     "[Comments](questionnaire.html#definition), below."
     ),
         # if property is element of this resource.
@@ -751,7 +753,7 @@ class QuestionnaireItem(backboneelement.BackboneElement):
     maxLength: fhirtypes.Integer = Field(
 		None,
 		alias="maxLength",
-		title="No more than this many characters",
+		title="No more than these many characters",
 		description=(
     "The maximum number of characters that are permitted in the answer to "
     "be considered a \"valid\" QuestionnaireResponse."

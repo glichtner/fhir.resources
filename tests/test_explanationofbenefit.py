@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/ExplanationOfBenefit
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 from pydantic.validators import bytes_validator  # noqa: F401
 from fhir.resources import fhirtypes  # noqa: F401
@@ -30,7 +30,7 @@ def impl_explanationofbenefit_1(inst):
     assert float(inst.item[0].adjudication[0].amount.value) == float(120.0)
     assert inst.item[0].adjudication[0].category.coding[0].code == "eligible"
     assert inst.item[0].adjudication[1].category.coding[0].code == "eligpercent"
-    assert float(inst.item[0].adjudication[1].value) == float(0.8)
+    assert float(inst.item[0].adjudication[1].quantity.value) == float(0.8)
     assert inst.item[0].adjudication[2].amount.currency == "USD"
     assert float(inst.item[0].adjudication[2].amount.value) == float(96.0)
     assert inst.item[0].adjudication[2].category.coding[0].code == "benefit"
@@ -60,7 +60,7 @@ def impl_explanationofbenefit_1(inst):
     assert float(inst.item[1].detail[0].subDetail[0].adjudication[0].amount.value) == float(200.0)
     assert inst.item[1].detail[0].subDetail[0].adjudication[0].category.coding[0].code == "eligible"
     assert inst.item[1].detail[0].subDetail[0].adjudication[1].category.coding[0].code == "eligpercent"
-    assert float(inst.item[1].detail[0].subDetail[0].adjudication[1].value) == float(0.9)
+    assert float(inst.item[1].detail[0].subDetail[0].adjudication[1].quantity.value) == float(0.9)
     assert inst.item[1].detail[0].subDetail[0].adjudication[2].amount.currency == "USD"
     assert float(inst.item[1].detail[0].subDetail[0].adjudication[2].amount.value) == float(180.0)
     assert inst.item[1].detail[0].subDetail[0].adjudication[2].category.coding[0].code == "benefit"
@@ -164,7 +164,8 @@ def impl_explanationofbenefit_2(inst):
     assert inst.processNote[0].language.coding[0].system == "urn:ietf:bcp:47"
     assert inst.processNote[0].number == 1
     assert inst.processNote[0].text == "Invalid claim"
-    assert inst.processNote[0].type == "display"
+    assert inst.processNote[0].type.coding[0].code == "display"
+    assert inst.processNote[0].type.coding[0].system == "http://hl7.org/fhir/note-type"
     assert inst.provider.reference == "Organization/2"
     assert inst.related[0].reference.system == "http://www.BenefitsInc.com/case-number"
     assert inst.related[0].reference.value == "23-56Tu-XX-47-20150M14"

@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/MessageHeader
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 import typing
 from pydantic import Field
@@ -45,7 +45,7 @@ class MessageHeader(domainresource.DomainResource):
         # if property is element of this resource.
         element_property=True,
         # note: Listed Resource Type(s) should be allowed as Reference.
-		enum_reference_types=["Practitioner", "PractitionerRole"],
+		enum_reference_types=["Practitioner", "PractitionerRole", "Device", "Organization"],
 	)
 	
     definition: fhirtypes.Canonical = Field(
@@ -73,21 +73,6 @@ class MessageHeader(domainresource.DomainResource):
         element_property=True,
 	)
 	
-    enterer: fhirtypes.ReferenceType = Field(
-		None,
-		alias="enterer",
-		title="The source of the data entry",
-		description=(
-    "The person or device that performed the data entry leading to this "
-    "message. When there is more than one candidate, pick the most proximal"
-    " to the message. Can provide other enterers in extensions."
-    ),
-        # if property is element of this resource.
-        element_property=True,
-        # note: Listed Resource Type(s) should be allowed as Reference.
-		enum_reference_types=["Practitioner", "PractitionerRole"],
-	)
-	
     eventCanonical: fhirtypes.Canonical = Field(
 		None,
 		alias="eventCanonical",
@@ -95,8 +80,8 @@ class MessageHeader(domainresource.DomainResource):
 		description=(
     "Code that identifies the event this message represents and connects it"
     " with its definition. Events defined as part of the FHIR specification"
-    " have the system value \"http://terminology.hl7.org/CodeSystem/message-"
-    "events\".  Alternatively a canonical uri to the EventDefinition."
+    " are defined by the implementation.  Alternatively a canonical uri to "
+    "the EventDefinition."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -119,8 +104,8 @@ class MessageHeader(domainresource.DomainResource):
 		description=(
     "Code that identifies the event this message represents and connects it"
     " with its definition. Events defined as part of the FHIR specification"
-    " have the system value \"http://terminology.hl7.org/CodeSystem/message-"
-    "events\".  Alternatively a canonical uri to the EventDefinition."
+    " are defined by the implementation.  Alternatively a canonical uri to "
+    "the EventDefinition."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -193,7 +178,7 @@ class MessageHeader(domainresource.DomainResource):
         # if property is element of this resource.
         element_property=True,
         # note: Listed Resource Type(s) should be allowed as Reference.
-		enum_reference_types=["Practitioner", "PractitionerRole", "Organization"],
+		enum_reference_types=["Practitioner", "PractitionerRole", "Device", "Organization"],
 	)
 	
     source: fhirtypes.MessageHeaderSourceType = Field(
@@ -210,7 +195,7 @@ class MessageHeader(domainresource.DomainResource):
         ``MessageHeader`` according specification,
         with preserving original sequence order.
         """
-        return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "eventCoding", "eventCanonical", "destination", "sender", "enterer", "author", "source", "responsible", "reason", "response", "focus", "definition"]
+        return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "eventCoding", "eventCanonical", "destination", "sender", "author", "source", "responsible", "reason", "response", "focus", "definition"]
 
 
     @root_validator(pre=True, allow_reuse=True)
@@ -267,18 +252,35 @@ class MessageHeaderDestination(backboneelement.BackboneElement):
     """
     resource_type = Field("MessageHeaderDestination", const=True)
 	
-    endpoint: fhirtypes.Url = Field(
+    endpointReference: fhirtypes.ReferenceType = Field(
 		None,
-		alias="endpoint",
-		title="Actual destination address or id",
-		description="Indicates where the message should be routed to.",
+		alias="endpointReference",
+		title="Actual destination address or Endpoint resource",
+		description="Indicates where the message should be routed.",
         # if property is element of this resource.
         element_property=True,
+        # Choice of Data Types. i.e endpoint[x]
+		one_of_many="endpoint",
+		one_of_many_required=False,
+        # note: Listed Resource Type(s) should be allowed as Reference.
+		enum_reference_types=["Endpoint"],
 	)
-    endpoint__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
+	
+    endpointUrl: fhirtypes.Url = Field(
+		None,
+		alias="endpointUrl",
+		title="Actual destination address or Endpoint resource",
+		description="Indicates where the message should be routed.",
+        # if property is element of this resource.
+        element_property=True,
+        # Choice of Data Types. i.e endpoint[x]
+		one_of_many="endpoint",
+		one_of_many_required=False,
+	)
+    endpointUrl__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
         None,
-        alias="_endpoint",
-        title="Extension field for ``endpoint``."
+        alias="_endpointUrl",
+        title="Extension field for ``endpointUrl``."
     )
 	
     name: fhirtypes.String = Field(
@@ -329,8 +331,49 @@ class MessageHeaderDestination(backboneelement.BackboneElement):
         ``MessageHeaderDestination`` according specification,
         with preserving original sequence order.
         """
-        return ["id", "extension", "modifierExtension", "name", "target", "endpoint", "receiver"]
+        return ["id", "extension", "modifierExtension", "endpointUrl", "endpointReference", "name", "target", "receiver"]
 
+
+    @root_validator(pre=True, allow_reuse=True)
+    def validate_one_of_many_2635(
+        cls, values: typing.Dict[str, typing.Any]
+    ) -> typing.Dict[str, typing.Any]:
+        """https://www.hl7.org/fhir/formats.html#choice
+        A few elements have a choice of more than one data type for their content.
+        All such elements have a name that takes the form nnn[x].
+        The "nnn" part of the name is constant, and the "[x]" is replaced with
+        the title-cased name of the type that is actually used.
+        The table view shows each of these names explicitly.
+
+        Elements that have a choice of data type cannot repeat - they must have a
+        maximum cardinality of 1. When constructing an instance of an element with a
+        choice of types, the authoring system must create a single element with a
+        data type chosen from among the list of permitted data types.
+        """
+        one_of_many_fields = {
+			"endpoint": [
+			    "endpointReference",
+			    "endpointUrl"]}
+        for prefix, fields in one_of_many_fields.items():
+            assert cls.__fields__[fields[0]].field_info.extra["one_of_many"] == prefix
+            required = (
+                cls.__fields__[fields[0]].field_info.extra["one_of_many_required"]
+                is True
+            )
+            found = False
+            for field in fields:
+                if field in values and values[field] is not None:
+                    if found is True:
+                        raise ValueError(
+                            "Any of one field value is expected from "
+                            f"this list {fields}, but got multiple!"
+                        )
+                    else:
+                        found = True
+            if required is True and found is False:
+                raise ValueError(f"Expect any of field value from this list {fields}.")
+
+        return values
 
 
 class MessageHeaderResponse(backboneelement.BackboneElement):
@@ -379,9 +422,9 @@ class MessageHeaderResponse(backboneelement.BackboneElement):
     identifier: fhirtypes.IdentifierType = Field(
 		...,
 		alias="identifier",
-		title="Id of original message",
+		title="Bundle.identifier of original message",
 		description=(
-    "The MessageHeader.id of the message to which this message is a "
+    "The Bundle.identifier of the message to which this message is a "
     "response."
     ),
         # if property is element of this resource.
@@ -479,18 +522,35 @@ class MessageHeaderSource(backboneelement.BackboneElement):
         element_property=True,
 	)
 	
-    endpoint: fhirtypes.Url = Field(
+    endpointReference: fhirtypes.ReferenceType = Field(
 		None,
-		alias="endpoint",
-		title="Actual message source address or id",
+		alias="endpointReference",
+		title="Actual source address or Endpoint resource",
 		description="Identifies the routing target to send acknowledgements to.",
         # if property is element of this resource.
         element_property=True,
+        # Choice of Data Types. i.e endpoint[x]
+		one_of_many="endpoint",
+		one_of_many_required=False,
+        # note: Listed Resource Type(s) should be allowed as Reference.
+		enum_reference_types=["Endpoint"],
 	)
-    endpoint__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
+	
+    endpointUrl: fhirtypes.Url = Field(
+		None,
+		alias="endpointUrl",
+		title="Actual source address or Endpoint resource",
+		description="Identifies the routing target to send acknowledgements to.",
+        # if property is element of this resource.
+        element_property=True,
+        # Choice of Data Types. i.e endpoint[x]
+		one_of_many="endpoint",
+		one_of_many_required=False,
+	)
+    endpointUrl__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
         None,
-        alias="_endpoint",
-        title="Extension field for ``endpoint``."
+        alias="_endpointUrl",
+        title="Extension field for ``endpointUrl``."
     )
 	
     name: fhirtypes.String = Field(
@@ -543,5 +603,46 @@ class MessageHeaderSource(backboneelement.BackboneElement):
         ``MessageHeaderSource`` according specification,
         with preserving original sequence order.
         """
-        return ["id", "extension", "modifierExtension", "name", "software", "version", "contact", "endpoint"]
+        return ["id", "extension", "modifierExtension", "endpointUrl", "endpointReference", "name", "software", "version", "contact"]
 
+
+    @root_validator(pre=True, allow_reuse=True)
+    def validate_one_of_many_2097(
+        cls, values: typing.Dict[str, typing.Any]
+    ) -> typing.Dict[str, typing.Any]:
+        """https://www.hl7.org/fhir/formats.html#choice
+        A few elements have a choice of more than one data type for their content.
+        All such elements have a name that takes the form nnn[x].
+        The "nnn" part of the name is constant, and the "[x]" is replaced with
+        the title-cased name of the type that is actually used.
+        The table view shows each of these names explicitly.
+
+        Elements that have a choice of data type cannot repeat - they must have a
+        maximum cardinality of 1. When constructing an instance of an element with a
+        choice of types, the authoring system must create a single element with a
+        data type chosen from among the list of permitted data types.
+        """
+        one_of_many_fields = {
+			"endpoint": [
+			    "endpointReference",
+			    "endpointUrl"]}
+        for prefix, fields in one_of_many_fields.items():
+            assert cls.__fields__[fields[0]].field_info.extra["one_of_many"] == prefix
+            required = (
+                cls.__fields__[fields[0]].field_info.extra["one_of_many_required"]
+                is True
+            )
+            found = False
+            for field in fields:
+                if field in values and values[field] is not None:
+                    if found is True:
+                        raise ValueError(
+                            "Any of one field value is expected from "
+                            f"this list {fields}, but got multiple!"
+                        )
+                    else:
+                        found = True
+            if required is True and found is False:
+                raise ValueError(f"Expect any of field value from this list {fields}.")
+
+        return values

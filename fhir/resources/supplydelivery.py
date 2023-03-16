@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/SupplyDelivery
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 import typing
 from pydantic import Field
@@ -135,11 +135,11 @@ class SupplyDelivery(domainresource.DomainResource):
 		None,
 		alias="receiver",
 		title="Who received the delivery",
-		description="Identifies the person or organization that received the delivery.",
+		description="Identifies the individual or organization that received the delivery.",
         # if property is element of this resource.
         element_property=True,
         # note: Listed Resource Type(s) should be allowed as Reference.
-		enum_reference_types=["Practitioner", "PractitionerRole"],
+		enum_reference_types=["Practitioner", "PractitionerRole", "Organization"],
 	)
 	
     status: fhirtypes.Code = Field(
@@ -287,7 +287,7 @@ class SupplyDeliverySuppliedItem(backboneelement.BackboneElement):
 		one_of_many="item",
 		one_of_many_required=False,
         # note: Listed Resource Type(s) should be allowed as Reference.
-		enum_reference_types=["Medication", "Substance", "Device", "BiologicallyDerivedProduct"],
+		enum_reference_types=["Medication", "Substance", "Device", "BiologicallyDerivedProduct", "NutritionProduct", "InventoryItem"],
 	)
 	
     quantity: fhirtypes.QuantityType = Field(

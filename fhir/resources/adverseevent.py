@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/AdverseEvent
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 import typing
 from pydantic import Field
@@ -23,20 +23,21 @@ class AdverseEvent(domainresource.DomainResource):
     Resource StructureDefinition, instead used to enable Extensibility feature
     for FHIR Primitive Data Types.
 
-    Medical care, research study or other healthcare event causing physical
-    injury.
+    An event that may be related to unintended effects on a patient or research
+    participant.
     An event (i.e. any change to current patient status) that may be related to
-    unintended effects on a patient or research subject. The unintended effects
-    may require additional monitoring, treatment, hospitalization, or may
-    result in death. The AdverseEvent resource also extends to potential or
+    unintended effects on a patient or research participant. The unintended
+    effects may require additional monitoring, treatment, hospitalization, or
+    may result in death. The AdverseEvent resource also extends to potential or
     avoided events that could have had such effects. There are two major
     domains where the AdverseEvent resource is expected to be used. One is in
     clinical care reported adverse events and the other is in reporting adverse
-    events in clinical  research trial management. Given the differences
-    between these two arenas, we recommend consulting the domain specific
-    implementation guides when implementing the AdverseEvent Resource. The
-    implementation guides include specific extensions, value sets and
-    constraints.
+    events in clinical  research trial management. Adverse events can be
+    reported by healthcare providers, patients, caregivers or by medical
+    products manufacturers. Given the differences between these two concepts,
+    we recommend consulting the domain specific implementation guides when
+    implementing the AdverseEvent Resource. The implementation guides include
+    specific extensions, value sets and constraints.
     """
     resource_type = Field("AdverseEvent", const=True)
 	
@@ -307,9 +308,9 @@ class AdverseEvent(domainresource.DomainResource):
 		enum_reference_types=["Patient", "Practitioner", "PractitionerRole", "RelatedPerson", "ResearchSubject"],
 	)
 	
-    resultingCondition: typing.List[fhirtypes.ReferenceType] = Field(
+    resultingEffect: typing.List[fhirtypes.ReferenceType] = Field(
 		None,
-		alias="resultingCondition",
+		alias="resultingEffect",
 		title="Effect on the subject due to this event",
 		description=(
     "Information about the condition that occurred as a result of the "
@@ -320,7 +321,7 @@ class AdverseEvent(domainresource.DomainResource):
         # if property is element of this resource.
         element_property=True,
         # note: Listed Resource Type(s) should be allowed as Reference.
-		enum_reference_types=["Condition"],
+		enum_reference_types=["Condition", "Observation"],
 	)
 	
     seriousness: fhirtypes.CodeableConceptType = Field(
@@ -401,7 +402,7 @@ class AdverseEvent(domainresource.DomainResource):
         ``AdverseEvent`` according specification,
         with preserving original sequence order.
         """
-        return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "identifier", "status", "actuality", "category", "code", "subject", "encounter", "occurrenceDateTime", "occurrencePeriod", "occurrenceTiming", "detected", "recordedDate", "resultingCondition", "location", "seriousness", "outcome", "recorder", "participant", "study", "expectedInResearchStudy", "suspectEntity", "contributingFactor", "preventiveAction", "mitigatingAction", "supportingInfo", "note"]
+        return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "identifier", "status", "actuality", "category", "code", "subject", "encounter", "occurrenceDateTime", "occurrencePeriod", "occurrenceTiming", "detected", "recordedDate", "resultingEffect", "location", "seriousness", "outcome", "recorder", "participant", "study", "expectedInResearchStudy", "suspectEntity", "contributingFactor", "preventiveAction", "mitigatingAction", "supportingInfo", "note"]
 
 
     @root_validator(pre=True, allow_reuse=True)
@@ -557,7 +558,7 @@ class AdverseEventContributingFactor(backboneelement.BackboneElement):
 		one_of_many="item",
 		one_of_many_required=True,
         # note: Listed Resource Type(s) should be allowed as Reference.
-		enum_reference_types=["Condition", "Observation", "AllergyIntolerance", "FamilyMemberHistory", "Immunization", "Procedure", "Device", "DocumentReference", "MedicationAdministration", "MedicationUsage"],
+		enum_reference_types=["Condition", "Observation", "AllergyIntolerance", "FamilyMemberHistory", "Immunization", "Procedure", "Device", "DeviceUsage", "DocumentReference", "MedicationAdministration", "MedicationStatement"],
 	)
     @classmethod
     def elements_sequence(cls):
@@ -893,7 +894,7 @@ class AdverseEventSupportingInfo(backboneelement.BackboneElement):
 		one_of_many="item",
 		one_of_many_required=True,
         # note: Listed Resource Type(s) should be allowed as Reference.
-		enum_reference_types=["Condition", "Observation", "AllergyIntolerance", "FamilyMemberHistory", "Immunization", "Procedure", "DocumentReference", "MedicationAdministration", "MedicationUsage"],
+		enum_reference_types=["Condition", "Observation", "AllergyIntolerance", "FamilyMemberHistory", "Immunization", "Procedure", "DocumentReference", "MedicationAdministration", "MedicationStatement", "QuestionnaireResponse"],
 	)
     @classmethod
     def elements_sequence(cls):
@@ -996,7 +997,7 @@ class AdverseEventSuspectEntity(backboneelement.BackboneElement):
 		one_of_many="instance",
 		one_of_many_required=True,
         # note: Listed Resource Type(s) should be allowed as Reference.
-		enum_reference_types=["Immunization", "Procedure", "Substance", "Medication", "MedicationAdministration", "MedicationUsage", "Device", "BiologicallyDerivedProduct", "ResearchStudy"],
+		enum_reference_types=["Immunization", "Procedure", "Substance", "Medication", "MedicationAdministration", "MedicationStatement", "Device", "BiologicallyDerivedProduct", "ResearchStudy"],
 	)
     @classmethod
     def elements_sequence(cls):

@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/MessageHeader
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 from pydantic.validators import bytes_validator  # noqa: F401
 from fhir.resources import fhirtypes  # noqa: F401
@@ -14,11 +14,10 @@ from fhir.resources import messageheader
 def impl_messageheader_1(inst):
     assert inst.author.reference == "Practitioner/example"
     assert inst.definition == "http:////acme.com/ehr/fhir/messagedefinition/patientrequest"
-    assert inst.destination[0].endpoint == "llp:10.11.12.14:5432"
+    assert inst.destination[0].endpointUrl == "llp:10.11.12.14:5432"
     assert inst.destination[0].name == "Acme Message Gateway"
     assert inst.destination[0].receiver.reference == "http://acme.com/ehr/fhir/Practitioner/2323-33-4"
     assert inst.destination[0].target.reference == "Device/example"
-    assert inst.enterer.reference == "Practitioner/example"
     assert inst.eventCoding.code == "admin-notify"
     assert inst.eventCoding.system == "http://example.org/fhir/message-events"
     assert inst.focus[0].reference == "Patient/example"
@@ -36,7 +35,7 @@ def impl_messageheader_1(inst):
     assert inst.sender.reference == "Organization/1"
     assert inst.source.contact.system == "phone"
     assert inst.source.contact.value == "+1 (555) 123 4567"
-    assert inst.source.endpoint == "llp:10.11.12.13:5432"
+    assert inst.source.endpointUrl == "llp:10.11.12.13:5432"
     assert inst.source.name == "Acme Central Patient Registry"
     assert inst.source.software == "FooBar Patient Manager"
     assert inst.source.version == "3.1.45.AABB"

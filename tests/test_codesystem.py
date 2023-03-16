@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/CodeSystem
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 from pydantic.validators import bytes_validator  # noqa: F401
 from fhir.resources import fhirtypes  # noqa: F401
@@ -51,16 +51,19 @@ def impl_codesystem_1(inst):
     assert inst.id == "device-availability-status"
     assert inst.identifier[0].system == "urn:ietf:rfc:3986"
     assert inst.identifier[0].value == "urn:oid:2.16.840.1.113883.4.642.4.2048"
-    assert inst.meta.lastUpdated == fhirtypes.Instant.validate("2022-09-10T04:52:37.223+10:00")
+    assert inst.jurisdiction[0].coding[0].code == "001"
+    assert inst.jurisdiction[0].coding[0].display == "World"
+    assert inst.jurisdiction[0].coding[0].system == "http://unstats.un.org/unsd/methods/m49/m49.htm"
+    assert inst.meta.lastUpdated == fhirtypes.Instant.validate("2023-03-01T23:03:57.298+11:00")
     assert inst.meta.profile[0] == "http://hl7.org/fhir/StructureDefinition/shareablecodesystem"
     assert inst.name == "FHIRDeviceAvailabilityStatus"
     assert inst.publisher == "HL7 (FHIR Project)"
-    assert inst.status == "draft"
+    assert inst.status == "active"
     assert inst.text.status == "generated"
-    assert inst.title == "FHIRDeviceAvailabilityStatus"
+    assert inst.title == "FHIR Device Availability Status"
     assert inst.url == "http://hl7.org/fhir/device-availability-status"
     assert inst.valueSet == "http://hl7.org/fhir/ValueSet/device-availability-status"
-    assert inst.version == "5.0.0-ballot"
+    assert inst.version == "5.0.0-draft-final"
 
 
 def test_codesystem_1(base_settings):
@@ -126,16 +129,19 @@ def impl_codesystem_2(inst):
     assert inst.id == "inventoryreport-counttype"
     assert inst.identifier[0].system == "urn:ietf:rfc:3986"
     assert inst.identifier[0].value == "urn:oid:2.16.840.1.113883.4.642.4.1926"
-    assert inst.meta.lastUpdated == fhirtypes.Instant.validate("2022-09-10T04:52:37.223+10:00")
+    assert inst.jurisdiction[0].coding[0].code == "001"
+    assert inst.jurisdiction[0].coding[0].display == "World"
+    assert inst.jurisdiction[0].coding[0].system == "http://unstats.un.org/unsd/methods/m49/m49.htm"
+    assert inst.meta.lastUpdated == fhirtypes.Instant.validate("2023-03-01T23:03:57.298+11:00")
     assert inst.meta.profile[0] == "http://hl7.org/fhir/StructureDefinition/shareablecodesystem"
     assert inst.name == "InventoryCountType"
     assert inst.publisher == "HL7 (FHIR Project)"
-    assert inst.status == "draft"
+    assert inst.status == "active"
     assert inst.text.status == "generated"
-    assert inst.title == "InventoryCountType"
+    assert inst.title == "Inventory Count Type"
     assert inst.url == "http://hl7.org/fhir/inventoryreport-counttype"
     assert inst.valueSet == "http://hl7.org/fhir/ValueSet/inventoryreport-counttype"
-    assert inst.version == "5.0.0-ballot"
+    assert inst.version == "5.0.0-draft-final"
 
 
 def test_codesystem_2(base_settings):
@@ -224,16 +230,19 @@ def impl_codesystem_3(inst):
     assert inst.id == "certainty-rating"
     assert inst.identifier[0].system == "urn:ietf:rfc:3986"
     assert inst.identifier[0].value == "urn:oid:2.16.840.1.113883.4.642.4.1941"
-    assert inst.meta.lastUpdated == fhirtypes.Instant.validate("2022-09-10T04:52:37.223+10:00")
+    assert inst.jurisdiction[0].coding[0].code == "001"
+    assert inst.jurisdiction[0].coding[0].display == "World"
+    assert inst.jurisdiction[0].coding[0].system == "http://unstats.un.org/unsd/methods/m49/m49.htm"
+    assert inst.meta.lastUpdated == fhirtypes.Instant.validate("2023-03-01T23:03:57.298+11:00")
     assert inst.meta.profile[0] == "http://hl7.org/fhir/StructureDefinition/shareablecodesystem"
     assert inst.name == "EvidenceCertaintyRating"
     assert inst.publisher == "HL7 (FHIR Project)"
-    assert inst.status == "draft"
+    assert inst.status == "active"
     assert inst.text.status == "generated"
-    assert inst.title == "EvidenceCertaintyRating"
+    assert inst.title == "Evidence Certainty Rating"
     assert inst.url == "http://terminology.hl7.org/CodeSystem/certainty-rating"
     assert inst.valueSet == "http://hl7.org/fhir/ValueSet/certainty-rating"
-    assert inst.version == "5.0.0-ballot"
+    assert inst.version == "5.0.0-draft-final"
 
 
 def test_codesystem_3(base_settings):
@@ -301,16 +310,22 @@ def impl_codesystem_4(inst):
     assert inst.id == "map-source-list-mode"
     assert inst.identifier[0].system == "urn:ietf:rfc:3986"
     assert inst.identifier[0].value == "urn:oid:2.16.840.1.113883.4.642.4.684"
-    assert inst.meta.lastUpdated == fhirtypes.Instant.validate("2022-09-10T04:52:37.223+10:00")
+    assert inst.identifier[1].system == "urn:ietf:rfc:3986"
+    assert inst.identifier[1].use == "old"
+    assert inst.identifier[1].value == "urn:oid:2.16.840.1.113883.4.642.1.670"
+    assert inst.jurisdiction[0].coding[0].code == "001"
+    assert inst.jurisdiction[0].coding[0].display == "World"
+    assert inst.jurisdiction[0].coding[0].system == "http://unstats.un.org/unsd/methods/m49/m49.htm"
+    assert inst.meta.lastUpdated == fhirtypes.Instant.validate("2023-03-01T23:03:57.298+11:00")
     assert inst.meta.profile[0] == "http://hl7.org/fhir/StructureDefinition/shareablecodesystem"
     assert inst.name == "StructureMapSourceListMode"
     assert inst.publisher == "HL7 (FHIR Project)"
-    assert inst.status == "draft"
+    assert inst.status == "active"
     assert inst.text.status == "generated"
-    assert inst.title == "StructureMapSourceListMode"
+    assert inst.title == "Structure Map Source List Mode"
     assert inst.url == "http://hl7.org/fhir/map-source-list-mode"
     assert inst.valueSet == "http://hl7.org/fhir/ValueSet/map-source-list-mode"
-    assert inst.version == "5.0.0-ballot"
+    assert inst.version == "5.0.0-draft-final"
 
 
 def test_codesystem_4(base_settings):
@@ -376,16 +391,25 @@ def impl_codesystem_5(inst):
     assert inst.id == "encounter-location-status"
     assert inst.identifier[0].system == "urn:ietf:rfc:3986"
     assert inst.identifier[0].value == "urn:oid:2.16.840.1.113883.4.642.4.263"
-    assert inst.meta.lastUpdated == fhirtypes.Instant.validate("2022-09-10T04:52:37.223+10:00")
+    assert inst.identifier[1].system == "urn:ietf:rfc:3986"
+    assert inst.identifier[1].use == "old"
+    assert inst.identifier[1].value == "urn:oid:2.16.840.1.113883.4.642.1.258"
+    assert inst.identifier[2].system == "urn:ietf:rfc:3986"
+    assert inst.identifier[2].use == "old"
+    assert inst.identifier[2].value == "urn:oid:2.16.840.1.113883.4.642.2.147"
+    assert inst.jurisdiction[0].coding[0].code == "001"
+    assert inst.jurisdiction[0].coding[0].display == "World"
+    assert inst.jurisdiction[0].coding[0].system == "http://unstats.un.org/unsd/methods/m49/m49.htm"
+    assert inst.meta.lastUpdated == fhirtypes.Instant.validate("2023-03-01T23:03:57.298+11:00")
     assert inst.meta.profile[0] == "http://hl7.org/fhir/StructureDefinition/shareablecodesystem"
     assert inst.name == "EncounterLocationStatus"
     assert inst.publisher == "HL7 (FHIR Project)"
-    assert inst.status == "draft"
+    assert inst.status == "active"
     assert inst.text.status == "generated"
-    assert inst.title == "EncounterLocationStatus"
+    assert inst.title == "Encounter Location Status"
     assert inst.url == "http://hl7.org/fhir/encounter-location-status"
     assert inst.valueSet == "http://hl7.org/fhir/ValueSet/encounter-location-status"
-    assert inst.version == "5.0.0-ballot"
+    assert inst.version == "5.0.0-draft-final"
 
 
 def test_codesystem_5(base_settings):
@@ -446,16 +470,19 @@ def impl_codesystem_6(inst):
     assert inst.id == "substance-amount-type"
     assert inst.identifier[0].system == "urn:ietf:rfc:3986"
     assert inst.identifier[0].value == "urn:oid:2.16.840.1.113883.4.642.4.2086"
-    assert inst.meta.lastUpdated == fhirtypes.Instant.validate("2022-09-10T05:52:37.223+11:00")
+    assert inst.jurisdiction[0].coding[0].code == "001"
+    assert inst.jurisdiction[0].coding[0].display == "World"
+    assert inst.jurisdiction[0].coding[0].system == "http://unstats.un.org/unsd/methods/m49/m49.htm"
+    assert inst.meta.lastUpdated == fhirtypes.Instant.validate("2023-03-01T23:03:57.298+11:00")
     assert inst.meta.profile[0] == "http://hl7.org/fhir/StructureDefinition/shareablecodesystem"
     assert inst.name == "SubstanceAmountType"
     assert inst.publisher == "HL7 (FHIR Project)"
-    assert inst.status == "draft"
+    assert inst.status == "active"
     assert inst.text.status == "generated"
-    assert inst.title == "SubstanceAmountType"
+    assert inst.title == "Substance Amount Type"
     assert inst.url == "http://hl7.org/fhir/substance-amount-type"
     assert inst.valueSet == "http://hl7.org/fhir/ValueSet/substance-amount-type"
-    assert inst.version == "5.0.0-ballot"
+    assert inst.version == "5.0.0-draft-final"
 
 
 def test_codesystem_6(base_settings):
@@ -494,6 +521,7 @@ def impl_codesystem_7(inst):
     assert inst.contact[0].telecom[1].value == "fhir@lists.hl7.org"
     assert inst.content == "complete"
     assert inst.date == fhirtypes.DateTime.validate("2021-01-05T10:01:24+11:00")
+    assert inst.description == "ClinicalUseDefinitionCategory"
     assert inst.experimental is False
     assert inst.extension[0].url == (
     "http://hl7.org/fhir/StructureDefinition/structuredefinition-"
@@ -513,19 +541,22 @@ def impl_codesystem_7(inst):
     assert inst.id == "clinical-use-definition-category"
     assert inst.identifier[0].system == "urn:ietf:rfc:3986"
     assert inst.identifier[0].value == "urn:oid:2.16.840.1.113883.4.642.4.1993"
-    assert inst.meta.lastUpdated == fhirtypes.Instant.validate("2022-09-10T05:52:37.223+11:00")
+    assert inst.jurisdiction[0].coding[0].code == "001"
+    assert inst.jurisdiction[0].coding[0].display == "World"
+    assert inst.jurisdiction[0].coding[0].system == "http://unstats.un.org/unsd/methods/m49/m49.htm"
+    assert inst.meta.lastUpdated == fhirtypes.Instant.validate("2023-03-01T23:03:57.298+11:00")
     assert inst.meta.profile[0] == "http://hl7.org/fhir/StructureDefinition/shareablecodesystem"
     assert inst.name == "ClinicalUseDefinitionCategory"
     assert inst.publisher == "HL7 (FHIR Project)"
-    assert inst.status == "draft"
+    assert inst.status == "active"
     assert inst.text.status == "generated"
-    assert inst.title == "ClinicalUseDefinitionCategory"
+    assert inst.title == "Clinical Use Definition Category"
     assert inst.url == "http://hl7.org/fhir/clinical-use-definition-category"
     assert inst.valueSet == (
     "http://hl7.org/fhir/ValueSet/clinical-use-definition-"
     "category"
     )
-    assert inst.version == "5.0.0-ballot"
+    assert inst.version == "5.0.0-draft-final"
 
 
 def test_codesystem_7(base_settings):
@@ -606,16 +637,19 @@ def impl_codesystem_8(inst):
     assert inst.id == "variable-handling"
     assert inst.identifier[0].system == "urn:ietf:rfc:3986"
     assert inst.identifier[0].value == "urn:oid:2.16.840.1.113883.4.642.4.1956"
-    assert inst.meta.lastUpdated == fhirtypes.Instant.validate("2022-09-10T04:52:37.223+10:00")
+    assert inst.jurisdiction[0].coding[0].code == "001"
+    assert inst.jurisdiction[0].coding[0].display == "World"
+    assert inst.jurisdiction[0].coding[0].system == "http://unstats.un.org/unsd/methods/m49/m49.htm"
+    assert inst.meta.lastUpdated == fhirtypes.Instant.validate("2023-03-01T23:03:57.298+11:00")
     assert inst.meta.profile[0] == "http://hl7.org/fhir/StructureDefinition/shareablecodesystem"
     assert inst.name == "EvidenceVariableHandling"
     assert inst.publisher == "HL7 (FHIR Project)"
-    assert inst.status == "draft"
+    assert inst.status == "active"
     assert inst.text.status == "generated"
-    assert inst.title == "EvidenceVariableHandling"
+    assert inst.title == "Evidence Variable Handling"
     assert inst.url == "http://hl7.org/fhir/variable-handling"
     assert inst.valueSet == "http://hl7.org/fhir/ValueSet/variable-handling"
-    assert inst.version == "5.0.0-ballot"
+    assert inst.version == "5.0.0-draft-final"
 
 
 def test_codesystem_8(base_settings):
@@ -706,16 +740,22 @@ def impl_codesystem_9(inst):
     assert inst.id == "action-selection-behavior"
     assert inst.identifier[0].system == "urn:ietf:rfc:3986"
     assert inst.identifier[0].value == "urn:oid:2.16.840.1.113883.4.642.4.802"
-    assert inst.meta.lastUpdated == fhirtypes.Instant.validate("2022-09-10T04:52:37.223+10:00")
+    assert inst.identifier[1].system == "urn:ietf:rfc:3986"
+    assert inst.identifier[1].use == "old"
+    assert inst.identifier[1].value == "urn:oid:2.16.840.1.113883.4.642.1.785"
+    assert inst.jurisdiction[0].coding[0].code == "001"
+    assert inst.jurisdiction[0].coding[0].display == "World"
+    assert inst.jurisdiction[0].coding[0].system == "http://unstats.un.org/unsd/methods/m49/m49.htm"
+    assert inst.meta.lastUpdated == fhirtypes.Instant.validate("2023-03-01T23:03:57.298+11:00")
     assert inst.meta.profile[0] == "http://hl7.org/fhir/StructureDefinition/shareablecodesystem"
     assert inst.name == "ActionSelectionBehavior"
     assert inst.publisher == "HL7 (FHIR Project)"
-    assert inst.status == "draft"
+    assert inst.status == "active"
     assert inst.text.status == "generated"
-    assert inst.title == "ActionSelectionBehavior"
+    assert inst.title == "Action Selection Behavior"
     assert inst.url == "http://hl7.org/fhir/action-selection-behavior"
     assert inst.valueSet == "http://hl7.org/fhir/ValueSet/action-selection-behavior"
-    assert inst.version == "5.0.0-ballot"
+    assert inst.version == "5.0.0-draft-final"
 
 
 def test_codesystem_9(base_settings):
@@ -798,16 +838,19 @@ def impl_codesystem_10(inst):
     assert inst.id == "citation-status-type"
     assert inst.identifier[0].system == "urn:ietf:rfc:3986"
     assert inst.identifier[0].value == "urn:oid:2.16.840.1.113883.4.642.4.1878"
-    assert inst.meta.lastUpdated == fhirtypes.Instant.validate("2022-09-10T04:52:37.223+10:00")
+    assert inst.jurisdiction[0].coding[0].code == "001"
+    assert inst.jurisdiction[0].coding[0].display == "World"
+    assert inst.jurisdiction[0].coding[0].system == "http://unstats.un.org/unsd/methods/m49/m49.htm"
+    assert inst.meta.lastUpdated == fhirtypes.Instant.validate("2023-03-01T23:03:57.298+11:00")
     assert inst.meta.profile[0] == "http://hl7.org/fhir/StructureDefinition/shareablecodesystem"
     assert inst.name == "CitationStatusType"
     assert inst.publisher == "HL7 (FHIR Project)"
-    assert inst.status == "draft"
+    assert inst.status == "active"
     assert inst.text.status == "generated"
-    assert inst.title == "CitationStatusType"
-    assert inst.url == "http://terminology.hl7.org/CodeSystem/citation-status-type"
+    assert inst.title == "Citation Status Type"
+    assert inst.url == "http://hl7.org/fhir/citation-status-type"
     assert inst.valueSet == "http://hl7.org/fhir/ValueSet/citation-status-type"
-    assert inst.version == "5.0.0-ballot"
+    assert inst.version == "5.0.0-draft-final"
 
 
 def test_codesystem_10(base_settings):

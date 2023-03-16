@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/Encounter
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 from pydantic.validators import bytes_validator  # noqa: F401
 from fhir.resources import fhirtypes  # noqa: F401
@@ -75,9 +75,9 @@ def impl_encounter_2(inst):
     assert inst.priority.coding[0].code == "103391001"
     assert inst.priority.coding[0].display == "Non-urgent ear, nose and throat admission"
     assert inst.priority.coding[0].system == "http://snomed.info/sct"
-    assert inst.reason[0].concept.coding[0].code == "18099001"
-    assert inst.reason[0].concept.coding[0].display == "Retropharyngeal abscess"
-    assert inst.reason[0].concept.coding[0].system == "http://snomed.info/sct"
+    assert inst.reason[0].value[0].concept.coding[0].code == "18099001"
+    assert inst.reason[0].value[0].concept.coding[0].display == "Retropharyngeal abscess"
+    assert inst.reason[0].value[0].concept.coding[0].system == "http://snomed.info/sct"
     assert inst.serviceProvider.reference == "Organization/f001"
     assert inst.status == "completed"
     assert inst.subject.display == "P. van de Heuvel"
@@ -114,19 +114,17 @@ def impl_encounter_3(inst):
     assert inst.class_fhir[0].coding[0].code == "AMB"
     assert inst.class_fhir[0].coding[0].display == "ambulatory"
     assert inst.class_fhir[0].coding[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActCode"
-    assert inst.diagnosis[0].condition.display == (
+    assert inst.diagnosis[0].condition[0].concept.text == (
     "Complications from Roel's TPF chemotherapy on January 28th, "
     "2013"
     )
-    assert inst.diagnosis[0].rank == 2
-    assert inst.diagnosis[0].use.coding[0].code == "AD"
-    assert inst.diagnosis[0].use.coding[0].display == "Admission diagnosis"
-    assert inst.diagnosis[0].use.coding[0].system == "http://terminology.hl7.org/CodeSystem/diagnosis-role"
-    assert inst.diagnosis[1].condition.display == "The patient is treated for a tumor"
-    assert inst.diagnosis[1].rank == 1
-    assert inst.diagnosis[1].use.coding[0].code == "CC"
-    assert inst.diagnosis[1].use.coding[0].display == "Chief complaint"
-    assert inst.diagnosis[1].use.coding[0].system == "http://terminology.hl7.org/CodeSystem/diagnosis-role"
+    assert inst.diagnosis[0].use[0].coding[0].code == "AD"
+    assert inst.diagnosis[0].use[0].coding[0].display == "Admission diagnosis"
+    assert inst.diagnosis[0].use[0].coding[0].system == "http://terminology.hl7.org/CodeSystem/diagnosis-role"
+    assert inst.diagnosis[1].condition[0].concept.text == "The patient is treated for a tumor"
+    assert inst.diagnosis[1].use[0].coding[0].code == "CC"
+    assert inst.diagnosis[1].use[0].coding[0].display == "Chief complaint"
+    assert inst.diagnosis[1].use[0].coding[0].system == "http://terminology.hl7.org/CodeSystem/diagnosis-role"
     assert inst.id == "f202"
     assert inst.identifier[0].use == "temp"
     assert inst.identifier[0].value == "Encounter_Roel_20130128"
@@ -141,7 +139,7 @@ def impl_encounter_3(inst):
     assert inst.priority.coding[0].code == "103391001"
     assert inst.priority.coding[0].display == "Urgent"
     assert inst.priority.coding[0].system == "http://snomed.info/sct"
-    assert inst.reason[0].concept.text == "The patient is treated for a tumor."
+    assert inst.reason[0].value[0].concept.text == "The patient is treated for a tumor."
     assert inst.serviceProvider.reference == "Organization/f201"
     assert inst.status == "completed"
     assert inst.subject.display == "Roel"
@@ -188,7 +186,7 @@ def impl_encounter_4(inst):
     assert inst.priority.coding[0].code == "17621005"
     assert inst.priority.coding[0].display == "Normal"
     assert inst.priority.coding[0].system == "http://snomed.info/sct"
-    assert inst.reason[0].concept.text == (
+    assert inst.reason[0].value[0].concept.text == (
     "The patient had fever peaks over the last couple of days. He"
     " is worried about these peaks."
     )
@@ -229,15 +227,6 @@ def impl_encounter_5(inst):
     assert inst.admission.admitSource.coding[0].code == "emd"
     assert inst.admission.admitSource.coding[0].display == "From accident/emergency department"
     assert inst.admission.admitSource.coding[0].system == "http://terminology.hl7.org/CodeSystem/admit-source"
-    assert inst.classHistory[0].class_fhir.code == "EMER"
-    assert inst.classHistory[0].class_fhir.display == "emergency"
-    assert inst.classHistory[0].class_fhir.system == "http://terminology.hl7.org/CodeSystem/v3-ActCode"
-    assert inst.classHistory[0].period.end == fhirtypes.DateTime.validate("2017-02-01T09:27:00+10:00")
-    assert inst.classHistory[0].period.start == fhirtypes.DateTime.validate("2017-02-01T07:15:00+10:00")
-    assert inst.classHistory[1].class_fhir.code == "IMP"
-    assert inst.classHistory[1].class_fhir.display == "inpatient encounter"
-    assert inst.classHistory[1].class_fhir.system == "http://terminology.hl7.org/CodeSystem/v3-ActCode"
-    assert inst.classHistory[1].period.start == fhirtypes.DateTime.validate("2017-02-01T09:27:00+10:00")
     assert inst.class_fhir[0].coding[0].code == "IMP"
     assert inst.class_fhir[0].coding[0].display == "inpatient encounter"
     assert inst.class_fhir[0].coding[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActCode"
@@ -265,17 +254,6 @@ def impl_encounter_5(inst):
     assert inst.meta.tag[0].display == "test health data"
     assert inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
     assert inst.status == "in-progress"
-    assert inst.statusHistory[0].period.end == fhirtypes.DateTime.validate("2017-02-01T08:45:00+10:00")
-    assert inst.statusHistory[0].period.start == fhirtypes.DateTime.validate("2017-02-01T07:15:00+10:00")
-    assert inst.statusHistory[0].status == "planned"
-    assert inst.statusHistory[1].period.end == fhirtypes.DateTime.validate("2017-02-01T12:15:00+10:00")
-    assert inst.statusHistory[1].period.start == fhirtypes.DateTime.validate("2017-02-01T08:45:00+10:00")
-    assert inst.statusHistory[1].status == "in-progress"
-    assert inst.statusHistory[2].period.end == fhirtypes.DateTime.validate("2017-02-01T12:45:00+10:00")
-    assert inst.statusHistory[2].period.start == fhirtypes.DateTime.validate("2017-02-01T12:15:00+10:00")
-    assert inst.statusHistory[2].status == "onhold"
-    assert inst.statusHistory[3].period.start == fhirtypes.DateTime.validate("2017-02-01T08:45:00+10:00")
-    assert inst.statusHistory[3].status == "in-progress"
     assert inst.subject.reference == "Patient/example"
     assert inst.text.div == (
     "<div xmlns=\"http://www.w3.org/1999/xhtml\">Emergency visit "
@@ -307,6 +285,55 @@ def test_encounter_5(base_settings):
 
 
 def impl_encounter_6(inst):
+    assert inst.actualPeriod.end == fhirtypes.DateTime.validate("2013-03-20")
+    assert inst.actualPeriod.start == fhirtypes.DateTime.validate("2013-03-11")
+    assert inst.class_fhir[0].coding[0].code == "IMP"
+    assert inst.class_fhir[0].coding[0].display == "inpatient encounter"
+    assert inst.class_fhir[0].coding[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActCode"
+    assert inst.id == "colonoscopy"
+    assert inst.meta.tag[0].code == "HTEST"
+    assert inst.meta.tag[0].display == "test health data"
+    assert inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
+    assert inst.participant[0].actor.display == "Dr Adam Careful"
+    assert inst.participant[0].actor.reference == "Practitioner/example"
+    assert inst.participant[0].type[0].coding[0].code == "PART"
+    assert inst.participant[0].type[0].coding[0].system == "http://terminology.hl7.org/CodeSystem/v3-ParticipationType"
+    assert inst.reason[0].value[0].concept.text == "Routine investigation"
+    assert inst.serviceProvider.display == "Gastroenterology @ Acme Hospital"
+    assert inst.serviceProvider.reference == "Organization/1"
+    assert inst.status == "completed"
+    assert inst.subject.display == "Henry Levin the 7th"
+    assert inst.subject.reference == "Patient/glossy"
+    assert inst.text.status == "generated"
+    assert inst.type[0].coding[0].code == "73761001"
+    assert inst.type[0].coding[0].display == "Colonoscopy (procedure)"
+    assert inst.type[0].coding[0].system == "http://snomed.info/sct"
+    assert inst.type[0].text == "Colonoscopy"
+
+
+def test_encounter_6(base_settings):
+    """No. 6 tests collection for Encounter.
+    Test File: encounter-example-colonoscopy.json
+    """
+    filename = (
+        base_settings["unittest_data_dir"] / "encounter-example-colonoscopy.json"
+    )
+    inst = encounter.Encounter.parse_file(
+        filename, content_type="application/json", encoding="utf-8"
+    )
+    assert "Encounter" == inst.resource_type
+
+    impl_encounter_6(inst)
+
+    # testing reverse by generating data from itself and create again.
+    data = inst.dict()
+    assert "Encounter" == data["resourceType"]
+
+    inst2 = encounter.Encounter(**data)
+    impl_encounter_6(inst2)
+
+
+def impl_encounter_7(inst):
     assert inst.actualPeriod.end == fhirtypes.DateTime.validate("2015-01-17T16:30:00+10:00")
     assert inst.actualPeriod.start == fhirtypes.DateTime.validate("2015-01-17T16:00:00+10:00")
     assert inst.class_fhir[0].coding[0].code == "HH"
@@ -338,8 +365,8 @@ def impl_encounter_6(inst):
     assert inst.text.status == "generated"
 
 
-def test_encounter_6(base_settings):
-    """No. 6 tests collection for Encounter.
+def test_encounter_7(base_settings):
+    """No. 7 tests collection for Encounter.
     Test File: encounter-example-home.json
     """
     filename = (
@@ -350,17 +377,17 @@ def test_encounter_6(base_settings):
     )
     assert "Encounter" == inst.resource_type
 
-    impl_encounter_6(inst)
+    impl_encounter_7(inst)
 
     # testing reverse by generating data from itself and create again.
     data = inst.dict()
     assert "Encounter" == data["resourceType"]
 
     inst2 = encounter.Encounter(**data)
-    impl_encounter_6(inst2)
+    impl_encounter_7(inst2)
 
 
-def impl_encounter_7(inst):
+def impl_encounter_8(inst):
     assert inst.admission.admitSource.coding[0].code == "305956004"
     assert inst.admission.admitSource.coding[0].display == "Referral by physician"
     assert inst.admission.admitSource.coding[0].system == "http://snomed.info/sct"
@@ -389,9 +416,9 @@ def impl_encounter_7(inst):
     assert inst.priority.coding[0].code == "310361003"
     assert inst.priority.coding[0].display == "Non-urgent cardiological admission"
     assert inst.priority.coding[0].system == "http://snomed.info/sct"
-    assert inst.reason[0].concept.coding[0].code == "34068001"
-    assert inst.reason[0].concept.coding[0].display == "Heart valve replacement"
-    assert inst.reason[0].concept.coding[0].system == "http://snomed.info/sct"
+    assert inst.reason[0].value[0].concept.coding[0].code == "34068001"
+    assert inst.reason[0].value[0].concept.coding[0].display == "Heart valve replacement"
+    assert inst.reason[0].value[0].concept.coding[0].system == "http://snomed.info/sct"
     assert inst.serviceProvider.display == "Burgers University Medical Center"
     assert inst.serviceProvider.reference == "Organization/f001"
     assert inst.status == "completed"
@@ -403,103 +430,12 @@ def impl_encounter_7(inst):
     assert inst.type[0].coding[0].system == "http://snomed.info/sct"
 
 
-def test_encounter_7(base_settings):
-    """No. 7 tests collection for Encounter.
+def test_encounter_8(base_settings):
+    """No. 8 tests collection for Encounter.
     Test File: encounter-example-f001-heart.json
     """
     filename = (
         base_settings["unittest_data_dir"] / "encounter-example-f001-heart.json"
-    )
-    inst = encounter.Encounter.parse_file(
-        filename, content_type="application/json", encoding="utf-8"
-    )
-    assert "Encounter" == inst.resource_type
-
-    impl_encounter_7(inst)
-
-    # testing reverse by generating data from itself and create again.
-    data = inst.dict()
-    assert "Encounter" == data["resourceType"]
-
-    inst2 = encounter.Encounter(**data)
-    impl_encounter_7(inst2)
-
-
-def impl_encounter_8(inst):
-    assert inst.account[0].reference == "Account/example"
-    assert inst.actualPeriod.end == fhirtypes.DateTime.validate("2013-03-20")
-    assert inst.actualPeriod.start == fhirtypes.DateTime.validate("2013-03-11")
-    assert inst.admission.admitSource.coding[0].code == "309902002"
-    assert inst.admission.admitSource.coding[0].display == "Clinical Oncology Department"
-    assert inst.admission.admitSource.coding[0].system == "http://snomed.info/sct"
-    assert inst.admission.destination.reference == "Location/2"
-    assert inst.admission.dietPreference[0].coding[0].code == "276026009"
-    assert inst.admission.dietPreference[0].coding[0].display == "Fluid balance regulation"
-    assert inst.admission.dietPreference[0].coding[0].system == "http://snomed.info/sct"
-    assert inst.admission.origin.reference == "Location/2"
-    assert inst.admission.reAdmission.coding[0].display == "readmitted"
-    assert inst.admission.specialArrangement[0].coding[0].code == "wheel"
-    assert inst.admission.specialArrangement[0].coding[0].display == "Wheelchair"
-    assert inst.admission.specialArrangement[0].coding[0].system == (
-    "http://terminology.hl7.org/CodeSystem/encounter-special-"
-    "arrangements"
-    )
-    assert inst.admission.specialCourtesy[0].coding[0].code == "NRM"
-    assert inst.admission.specialCourtesy[0].coding[0].display == "normal courtesy"
-    assert inst.admission.specialCourtesy[0].coding[0].system == (
-    "http://terminology.hl7.org/CodeSystem/v3-EncounterSpecialCou"
-    "rtesy"
-    )
-    assert inst.appointment[0].reference == "Appointment/example"
-    assert inst.basedOn[0].reference == "ServiceRequest/myringotomy"
-    assert inst.class_fhir[0].coding[0].code == "IMP"
-    assert inst.class_fhir[0].coding[0].display == "inpatient encounter"
-    assert inst.class_fhir[0].coding[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActCode"
-    assert inst.diagnosis[0].condition.reference == "Condition/stroke"
-    assert inst.diagnosis[0].rank == 1
-    assert inst.diagnosis[0].use.coding[0].code == "AD"
-    assert inst.diagnosis[0].use.coding[0].display == "Admission diagnosis"
-    assert inst.diagnosis[0].use.coding[0].system == "http://terminology.hl7.org/CodeSystem/diagnosis-role"
-    assert inst.diagnosis[1].condition.reference == "Condition/f201"
-    assert inst.diagnosis[1].use.coding[0].code == "DD"
-    assert inst.diagnosis[1].use.coding[0].display == "Discharge diagnosis"
-    assert inst.diagnosis[1].use.coding[0].system == "http://terminology.hl7.org/CodeSystem/diagnosis-role"
-    assert inst.episodeOfCare[0].reference == "EpisodeOfCare/example"
-    assert inst.id == "f203"
-    assert inst.identifier[0].use == "temp"
-    assert inst.identifier[0].value == "Encounter_Roel_20130311"
-    assert inst.meta.tag[0].code == "HTEST"
-    assert inst.meta.tag[0].display == "test health data"
-    assert inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
-    assert inst.partOf.reference == "Encounter/f203"
-    assert inst.participant[0].actor.reference == "Practitioner/f201"
-    assert inst.participant[0].type[0].coding[0].code == "PART"
-    assert inst.participant[0].type[0].coding[0].system == "http://terminology.hl7.org/CodeSystem/v3-ParticipationType"
-    assert inst.priority.coding[0].code == "394849002"
-    assert inst.priority.coding[0].display == "High priority"
-    assert inst.priority.coding[0].system == "http://snomed.info/sct"
-    assert inst.reason[0].concept.text == (
-    "The patient seems to suffer from bilateral pneumonia and "
-    "renal insufficiency, most likely due to chemotherapy."
-    )
-    assert inst.serviceProvider.reference == "Organization/2"
-    assert inst.status == "completed"
-    assert inst.statusHistory[0].period.start == fhirtypes.DateTime.validate("2013-03-08")
-    assert inst.statusHistory[0].status == "in-progress"
-    assert inst.subject.display == "Roel"
-    assert inst.subject.reference == "Patient/f201"
-    assert inst.text.status == "generated"
-    assert inst.type[0].coding[0].code == "183807002"
-    assert inst.type[0].coding[0].display == "Inpatient stay for nine days"
-    assert inst.type[0].coding[0].system == "http://snomed.info/sct"
-
-
-def test_encounter_8(base_settings):
-    """No. 8 tests collection for Encounter.
-    Test File: encounter-example-f203-20130311.json
-    """
-    filename = (
-        base_settings["unittest_data_dir"] / "encounter-example-f203-20130311.json"
     )
     inst = encounter.Encounter.parse_file(
         filename, content_type="application/json", encoding="utf-8"
@@ -517,28 +453,77 @@ def test_encounter_8(base_settings):
 
 
 def impl_encounter_9(inst):
+    assert inst.account[0].reference == "Account/example"
+    assert inst.actualPeriod.end == fhirtypes.DateTime.validate("2013-03-20")
+    assert inst.actualPeriod.start == fhirtypes.DateTime.validate("2013-03-11")
+    assert inst.admission.admitSource.coding[0].code == "309902002"
+    assert inst.admission.admitSource.coding[0].display == "Clinical Oncology Department"
+    assert inst.admission.admitSource.coding[0].system == "http://snomed.info/sct"
+    assert inst.admission.destination.reference == "Location/2"
+    assert inst.admission.origin.reference == "Location/2"
+    assert inst.admission.reAdmission.coding[0].display == "readmitted"
+    assert inst.appointment[0].reference == "Appointment/example"
+    assert inst.basedOn[0].reference == "ServiceRequest/myringotomy"
     assert inst.class_fhir[0].coding[0].code == "IMP"
     assert inst.class_fhir[0].coding[0].display == "inpatient encounter"
     assert inst.class_fhir[0].coding[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActCode"
-    assert inst.id == "example"
+    assert inst.diagnosis[0].condition[0].reference.reference == "Condition/stroke"
+    assert inst.diagnosis[0].use[0].coding[0].code == "AD"
+    assert inst.diagnosis[0].use[0].coding[0].display == "Admission diagnosis"
+    assert inst.diagnosis[0].use[0].coding[0].system == "http://terminology.hl7.org/CodeSystem/diagnosis-role"
+    assert inst.diagnosis[1].condition[0].reference.reference == "Condition/f201"
+    assert inst.diagnosis[1].use[0].coding[0].code == "DD"
+    assert inst.diagnosis[1].use[0].coding[0].display == "Discharge diagnosis"
+    assert inst.diagnosis[1].use[0].coding[0].system == "http://terminology.hl7.org/CodeSystem/diagnosis-role"
+    assert inst.dietPreference[0].coding[0].code == "276026009"
+    assert inst.dietPreference[0].coding[0].display == "Fluid balance regulation"
+    assert inst.dietPreference[0].coding[0].system == "http://snomed.info/sct"
+    assert inst.episodeOfCare[0].reference == "EpisodeOfCare/example"
+    assert inst.id == "f203"
+    assert inst.identifier[0].use == "temp"
+    assert inst.identifier[0].value == "Encounter_Roel_20130311"
     assert inst.meta.tag[0].code == "HTEST"
     assert inst.meta.tag[0].display == "test health data"
     assert inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
-    assert inst.status == "in-progress"
-    assert inst.subject.reference == "Patient/example"
-    assert inst.text.div == (
-    "<div xmlns=\"http://www.w3.org/1999/xhtml\">Encounter with "
-    "patient @example</div>"
+    assert inst.partOf.reference == "Encounter/f203"
+    assert inst.participant[0].actor.reference == "Practitioner/f201"
+    assert inst.participant[0].type[0].coding[0].code == "PART"
+    assert inst.participant[0].type[0].coding[0].system == "http://terminology.hl7.org/CodeSystem/v3-ParticipationType"
+    assert inst.priority.coding[0].code == "394849002"
+    assert inst.priority.coding[0].display == "High priority"
+    assert inst.priority.coding[0].system == "http://snomed.info/sct"
+    assert inst.reason[0].value[0].concept.text == (
+    "The patient seems to suffer from bilateral pneumonia and "
+    "renal insufficiency, most likely due to chemotherapy."
     )
+    assert inst.serviceProvider.reference == "Organization/2"
+    assert inst.specialArrangement[0].coding[0].code == "wheel"
+    assert inst.specialArrangement[0].coding[0].display == "Wheelchair"
+    assert inst.specialArrangement[0].coding[0].system == (
+    "http://terminology.hl7.org/CodeSystem/encounter-special-"
+    "arrangements"
+    )
+    assert inst.specialCourtesy[0].coding[0].code == "NRM"
+    assert inst.specialCourtesy[0].coding[0].display == "normal courtesy"
+    assert inst.specialCourtesy[0].coding[0].system == (
+    "http://terminology.hl7.org/CodeSystem/v3-EncounterSpecialCou"
+    "rtesy"
+    )
+    assert inst.status == "completed"
+    assert inst.subject.display == "Roel"
+    assert inst.subject.reference == "Patient/f201"
     assert inst.text.status == "generated"
+    assert inst.type[0].coding[0].code == "183807002"
+    assert inst.type[0].coding[0].display == "Inpatient stay for nine days"
+    assert inst.type[0].coding[0].system == "http://snomed.info/sct"
 
 
 def test_encounter_9(base_settings):
     """No. 9 tests collection for Encounter.
-    Test File: encounter-example.json
+    Test File: encounter-example-f203-20130311.json
     """
     filename = (
-        base_settings["unittest_data_dir"] / "encounter-example.json"
+        base_settings["unittest_data_dir"] / "encounter-example-f203-20130311.json"
     )
     inst = encounter.Encounter.parse_file(
         filename, content_type="application/json", encoding="utf-8"
@@ -556,31 +541,28 @@ def test_encounter_9(base_settings):
 
 
 def impl_encounter_10(inst):
-    assert inst.class_fhir[0].coding[0].code == "AMB"
-    assert inst.class_fhir[0].coding[0].display == "ambulatory"
+    assert inst.class_fhir[0].coding[0].code == "IMP"
+    assert inst.class_fhir[0].coding[0].display == "inpatient encounter"
     assert inst.class_fhir[0].coding[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActCode"
-    assert inst.id == "xcda"
-    assert inst.identifier[0].system == "http://healthcare.example.org/identifiers/enocunter"
-    assert inst.identifier[0].use == "official"
-    assert inst.identifier[0].value == "1234213.52345873"
+    assert inst.id == "example"
     assert inst.meta.tag[0].code == "HTEST"
     assert inst.meta.tag[0].display == "test health data"
     assert inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
-    assert inst.participant[0].actor.reference == "Practitioner/xcda1"
-    assert inst.reason[0].concept.coding[0].code == "T-D8200"
-    assert inst.reason[0].concept.coding[0].display == "Arm"
-    assert inst.reason[0].concept.coding[0].system == "http://ihe.net/xds/connectathon/eventCodes"
-    assert inst.status == "completed"
-    assert inst.subject.reference == "Patient/xcda"
+    assert inst.status == "in-progress"
+    assert inst.subject.reference == "Patient/example"
+    assert inst.text.div == (
+    "<div xmlns=\"http://www.w3.org/1999/xhtml\">Encounter with "
+    "patient @example</div>"
+    )
     assert inst.text.status == "generated"
 
 
 def test_encounter_10(base_settings):
     """No. 10 tests collection for Encounter.
-    Test File: encounter-example-xcda.json
+    Test File: encounter-example.json
     """
     filename = (
-        base_settings["unittest_data_dir"] / "encounter-example-xcda.json"
+        base_settings["unittest_data_dir"] / "encounter-example.json"
     )
     inst = encounter.Encounter.parse_file(
         filename, content_type="application/json", encoding="utf-8"

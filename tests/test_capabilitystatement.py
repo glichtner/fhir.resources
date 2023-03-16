@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/CapabilityStatement
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 from pydantic.validators import bytes_validator  # noqa: F401
 from fhir.resources import fhirtypes  # noqa: F401
@@ -21,7 +21,7 @@ def impl_capabilitystatement_1(inst):
     "structure"
     )
     assert inst.experimental is True
-    assert inst.fhirVersion == "5.0.0-ballot"
+    assert inst.fhirVersion == "5.0.0-draft-final"
     assert inst.format[0] == "xml"
     assert inst.format[1] == "json"
     assert inst.id == "messagedefinition"
@@ -31,7 +31,7 @@ def impl_capabilitystatement_1(inst):
     assert inst.messaging[0].documentation == "ADT A08 equivalent for external system notifications"
     assert inst.messaging[0].endpoint[0].address == "mllp:10.1.1.10:9234"
     assert inst.messaging[0].endpoint[0].protocol.code == "mllp"
-    assert inst.messaging[0].endpoint[0].protocol.system == "http://terminology.hl7.org/CodeSystem/message-transport"
+    assert inst.messaging[0].endpoint[0].protocol.system == "http://hl7.org/fhir/message-transport"
     assert inst.messaging[0].reliableCache == 30
     assert inst.messaging[0].supportedMessage[0].definition == "http://hl7.org/fhir/MessageDefinition/example"
     assert inst.messaging[0].supportedMessage[0].mode == "receiver"
@@ -69,9 +69,9 @@ def test_capabilitystatement_1(base_settings):
 def impl_capabilitystatement_2(inst):
     assert inst.contact[0].telecom[0].system == "url"
     assert inst.contact[0].telecom[0].value == "http://hl7.org/fhir"
-    assert inst.date == fhirtypes.DateTime.validate("2022-09-10T04:52:37+10:00")
+    assert inst.date == fhirtypes.DateTime.validate("2023-03-01T23:03:57+11:00")
     assert inst.experimental is True
-    assert inst.fhirVersion == "5.0.0-ballot"
+    assert inst.fhirVersion == "5.0.0-draft-final"
     assert inst.format[0] == "xml"
     assert inst.format[1] == "json"
     assert inst.id == "base2"
@@ -97,7 +97,7 @@ def impl_capabilitystatement_2(inst):
     assert inst.status == "draft"
     assert inst.text.status == "extensions"
     assert inst.url == "http://hl7.org/fhir/CapabilityStatement/base2"
-    assert inst.version == "5.0.0-ballot"
+    assert inst.version == "5.0.0-draft-final"
 
 
 def test_capabilitystatement_2(base_settings):
@@ -129,13 +129,13 @@ def impl_capabilitystatement_3(inst):
     "server can support more fucntionality than defined here, but"
     " this is the minimum amount"
     )
-    assert inst.fhirVersion == "5.0.0-ballot"
+    assert inst.fhirVersion == "5.0.0-draft-final"
     assert inst.format[0] == "json"
     assert inst.format[1] == "xml"
     assert inst.id == "example-terminology-server"
     assert inst.implementation.description == "The ACME FHIR Terminology Server"
     assert inst.kind == "instance"
-    assert inst.name == "ACMETerminologyService—CapabilityStatement"
+    assert inst.name == "ACMETerminologyServiceCapabilityStatement"
     assert inst.rest[0].mode == "server"
     assert inst.rest[0].resource[0].interaction[0].code == "read"
     assert inst.rest[0].resource[0].interaction[0].extension[0].url == (
@@ -276,7 +276,7 @@ def impl_capabilitystatement_3(inst):
     assert inst.text.status == "extensions"
     assert inst.title == "ACME Terminology Service — Capability Statement"
     assert inst.url == "http://hl7.org/fhir/CapabilityStatement/terminology-server"
-    assert inst.version == "5.0.0-ballot"
+    assert inst.version == "5.0.0-draft-final"
 
 
 def test_capabilitystatement_3(base_settings):
@@ -316,7 +316,7 @@ def impl_capabilitystatement_4(inst):
     assert inst.format[1] == "xml"
     assert inst.id == "measure-processor"
     assert inst.kind == "capability"
-    assert inst.name == "Measure Processor Service Conformance Statement"
+    assert inst.name == "MeasureProcessorServiceConformanceStatement"
     assert inst.publisher == "HL7, Inc"
     assert inst.rest[0].documentation == "RESTful Measure Processor Service"
     assert inst.rest[0].mode == "server"
@@ -353,13 +353,11 @@ def impl_capabilitystatement_4(inst):
     assert inst.rest[0].resource[0].type == "Measure"
     assert inst.rest[0].security.cors is True
     assert inst.rest[0].security.service[0].coding[0].code == "Certificates"
-    assert inst.rest[0].security.service[0].coding[0].system == (
-    "http://terminology.hl7.org/CodeSystem/restful-security-"
-    "service"
-    )
+    assert inst.rest[0].security.service[0].coding[0].system == "http://hl7.org/fhir/restful-security-service"
     assert inst.software.name == "ACME Measure Processor Service"
     assert inst.status == "draft"
     assert inst.text.status == "generated"
+    assert inst.title == "Measure Processor Service Conformance Statement"
     assert inst.url == "http://hl7.org/fhir/measure-processor"
 
 
@@ -400,7 +398,7 @@ def impl_capabilitystatement_5(inst):
     assert inst.format[1] == "xml"
     assert inst.id == "knowledge-repository"
     assert inst.kind == "capability"
-    assert inst.name == "Knowledge Repository Service Conformance Statement"
+    assert inst.name == "KnowledgeRepositoryServiceConformanceStatement"
     assert inst.publisher == "HL7, Inc"
     assert inst.rest[0].documentation == "RESTful Knowledge Repository Service"
     assert inst.rest[0].mode == "server"
@@ -657,13 +655,11 @@ def impl_capabilitystatement_5(inst):
     assert inst.rest[0].resource[4].type == "Questionnaire"
     assert inst.rest[0].security.cors is True
     assert inst.rest[0].security.service[0].coding[0].code == "Certificates"
-    assert inst.rest[0].security.service[0].coding[0].system == (
-    "http://terminology.hl7.org/CodeSystem/restful-security-"
-    "service"
-    )
+    assert inst.rest[0].security.service[0].coding[0].system == "http://hl7.org/fhir/restful-security-service"
     assert inst.software.name == "ACME Knowledge Repository Service"
     assert inst.status == "draft"
     assert inst.text.status == "generated"
+    assert inst.title == "Knowledge Repository Service Conformance Statement"
     assert inst.url == "http://hl7.org/fhir/knowledge-repository"
 
 
@@ -724,11 +720,11 @@ def impl_capabilitystatement_6(inst):
     assert inst.messaging[0].documentation == "ADT A08 equivalent for external system notifications"
     assert inst.messaging[0].endpoint[0].address == "mllp:10.1.1.10:9234"
     assert inst.messaging[0].endpoint[0].protocol.code == "mllp"
-    assert inst.messaging[0].endpoint[0].protocol.system == "http://terminology.hl7.org/CodeSystem/message-transport"
+    assert inst.messaging[0].endpoint[0].protocol.system == "http://hl7.org/fhir/message-transport"
     assert inst.messaging[0].reliableCache == 30
     assert inst.messaging[0].supportedMessage[0].definition == "http://hl7.org/fhir/MessageDefinition/example"
     assert inst.messaging[0].supportedMessage[0].mode == "receiver"
-    assert inst.name == "ACME-EHR"
+    assert inst.name == "ACMEEHR"
     assert inst.patchFormat[0] == "application/xml-patch+xml"
     assert inst.patchFormat[1] == "application/json-patch+json"
     assert inst.publisher == "ACME Corporation"
@@ -781,10 +777,7 @@ def impl_capabilitystatement_6(inst):
     assert inst.rest[0].security.cors is True
     assert inst.rest[0].security.description == "See Smart on FHIR documentation"
     assert inst.rest[0].security.service[0].coding[0].code == "SMART-on-FHIR"
-    assert inst.rest[0].security.service[0].coding[0].system == (
-    "http://terminology.hl7.org/CodeSystem/restful-security-"
-    "service"
-    )
+    assert inst.rest[0].security.service[0].coding[0].system == "http://hl7.org/fhir/restful-security-service"
     assert inst.software.name == "EHR"
     assert inst.software.releaseDate == fhirtypes.DateTime.validate("2012-01-04")
     assert inst.software.version == "0.00.020.2134"
@@ -837,7 +830,7 @@ def impl_capabilitystatement_7(inst):
     assert inst.meta.tag[0].code == "HTEST"
     assert inst.meta.tag[0].display == "test health data"
     assert inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
-    assert inst.name == "PHR Template"
+    assert inst.name == "PHRTemplate"
     assert inst.publisher == "FHIR Project"
     assert inst.rest[0].documentation == (
     "Protoype server Capability Statement for September 2013 "
@@ -881,6 +874,7 @@ def impl_capabilitystatement_7(inst):
     assert inst.software.name == "ACME PHR Server"
     assert inst.status == "draft"
     assert inst.text.status == "generated"
+    assert inst.title == "PHR Template"
 
 
 def test_capabilitystatement_7(base_settings):
@@ -908,9 +902,9 @@ def test_capabilitystatement_7(base_settings):
 def impl_capabilitystatement_8(inst):
     assert inst.contact[0].telecom[0].system == "url"
     assert inst.contact[0].telecom[0].value == "http://hl7.org/fhir"
-    assert inst.date == fhirtypes.DateTime.validate("2022-09-10T04:52:37+10:00")
+    assert inst.date == fhirtypes.DateTime.validate("2023-03-01T23:03:57+11:00")
     assert inst.experimental is True
-    assert inst.fhirVersion == "5.0.0-ballot"
+    assert inst.fhirVersion == "5.0.0-draft-final"
     assert inst.format[0] == "xml"
     assert inst.format[1] == "json"
     assert inst.id == "base"
@@ -1014,7 +1008,7 @@ def impl_capabilitystatement_8(inst):
     assert inst.rest[0].resource[0].searchParam[0].documentation == "Entity managing the Account"
     assert inst.rest[0].resource[0].searchParam[0].name == "owner"
     assert inst.rest[0].resource[0].searchParam[0].type == "reference"
-    assert inst.rest[0].resource[0].searchParam[1].definition == "http://hl7.org/fhir/SearchParameter/Account-identifier"
+    assert inst.rest[0].resource[0].searchParam[1].definition == "http://hl7.org/fhir/SearchParameter/clinical-identifier"
     assert inst.rest[0].resource[0].searchParam[1].documentation == "Account number"
     assert inst.rest[0].resource[0].searchParam[1].name == "identifier"
     assert inst.rest[0].resource[0].searchParam[1].type == "token"
@@ -1022,7 +1016,7 @@ def impl_capabilitystatement_8(inst):
     assert inst.rest[0].resource[0].searchParam[2].documentation == "Transaction window"
     assert inst.rest[0].resource[0].searchParam[2].name == "period"
     assert inst.rest[0].resource[0].searchParam[2].type == "date"
-    assert inst.rest[0].resource[0].searchParam[3].definition == "http://hl7.org/fhir/SearchParameter/Account-patient"
+    assert inst.rest[0].resource[0].searchParam[3].definition == "http://hl7.org/fhir/SearchParameter/clinical-patient"
     assert inst.rest[0].resource[0].searchParam[3].documentation == "The entity that caused the expenses"
     assert inst.rest[0].resource[0].searchParam[3].name == "patient"
     assert inst.rest[0].resource[0].searchParam[3].type == "reference"
@@ -1038,7 +1032,7 @@ def impl_capabilitystatement_8(inst):
     assert inst.rest[0].resource[0].searchParam[6].documentation == "The parties ultimately responsible for balancing the Account"
     assert inst.rest[0].resource[0].searchParam[6].name == "guarantor"
     assert inst.rest[0].resource[0].searchParam[6].type == "reference"
-    assert inst.rest[0].resource[0].searchParam[7].definition == "http://hl7.org/fhir/SearchParameter/Account-type"
+    assert inst.rest[0].resource[0].searchParam[7].definition == "http://hl7.org/fhir/SearchParameter/clinical-type"
     assert inst.rest[0].resource[0].searchParam[7].documentation == "E.g. patient, expense, depreciation"
     assert inst.rest[0].resource[0].searchParam[7].name == "type"
     assert inst.rest[0].resource[0].searchParam[7].type == "token"
@@ -1107,26 +1101,26 @@ def impl_capabilitystatement_8(inst):
     assert inst.rest[0].resource[1].searchInclude[2] == "ActivityDefinition.predecessor"
     assert inst.rest[0].resource[1].searchInclude[3] == "ActivityDefinition.composed-of"
     assert inst.rest[0].resource[1].searchInclude[4] == "ActivityDefinition.depends-on"
-    assert inst.rest[0].resource[1].searchParam[0].definition == "http://hl7.org/fhir/SearchParameter/ActivityDefinition-date"
+    assert inst.rest[0].resource[1].searchParam[0].definition == "http://hl7.org/fhir/SearchParameter/CanonicalResource-date"
     assert inst.rest[0].resource[1].searchParam[0].documentation == "The activity definition publication date"
     assert inst.rest[0].resource[1].searchParam[0].name == "date"
     assert inst.rest[0].resource[1].searchParam[0].type == "date"
     assert inst.rest[0].resource[1].searchParam[1].definition == (
-    "http://hl7.org/fhir/SearchParameter/ActivityDefinition-"
+    "http://hl7.org/fhir/SearchParameter/CanonicalResource-"
     "identifier"
     )
     assert inst.rest[0].resource[1].searchParam[1].documentation == "External identifier for the activity definition"
     assert inst.rest[0].resource[1].searchParam[1].name == "identifier"
     assert inst.rest[0].resource[1].searchParam[1].type == "token"
     assert inst.rest[0].resource[1].searchParam[2].definition == (
-    "http://hl7.org/fhir/SearchParameter/ActivityDefinition-"
+    "http://hl7.org/fhir/SearchParameter/MetadataResource-"
     "successor"
     )
     assert inst.rest[0].resource[1].searchParam[2].documentation == "What resource is being referenced"
     assert inst.rest[0].resource[1].searchParam[2].name == "successor"
     assert inst.rest[0].resource[1].searchParam[2].type == "reference"
     assert inst.rest[0].resource[1].searchParam[3].definition == (
-    "http://hl7.org/fhir/SearchParameter/ActivityDefinition-"
+    "http://hl7.org/fhir/SearchParameter/CanonicalResource-"
     "context-type-value"
     )
     assert inst.rest[0].resource[1].searchParam[3].documentation == (
@@ -1140,35 +1134,35 @@ def impl_capabilitystatement_8(inst):
     assert inst.rest[0].resource[1].searchParam[4].name == "kind"
     assert inst.rest[0].resource[1].searchParam[4].type == "token"
     assert inst.rest[0].resource[1].searchParam[5].definition == (
-    "http://hl7.org/fhir/SearchParameter/ActivityDefinition-"
+    "http://hl7.org/fhir/SearchParameter/CanonicalResource-"
     "jurisdiction"
     )
     assert inst.rest[0].resource[1].searchParam[5].documentation == "Intended jurisdiction for the activity definition"
     assert inst.rest[0].resource[1].searchParam[5].name == "jurisdiction"
     assert inst.rest[0].resource[1].searchParam[5].type == "token"
     assert inst.rest[0].resource[1].searchParam[6].definition == (
-    "http://hl7.org/fhir/SearchParameter/ActivityDefinition-"
+    "http://hl7.org/fhir/SearchParameter/MetadataResource-"
     "derived-from"
     )
     assert inst.rest[0].resource[1].searchParam[6].documentation == "What resource is being referenced"
     assert inst.rest[0].resource[1].searchParam[6].name == "derived-from"
     assert inst.rest[0].resource[1].searchParam[6].type == "reference"
     assert inst.rest[0].resource[1].searchParam[7].definition == (
-    "http://hl7.org/fhir/SearchParameter/ActivityDefinition-"
+    "http://hl7.org/fhir/SearchParameter/CanonicalResource-"
     "description"
     )
     assert inst.rest[0].resource[1].searchParam[7].documentation == "The description of the activity definition"
     assert inst.rest[0].resource[1].searchParam[7].name == "description"
     assert inst.rest[0].resource[1].searchParam[7].type == "string"
     assert inst.rest[0].resource[1].searchParam[8].definition == (
-    "http://hl7.org/fhir/SearchParameter/ActivityDefinition-"
+    "http://hl7.org/fhir/SearchParameter/CanonicalResource-"
     "context-type"
     )
     assert inst.rest[0].resource[1].searchParam[8].documentation == "A type of use context assigned to the activity definition"
     assert inst.rest[0].resource[1].searchParam[8].name == "context-type"
     assert inst.rest[0].resource[1].searchParam[8].type == "token"
     assert inst.rest[0].resource[1].searchParam[9].definition == (
-    "http://hl7.org/fhir/SearchParameter/ActivityDefinition-"
+    "http://hl7.org/fhir/SearchParameter/MetadataResource-"
     "predecessor"
     )
     assert inst.rest[0].resource[1].searchParam[9].documentation == "What resource is being referenced"
@@ -1231,20 +1225,20 @@ def impl_capabilitystatement_8(inst):
     assert inst.rest[0].resource[2].profile == "http://hl7.org/fhir/StructureDefinition/ActorDefinition"
     assert inst.rest[0].resource[2].referencePolicy[0] == "literal"
     assert inst.rest[0].resource[2].referencePolicy[1] == "logical"
-    assert inst.rest[0].resource[2].searchParam[0].definition == "http://hl7.org/fhir/SearchParameter/ActorDefinition-date"
+    assert inst.rest[0].resource[2].searchParam[0].definition == "http://hl7.org/fhir/SearchParameter/CanonicalResource-date"
     assert inst.rest[0].resource[2].searchParam[0].documentation == "The Actor Definition publication date"
     assert inst.rest[0].resource[2].searchParam[0].name == "date"
     assert inst.rest[0].resource[2].searchParam[0].type == "date"
     assert inst.rest[0].resource[2].searchParam[1].definition == (
-    "http://hl7.org/fhir/SearchParameter/ActorDefinition-"
+    "http://hl7.org/fhir/SearchParameter/CanonicalResource-"
     "identifier"
     )
     assert inst.rest[0].resource[2].searchParam[1].documentation == "External identifier for the Actor Definition"
     assert inst.rest[0].resource[2].searchParam[1].name == "identifier"
     assert inst.rest[0].resource[2].searchParam[1].type == "token"
     assert inst.rest[0].resource[2].searchParam[2].definition == (
-    "http://hl7.org/fhir/SearchParameter/ActorDefinition-context-"
-    "type-value"
+    "http://hl7.org/fhir/SearchParameter/CanonicalResource-"
+    "context-type-value"
     )
     assert inst.rest[0].resource[2].searchParam[2].documentation == (
     "A use context type and value assigned to the Actor "
@@ -1253,27 +1247,27 @@ def impl_capabilitystatement_8(inst):
     assert inst.rest[0].resource[2].searchParam[2].name == "context-type-value"
     assert inst.rest[0].resource[2].searchParam[2].type == "composite"
     assert inst.rest[0].resource[2].searchParam[3].definition == (
-    "http://hl7.org/fhir/SearchParameter/ActorDefinition-"
+    "http://hl7.org/fhir/SearchParameter/CanonicalResource-"
     "jurisdiction"
     )
     assert inst.rest[0].resource[2].searchParam[3].documentation == "Intended jurisdiction for the Actor Definition"
     assert inst.rest[0].resource[2].searchParam[3].name == "jurisdiction"
     assert inst.rest[0].resource[2].searchParam[3].type == "token"
     assert inst.rest[0].resource[2].searchParam[4].definition == (
-    "http://hl7.org/fhir/SearchParameter/ActorDefinition-"
+    "http://hl7.org/fhir/SearchParameter/CanonicalResource-"
     "description"
     )
     assert inst.rest[0].resource[2].searchParam[4].documentation == "The description of the Actor Definition"
     assert inst.rest[0].resource[2].searchParam[4].name == "description"
     assert inst.rest[0].resource[2].searchParam[4].type == "string"
     assert inst.rest[0].resource[2].searchParam[5].definition == (
-    "http://hl7.org/fhir/SearchParameter/ActorDefinition-context-"
-    "type"
+    "http://hl7.org/fhir/SearchParameter/CanonicalResource-"
+    "context-type"
     )
     assert inst.rest[0].resource[2].searchParam[5].documentation == "A type of use context assigned to the Actor Definition"
     assert inst.rest[0].resource[2].searchParam[5].name == "context-type"
     assert inst.rest[0].resource[2].searchParam[5].type == "token"
-    assert inst.rest[0].resource[2].searchParam[6].definition == "http://hl7.org/fhir/SearchParameter/ActorDefinition-title"
+    assert inst.rest[0].resource[2].searchParam[6].definition == "http://hl7.org/fhir/SearchParameter/CanonicalResource-title"
     assert inst.rest[0].resource[2].searchParam[6].documentation == "The human-friendly name of the Actor Definition"
     assert inst.rest[0].resource[2].searchParam[6].name == "title"
     assert inst.rest[0].resource[2].searchParam[6].type == "string"
@@ -1281,11 +1275,14 @@ def impl_capabilitystatement_8(inst):
     assert inst.rest[0].resource[2].searchParam[7].documentation == "The type of actor"
     assert inst.rest[0].resource[2].searchParam[7].name == "type"
     assert inst.rest[0].resource[2].searchParam[7].type == "token"
-    assert inst.rest[0].resource[2].searchParam[8].definition == "http://hl7.org/fhir/SearchParameter/ActorDefinition-version"
+    assert inst.rest[0].resource[2].searchParam[8].definition == (
+    "http://hl7.org/fhir/SearchParameter/CanonicalResource-"
+    "version"
+    )
     assert inst.rest[0].resource[2].searchParam[8].documentation == "The business version of the Actor Definition"
     assert inst.rest[0].resource[2].searchParam[8].name == "version"
     assert inst.rest[0].resource[2].searchParam[8].type == "token"
-    assert inst.rest[0].resource[2].searchParam[9].definition == "http://hl7.org/fhir/SearchParameter/ActorDefinition-url"
+    assert inst.rest[0].resource[2].searchParam[9].definition == "http://hl7.org/fhir/SearchParameter/CanonicalResource-url"
     assert inst.rest[0].resource[2].searchParam[9].documentation == "The uri that identifies the Actor Definition"
     assert inst.rest[0].resource[2].searchParam[9].name == "url"
     assert inst.rest[0].resource[2].searchParam[9].type == "uri"
@@ -1471,15 +1468,15 @@ def impl_capabilitystatement_8(inst):
     assert inst.rest[0].resource[4].searchInclude[0] == "AdverseEvent.recorder"
     assert inst.rest[0].resource[4].searchInclude[1] == "AdverseEvent.study"
     assert inst.rest[0].resource[4].searchInclude[2] == "AdverseEvent.subject"
-    assert inst.rest[0].resource[4].searchInclude[3] == "AdverseEvent.resultingcondition"
-    assert inst.rest[0].resource[4].searchInclude[4] == "AdverseEvent.substance"
-    assert inst.rest[0].resource[4].searchInclude[5] == "AdverseEvent.patient"
+    assert inst.rest[0].resource[4].searchInclude[3] == "AdverseEvent.substance"
+    assert inst.rest[0].resource[4].searchInclude[4] == "AdverseEvent.patient"
+    assert inst.rest[0].resource[4].searchInclude[5] == "AdverseEvent.resultingeffect"
     assert inst.rest[0].resource[4].searchInclude[6] == "AdverseEvent.location"
-    assert inst.rest[0].resource[4].searchParam[0].definition == "http://hl7.org/fhir/SearchParameter/AdverseEvent-date"
+    assert inst.rest[0].resource[4].searchParam[0].definition == "http://hl7.org/fhir/SearchParameter/clinical-date"
     assert inst.rest[0].resource[4].searchParam[0].documentation == "When the event occurred"
     assert inst.rest[0].resource[4].searchParam[0].name == "date"
     assert inst.rest[0].resource[4].searchParam[0].type == "date"
-    assert inst.rest[0].resource[4].searchParam[1].definition == "http://hl7.org/fhir/SearchParameter/AdverseEvent-identifier"
+    assert inst.rest[0].resource[4].searchParam[1].definition == "http://hl7.org/fhir/SearchParameter/clinical-identifier"
     assert inst.rest[0].resource[4].searchParam[1].documentation == "Business identifier for the event"
     assert inst.rest[0].resource[4].searchParam[1].name == "identifier"
     assert inst.rest[0].resource[4].searchParam[1].type == "token"
@@ -1491,7 +1488,7 @@ def impl_capabilitystatement_8(inst):
     assert inst.rest[0].resource[4].searchParam[3].documentation == "Research study that the subject is enrolled in"
     assert inst.rest[0].resource[4].searchParam[3].name == "study"
     assert inst.rest[0].resource[4].searchParam[3].type == "reference"
-    assert inst.rest[0].resource[4].searchParam[4].definition == "http://hl7.org/fhir/SearchParameter/AdverseEvent-code"
+    assert inst.rest[0].resource[4].searchParam[4].definition == "http://hl7.org/fhir/SearchParameter/clinical-code"
     assert inst.rest[0].resource[4].searchParam[4].documentation == "Event or incident that occurred or was averted"
     assert inst.rest[0].resource[4].searchParam[4].name == "code"
     assert inst.rest[0].resource[4].searchParam[4].type == "token"
@@ -1503,20 +1500,20 @@ def impl_capabilitystatement_8(inst):
     assert inst.rest[0].resource[4].searchParam[6].documentation == "Subject impacted by event"
     assert inst.rest[0].resource[4].searchParam[6].name == "subject"
     assert inst.rest[0].resource[4].searchParam[6].type == "reference"
-    assert inst.rest[0].resource[4].searchParam[7].definition == (
-    "http://hl7.org/fhir/SearchParameter/AdverseEvent-"
-    "resultingcondition"
-    )
-    assert inst.rest[0].resource[4].searchParam[7].documentation == "Effect on the subject due to this event"
-    assert inst.rest[0].resource[4].searchParam[7].name == "resultingcondition"
+    assert inst.rest[0].resource[4].searchParam[7].definition == "http://hl7.org/fhir/SearchParameter/AdverseEvent-substance"
+    assert inst.rest[0].resource[4].searchParam[7].documentation == "Refers to the specific entity that caused the adverse event"
+    assert inst.rest[0].resource[4].searchParam[7].name == "substance"
     assert inst.rest[0].resource[4].searchParam[7].type == "reference"
-    assert inst.rest[0].resource[4].searchParam[8].definition == "http://hl7.org/fhir/SearchParameter/AdverseEvent-substance"
-    assert inst.rest[0].resource[4].searchParam[8].documentation == "Refers to the specific entity that caused the adverse event"
-    assert inst.rest[0].resource[4].searchParam[8].name == "substance"
+    assert inst.rest[0].resource[4].searchParam[8].definition == "http://hl7.org/fhir/SearchParameter/clinical-patient"
+    assert inst.rest[0].resource[4].searchParam[8].documentation == "Subject impacted by event"
+    assert inst.rest[0].resource[4].searchParam[8].name == "patient"
     assert inst.rest[0].resource[4].searchParam[8].type == "reference"
-    assert inst.rest[0].resource[4].searchParam[9].definition == "http://hl7.org/fhir/SearchParameter/AdverseEvent-patient"
-    assert inst.rest[0].resource[4].searchParam[9].documentation == "Subject impacted by event"
-    assert inst.rest[0].resource[4].searchParam[9].name == "patient"
+    assert inst.rest[0].resource[4].searchParam[9].definition == (
+    "http://hl7.org/fhir/SearchParameter/AdverseEvent-"
+    "resultingeffect"
+    )
+    assert inst.rest[0].resource[4].searchParam[9].documentation == "Effect on the subject due to this event"
+    assert inst.rest[0].resource[4].searchParam[9].name == "resultingeffect"
     assert inst.rest[0].resource[4].searchParam[9].type == "reference"
     assert inst.rest[0].resource[4].type == "AdverseEvent"
     assert inst.rest[0].resource[5].conditionalCreate is True
@@ -1690,11 +1687,11 @@ def impl_capabilitystatement_8(inst):
     assert inst.rest[0].resource[6].searchInclude[7] == "Appointment.supporting-info"
     assert inst.rest[0].resource[6].searchInclude[8] == "Appointment.location"
     assert inst.rest[0].resource[6].searchInclude[9] == "Appointment.group"
-    assert inst.rest[0].resource[6].searchParam[0].definition == "http://hl7.org/fhir/SearchParameter/Appointment-date"
+    assert inst.rest[0].resource[6].searchParam[0].definition == "http://hl7.org/fhir/SearchParameter/clinical-date"
     assert inst.rest[0].resource[6].searchParam[0].documentation == "Appointment date/time."
     assert inst.rest[0].resource[6].searchParam[0].name == "date"
     assert inst.rest[0].resource[6].searchParam[0].type == "date"
-    assert inst.rest[0].resource[6].searchParam[1].definition == "http://hl7.org/fhir/SearchParameter/Appointment-identifier"
+    assert inst.rest[0].resource[6].searchParam[1].definition == "http://hl7.org/fhir/SearchParameter/clinical-identifier"
     assert inst.rest[0].resource[6].searchParam[1].documentation == "An Identifier of the Appointment"
     assert inst.rest[0].resource[6].searchParam[1].name == "identifier"
     assert inst.rest[0].resource[6].searchParam[1].type == "token"
@@ -1761,7 +1758,7 @@ def impl_capabilitystatement_8(inst):
     assert inst.rest[0].resource[6].searchRevInclude[3] == "DocumentReference.context"
     assert inst.rest[0].resource[6].searchRevInclude[4] == "Encounter.appointment"
     assert inst.rest[0].resource[6].searchRevInclude[5] == "ImagingSelection.based-on"
-    assert inst.rest[0].resource[6].searchRevInclude[6] == "ImagingStudy.basedon"
+    assert inst.rest[0].resource[6].searchRevInclude[6] == "ImagingStudy.based-on"
     assert inst.rest[0].resource[6].type == "Appointment"
     assert inst.rest[0].resource[7].conditionalCreate is True
     assert inst.rest[0].resource[7].conditionalDelete == "multiple"
@@ -1825,10 +1822,7 @@ def impl_capabilitystatement_8(inst):
     )
     assert inst.rest[0].resource[7].searchParam[0].name == "actor"
     assert inst.rest[0].resource[7].searchParam[0].type == "reference"
-    assert inst.rest[0].resource[7].searchParam[1].definition == (
-    "http://hl7.org/fhir/SearchParameter/AppointmentResponse-"
-    "identifier"
-    )
+    assert inst.rest[0].resource[7].searchParam[1].definition == "http://hl7.org/fhir/SearchParameter/clinical-identifier"
     assert inst.rest[0].resource[7].searchParam[1].documentation == "An Identifier in this appointment response"
     assert inst.rest[0].resource[7].searchParam[1].name == "identifier"
     assert inst.rest[0].resource[7].searchParam[1].type == "token"
@@ -1846,10 +1840,7 @@ def impl_capabilitystatement_8(inst):
     assert inst.rest[0].resource[7].searchParam[3].documentation == "The participants acceptance status for this appointment"
     assert inst.rest[0].resource[7].searchParam[3].name == "part-status"
     assert inst.rest[0].resource[7].searchParam[3].type == "token"
-    assert inst.rest[0].resource[7].searchParam[4].definition == (
-    "http://hl7.org/fhir/SearchParameter/AppointmentResponse-"
-    "patient"
-    )
+    assert inst.rest[0].resource[7].searchParam[4].definition == "http://hl7.org/fhir/SearchParameter/clinical-patient"
     assert inst.rest[0].resource[7].searchParam[4].documentation == "This Response is for this Patient"
     assert inst.rest[0].resource[7].searchParam[4].name == "patient"
     assert inst.rest[0].resource[7].searchParam[4].type == "reference"
@@ -1876,7 +1867,7 @@ def impl_capabilitystatement_8(inst):
     assert inst.rest[0].resource[7].searchParam[7].type == "reference"
     assert inst.rest[0].resource[7].searchRevInclude[0] == "DocumentReference.based-on"
     assert inst.rest[0].resource[7].searchRevInclude[1] == "ImagingSelection.based-on"
-    assert inst.rest[0].resource[7].searchRevInclude[2] == "ImagingStudy.basedon"
+    assert inst.rest[0].resource[7].searchRevInclude[2] == "ImagingStudy.based-on"
     assert inst.rest[0].resource[7].type == "AppointmentResponse"
     assert inst.rest[0].resource[8].conditionalCreate is True
     assert inst.rest[0].resource[8].conditionalDelete == "multiple"
@@ -1981,7 +1972,7 @@ def impl_capabilitystatement_8(inst):
     assert inst.rest[0].resource[9].searchInclude[3] == "AuditEvent.based-on"
     assert inst.rest[0].resource[9].searchInclude[4] == "AuditEvent.patient"
     assert inst.rest[0].resource[9].searchInclude[5] == "AuditEvent.entity"
-    assert inst.rest[0].resource[9].searchParam[0].definition == "http://hl7.org/fhir/SearchParameter/AuditEvent-date"
+    assert inst.rest[0].resource[9].searchParam[0].definition == "http://hl7.org/fhir/SearchParameter/clinical-date"
     assert inst.rest[0].resource[9].searchParam[0].documentation == "Time when the event was recorded"
     assert inst.rest[0].resource[9].searchParam[0].name == "date"
     assert inst.rest[0].resource[9].searchParam[0].type == "date"
@@ -1993,7 +1984,7 @@ def impl_capabilitystatement_8(inst):
     assert inst.rest[0].resource[9].searchParam[2].documentation == "What role the entity played"
     assert inst.rest[0].resource[9].searchParam[2].name == "entity-role"
     assert inst.rest[0].resource[9].searchParam[2].type == "token"
-    assert inst.rest[0].resource[9].searchParam[3].definition == "http://hl7.org/fhir/SearchParameter/AuditEvent-code"
+    assert inst.rest[0].resource[9].searchParam[3].definition == "http://hl7.org/fhir/SearchParameter/clinical-code"
     assert inst.rest[0].resource[9].searchParam[3].documentation == "More specific code for the event"
     assert inst.rest[0].resource[9].searchParam[3].name == "code"
     assert inst.rest[0].resource[9].searchParam[3].type == "token"
@@ -2001,7 +1992,7 @@ def impl_capabilitystatement_8(inst):
     assert inst.rest[0].resource[9].searchParam[4].documentation == "The authorization (purposeOfUse) of the event"
     assert inst.rest[0].resource[9].searchParam[4].name == "purpose"
     assert inst.rest[0].resource[9].searchParam[4].type == "token"
-    assert inst.rest[0].resource[9].searchParam[5].definition == "http://hl7.org/fhir/SearchParameter/AuditEvent-encounter"
+    assert inst.rest[0].resource[9].searchParam[5].definition == "http://hl7.org/fhir/SearchParameter/clinical-encounter"
     assert inst.rest[0].resource[9].searchParam[5].documentation == "Encounter related to the activity recorded in the AuditEvent"
     assert inst.rest[0].resource[9].searchParam[5].name == "encounter"
     assert inst.rest[0].resource[9].searchParam[5].type == "reference"
@@ -2013,7 +2004,7 @@ def impl_capabilitystatement_8(inst):
     assert inst.rest[0].resource[9].searchParam[7].documentation == "Reference to the service request."
     assert inst.rest[0].resource[9].searchParam[7].name == "based-on"
     assert inst.rest[0].resource[9].searchParam[7].type == "reference"
-    assert inst.rest[0].resource[9].searchParam[8].definition == "http://hl7.org/fhir/SearchParameter/AuditEvent-patient"
+    assert inst.rest[0].resource[9].searchParam[8].definition == "http://hl7.org/fhir/SearchParameter/clinical-patient"
     assert inst.rest[0].resource[9].searchParam[8].documentation == "Where the activity involved patient data"
     assert inst.rest[0].resource[9].searchParam[8].name == "patient"
     assert inst.rest[0].resource[9].searchParam[8].type == "reference"
@@ -2082,7 +2073,7 @@ def impl_capabilitystatement_8(inst):
     assert inst.status == "draft"
     assert inst.text.status == "extensions"
     assert inst.url == "http://hl7.org/fhir/CapabilityStatement/base"
-    assert inst.version == "5.0.0-ballot"
+    assert inst.version == "5.0.0-draft-final"
 
 
 def test_capabilitystatement_8(base_settings):

@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/SupplyRequest
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 import typing
 from pydantic import Field
@@ -21,8 +21,9 @@ class SupplyRequest(domainresource.DomainResource):
     for FHIR Primitive Data Types.
 
     Request for a medication, substance or device.
-    A record of a request for a medication, substance or device used in the
-    healthcare setting.
+    A record of a request to deliver a medication, substance or device used in
+    the healthcare setting to a particular destination for a particular person
+    or organization.
     """
     resource_type = Field("SupplyRequest", const=True)
 	
@@ -63,6 +64,20 @@ class SupplyRequest(domainresource.DomainResource):
         element_property=True,
 	)
 	
+    deliverFor: fhirtypes.ReferenceType = Field(
+		None,
+		alias="deliverFor",
+		title="The patient for who the supply request is for",
+		description=(
+    "The patient to whom the supply will be given or for whom they will be "
+    "used."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+        # note: Listed Resource Type(s) should be allowed as Reference.
+		enum_reference_types=["Patient"],
+	)
+	
     deliverFrom: fhirtypes.ReferenceType = Field(
 		None,
 		alias="deliverFrom",
@@ -82,7 +97,7 @@ class SupplyRequest(domainresource.DomainResource):
         # if property is element of this resource.
         element_property=True,
         # note: Listed Resource Type(s) should be allowed as Reference.
-		enum_reference_types=["Organization", "Location", "Patient"],
+		enum_reference_types=["Organization", "Location", "Patient", "RelatedPerson"],
 	)
 	
     identifier: typing.List[fhirtypes.IdentifierType] = Field(
@@ -110,7 +125,7 @@ class SupplyRequest(domainresource.DomainResource):
         # if property is element of this resource.
         element_property=True,
         # note: Listed Resource Type(s) should be allowed as Reference.
-		enum_reference_types=["Medication", "Substance", "Device", "DeviceDefinition"],
+		enum_reference_types=["Medication", "Substance", "Device", "DeviceDefinition", "BiologicallyDerivedProduct", "NutritionProduct", "InventoryItem"],
 	)
 	
     occurrenceDateTime: fhirtypes.DateTime = Field(
@@ -250,7 +265,7 @@ class SupplyRequest(domainresource.DomainResource):
         ``SupplyRequest`` according specification,
         with preserving original sequence order.
         """
-        return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "identifier", "status", "basedOn", "category", "priority", "item", "quantity", "parameter", "occurrenceDateTime", "occurrencePeriod", "occurrenceTiming", "authoredOn", "requester", "supplier", "reason", "deliverFrom", "deliverTo"]
+        return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "identifier", "status", "basedOn", "category", "priority", "deliverFor", "item", "quantity", "parameter", "occurrenceDateTime", "occurrencePeriod", "occurrenceTiming", "authoredOn", "requester", "supplier", "reason", "deliverFrom", "deliverTo"]
 
 
     @root_validator(pre=True, allow_reuse=True)

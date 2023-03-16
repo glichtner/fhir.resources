@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/CoverageEligibilityRequest
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 import typing
 from pydantic import Field
@@ -56,6 +56,15 @@ class CoverageEligibilityRequest(domainresource.DomainResource):
         element_property=True,
         # note: Listed Resource Type(s) should be allowed as Reference.
 		enum_reference_types=["Practitioner", "PractitionerRole"],
+	)
+	
+    event: typing.List[fhirtypes.CoverageEligibilityRequestEventType] = Field(
+		None,
+		alias="event",
+		title="Event information",
+		description="Information code for an event with a corresponding date or period.",
+        # if property is element of this resource.
+        element_property=True,
 	)
 	
     facility: fhirtypes.ReferenceType = Field(
@@ -245,7 +254,7 @@ class CoverageEligibilityRequest(domainresource.DomainResource):
         ``CoverageEligibilityRequest`` according specification,
         with preserving original sequence order.
         """
-        return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "identifier", "status", "priority", "purpose", "patient", "servicedDate", "servicedPeriod", "created", "enterer", "provider", "insurer", "facility", "supportingInfo", "insurance", "item"]
+        return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "identifier", "status", "priority", "purpose", "patient", "event", "servicedDate", "servicedPeriod", "created", "enterer", "provider", "insurer", "facility", "supportingInfo", "insurance", "item"]
 
 
     @root_validator(pre=True, allow_reuse=True)
@@ -353,6 +362,110 @@ class CoverageEligibilityRequest(domainresource.DomainResource):
 
 
 from . import backboneelement
+
+class CoverageEligibilityRequestEvent(backboneelement.BackboneElement):
+    """Disclaimer: Any field name ends with ``__ext`` doesn't part of
+    Resource StructureDefinition, instead used to enable Extensibility feature
+    for FHIR Primitive Data Types.
+
+    Event information.
+    Information code for an event with a corresponding date or period.
+    """
+    resource_type = Field("CoverageEligibilityRequestEvent", const=True)
+	
+    type: fhirtypes.CodeableConceptType = Field(
+		...,
+		alias="type",
+		title="Specific event",
+		description="A coded event such as when a service is expected or a card printed.",
+        # if property is element of this resource.
+        element_property=True,
+	)
+	
+    whenDateTime: fhirtypes.DateTime = Field(
+		None,
+		alias="whenDateTime",
+		title="Occurance date or period",
+		description=(
+    "A date or period in the past or future indicating when the event "
+    "occurred or is expectd to occur."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+        # Choice of Data Types. i.e when[x]
+		one_of_many="when",
+		one_of_many_required=True,
+	)
+    whenDateTime__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
+        None,
+        alias="_whenDateTime",
+        title="Extension field for ``whenDateTime``."
+    )
+	
+    whenPeriod: fhirtypes.PeriodType = Field(
+		None,
+		alias="whenPeriod",
+		title="Occurance date or period",
+		description=(
+    "A date or period in the past or future indicating when the event "
+    "occurred or is expectd to occur."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+        # Choice of Data Types. i.e when[x]
+		one_of_many="when",
+		one_of_many_required=True,
+	)
+    @classmethod
+    def elements_sequence(cls):
+        """returning all elements names from
+        ``CoverageEligibilityRequestEvent`` according specification,
+        with preserving original sequence order.
+        """
+        return ["id", "extension", "modifierExtension", "type", "whenDateTime", "whenPeriod"]
+
+
+    @root_validator(pre=True, allow_reuse=True)
+    def validate_one_of_many_3397(
+        cls, values: typing.Dict[str, typing.Any]
+    ) -> typing.Dict[str, typing.Any]:
+        """https://www.hl7.org/fhir/formats.html#choice
+        A few elements have a choice of more than one data type for their content.
+        All such elements have a name that takes the form nnn[x].
+        The "nnn" part of the name is constant, and the "[x]" is replaced with
+        the title-cased name of the type that is actually used.
+        The table view shows each of these names explicitly.
+
+        Elements that have a choice of data type cannot repeat - they must have a
+        maximum cardinality of 1. When constructing an instance of an element with a
+        choice of types, the authoring system must create a single element with a
+        data type chosen from among the list of permitted data types.
+        """
+        one_of_many_fields = {
+			"when": [
+			    "whenDateTime",
+			    "whenPeriod"]}
+        for prefix, fields in one_of_many_fields.items():
+            assert cls.__fields__[fields[0]].field_info.extra["one_of_many"] == prefix
+            required = (
+                cls.__fields__[fields[0]].field_info.extra["one_of_many_required"]
+                is True
+            )
+            found = False
+            for field in fields:
+                if field in values and values[field] is not None:
+                    if found is True:
+                        raise ValueError(
+                            "Any of one field value is expected from "
+                            f"this list {fields}, but got multiple!"
+                        )
+                    else:
+                        found = True
+            if required is True and found is False:
+                raise ValueError(f"Expect any of field value from this list {fields}.")
+
+        return values
+
 
 class CoverageEligibilityRequestInsurance(backboneelement.BackboneElement):
     """Disclaimer: Any field name ends with ``__ext`` doesn't part of

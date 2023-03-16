@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/Library
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 import typing
 from pydantic import Field
@@ -105,6 +105,25 @@ class Library(domainresource.DomainResource):
         title="Extension field for ``copyright``."
     )
 	
+    copyrightLabel: fhirtypes.String = Field(
+		None,
+		alias="copyrightLabel",
+		title="Copyright holder and year(s)",
+		description=(
+    "A short string (<50 characters), suitable for inclusion in a page "
+    "footer that identifies the copyright holder, effective period, and "
+    "optionally whether rights are resctricted. (e.g. 'All rights "
+    "reserved', 'Some rights reserved')."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+	)
+    copyrightLabel__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
+        None,
+        alias="_copyrightLabel",
+        title="Extension field for ``copyrightLabel``."
+    )
+	
     dataRequirement: typing.List[fhirtypes.DataRequirementType] = Field(
 		None,
 		alias="dataRequirement",
@@ -122,10 +141,10 @@ class Library(domainresource.DomainResource):
 		alias="date",
 		title="Date last changed",
 		description=(
-    "The date  (and optionally time) when the library was published. The "
-    "date must change when the business version changes and it must change "
-    "if the status code changes. In addition, it should change when the "
-    "substantive content of the library changes."
+    "The date  (and optionally time) when the library was last "
+    "significantly changed. The date must change when the business version "
+    "changes and it must change if the status code changes. In addition, it"
+    " should change when the substantive content of the library changes."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -182,8 +201,9 @@ class Library(domainresource.DomainResource):
 		alias="endorser",
 		title="Who endorsed the content",
 		description=(
-    "An individual or organization responsible for officially endorsing the"
-    " content for use in some setting."
+    "An individual or organization asserted by the publisher to be "
+    "responsible for officially endorsing the content for use in some "
+    "setting."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -237,7 +257,7 @@ class Library(domainresource.DomainResource):
     lastReviewDate: fhirtypes.Date = Field(
 		None,
 		alias="lastReviewDate",
-		title="When the library was last reviewed",
+		title="When the library was last reviewed by the publisher",
 		description=(
     "The date on which the resource content was last reviewed. Review "
     "happens periodically after approval but does not change the original "
@@ -316,7 +336,7 @@ class Library(domainresource.DomainResource):
     relatedArtifact: typing.List[fhirtypes.RelatedArtifactType] = Field(
 		None,
 		alias="relatedArtifact",
-		title="Additional documentation, citations, etc.",
+		title="Additional documentation, citations, etc",
 		description=(
     "Related artifacts such as additional documentation, justification, or "
     "bibliographic references."
@@ -330,8 +350,8 @@ class Library(domainresource.DomainResource):
 		alias="reviewer",
 		title="Who reviewed the content",
 		description=(
-    "An individual or organization primarily responsible for review of some"
-    " aspect of the content."
+    "An individual or organization asserted by the publisher to be "
+    "primarily responsible for review of some aspect of the content."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -424,7 +444,7 @@ class Library(domainresource.DomainResource):
     topic: typing.List[fhirtypes.CodeableConceptType] = Field(
 		None,
 		alias="topic",
-		title="E.g. Education, Treatment, Assessment, etc.",
+		title="E.g. Education, Treatment, Assessment, etc",
 		description=(
     "Descriptive topics related to the content of the library. Topics "
     "provide a high-level categorization of the library that can be useful "
@@ -474,7 +494,7 @@ class Library(domainresource.DomainResource):
         title="Extension field for ``url``."
     )
 	
-    usage: fhirtypes.String = Field(
+    usage: fhirtypes.Markdown = Field(
 		None,
 		alias="usage",
 		title="Describes the clinical usage of the library",
@@ -531,13 +551,48 @@ class Library(domainresource.DomainResource):
         alias="_version",
         title="Extension field for ``version``."
     )
+	
+    versionAlgorithmCoding: fhirtypes.CodingType = Field(
+		None,
+		alias="versionAlgorithmCoding",
+		title="How to compare versions",
+		description=(
+    "Indicates the mechanism used to compare versions to determine which is"
+    " more current."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+        # Choice of Data Types. i.e versionAlgorithm[x]
+		one_of_many="versionAlgorithm",
+		one_of_many_required=False,
+	)
+	
+    versionAlgorithmString: fhirtypes.String = Field(
+		None,
+		alias="versionAlgorithmString",
+		title="How to compare versions",
+		description=(
+    "Indicates the mechanism used to compare versions to determine which is"
+    " more current."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+        # Choice of Data Types. i.e versionAlgorithm[x]
+		one_of_many="versionAlgorithm",
+		one_of_many_required=False,
+	)
+    versionAlgorithmString__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
+        None,
+        alias="_versionAlgorithmString",
+        title="Extension field for ``versionAlgorithmString``."
+    )
     @classmethod
     def elements_sequence(cls):
         """returning all elements names from
         ``Library`` according specification,
         with preserving original sequence order.
         """
-        return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "url", "identifier", "version", "name", "title", "subtitle", "status", "experimental", "type", "subjectCodeableConcept", "subjectReference", "date", "publisher", "contact", "description", "useContext", "jurisdiction", "purpose", "usage", "copyright", "approvalDate", "lastReviewDate", "effectivePeriod", "topic", "author", "editor", "reviewer", "endorser", "relatedArtifact", "parameter", "dataRequirement", "content"]
+        return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "url", "identifier", "version", "versionAlgorithmString", "versionAlgorithmCoding", "name", "title", "subtitle", "status", "experimental", "type", "subjectCodeableConcept", "subjectReference", "date", "publisher", "contact", "description", "useContext", "jurisdiction", "purpose", "usage", "copyright", "copyrightLabel", "approvalDate", "lastReviewDate", "effectivePeriod", "topic", "author", "editor", "reviewer", "endorser", "relatedArtifact", "parameter", "dataRequirement", "content"]
 
 
     @root_validator(pre=True, allow_reuse=True)
@@ -619,7 +674,10 @@ class Library(domainresource.DomainResource):
         one_of_many_fields = {
 			"subject": [
 			    "subjectCodeableConcept",
-			    "subjectReference"]}
+			    "subjectReference"],
+			"versionAlgorithm": [
+			    "versionAlgorithmCoding",
+			    "versionAlgorithmString"]}
         for prefix, fields in one_of_many_fields.items():
             assert cls.__fields__[fields[0]].field_info.extra["one_of_many"] == prefix
             required = (

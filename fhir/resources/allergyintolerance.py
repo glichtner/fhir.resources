@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/AllergyIntolerance
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 import typing
 from pydantic import Field
@@ -255,7 +255,7 @@ class AllergyIntolerance(domainresource.DomainResource):
     patient: fhirtypes.ReferenceType = Field(
 		...,
 		alias="patient",
-		title="Who the sensitivity is for",
+		title="Who the allergy or intolerance is for",
 		description="The patient who has the allergy or intolerance.",
         # if property is element of this resource.
         element_property=True,
@@ -293,7 +293,7 @@ class AllergyIntolerance(domainresource.DomainResource):
         title="Extension field for ``recordedDate``."
     )
 	
-    type: fhirtypes.Code = Field(
+    type: fhirtypes.CodeableConceptType = Field(
 		None,
 		alias="type",
 		title="allergy | intolerance - Underlying mechanism (if known)",
@@ -303,15 +303,7 @@ class AllergyIntolerance(domainresource.DomainResource):
     ),
         # if property is element of this resource.
         element_property=True,
-        # note: Enum values can be used in validation,
-        # but use in your own responsibilities, read official FHIR documentation.
-		enum_values=["allergy", "intolerance"],
 	)
-    type__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
-        None,
-        alias="_type",
-        title="Extension field for ``type``."
-    )
 	
     verificationStatus: fhirtypes.CodeableConceptType = Field(
 		None,

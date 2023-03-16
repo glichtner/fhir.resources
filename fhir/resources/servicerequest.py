@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/ServiceRequest
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 import typing
 from pydantic import Field
@@ -347,7 +347,7 @@ class ServiceRequest(domainresource.DomainResource):
 		one_of_many_required=False,
 	)
 	
-    orderDetail: typing.List[fhirtypes.CodeableConceptType] = Field(
+    orderDetail: typing.List[fhirtypes.ServiceRequestOrderDetailType] = Field(
 		None,
 		alias="orderDetail",
 		title="Additional order information",
@@ -362,7 +362,7 @@ class ServiceRequest(domainresource.DomainResource):
         element_property=True,
 	)
 	
-    patientInstruction: fhirtypes.String = Field(
+    patientInstruction: typing.List[fhirtypes.ServiceRequestPatientInstructionType] = Field(
 		None,
 		alias="patientInstruction",
 		title="Patient or consumer-oriented instructions",
@@ -370,11 +370,6 @@ class ServiceRequest(domainresource.DomainResource):
         # if property is element of this resource.
         element_property=True,
 	)
-    patientInstruction__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
-        None,
-        alias="_patientInstruction",
-        title="Extension field for ``patientInstruction``."
-    )
 	
     performer: typing.List[fhirtypes.ReferenceType] = Field(
 		None,
@@ -583,7 +578,7 @@ class ServiceRequest(domainresource.DomainResource):
 		enum_reference_types=["Patient", "Group", "Location", "Device"],
 	)
 	
-    supportingInfo: typing.List[fhirtypes.ReferenceType] = Field(
+    supportingInfo: typing.List[fhirtypes.CodeableReferenceType] = Field(
 		None,
 		alias="supportingInfo",
 		title="Additional clinical information",
@@ -700,6 +695,309 @@ class ServiceRequest(domainresource.DomainResource):
 			    "quantityQuantity",
 			    "quantityRange",
 			    "quantityRatio"]}
+        for prefix, fields in one_of_many_fields.items():
+            assert cls.__fields__[fields[0]].field_info.extra["one_of_many"] == prefix
+            required = (
+                cls.__fields__[fields[0]].field_info.extra["one_of_many_required"]
+                is True
+            )
+            found = False
+            for field in fields:
+                if field in values and values[field] is not None:
+                    if found is True:
+                        raise ValueError(
+                            "Any of one field value is expected from "
+                            f"this list {fields}, but got multiple!"
+                        )
+                    else:
+                        found = True
+            if required is True and found is False:
+                raise ValueError(f"Expect any of field value from this list {fields}.")
+
+        return values
+
+
+from . import backboneelement
+
+class ServiceRequestOrderDetail(backboneelement.BackboneElement):
+    """Disclaimer: Any field name ends with ``__ext`` doesn't part of
+    Resource StructureDefinition, instead used to enable Extensibility feature
+    for FHIR Primitive Data Types.
+
+    Additional order information.
+    Additional details and instructions about the how the services are to be
+    delivered.   For example, and order for a urinary catheter may have an
+    order detail for an external or indwelling catheter, or an order for a
+    bandage may require additional instructions specifying how the bandage
+    should be applied.
+    """
+    resource_type = Field("ServiceRequestOrderDetail", const=True)
+	
+    parameter: fhirtypes.ServiceRequestOrderDetailParameterType = Field(
+		None,
+		alias="parameter",
+		title="The parameter details for the service being requested",
+		description=None,
+        # if property is element of this resource.
+        element_property=True,
+	)
+	
+    parameterFocus: fhirtypes.CodeableReferenceType = Field(
+		None,
+		alias="parameterFocus",
+		title="The context of the order details by reference",
+		description="Indicates the context of the order details by reference.",
+        # if property is element of this resource.
+        element_property=True,
+        # note: Listed Resource Type(s) should be allowed as Reference.
+		enum_reference_types=["Device", "DeviceDefinition", "DeviceRequest", "SupplyRequest", "Medication", "MedicationRequest", "BiologicallyDerivedProduct", "Substance"],
+	)
+    @classmethod
+    def elements_sequence(cls):
+        """returning all elements names from
+        ``ServiceRequestOrderDetail`` according specification,
+        with preserving original sequence order.
+        """
+        return ["id", "extension", "modifierExtension", "parameterFocus", "parameter"]
+
+
+
+class ServiceRequestOrderDetailParameter(backboneelement.BackboneElement):
+    """Disclaimer: Any field name ends with ``__ext`` doesn't part of
+    Resource StructureDefinition, instead used to enable Extensibility feature
+    for FHIR Primitive Data Types.
+
+    The parameter details for the service being requested.
+    """
+    resource_type = Field("ServiceRequestOrderDetailParameter", const=True)
+	
+    code: fhirtypes.CodeableConceptType = Field(
+		...,
+		alias="code",
+		title="The detail of the order being requested",
+		description=None,
+        # if property is element of this resource.
+        element_property=True,
+	)
+	
+    valueBoolean: bool = Field(
+		None,
+		alias="valueBoolean",
+		title="The value for the order detail",
+		description="Indicates a value for the order detail.",
+        # if property is element of this resource.
+        element_property=True,
+        # Choice of Data Types. i.e value[x]
+		one_of_many="value",
+		one_of_many_required=False,
+	)
+    valueBoolean__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
+        None,
+        alias="_valueBoolean",
+        title="Extension field for ``valueBoolean``."
+    )
+	
+    valueCodeableConcept: fhirtypes.CodeableConceptType = Field(
+		None,
+		alias="valueCodeableConcept",
+		title="The value for the order detail",
+		description="Indicates a value for the order detail.",
+        # if property is element of this resource.
+        element_property=True,
+        # Choice of Data Types. i.e value[x]
+		one_of_many="value",
+		one_of_many_required=False,
+	)
+	
+    valuePeriod: fhirtypes.PeriodType = Field(
+		None,
+		alias="valuePeriod",
+		title="The value for the order detail",
+		description="Indicates a value for the order detail.",
+        # if property is element of this resource.
+        element_property=True,
+        # Choice of Data Types. i.e value[x]
+		one_of_many="value",
+		one_of_many_required=False,
+	)
+	
+    valueQuantity: fhirtypes.QuantityType = Field(
+		None,
+		alias="valueQuantity",
+		title="The value for the order detail",
+		description="Indicates a value for the order detail.",
+        # if property is element of this resource.
+        element_property=True,
+        # Choice of Data Types. i.e value[x]
+		one_of_many="value",
+		one_of_many_required=False,
+	)
+	
+    valueRange: fhirtypes.RangeType = Field(
+		None,
+		alias="valueRange",
+		title="The value for the order detail",
+		description="Indicates a value for the order detail.",
+        # if property is element of this resource.
+        element_property=True,
+        # Choice of Data Types. i.e value[x]
+		one_of_many="value",
+		one_of_many_required=False,
+	)
+	
+    valueRatio: fhirtypes.RatioType = Field(
+		None,
+		alias="valueRatio",
+		title="The value for the order detail",
+		description="Indicates a value for the order detail.",
+        # if property is element of this resource.
+        element_property=True,
+        # Choice of Data Types. i.e value[x]
+		one_of_many="value",
+		one_of_many_required=False,
+	)
+	
+    valueString: fhirtypes.String = Field(
+		None,
+		alias="valueString",
+		title="The value for the order detail",
+		description="Indicates a value for the order detail.",
+        # if property is element of this resource.
+        element_property=True,
+        # Choice of Data Types. i.e value[x]
+		one_of_many="value",
+		one_of_many_required=False,
+	)
+    valueString__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
+        None,
+        alias="_valueString",
+        title="Extension field for ``valueString``."
+    )
+    @classmethod
+    def elements_sequence(cls):
+        """returning all elements names from
+        ``ServiceRequestOrderDetailParameter`` according specification,
+        with preserving original sequence order.
+        """
+        return ["id", "extension", "modifierExtension", "code", "valueQuantity", "valueRatio", "valueRange", "valueBoolean", "valueCodeableConcept", "valueString", "valuePeriod"]
+
+
+    @root_validator(pre=True, allow_reuse=True)
+    def validate_one_of_many_3695(
+        cls, values: typing.Dict[str, typing.Any]
+    ) -> typing.Dict[str, typing.Any]:
+        """https://www.hl7.org/fhir/formats.html#choice
+        A few elements have a choice of more than one data type for their content.
+        All such elements have a name that takes the form nnn[x].
+        The "nnn" part of the name is constant, and the "[x]" is replaced with
+        the title-cased name of the type that is actually used.
+        The table view shows each of these names explicitly.
+
+        Elements that have a choice of data type cannot repeat - they must have a
+        maximum cardinality of 1. When constructing an instance of an element with a
+        choice of types, the authoring system must create a single element with a
+        data type chosen from among the list of permitted data types.
+        """
+        one_of_many_fields = {
+			"value": [
+			    "valueBoolean",
+			    "valueCodeableConcept",
+			    "valuePeriod",
+			    "valueQuantity",
+			    "valueRange",
+			    "valueRatio",
+			    "valueString"]}
+        for prefix, fields in one_of_many_fields.items():
+            assert cls.__fields__[fields[0]].field_info.extra["one_of_many"] == prefix
+            required = (
+                cls.__fields__[fields[0]].field_info.extra["one_of_many_required"]
+                is True
+            )
+            found = False
+            for field in fields:
+                if field in values and values[field] is not None:
+                    if found is True:
+                        raise ValueError(
+                            "Any of one field value is expected from "
+                            f"this list {fields}, but got multiple!"
+                        )
+                    else:
+                        found = True
+            if required is True and found is False:
+                raise ValueError(f"Expect any of field value from this list {fields}.")
+
+        return values
+
+
+class ServiceRequestPatientInstruction(backboneelement.BackboneElement):
+    """Disclaimer: Any field name ends with ``__ext`` doesn't part of
+    Resource StructureDefinition, instead used to enable Extensibility feature
+    for FHIR Primitive Data Types.
+
+    Patient or consumer-oriented instructions.
+    Instructions in terms that are understood by the patient or consumer.
+    """
+    resource_type = Field("ServiceRequestPatientInstruction", const=True)
+	
+    instructionMarkdown: fhirtypes.Markdown = Field(
+		None,
+		alias="instructionMarkdown",
+		title="Patient or consumer-oriented instructions",
+		description="Instructions in terms that are understood by the patient or consumer.",
+        # if property is element of this resource.
+        element_property=True,
+        # Choice of Data Types. i.e instruction[x]
+		one_of_many="instruction",
+		one_of_many_required=False,
+	)
+    instructionMarkdown__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
+        None,
+        alias="_instructionMarkdown",
+        title="Extension field for ``instructionMarkdown``."
+    )
+	
+    instructionReference: fhirtypes.ReferenceType = Field(
+		None,
+		alias="instructionReference",
+		title="Patient or consumer-oriented instructions",
+		description="Instructions in terms that are understood by the patient or consumer.",
+        # if property is element of this resource.
+        element_property=True,
+        # Choice of Data Types. i.e instruction[x]
+		one_of_many="instruction",
+		one_of_many_required=False,
+        # note: Listed Resource Type(s) should be allowed as Reference.
+		enum_reference_types=["DocumentReference"],
+	)
+    @classmethod
+    def elements_sequence(cls):
+        """returning all elements names from
+        ``ServiceRequestPatientInstruction`` according specification,
+        with preserving original sequence order.
+        """
+        return ["id", "extension", "modifierExtension", "instructionMarkdown", "instructionReference"]
+
+
+    @root_validator(pre=True, allow_reuse=True)
+    def validate_one_of_many_3570(
+        cls, values: typing.Dict[str, typing.Any]
+    ) -> typing.Dict[str, typing.Any]:
+        """https://www.hl7.org/fhir/formats.html#choice
+        A few elements have a choice of more than one data type for their content.
+        All such elements have a name that takes the form nnn[x].
+        The "nnn" part of the name is constant, and the "[x]" is replaced with
+        the title-cased name of the type that is actually used.
+        The table view shows each of these names explicitly.
+
+        Elements that have a choice of data type cannot repeat - they must have a
+        maximum cardinality of 1. When constructing an instance of an element with a
+        choice of types, the authoring system must create a single element with a
+        data type chosen from among the list of permitted data types.
+        """
+        one_of_many_fields = {
+			"instruction": [
+			    "instructionMarkdown",
+			    "instructionReference"]}
         for prefix, fields in one_of_many_fields.items():
             assert cls.__fields__[fields[0]].field_info.extra["one_of_many"] == prefix
             required = (

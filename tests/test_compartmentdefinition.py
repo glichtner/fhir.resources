@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/CompartmentDefinition
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 from pydantic.validators import bytes_validator  # noqa: F401
 from fhir.resources import fhirtypes  # noqa: F401
@@ -15,7 +15,7 @@ def impl_compartmentdefinition_1(inst):
     assert inst.code == "Patient"
     assert inst.contact[0].telecom[0].system == "url"
     assert inst.contact[0].telecom[0].value == "http://hl7.org/fhir"
-    assert inst.date == fhirtypes.DateTime.validate("2022-09-10T04:52:37+10:00")
+    assert inst.date == fhirtypes.DateTime.validate("2023-03-01T23:03:57+11:00")
     assert inst.experimental is True
     assert inst.id == "patient"
     assert inst.name == "Base FHIR compartment definition for Patient"
@@ -41,7 +41,7 @@ def impl_compartmentdefinition_1(inst):
     assert inst.status == "draft"
     assert inst.text.status == "extensions"
     assert inst.url == "http://hl7.org/fhir/CompartmentDefinition/patient"
-    assert inst.version == "5.0.0-ballot"
+    assert inst.version == "5.0.0-draft-final"
 
 
 def test_compartmentdefinition_1(base_settings):
@@ -70,7 +70,7 @@ def impl_compartmentdefinition_2(inst):
     assert inst.code == "Encounter"
     assert inst.contact[0].telecom[0].system == "url"
     assert inst.contact[0].telecom[0].value == "http://hl7.org/fhir"
-    assert inst.date == fhirtypes.DateTime.validate("2022-09-10T04:52:37+10:00")
+    assert inst.date == fhirtypes.DateTime.validate("2023-03-01T23:03:57+11:00")
     assert inst.experimental is True
     assert inst.id == "encounter"
     assert inst.name == "Base FHIR compartment definition for Encounter"
@@ -89,7 +89,7 @@ def impl_compartmentdefinition_2(inst):
     assert inst.status == "draft"
     assert inst.text.status == "extensions"
     assert inst.url == "http://hl7.org/fhir/CompartmentDefinition/encounter"
-    assert inst.version == "5.0.0-ballot"
+    assert inst.version == "5.0.0-draft-final"
 
 
 def test_compartmentdefinition_2(base_settings):
@@ -144,6 +144,7 @@ def impl_compartmentdefinition_3(inst):
     assert inst.search is True
     assert inst.status == "draft"
     assert inst.text.status == "generated"
+    assert inst.title == "E X A M P L E"
     assert inst.url == "http://hl7.org/fhir/CompartmentDefinition/example"
     assert inst.useContext[0].code.code == "focus"
     assert inst.useContext[0].code.system == "http://terminology.hl7.org/CodeSystem/usage-context-type"
@@ -177,7 +178,7 @@ def impl_compartmentdefinition_4(inst):
     assert inst.code == "Device"
     assert inst.contact[0].telecom[0].system == "url"
     assert inst.contact[0].telecom[0].value == "http://hl7.org/fhir"
-    assert inst.date == fhirtypes.DateTime.validate("2022-09-10T04:52:37+10:00")
+    assert inst.date == fhirtypes.DateTime.validate("2023-03-01T23:03:57+11:00")
     assert inst.description == (
     "There is an instance of the device compartment for each "
     "Device resource, and the identity of the compartment is the "
@@ -206,7 +207,7 @@ def impl_compartmentdefinition_4(inst):
     assert inst.status == "draft"
     assert inst.text.status == "extensions"
     assert inst.url == "http://hl7.org/fhir/CompartmentDefinition/device"
-    assert inst.version == "5.0.0-ballot"
+    assert inst.version == "5.0.0-draft-final"
 
 
 def test_compartmentdefinition_4(base_settings):
@@ -235,7 +236,7 @@ def impl_compartmentdefinition_5(inst):
     assert inst.code == "Practitioner"
     assert inst.contact[0].telecom[0].system == "url"
     assert inst.contact[0].telecom[0].value == "http://hl7.org/fhir"
-    assert inst.date == fhirtypes.DateTime.validate("2022-09-10T04:52:37+10:00")
+    assert inst.date == fhirtypes.DateTime.validate("2023-03-01T23:03:57+11:00")
     assert inst.experimental is True
     assert inst.id == "practitioner"
     assert inst.name == "Base FHIR compartment definition for Practitioner"
@@ -260,7 +261,7 @@ def impl_compartmentdefinition_5(inst):
     assert inst.status == "draft"
     assert inst.text.status == "extensions"
     assert inst.url == "http://hl7.org/fhir/CompartmentDefinition/practitioner"
-    assert inst.version == "5.0.0-ballot"
+    assert inst.version == "5.0.0-draft-final"
 
 
 def test_compartmentdefinition_5(base_settings):
@@ -289,7 +290,7 @@ def impl_compartmentdefinition_6(inst):
     assert inst.code == "RelatedPerson"
     assert inst.contact[0].telecom[0].system == "url"
     assert inst.contact[0].telecom[0].value == "http://hl7.org/fhir"
-    assert inst.date == fhirtypes.DateTime.validate("2022-09-10T04:52:37+10:00")
+    assert inst.date == fhirtypes.DateTime.validate("2023-03-01T23:03:57+11:00")
     assert inst.experimental is True
     assert inst.id == "relatedPerson"
     assert inst.name == "Base FHIR compartment definition for RelatedPerson"
@@ -312,7 +313,7 @@ def impl_compartmentdefinition_6(inst):
     assert inst.status == "draft"
     assert inst.text.status == "extensions"
     assert inst.url == "http://hl7.org/fhir/CompartmentDefinition/relatedPerson"
-    assert inst.version == "5.0.0-ballot"
+    assert inst.version == "5.0.0-draft-final"
 
 
 def test_compartmentdefinition_6(base_settings):

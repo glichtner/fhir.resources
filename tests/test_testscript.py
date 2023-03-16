@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/TestScript
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 from pydantic.validators import bytes_validator  # noqa: F401
 from fhir.resources import fhirtypes  # noqa: F401
@@ -53,9 +53,8 @@ def impl_testscript_1(inst):
     "services."
     )
     assert inst.metadata.link[0].url == "http://hl7.org/fhir/patient.html"
-    assert inst.name == "TestScript Example"
-    assert inst.profile[0].id == "patient-profile"
-    assert inst.profile[0].reference == "http://hl7.org/fhir/StructureDefinition/Patient"
+    assert inst.name == "TestScriptExample"
+    assert inst.profile[0] == "http://hl7.org/fhir/StructureDefinition/Patient"
     assert inst.publisher == "HL7"
     assert inst.purpose == (
     "Patient Conditional Create (Update), Read and Delete "
@@ -218,6 +217,7 @@ def impl_testscript_1(inst):
     assert inst.test[0].id == "01-ReadPatient"
     assert inst.test[0].name == "Read Patient"
     assert inst.text.status == "generated"
+    assert inst.title == "TestScript Example"
     assert inst.url == "http://hl7.org/fhir/TestScript/testscript-example"
     assert inst.useContext[0].code.code == "focus"
     assert inst.useContext[0].code.system == "http://terminology.hl7.org/CodeSystem/usage-context-type"
@@ -289,8 +289,7 @@ def impl_testscript_2(inst):
     )
     assert inst.metadata.link[0].url == "http://hl7.org/fhir/patient.html"
     assert inst.name == "TestScript Example Read Test"
-    assert inst.profile[0].id == "patient-profile"
-    assert inst.profile[0].reference == "http://hl7.org/fhir/StructureDefinition/Patient"
+    assert inst.profile[0] == "http://hl7.org/fhir/StructureDefinition/Patient"
     assert inst.publisher == "HL7"
     assert inst.purpose == "Patient Read Operation"
     assert inst.scope[0].artifact == "http://hl7.org/fhir/StructureDefinition/Patient"
@@ -383,7 +382,7 @@ def impl_testscript_2(inst):
     assert inst.test[3].action[0].operation.type.code == "read"
     assert inst.test[3].action[0].operation.type.system == "http://hl7.org/fhir/restful-interaction"
     assert inst.test[3].action[1].assert_fhir.description == "Confirm that the returned HTTP status is 400(Bad Request)."
-    assert inst.test[3].action[1].assert_fhir.response == "bad"
+    assert inst.test[3].action[1].assert_fhir.response == "badRequest"
     assert inst.test[3].action[1].assert_fhir.stopTestOnFail is False
     assert inst.test[3].action[1].assert_fhir.warningOnly is False
     assert inst.test[3].description == (
@@ -432,6 +431,7 @@ def impl_testscript_3(inst):
     assert inst.date == fhirtypes.DateTime.validate("2017-01-18")
     assert inst.destination[0].index == 1
     assert inst.destination[0].profile.code == "FHIR-Server"
+    assert inst.destination[0].url == "http://acme.com/fhir/test"
     assert inst.destination[1].index == 2
     assert inst.destination[1].profile.code == "FHIR-Server"
     assert inst.experimental is True
@@ -461,7 +461,7 @@ def impl_testscript_3(inst):
     "services."
     )
     assert inst.metadata.link[0].url == "http://hl7.org/fhir/patient.html"
-    assert inst.name == "testscript-example-multisystem"
+    assert inst.name == "Testscriptexamplemultisystem"
     assert inst.origin[0].index == 1
     assert inst.origin[0].profile.code == "FHIR-Client"
     assert inst.publisher == "HL7"
@@ -631,9 +631,8 @@ def impl_testscript_4(inst):
     "services."
     )
     assert inst.metadata.link[0].url == "http://hl7.org/fhir/patient.html"
-    assert inst.name == "TestScript Example Search"
-    assert inst.profile[0].id == "bundle-profile"
-    assert inst.profile[0].reference == "http://hl7.org/fhir/StructureDefinition/Bundle"
+    assert inst.name == "TestScriptExampleSearch"
+    assert inst.profile[0] == "http://hl7.org/fhir/StructureDefinition/Bundle"
     assert inst.publisher == "HL7"
     assert inst.purpose == "Patient Search Operation"
     assert inst.setup.action[0].operation.accept == "xml"
@@ -765,6 +764,7 @@ def impl_testscript_4(inst):
     assert inst.test[1].id == "02-PatientSearchDynamic"
     assert inst.test[1].name == "Patient Search Dynamic"
     assert inst.text.status == "generated"
+    assert inst.title == "TestScript Example Search"
     assert inst.url == "http://hl7.org/fhir/TestScript/testscript-example-search"
     assert inst.variable[0].headerField == "Location"
     assert inst.variable[0].name == "PatientCreateLocation"
@@ -850,9 +850,8 @@ def impl_testscript_5(inst):
     "services."
     )
     assert inst.metadata.link[0].url == "http://hl7.org/fhir/patient.html"
-    assert inst.name == "TestScript Example Update"
-    assert inst.profile[0].id == "patient-profile"
-    assert inst.profile[0].reference == "http://hl7.org/fhir/StructureDefinition/Patient"
+    assert inst.name == "TestScriptExampleUpdate"
+    assert inst.profile[0] == "http://hl7.org/fhir/StructureDefinition/Patient"
     assert inst.publisher == "HL7"
     assert inst.purpose == "Patient (Conditional) Create, Update, Delete Operations"
     assert inst.setup.action[0].operation.accept == "xml"
@@ -928,6 +927,7 @@ def impl_testscript_5(inst):
     assert inst.test[0].id == "01-UpdatePatient"
     assert inst.test[0].name == "Update Patient"
     assert inst.text.status == "generated"
+    assert inst.title == "TestScript Example Update"
     assert inst.url == "http://hl7.org/fhir/TestScript/testscript-example-update"
     assert inst.variable[0].name == "createResourceId"
     assert inst.variable[0].path == "Patient/id"
@@ -994,9 +994,8 @@ def impl_testscript_6(inst):
     "services."
     )
     assert inst.metadata.link[0].url == "http://hl7.org/fhir/patient.html"
-    assert inst.name == "TestScript Example History"
-    assert inst.profile[0].id == "bundle-profile"
-    assert inst.profile[0].reference == "http://hl7.org/fhir/StructureDefinition/Bundle"
+    assert inst.name == "TestScriptExampleHistory"
+    assert inst.profile[0] == "http://hl7.org/fhir/StructureDefinition/Bundle"
     assert inst.publisher == "HL7"
     assert inst.purpose == (
     "Patient (Conditional) Create, Update, Delete and History "
@@ -1096,6 +1095,7 @@ def impl_testscript_6(inst):
     assert inst.test[0].id == "01-HistoryPatient"
     assert inst.test[0].name == "History Patient"
     assert inst.text.status == "generated"
+    assert inst.title == "TestScript Example History"
     assert inst.url == "http://hl7.org/fhir/TestScript/testscript-example-history"
     assert inst.variable[0].name == "createResourceId"
     assert inst.variable[0].path == "Patient/id"

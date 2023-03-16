@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/Measure
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 import typing
 from pydantic import Field
@@ -141,15 +141,34 @@ class Measure(domainresource.DomainResource):
         title="Extension field for ``copyright``."
     )
 	
+    copyrightLabel: fhirtypes.String = Field(
+		None,
+		alias="copyrightLabel",
+		title="Copyright holder and year(s)",
+		description=(
+    "A short string (<50 characters), suitable for inclusion in a page "
+    "footer that identifies the copyright holder, effective period, and "
+    "optionally whether rights are resctricted. (e.g. 'All rights "
+    "reserved', 'Some rights reserved')."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+	)
+    copyrightLabel__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
+        None,
+        alias="_copyrightLabel",
+        title="Extension field for ``copyrightLabel``."
+    )
+	
     date: fhirtypes.DateTime = Field(
 		None,
 		alias="date",
 		title="Date last changed",
 		description=(
-    "The date  (and optionally time) when the measure was published. The "
-    "date must change when the business version changes and it must change "
-    "if the status code changes. In addition, it should change when the "
-    "substantive content of the measure changes."
+    "The date  (and optionally time) when the measure was last "
+    "significantly changed. The date must change when the business version "
+    "changes and it must change if the status code changes. In addition, it"
+    " should change when the substantive content of the measure changes."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -224,8 +243,9 @@ class Measure(domainresource.DomainResource):
 		alias="endorser",
 		title="Who endorsed the content",
 		description=(
-    "An individual or organization responsible for officially endorsing the"
-    " content for use in some setting."
+    "An individual or organization asserted by the publisher to be "
+    "responsible for officially endorsing the content for use in some "
+    "setting."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -261,7 +281,7 @@ class Measure(domainresource.DomainResource):
     guidance: fhirtypes.Markdown = Field(
 		None,
 		alias="guidance",
-		title="Additional guidance for implementers",
+		title="Additional guidance for implementers (deprecated)",
 		description=(
     "Additional guidance for the measure including how it can be used in a "
     "clinical context, and the intent of the measure."
@@ -316,7 +336,7 @@ class Measure(domainresource.DomainResource):
     lastReviewDate: fhirtypes.Date = Field(
 		None,
 		alias="lastReviewDate",
-		title="When the measure was last reviewed",
+		title="When the measure was last reviewed by the publisher",
 		description=(
     "The date on which the resource content was last reviewed. Review "
     "happens periodically after approval but does not change the original "
@@ -402,7 +422,7 @@ class Measure(domainresource.DomainResource):
         title="Extension field for ``purpose``."
     )
 	
-    rateAggregation: fhirtypes.String = Field(
+    rateAggregation: fhirtypes.Markdown = Field(
 		None,
 		alias="rateAggregation",
 		title="How is rate aggregation performed for this measure",
@@ -440,7 +460,7 @@ class Measure(domainresource.DomainResource):
     relatedArtifact: typing.List[fhirtypes.RelatedArtifactType] = Field(
 		None,
 		alias="relatedArtifact",
-		title="Additional documentation, citations, etc.",
+		title="Additional documentation, citations, etc",
 		description=(
     "Related artifacts such as additional documentation, justification, or "
     "bibliographic references."
@@ -454,14 +474,14 @@ class Measure(domainresource.DomainResource):
 		alias="reviewer",
 		title="Who reviewed the content",
 		description=(
-    "An individual or organization primarily responsible for review of some"
-    " aspect of the content."
+    "An individual or organization asserted by the publisher to be "
+    "primarily responsible for review of some aspect of the content."
     ),
         # if property is element of this resource.
         element_property=True,
 	)
 	
-    riskAdjustment: fhirtypes.String = Field(
+    riskAdjustment: fhirtypes.Markdown = Field(
 		None,
 		alias="riskAdjustment",
 		title="How risk adjustment is applied for this measure",
@@ -624,7 +644,7 @@ class Measure(domainresource.DomainResource):
 		alias="topic",
 		title=(
     "The category of the measure, such as Education, Treatment, Assessment,"
-    " etc."
+    " etc"
     ),
 		description=(
     "Descriptive topics related to the content of the measure. Topics "
@@ -673,7 +693,7 @@ class Measure(domainresource.DomainResource):
         title="Extension field for ``url``."
     )
 	
-    usage: fhirtypes.String = Field(
+    usage: fhirtypes.Markdown = Field(
 		None,
 		alias="usage",
 		title="Describes the clinical usage of the measure",
@@ -730,13 +750,48 @@ class Measure(domainresource.DomainResource):
         alias="_version",
         title="Extension field for ``version``."
     )
+	
+    versionAlgorithmCoding: fhirtypes.CodingType = Field(
+		None,
+		alias="versionAlgorithmCoding",
+		title="How to compare versions",
+		description=(
+    "Indicates the mechanism used to compare versions to determine which is"
+    " more current."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+        # Choice of Data Types. i.e versionAlgorithm[x]
+		one_of_many="versionAlgorithm",
+		one_of_many_required=False,
+	)
+	
+    versionAlgorithmString: fhirtypes.String = Field(
+		None,
+		alias="versionAlgorithmString",
+		title="How to compare versions",
+		description=(
+    "Indicates the mechanism used to compare versions to determine which is"
+    " more current."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+        # Choice of Data Types. i.e versionAlgorithm[x]
+		one_of_many="versionAlgorithm",
+		one_of_many_required=False,
+	)
+    versionAlgorithmString__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
+        None,
+        alias="_versionAlgorithmString",
+        title="Extension field for ``versionAlgorithmString``."
+    )
     @classmethod
     def elements_sequence(cls):
         """returning all elements names from
         ``Measure`` according specification,
         with preserving original sequence order.
         """
-        return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "url", "identifier", "version", "name", "title", "subtitle", "status", "experimental", "subjectCodeableConcept", "subjectReference", "basis", "date", "publisher", "contact", "description", "useContext", "jurisdiction", "purpose", "usage", "copyright", "approvalDate", "lastReviewDate", "effectivePeriod", "topic", "author", "editor", "reviewer", "endorser", "relatedArtifact", "library", "disclaimer", "scoring", "scoringUnit", "compositeScoring", "type", "riskAdjustment", "rateAggregation", "rationale", "clinicalRecommendationStatement", "improvementNotation", "term", "guidance", "group", "supplementalData"]
+        return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "url", "identifier", "version", "versionAlgorithmString", "versionAlgorithmCoding", "name", "title", "subtitle", "status", "experimental", "subjectCodeableConcept", "subjectReference", "basis", "date", "publisher", "contact", "description", "useContext", "jurisdiction", "purpose", "usage", "copyright", "copyrightLabel", "approvalDate", "lastReviewDate", "effectivePeriod", "topic", "author", "editor", "reviewer", "endorser", "relatedArtifact", "library", "disclaimer", "scoring", "scoringUnit", "compositeScoring", "type", "riskAdjustment", "rateAggregation", "rationale", "clinicalRecommendationStatement", "improvementNotation", "term", "guidance", "group", "supplementalData"]
 
 
     @root_validator(pre=True, allow_reuse=True)
@@ -818,7 +873,10 @@ class Measure(domainresource.DomainResource):
         one_of_many_fields = {
 			"subject": [
 			    "subjectCodeableConcept",
-			    "subjectReference"]}
+			    "subjectReference"],
+			"versionAlgorithm": [
+			    "versionAlgorithmCoding",
+			    "versionAlgorithmString"]}
         for prefix, fields in one_of_many_fields.items():
             assert cls.__fields__[fields[0]].field_info.extra["one_of_many"] == prefix
             required = (
@@ -891,7 +949,7 @@ class MeasureGroup(backboneelement.BackboneElement):
         element_property=True,
 	)
 	
-    description: fhirtypes.String = Field(
+    description: fhirtypes.Markdown = Field(
 		None,
 		alias="description",
 		title="Summary description",
@@ -918,6 +976,42 @@ class MeasureGroup(backboneelement.BackboneElement):
         element_property=True,
 	)
 	
+    library: typing.List[fhirtypes.Canonical] = Field(
+		None,
+		alias="library",
+		title="Logic used by the measure group",
+		description=(
+    "A reference to a Library resource containing the formal logic used by "
+    "the measure group."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+        # note: Listed Resource Type(s) should be allowed as Reference.
+		enum_reference_types=["Library"],
+	)
+    library__ext: typing.List[typing.Union[fhirtypes.FHIRPrimitiveExtensionType, None]] = Field(
+        None,
+        alias="_library",
+        title="Extension field for ``library``."
+    )
+	
+    linkId: fhirtypes.String = Field(
+		None,
+		alias="linkId",
+		title="Unique id for group in measure",
+		description=(
+    "An identifier that is unique within the Measure allowing linkage to "
+    "the equivalent item in a MeasureReport resource."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+	)
+    linkId__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
+        None,
+        alias="_linkId",
+        title="Extension field for ``linkId``."
+    )
+	
     population: typing.List[fhirtypes.MeasureGroupPopulationType] = Field(
 		None,
 		alias="population",
@@ -926,6 +1020,23 @@ class MeasureGroup(backboneelement.BackboneElement):
         # if property is element of this resource.
         element_property=True,
 	)
+	
+    rateAggregation: fhirtypes.Markdown = Field(
+		None,
+		alias="rateAggregation",
+		title="How is rate aggregation performed for this measure",
+		description=(
+    "Describes how to combine the information calculated, based on logic in"
+    " each of several populations, into one summarized result."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+	)
+    rateAggregation__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
+        None,
+        alias="_rateAggregation",
+        title="Extension field for ``rateAggregation``."
+    )
 	
     scoring: fhirtypes.CodeableConceptType = Field(
 		None,
@@ -966,6 +1077,46 @@ class MeasureGroup(backboneelement.BackboneElement):
         element_property=True,
 	)
 	
+    subjectCodeableConcept: fhirtypes.CodeableConceptType = Field(
+		None,
+		alias="subjectCodeableConcept",
+		title=(
+    "E.g. Patient, Practitioner, RelatedPerson, Organization, Location, "
+    "Device"
+    ),
+		description=(
+    "The intended subjects for the measure. If this element is not "
+    "provided, a Patient subject is assumed, but the subject of the measure"
+    " can be anything."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+        # Choice of Data Types. i.e subject[x]
+		one_of_many="subject",
+		one_of_many_required=False,
+	)
+	
+    subjectReference: fhirtypes.ReferenceType = Field(
+		None,
+		alias="subjectReference",
+		title=(
+    "E.g. Patient, Practitioner, RelatedPerson, Organization, Location, "
+    "Device"
+    ),
+		description=(
+    "The intended subjects for the measure. If this element is not "
+    "provided, a Patient subject is assumed, but the subject of the measure"
+    " can be anything."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+        # Choice of Data Types. i.e subject[x]
+		one_of_many="subject",
+		one_of_many_required=False,
+        # note: Listed Resource Type(s) should be allowed as Reference.
+		enum_reference_types=["Group"],
+	)
+	
     type: typing.List[fhirtypes.CodeableConceptType] = Field(
 		None,
 		alias="type",
@@ -984,8 +1135,49 @@ class MeasureGroup(backboneelement.BackboneElement):
         ``MeasureGroup`` according specification,
         with preserving original sequence order.
         """
-        return ["id", "extension", "modifierExtension", "code", "description", "type", "basis", "scoring", "scoringUnit", "improvementNotation", "population", "stratifier"]
+        return ["id", "extension", "modifierExtension", "linkId", "code", "description", "type", "subjectCodeableConcept", "subjectReference", "basis", "scoring", "scoringUnit", "rateAggregation", "improvementNotation", "library", "population", "stratifier"]
 
+
+    @root_validator(pre=True, allow_reuse=True)
+    def validate_one_of_many_1436(
+        cls, values: typing.Dict[str, typing.Any]
+    ) -> typing.Dict[str, typing.Any]:
+        """https://www.hl7.org/fhir/formats.html#choice
+        A few elements have a choice of more than one data type for their content.
+        All such elements have a name that takes the form nnn[x].
+        The "nnn" part of the name is constant, and the "[x]" is replaced with
+        the title-cased name of the type that is actually used.
+        The table view shows each of these names explicitly.
+
+        Elements that have a choice of data type cannot repeat - they must have a
+        maximum cardinality of 1. When constructing an instance of an element with a
+        choice of types, the authoring system must create a single element with a
+        data type chosen from among the list of permitted data types.
+        """
+        one_of_many_fields = {
+			"subject": [
+			    "subjectCodeableConcept",
+			    "subjectReference"]}
+        for prefix, fields in one_of_many_fields.items():
+            assert cls.__fields__[fields[0]].field_info.extra["one_of_many"] == prefix
+            required = (
+                cls.__fields__[fields[0]].field_info.extra["one_of_many_required"]
+                is True
+            )
+            found = False
+            for field in fields:
+                if field in values and values[field] is not None:
+                    if found is True:
+                        raise ValueError(
+                            "Any of one field value is expected from "
+                            f"this list {fields}, but got multiple!"
+                        )
+                    else:
+                        found = True
+            if required is True and found is False:
+                raise ValueError(f"Expect any of field value from this list {fields}.")
+
+        return values
 
 
 class MeasureGroupPopulation(backboneelement.BackboneElement):
@@ -1030,7 +1222,7 @@ class MeasureGroupPopulation(backboneelement.BackboneElement):
 	)
 	
     criteria: fhirtypes.ExpressionType = Field(
-		...,
+		None,
 		alias="criteria",
 		title="The criteria that defines this population",
 		description=(
@@ -1041,7 +1233,7 @@ class MeasureGroupPopulation(backboneelement.BackboneElement):
         element_property=True,
 	)
 	
-    description: fhirtypes.String = Field(
+    description: fhirtypes.Markdown = Field(
 		None,
 		alias="description",
 		title="The human readable description of this population criteria",
@@ -1054,6 +1246,20 @@ class MeasureGroupPopulation(backboneelement.BackboneElement):
         alias="_description",
         title="Extension field for ``description``."
     )
+	
+    groupDefinition: fhirtypes.ReferenceType = Field(
+		None,
+		alias="groupDefinition",
+		title="A group resource that defines this population",
+		description=(
+    "A Group resource that defines this population as a set of "
+    "characteristics."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+        # note: Listed Resource Type(s) should be allowed as Reference.
+		enum_reference_types=["Group"],
+	)
 	
     inputPopulationId: fhirtypes.String = Field(
 		None,
@@ -1077,13 +1283,30 @@ class MeasureGroupPopulation(backboneelement.BackboneElement):
         alias="_inputPopulationId",
         title="Extension field for ``inputPopulationId``."
     )
+	
+    linkId: fhirtypes.String = Field(
+		None,
+		alias="linkId",
+		title="Unique id for population in measure",
+		description=(
+    "An identifier that is unique within the Measure allowing linkage to "
+    "the equivalent population in a MeasureReport resource."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+	)
+    linkId__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
+        None,
+        alias="_linkId",
+        title="Extension field for ``linkId``."
+    )
     @classmethod
     def elements_sequence(cls):
         """returning all elements names from
         ``MeasureGroupPopulation`` according specification,
         with preserving original sequence order.
         """
-        return ["id", "extension", "modifierExtension", "code", "description", "criteria", "inputPopulationId", "aggregateMethod"]
+        return ["id", "extension", "modifierExtension", "linkId", "code", "description", "criteria", "groupDefinition", "inputPopulationId", "aggregateMethod"]
 
 
 
@@ -1139,7 +1362,7 @@ class MeasureGroupStratifier(backboneelement.BackboneElement):
         element_property=True,
 	)
 	
-    description: fhirtypes.String = Field(
+    description: fhirtypes.Markdown = Field(
 		None,
 		alias="description",
 		title="The human readable description of this stratifier",
@@ -1152,13 +1375,44 @@ class MeasureGroupStratifier(backboneelement.BackboneElement):
         alias="_description",
         title="Extension field for ``description``."
     )
+	
+    groupDefinition: fhirtypes.ReferenceType = Field(
+		None,
+		alias="groupDefinition",
+		title="A group resource that defines this population",
+		description=(
+    "A Group resource that defines this population as a set of "
+    "characteristics."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+        # note: Listed Resource Type(s) should be allowed as Reference.
+		enum_reference_types=["Group"],
+	)
+	
+    linkId: fhirtypes.String = Field(
+		None,
+		alias="linkId",
+		title="Unique id for stratifier in measure",
+		description=(
+    "An identifier that is unique within the Measure allowing linkage to "
+    "the equivalent item in a MeasureReport resource."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+	)
+    linkId__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
+        None,
+        alias="_linkId",
+        title="Extension field for ``linkId``."
+    )
     @classmethod
     def elements_sequence(cls):
         """returning all elements names from
         ``MeasureGroupStratifier`` according specification,
         with preserving original sequence order.
         """
-        return ["id", "extension", "modifierExtension", "code", "description", "criteria", "component"]
+        return ["id", "extension", "modifierExtension", "linkId", "code", "description", "criteria", "groupDefinition", "component"]
 
 
 
@@ -1189,7 +1443,7 @@ class MeasureGroupStratifierComponent(backboneelement.BackboneElement):
 	)
 	
     criteria: fhirtypes.ExpressionType = Field(
-		...,
+		None,
 		alias="criteria",
 		title="Component of how the measure should be stratified",
 		description=(
@@ -1202,7 +1456,7 @@ class MeasureGroupStratifierComponent(backboneelement.BackboneElement):
         element_property=True,
 	)
 	
-    description: fhirtypes.String = Field(
+    description: fhirtypes.Markdown = Field(
 		None,
 		alias="description",
 		title="The human readable description of this stratifier component",
@@ -1215,13 +1469,44 @@ class MeasureGroupStratifierComponent(backboneelement.BackboneElement):
         alias="_description",
         title="Extension field for ``description``."
     )
+	
+    groupDefinition: fhirtypes.ReferenceType = Field(
+		None,
+		alias="groupDefinition",
+		title="A group resource that defines this population",
+		description=(
+    "A Group resource that defines this population as a set of "
+    "characteristics."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+        # note: Listed Resource Type(s) should be allowed as Reference.
+		enum_reference_types=["Group"],
+	)
+	
+    linkId: fhirtypes.String = Field(
+		None,
+		alias="linkId",
+		title="Unique id for stratifier component in measure",
+		description=(
+    "An identifier that is unique within the Measure allowing linkage to "
+    "the equivalent item in a MeasureReport resource."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+	)
+    linkId__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
+        None,
+        alias="_linkId",
+        title="Extension field for ``linkId``."
+    )
     @classmethod
     def elements_sequence(cls):
         """returning all elements names from
         ``MeasureGroupStratifierComponent`` according specification,
         with preserving original sequence order.
         """
-        return ["id", "extension", "modifierExtension", "code", "description", "criteria"]
+        return ["id", "extension", "modifierExtension", "linkId", "code", "description", "criteria", "groupDefinition"]
 
 
 
@@ -1265,7 +1550,7 @@ class MeasureSupplementalData(backboneelement.BackboneElement):
         element_property=True,
 	)
 	
-    description: fhirtypes.String = Field(
+    description: fhirtypes.Markdown = Field(
 		None,
 		alias="description",
 		title="The human readable description of this supplemental data",
@@ -1277,6 +1562,23 @@ class MeasureSupplementalData(backboneelement.BackboneElement):
         None,
         alias="_description",
         title="Extension field for ``description``."
+    )
+	
+    linkId: fhirtypes.String = Field(
+		None,
+		alias="linkId",
+		title="Unique id for supplementalData in measure",
+		description=(
+    "An identifier that is unique within the Measure allowing linkage to "
+    "the equivalent item in a MeasureReport resource."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+	)
+    linkId__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
+        None,
+        alias="_linkId",
+        title="Extension field for ``linkId``."
     )
 	
     usage: typing.List[fhirtypes.CodeableConceptType] = Field(
@@ -1300,7 +1602,7 @@ class MeasureSupplementalData(backboneelement.BackboneElement):
         ``MeasureSupplementalData`` according specification,
         with preserving original sequence order.
         """
-        return ["id", "extension", "modifierExtension", "code", "usage", "description", "criteria"]
+        return ["id", "extension", "modifierExtension", "linkId", "code", "usage", "description", "criteria"]
 
 
 

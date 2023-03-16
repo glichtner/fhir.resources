@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/AuditEvent
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 from pydantic.validators import bytes_validator  # noqa: F401
 from fhir.resources import fhirtypes  # noqa: F401
@@ -34,7 +34,7 @@ def impl_auditevent_1(inst):
     assert inst.meta.tag[0].code == "HTEST"
     assert inst.meta.tag[0].display == "test health data"
     assert inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
-    assert inst.outcome.code.code == "success"
+    assert inst.outcome.code.code == "0"
     assert inst.outcome.code.display == "Success"
     assert inst.outcome.code.system == "http://terminology.hl7.org/CodeSystem/audit-event-outcome"
     assert inst.outcome.detail[0].text == "Successful  Start of Break-Glass"
@@ -106,7 +106,7 @@ def impl_auditevent_2(inst):
     assert inst.meta.tag[0].display == "test health data"
     assert inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
     assert inst.occurredDateTime == fhirtypes.DateTime.validate("2020-04-29T09:49:00.000Z")
-    assert inst.outcome.code.code == "success"
+    assert inst.outcome.code.code == "0"
     assert inst.outcome.code.display == "Success"
     assert inst.outcome.code.system == "http://terminology.hl7.org/CodeSystem/audit-event-outcome"
     assert inst.patient.reference == "Patient/example"
@@ -176,7 +176,7 @@ def impl_auditevent_3(inst):
     assert inst.meta.tag[0].code == "HTEST"
     assert inst.meta.tag[0].display == "test health data"
     assert inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
-    assert inst.outcome.code.code == "success"
+    assert inst.outcome.code.code == "0"
     assert inst.outcome.code.display == "Success"
     assert inst.outcome.code.system == "http://terminology.hl7.org/CodeSystem/audit-event-outcome"
     assert inst.recorded == fhirtypes.Instant.validate("2013-06-20T23:41:23Z")
@@ -245,7 +245,7 @@ def impl_auditevent_4(inst):
     assert inst.meta.tag[0].code == "HTEST"
     assert inst.meta.tag[0].display == "test health data"
     assert inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
-    assert inst.outcome.code.code == "success"
+    assert inst.outcome.code.code == "0"
     assert inst.outcome.code.display == "Success"
     assert inst.outcome.code.system == "http://terminology.hl7.org/CodeSystem/audit-event-outcome"
     assert inst.recorded == fhirtypes.Instant.validate("2013-06-20T23:46:41Z")
@@ -327,7 +327,7 @@ def impl_auditevent_5(inst):
     assert inst.meta.tag[0].code == "HTEST"
     assert inst.meta.tag[0].display == "test health data"
     assert inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
-    assert inst.outcome.code.code == "success"
+    assert inst.outcome.code.code == "0"
     assert inst.outcome.code.display == "Success"
     assert inst.outcome.code.system == "http://terminology.hl7.org/CodeSystem/audit-event-outcome"
     assert inst.outcome.detail[0].text == "Successful Disclosure"
@@ -406,7 +406,7 @@ def impl_auditevent_6(inst):
     assert inst.meta.tag[0].code == "HTEST"
     assert inst.meta.tag[0].display == "test health data"
     assert inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
-    assert inst.outcome.code.code == "success"
+    assert inst.outcome.code.code == "0"
     assert inst.outcome.code.display == "Success"
     assert inst.outcome.code.system == "http://terminology.hl7.org/CodeSystem/audit-event-outcome"
     assert inst.recorded == fhirtypes.Instant.validate("2015-08-26T23:42:24Z")
@@ -477,7 +477,7 @@ def impl_auditevent_7(inst):
     assert inst.meta.tag[0].code == "HTEST"
     assert inst.meta.tag[0].display == "test health data"
     assert inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
-    assert inst.outcome.code.code == "success"
+    assert inst.outcome.code.code == "0"
     assert inst.outcome.code.display == "Success"
     assert inst.outcome.code.system == "http://terminology.hl7.org/CodeSystem/audit-event-outcome"
     assert inst.recorded == fhirtypes.Instant.validate("2015-08-22T23:42:24Z")
@@ -553,7 +553,7 @@ def impl_auditevent_8(inst):
     assert inst.meta.tag[0].code == "HTEST"
     assert inst.meta.tag[0].display == "test health data"
     assert inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
-    assert inst.outcome.code.code == "success"
+    assert inst.outcome.code.code == "0"
     assert inst.outcome.code.display == "Success"
     assert inst.outcome.code.system == "http://terminology.hl7.org/CodeSystem/audit-event-outcome"
     assert inst.recorded == fhirtypes.Instant.validate("2019-12-04T11:59:28.646+00:00")
@@ -698,7 +698,7 @@ def impl_auditevent_10(inst):
     assert inst.meta.tag[0].code == "HTEST"
     assert inst.meta.tag[0].display == "test health data"
     assert inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
-    assert inst.outcome.code.code == "success"
+    assert inst.outcome.code.code == "0"
     assert inst.outcome.code.display == "Success"
     assert inst.outcome.code.system == "http://terminology.hl7.org/CodeSystem/audit-event-outcome"
     assert inst.recorded == fhirtypes.Instant.validate("2013-06-20T23:42:24Z")

@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/NutritionIntake
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 import typing
 from pydantic import Field
@@ -128,7 +128,7 @@ class NutritionIntake(domainresource.DomainResource):
         # if property is element of this resource.
         element_property=True,
         # note: Listed Resource Type(s) should be allowed as Reference.
-		enum_reference_types=["ActivityDefinition", "ChargeItemDefinition", "EventDefinition", "Measure", "MessageDefinition", "ObservationDefinition", "OperationDefinition", "PlanDefinition", "Questionnaire", "SubscriptionTopic", "TestScript"],
+		enum_reference_types=["ActivityDefinition", "ChargeItemDefinition", "ClinicalUseDefinition", "EventDefinition", "Measure", "MessageDefinition", "ObservationDefinition", "OperationDefinition", "PlanDefinition", "Questionnaire", "SubscriptionTopic", "TestScript"],
 	)
     instantiatesCanonical__ext: typing.List[typing.Union[fhirtypes.FHIRPrimitiveExtensionType, None]] = Field(
         None,
@@ -556,8 +556,8 @@ class NutritionIntakeConsumedItem(backboneelement.BackboneElement):
 		alias="type",
 		title="The type of food or fluid product",
 		description=(
-    "Indicates what a category of item that was consumed: eg., food, fluid,"
-    " enteral, etc."
+    "Indicates what a category of item that was consumed: e.g., food, "
+    "fluid, enteral, etc."
     ),
         # if property is element of this resource.
         element_property=True,

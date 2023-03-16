@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/ArtifactAssessment
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 from pydantic.validators import bytes_validator  # noqa: F401
 from fhir.resources import fhirtypes  # noqa: F401
@@ -275,7 +275,7 @@ def impl_artifactassessment_1(inst):
     assert inst.content[0].informationType == "rating"
     assert inst.content[0].type.coding[0].code == "RiskOfBias"
     assert inst.content[0].type.coding[0].display == "Risk of bias"
-    assert inst.content[0].type.coding[0].system == "http://terminology.hl7.org/CodeSystem/certainty-type"
+    assert inst.content[0].type.coding[0].system == "http://hl7.org/fhir/certainty-type"
     assert inst.content[0].type.coding[0].userSelected is True
     assert inst.content[0].type.coding[0].version == "5.0.0"
     assert inst.content[1].author.display == "Ilkka Kunnamo"
@@ -283,7 +283,7 @@ def impl_artifactassessment_1(inst):
     assert inst.content[1].summary == "Results not consistent with critically ill cohort."
     assert inst.content[1].type.coding[0].code == "Inconsistency"
     assert inst.content[1].type.coding[0].display == "Inconsistency"
-    assert inst.content[1].type.coding[0].system == "http://terminology.hl7.org/CodeSystem/certainty-type"
+    assert inst.content[1].type.coding[0].system == "http://hl7.org/fhir/certainty-type"
     assert inst.content[1].type.coding[0].userSelected is True
     assert inst.content[1].type.coding[0].version == "5.0.0"
     assert inst.copyright == "https://creativecommons.org/licenses/by-nc-sa/4.0/"
@@ -342,7 +342,7 @@ def impl_artifactassessment_2(inst):
     assert inst.content[0].component[0].summary == "risk of bias in both included trials"
     assert inst.content[0].component[0].type.coding[0].code == "RiskOfBias"
     assert inst.content[0].component[0].type.coding[0].display == "Risk of bias"
-    assert inst.content[0].component[0].type.coding[0].system == "http://terminology.hl7.org/CodeSystem/certainty-type"
+    assert inst.content[0].component[0].type.coding[0].system == "http://hl7.org/fhir/certainty-type"
     assert inst.content[0].component[1].author.display == "Brian S. Alper"
     assert inst.content[0].component[1].classifier[0].coding[0].code == "serious-concern"
     assert inst.content[0].component[1].classifier[0].coding[0].display == "serious concern"
@@ -355,7 +355,7 @@ def impl_artifactassessment_2(inst):
     )
     assert inst.content[0].component[1].type.coding[0].code == "Inconsistency"
     assert inst.content[0].component[1].type.coding[0].display == "Inconsistency"
-    assert inst.content[0].component[1].type.coding[0].system == "http://terminology.hl7.org/CodeSystem/certainty-type"
+    assert inst.content[0].component[1].type.coding[0].system == "http://hl7.org/fhir/certainty-type"
     assert inst.content[0].component[2].author.display == "Brian S. Alper"
     assert inst.content[0].component[2].classifier[0].coding[0].code == "no-concern"
     assert inst.content[0].component[2].classifier[0].coding[0].display == "no serious concern"
@@ -363,7 +363,7 @@ def impl_artifactassessment_2(inst):
     assert inst.content[0].component[2].informationType == "rating"
     assert inst.content[0].component[2].type.coding[0].code == "Indirectness"
     assert inst.content[0].component[2].type.coding[0].display == "Indirectness"
-    assert inst.content[0].component[2].type.coding[0].system == "http://terminology.hl7.org/CodeSystem/certainty-type"
+    assert inst.content[0].component[2].type.coding[0].system == "http://hl7.org/fhir/certainty-type"
     assert inst.content[0].component[3].author.display == "Brian S. Alper"
     assert inst.content[0].component[3].classifier[0].coding[0].code == "serious-concern"
     assert inst.content[0].component[3].classifier[0].coding[0].display == "serious concern"
@@ -375,7 +375,7 @@ def impl_artifactassessment_2(inst):
     )
     assert inst.content[0].component[3].type.coding[0].code == "Imprecision"
     assert inst.content[0].component[3].type.coding[0].display == "Imprecision"
-    assert inst.content[0].component[3].type.coding[0].system == "http://terminology.hl7.org/CodeSystem/certainty-type"
+    assert inst.content[0].component[3].type.coding[0].system == "http://hl7.org/fhir/certainty-type"
     assert inst.content[0].component[4].author.display == "Brian S. Alper"
     assert inst.content[0].component[4].classifier[0].coding[0].code == "no-concern"
     assert inst.content[0].component[4].classifier[0].coding[0].display == "no serious concern"
@@ -383,7 +383,7 @@ def impl_artifactassessment_2(inst):
     assert inst.content[0].component[4].informationType == "rating"
     assert inst.content[0].component[4].type.coding[0].code == "PublicationBias"
     assert inst.content[0].component[4].type.coding[0].display == "Publication bias"
-    assert inst.content[0].component[4].type.coding[0].system == "http://terminology.hl7.org/CodeSystem/certainty-type"
+    assert inst.content[0].component[4].type.coding[0].system == "http://hl7.org/fhir/certainty-type"
     assert inst.content[0].freeToShare is True
     assert inst.content[0].informationType == "rating"
     assert inst.content[0].summary == (
@@ -392,7 +392,7 @@ def impl_artifactassessment_2(inst):
     )
     assert inst.content[0].type.coding[0].code == "Overall"
     assert inst.content[0].type.coding[0].display == "Overall certainty"
-    assert inst.content[0].type.coding[0].system == "http://terminology.hl7.org/CodeSystem/certainty-type"
+    assert inst.content[0].type.coding[0].system == "http://hl7.org/fhir/certainty-type"
     assert inst.copyright == "https://creativecommons.org/licenses/by-nc-sa/4.0/"
     assert inst.date == fhirtypes.DateTime.validate("2021-11-02T14:48:59.890Z")
     assert inst.id == "example-certainty-rating"

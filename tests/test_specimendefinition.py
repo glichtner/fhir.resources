@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/SpecimenDefinition
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 from pydantic.validators import bytes_validator  # noqa: F401
 from fhir.resources import fhirtypes  # noqa: F401
@@ -12,10 +12,9 @@ from fhir.resources import specimendefinition
 
 
 def impl_specimendefinition_1(inst):
+    assert inst.experimental is False
     assert inst.id == "2364"
-    assert inst.meta.tag[0].code == "HTEST"
-    assert inst.meta.tag[0].display == "test health data"
-    assert inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
+    assert inst.identifier.value == "12345"
     assert inst.patientPreparation[0].text == "12 hour fasting"
     assert inst.patientPreparation[1].coding[0].code == "263678003"
     assert inst.patientPreparation[1].coding[0].display == "At rest"
@@ -23,6 +22,7 @@ def impl_specimendefinition_1(inst):
     assert inst.status == "active"
     assert inst.text.status == "generated"
     assert inst.timeAspect == "preferrably morning time"
+    assert inst.title == "Example Specimen Definition for Testing"
     assert inst.typeCollected.coding[0].code == "122555007"
     assert inst.typeCollected.coding[0].display == "Venous blood specimen"
     assert inst.typeCollected.coding[0].system == "http://snomed.info/sct"
@@ -68,6 +68,7 @@ def impl_specimendefinition_1(inst):
     assert inst.typeTested[0].handling[1].temperatureRange.low.system == "http://unitsofmeasure.org"
     assert inst.typeTested[0].handling[1].temperatureRange.low.unit == "°C"
     assert float(inst.typeTested[0].handling[1].temperatureRange.low.value) == float(2)
+    assert inst.typeTested[0].isDerived is False
     assert inst.typeTested[0].preference == "preferred"
     assert inst.typeTested[0].type.coding[0].code == "119364003"
     assert inst.typeTested[0].type.coding[0].display == "Serum specimen"
@@ -124,6 +125,7 @@ def impl_specimendefinition_1(inst):
     assert inst.typeTested[1].type.coding[0].code == "119361006"
     assert inst.typeTested[1].type.coding[0].display == "Plasma specimen"
     assert inst.typeTested[1].type.coding[0].system == "http://snomed.info/sct"
+    assert inst.url == "http://example.com/specdef/v1/12345"
 
 
 def test_specimendefinition_1(base_settings):

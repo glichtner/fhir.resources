@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/Appointment
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 import typing
 from pydantic import Field
@@ -69,6 +69,20 @@ class Appointment(domainresource.DomainResource):
 		enum_reference_types=["CarePlan", "DeviceRequest", "MedicationRequest", "ServiceRequest"],
 	)
 	
+    cancellationDate: fhirtypes.DateTime = Field(
+		None,
+		alias="cancellationDate",
+		title="When the appointment was cancelled",
+		description="The date/time describing when the appointment was cancelled.",
+        # if property is element of this resource.
+        element_property=True,
+	)
+    cancellationDate__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
+        None,
+        alias="_cancellationDate",
+        title="Extension field for ``cancellationDate``."
+    )
+	
     cancellationReason: fhirtypes.CodeableConceptType = Field(
 		None,
 		alias="cancellationReason",
@@ -121,7 +135,7 @@ class Appointment(domainresource.DomainResource):
 		description=(
     "The brief description of the appointment as would be shown on a "
     "subject line in a meeting request, or appointment list. Detailed or "
-    "expanded information should be put in the comment field."
+    "expanded information should be put in the note field."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -483,7 +497,7 @@ class Appointment(domainresource.DomainResource):
         ``Appointment`` according specification,
         with preserving original sequence order.
         """
-        return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "identifier", "status", "cancellationReason", "class", "serviceCategory", "serviceType", "specialty", "appointmentType", "reason", "priority", "description", "replaces", "virtualService", "supportingInformation", "previousAppointment", "originatingAppointment", "start", "end", "minutesDuration", "slot", "account", "created", "note", "patientInstruction", "basedOn", "subject", "participant", "requestedPeriod", "recurrenceId", "occurrenceChanged", "recurrenceTemplate"]
+        return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "identifier", "status", "cancellationReason", "class", "serviceCategory", "serviceType", "specialty", "appointmentType", "reason", "priority", "description", "replaces", "virtualService", "supportingInformation", "previousAppointment", "originatingAppointment", "start", "end", "minutesDuration", "requestedPeriod", "slot", "account", "created", "cancellationDate", "note", "patientInstruction", "basedOn", "subject", "participant", "recurrenceId", "occurrenceChanged", "recurrenceTemplate"]
 
 
     @root_validator(pre=True, allow_reuse=True)

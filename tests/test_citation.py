@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/Citation
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 from pydantic.validators import bytes_validator  # noqa: F401
 from fhir.resources import fhirtypes  # noqa: F401
@@ -17,16 +17,10 @@ def impl_citation_1(inst):
     assert inst.citedArtifact.abstract[0].language.coding[0].system == "urn:ietf:bcp:47"
     assert inst.citedArtifact.abstract[0].type.coding[0].code == "primary-human-use"
     assert inst.citedArtifact.abstract[0].type.coding[0].display == "Primary human use"
-    assert inst.citedArtifact.abstract[0].type.coding[0].system == (
-    "http://terminology.hl7.org/CodeSystem/cited-artifact-"
-    "abstract-type"
-    )
+    assert inst.citedArtifact.abstract[0].type.coding[0].system == "http://hl7.org/fhir/cited-artifact-abstract-type"
     assert inst.citedArtifact.classification[0].classifier[0].coding[0].code == "knowledge-artifact-type"
     assert inst.citedArtifact.classification[0].classifier[0].coding[0].display == "Knowledge Artifact Type"
-    assert inst.citedArtifact.classification[0].classifier[0].coding[0].system == (
-    "http://terminology.hl7.org/CodeSystem/cited-artifact-"
-    "classification-type"
-    )
+    assert inst.citedArtifact.classification[0].classifier[0].coding[0].system == "http://hl7.org/fhir/cited-artifact-classification-type"
     assert inst.citedArtifact.classification[0].classifier[1].coding[0].code == "D064886"
     assert inst.citedArtifact.classification[0].classifier[1].coding[0].display == "Dataset"
     assert inst.citedArtifact.classification[0].classifier[1].coding[0].system == "http://hl7.org/fhir/citation-artifact-classifier"
@@ -61,10 +55,7 @@ def impl_citation_1(inst):
     assert inst.citedArtifact.contributorship.summary[0].source.text == "copied-from-article"
     assert inst.citedArtifact.contributorship.summary[0].type.coding[0].code == "author-string"
     assert inst.citedArtifact.contributorship.summary[0].type.coding[0].display == "Author string"
-    assert inst.citedArtifact.contributorship.summary[0].type.coding[0].system == (
-    "http://terminology.hl7.org/CodeSystem/contributor-summary-"
-    "type"
-    )
+    assert inst.citedArtifact.contributorship.summary[0].type.coding[0].system == "http://hl7.org/fhir/contributor-summary-type"
     assert inst.citedArtifact.contributorship.summary[0].type.coding[0].version == "5.0.0"
     assert inst.citedArtifact.contributorship.summary[0].value == (
     "Danilo Pani, Eleonora Sulas, Monica Urru, Reza Sameni, Luigi"
@@ -88,7 +79,7 @@ def impl_citation_1(inst):
     assert inst.citedArtifact.publicationForm[0].publishedIn.title == "PhysioNet"
     assert inst.citedArtifact.publicationForm[0].publishedIn.type.coding[0].code == "D019991"
     assert inst.citedArtifact.publicationForm[0].publishedIn.type.coding[0].display == "Database"
-    assert inst.citedArtifact.publicationForm[0].publishedIn.type.coding[0].system == "http://terminology.hl7.org/CodeSystem/published-in-type"
+    assert inst.citedArtifact.publicationForm[0].publishedIn.type.coding[0].system == "http://hl7.org/fhir/published-in-type"
     assert inst.citedArtifact.publicationForm[0].publishedIn.type.coding[0].version == "5.0.0"
     assert inst.citedArtifact.relatedIdentifier[0].system == "https://doi.org"
     assert inst.citedArtifact.relatedIdentifier[0].value == "10.1038/s41597-021-00811-3"
@@ -111,35 +102,23 @@ def impl_citation_1(inst):
     assert inst.citedArtifact.version.value == "1.0.0"
     assert inst.citedArtifact.webLocation[0].classifier[0].coding[0].code == "webpage"
     assert inst.citedArtifact.webLocation[0].classifier[0].coding[0].display == "Webpage"
-    assert inst.citedArtifact.webLocation[0].classifier[0].coding[0].system == (
-    "http://terminology.hl7.org/CodeSystem/artifact-url-"
-    "classifier"
-    )
+    assert inst.citedArtifact.webLocation[0].classifier[0].coding[0].system == "http://hl7.org/fhir/artifact-url-classifier"
     assert inst.citedArtifact.webLocation[0].classifier[0].coding[0].version == "5.0.0"
     assert inst.citedArtifact.webLocation[0].url == "https://physionet.org/content/ninfea/1.0.0/"
     assert inst.citedArtifact.webLocation[1].classifier[0].coding[0].code == "doi-based"
     assert inst.citedArtifact.webLocation[1].classifier[0].coding[0].display == "DOI Based"
-    assert inst.citedArtifact.webLocation[1].classifier[0].coding[0].system == (
-    "http://terminology.hl7.org/CodeSystem/artifact-url-"
-    "classifier"
-    )
+    assert inst.citedArtifact.webLocation[1].classifier[0].coding[0].system == "http://hl7.org/fhir/artifact-url-classifier"
     assert inst.citedArtifact.webLocation[1].classifier[0].coding[0].version == "5.0.0"
     assert inst.citedArtifact.webLocation[1].url == "https://doi.org/10.13026/c4n5-3b04"
     assert inst.citedArtifact.webLocation[2].classifier[0].coding[0].code == "doi-based"
     assert inst.citedArtifact.webLocation[2].classifier[0].coding[0].display == "DOI Based"
-    assert inst.citedArtifact.webLocation[2].classifier[0].coding[0].system == (
-    "http://terminology.hl7.org/CodeSystem/artifact-url-"
-    "classifier"
-    )
+    assert inst.citedArtifact.webLocation[2].classifier[0].coding[0].system == "http://hl7.org/fhir/artifact-url-classifier"
     assert inst.citedArtifact.webLocation[2].classifier[0].coding[0].version == "5.0.0"
     assert inst.citedArtifact.webLocation[2].classifier[0].text == "original publication"
     assert inst.citedArtifact.webLocation[2].url == "https://doi.org/10.1038/s41597-021-00811-3"
     assert inst.citedArtifact.webLocation[3].classifier[0].coding[0].code == "compressed-file"
     assert inst.citedArtifact.webLocation[3].classifier[0].coding[0].display == "Compressed file"
-    assert inst.citedArtifact.webLocation[3].classifier[0].coding[0].system == (
-    "http://terminology.hl7.org/CodeSystem/artifact-url-"
-    "classifier"
-    )
+    assert inst.citedArtifact.webLocation[3].classifier[0].coding[0].system == "http://hl7.org/fhir/artifact-url-classifier"
     assert inst.citedArtifact.webLocation[3].classifier[0].coding[0].version == "5.0.0"
     assert inst.citedArtifact.webLocation[3].url == (
     "https://physionet.org/static/published-"
@@ -161,6 +140,7 @@ def impl_citation_1(inst):
     assert inst.meta.tag[0].code == "HTEST"
     assert inst.meta.tag[0].display == "test health data"
     assert inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
+    assert inst.name == "NInFEACitation"
     assert inst.publisher == "Computable Publishing LLC"
     assert inst.status == "active"
     assert inst.summary[0].style.text == "as reported on PhysioNet"

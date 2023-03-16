@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/MedicationRequest
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 from pydantic.validators import bytes_validator  # noqa: F401
 from fhir.resources import fhirtypes  # noqa: F401
@@ -31,35 +31,35 @@ def impl_medicationrequest_1(inst):
     assert float(inst.dispenseRequest.quantity.value) == float(30)
     assert inst.dispenseRequest.validityPeriod.end == fhirtypes.DateTime.validate("2016-01-15")
     assert inst.dispenseRequest.validityPeriod.start == fhirtypes.DateTime.validate("2015-01-15")
-    assert inst.dose.dosageInstruction[0].additionalInstruction[0].coding[0].code == "418914006"
-    assert inst.dose.dosageInstruction[0].additionalInstruction[0].coding[0].display == (
+    assert inst.dosageInstruction[0].additionalInstruction[0].coding[0].code == "418914006"
+    assert inst.dosageInstruction[0].additionalInstruction[0].coding[0].display == (
     "Warning. May cause drowsiness. If affected do not drive or "
     "operate machinery. Avoid alcoholic drink (qualifier value)"
     )
-    assert inst.dose.dosageInstruction[0].additionalInstruction[0].coding[0].system == "http://snomed.info/sct"
-    assert inst.dose.dosageInstruction[0].doseAndRate[0].doseRange.high.code == "TAB"
-    assert inst.dose.dosageInstruction[0].doseAndRate[0].doseRange.high.system == "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm"
-    assert inst.dose.dosageInstruction[0].doseAndRate[0].doseRange.high.unit == "TAB"
-    assert float(inst.dose.dosageInstruction[0].doseAndRate[0].doseRange.high.value) == float(2)
-    assert inst.dose.dosageInstruction[0].doseAndRate[0].doseRange.low.code == "TAB"
-    assert inst.dose.dosageInstruction[0].doseAndRate[0].doseRange.low.system == "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm"
-    assert inst.dose.dosageInstruction[0].doseAndRate[0].doseRange.low.unit == "TAB"
-    assert float(inst.dose.dosageInstruction[0].doseAndRate[0].doseRange.low.value) == float(1)
-    assert inst.dose.dosageInstruction[0].doseAndRate[0].type.coding[0].code == "ordered"
-    assert inst.dose.dosageInstruction[0].doseAndRate[0].type.coding[0].display == "Ordered"
-    assert inst.dose.dosageInstruction[0].doseAndRate[0].type.coding[0].system == "http://terminology.hl7.org/CodeSystem/dose-rate-type"
-    assert inst.dose.dosageInstruction[0].method.coding[0].code == "421521009"
-    assert inst.dose.dosageInstruction[0].method.coding[0].display == "Swallow - dosing instruction imperative (qualifier value)"
-    assert inst.dose.dosageInstruction[0].method.coding[0].system == "http://snomed.info/sct"
-    assert inst.dose.dosageInstruction[0].route.coding[0].code == "26643006"
-    assert inst.dose.dosageInstruction[0].route.coding[0].display == "Oral Route"
-    assert inst.dose.dosageInstruction[0].route.coding[0].system == "http://snomed.info/sct"
-    assert inst.dose.dosageInstruction[0].sequence == 1
-    assert inst.dose.dosageInstruction[0].text == "one tablet one time daily in the morning for rib pain"
-    assert inst.dose.dosageInstruction[0].timing.repeat.frequency == 1
-    assert float(inst.dose.dosageInstruction[0].timing.repeat.period) == float(1)
-    assert inst.dose.dosageInstruction[0].timing.repeat.periodUnit == "d"
-    assert inst.dose.dosageInstruction[0].timing.repeat.when[0] == "MORN"
+    assert inst.dosageInstruction[0].additionalInstruction[0].coding[0].system == "http://snomed.info/sct"
+    assert inst.dosageInstruction[0].doseAndRate[0].doseRange.high.code == "TAB"
+    assert inst.dosageInstruction[0].doseAndRate[0].doseRange.high.system == "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm"
+    assert inst.dosageInstruction[0].doseAndRate[0].doseRange.high.unit == "TAB"
+    assert float(inst.dosageInstruction[0].doseAndRate[0].doseRange.high.value) == float(2)
+    assert inst.dosageInstruction[0].doseAndRate[0].doseRange.low.code == "TAB"
+    assert inst.dosageInstruction[0].doseAndRate[0].doseRange.low.system == "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm"
+    assert inst.dosageInstruction[0].doseAndRate[0].doseRange.low.unit == "TAB"
+    assert float(inst.dosageInstruction[0].doseAndRate[0].doseRange.low.value) == float(1)
+    assert inst.dosageInstruction[0].doseAndRate[0].type.coding[0].code == "ordered"
+    assert inst.dosageInstruction[0].doseAndRate[0].type.coding[0].display == "Ordered"
+    assert inst.dosageInstruction[0].doseAndRate[0].type.coding[0].system == "http://terminology.hl7.org/CodeSystem/dose-rate-type"
+    assert inst.dosageInstruction[0].method.coding[0].code == "421521009"
+    assert inst.dosageInstruction[0].method.coding[0].display == "Swallow - dosing instruction imperative (qualifier value)"
+    assert inst.dosageInstruction[0].method.coding[0].system == "http://snomed.info/sct"
+    assert inst.dosageInstruction[0].route.coding[0].code == "26643006"
+    assert inst.dosageInstruction[0].route.coding[0].display == "Oral Route"
+    assert inst.dosageInstruction[0].route.coding[0].system == "http://snomed.info/sct"
+    assert inst.dosageInstruction[0].sequence == 1
+    assert inst.dosageInstruction[0].text == "one tablet one time daily in the morning for rib pain"
+    assert inst.dosageInstruction[0].timing.repeat.frequency == 1
+    assert float(inst.dosageInstruction[0].timing.repeat.period) == float(1)
+    assert inst.dosageInstruction[0].timing.repeat.periodUnit == "d"
+    assert inst.dosageInstruction[0].timing.repeat.when[0] == "MORN"
     assert inst.encounter.display == "encounter who leads to this prescription"
     assert inst.encounter.reference == "Encounter/f001"
     assert inst.id == "medrx0333"
@@ -113,34 +113,34 @@ def test_medicationrequest_1(base_settings):
 def impl_medicationrequest_2(inst):
     assert inst.authoredOn == fhirtypes.DateTime.validate("2015-01-15")
     assert inst.contained[0].id == "med0318"
-    assert inst.dose.dosageInstruction[0].doseAndRate[0].doseQuantity.code == "mL"
-    assert inst.dose.dosageInstruction[0].doseAndRate[0].doseQuantity.system == "http://unitsofmeasure.org"
-    assert inst.dose.dosageInstruction[0].doseAndRate[0].doseQuantity.unit == "mL"
-    assert float(inst.dose.dosageInstruction[0].doseAndRate[0].doseQuantity.value) == float(1000)
-    assert inst.dose.dosageInstruction[0].doseAndRate[0].rateRatio.denominator.code == "h"
-    assert inst.dose.dosageInstruction[0].doseAndRate[0].rateRatio.denominator.system == "http://unitsofmeasure.org"
-    assert inst.dose.dosageInstruction[0].doseAndRate[0].rateRatio.denominator.unit == "h"
-    assert float(inst.dose.dosageInstruction[0].doseAndRate[0].rateRatio.denominator.value) == float(1)
-    assert inst.dose.dosageInstruction[0].doseAndRate[0].rateRatio.numerator.code == "mL"
-    assert inst.dose.dosageInstruction[0].doseAndRate[0].rateRatio.numerator.system == "http://unitsofmeasure.org"
-    assert inst.dose.dosageInstruction[0].doseAndRate[0].rateRatio.numerator.unit == "mL"
-    assert float(inst.dose.dosageInstruction[0].doseAndRate[0].rateRatio.numerator.value) == float(50)
-    assert inst.dose.dosageInstruction[0].doseAndRate[0].type.coding[0].code == "ordered"
-    assert inst.dose.dosageInstruction[0].doseAndRate[0].type.coding[0].display == "Ordered"
-    assert inst.dose.dosageInstruction[0].doseAndRate[0].type.coding[0].system == "http://terminology.hl7.org/CodeSystem/dose-rate-type"
-    assert inst.dose.dosageInstruction[0].method.text == "PICC line"
-    assert inst.dose.dosageInstruction[0].route.coding[0].code == "255560000"
-    assert inst.dose.dosageInstruction[0].route.coding[0].display == "Intravenous"
-    assert inst.dose.dosageInstruction[0].route.coding[0].system == "http://snomed.info/sct"
-    assert inst.dose.dosageInstruction[0].sequence == 1
-    assert inst.dose.dosageInstruction[0].site.coding[0].code == "6073002"
-    assert inst.dose.dosageInstruction[0].site.coding[0].display == "Structure of ligament of left superior vena cava"
-    assert inst.dose.dosageInstruction[0].site.coding[0].system == "http://snomed.info/sct"
-    assert inst.dose.dosageInstruction[0].text == "1000mL infused at 50ml/hour for 4 hours - hung at 2200 hours"
-    assert inst.dose.dosageInstruction[0].timing.event[0] == fhirtypes.DateTime.validate("2015-01-15T22:00:00+11:00")
-    assert inst.dose.dosageInstruction[0].timing.repeat.frequency == 1
-    assert float(inst.dose.dosageInstruction[0].timing.repeat.period) == float(24)
-    assert inst.dose.dosageInstruction[0].timing.repeat.periodUnit == "h"
+    assert inst.dosageInstruction[0].doseAndRate[0].doseQuantity.code == "mL"
+    assert inst.dosageInstruction[0].doseAndRate[0].doseQuantity.system == "http://unitsofmeasure.org"
+    assert inst.dosageInstruction[0].doseAndRate[0].doseQuantity.unit == "mL"
+    assert float(inst.dosageInstruction[0].doseAndRate[0].doseQuantity.value) == float(1000)
+    assert inst.dosageInstruction[0].doseAndRate[0].rateRatio.denominator.code == "h"
+    assert inst.dosageInstruction[0].doseAndRate[0].rateRatio.denominator.system == "http://unitsofmeasure.org"
+    assert inst.dosageInstruction[0].doseAndRate[0].rateRatio.denominator.unit == "h"
+    assert float(inst.dosageInstruction[0].doseAndRate[0].rateRatio.denominator.value) == float(1)
+    assert inst.dosageInstruction[0].doseAndRate[0].rateRatio.numerator.code == "mL"
+    assert inst.dosageInstruction[0].doseAndRate[0].rateRatio.numerator.system == "http://unitsofmeasure.org"
+    assert inst.dosageInstruction[0].doseAndRate[0].rateRatio.numerator.unit == "mL"
+    assert float(inst.dosageInstruction[0].doseAndRate[0].rateRatio.numerator.value) == float(50)
+    assert inst.dosageInstruction[0].doseAndRate[0].type.coding[0].code == "ordered"
+    assert inst.dosageInstruction[0].doseAndRate[0].type.coding[0].display == "Ordered"
+    assert inst.dosageInstruction[0].doseAndRate[0].type.coding[0].system == "http://terminology.hl7.org/CodeSystem/dose-rate-type"
+    assert inst.dosageInstruction[0].method.text == "PICC line"
+    assert inst.dosageInstruction[0].route.coding[0].code == "255560000"
+    assert inst.dosageInstruction[0].route.coding[0].display == "Intravenous"
+    assert inst.dosageInstruction[0].route.coding[0].system == "http://snomed.info/sct"
+    assert inst.dosageInstruction[0].sequence == 1
+    assert inst.dosageInstruction[0].site.coding[0].code == "6073002"
+    assert inst.dosageInstruction[0].site.coding[0].display == "Structure of ligament of left superior vena cava"
+    assert inst.dosageInstruction[0].site.coding[0].system == "http://snomed.info/sct"
+    assert inst.dosageInstruction[0].text == "1000mL infused at 50ml/hour for 4 hours - hung at 2200 hours"
+    assert inst.dosageInstruction[0].timing.event[0] == fhirtypes.DateTime.validate("2015-01-15T22:00:00+11:00")
+    assert inst.dosageInstruction[0].timing.repeat.frequency == 1
+    assert float(inst.dosageInstruction[0].timing.repeat.period) == float(24)
+    assert inst.dosageInstruction[0].timing.repeat.periodUnit == "h"
     assert inst.encounter.display == "encounter who leads to this prescription"
     assert inst.encounter.reference == "Encounter/f001"
     assert inst.id == "medrx0323"
@@ -185,27 +185,27 @@ def test_medicationrequest_2(base_settings):
 def impl_medicationrequest_3(inst):
     assert inst.authoredOn == fhirtypes.DateTime.validate("2015-01-15")
     assert inst.contained[0].id == "med0317"
-    assert inst.dose.dosageInstruction[0].doseAndRate[0].doseQuantity.code == "meq"
-    assert inst.dose.dosageInstruction[0].doseAndRate[0].doseQuantity.system == "http://unitsofmeasure.org"
-    assert inst.dose.dosageInstruction[0].doseAndRate[0].doseQuantity.unit == "meq"
-    assert float(inst.dose.dosageInstruction[0].doseAndRate[0].doseQuantity.value) == float(20)
-    assert inst.dose.dosageInstruction[0].doseAndRate[0].rateRatio.denominator.code == "h"
-    assert inst.dose.dosageInstruction[0].doseAndRate[0].rateRatio.denominator.system == "http://unitsofmeasure.org"
-    assert float(inst.dose.dosageInstruction[0].doseAndRate[0].rateRatio.denominator.value) == float(1)
-    assert inst.dose.dosageInstruction[0].doseAndRate[0].rateRatio.numerator.code == "mL"
-    assert inst.dose.dosageInstruction[0].doseAndRate[0].rateRatio.numerator.system == "http://unitsofmeasure.org"
-    assert float(inst.dose.dosageInstruction[0].doseAndRate[0].rateRatio.numerator.value) == float(100)
-    assert inst.dose.dosageInstruction[0].doseAndRate[0].type.coding[0].code == "ordered"
-    assert inst.dose.dosageInstruction[0].doseAndRate[0].type.coding[0].display == "Ordered"
-    assert inst.dose.dosageInstruction[0].doseAndRate[0].type.coding[0].system == "http://terminology.hl7.org/CodeSystem/dose-rate-type"
-    assert inst.dose.dosageInstruction[0].route.coding[0].code == "47625008"
-    assert inst.dose.dosageInstruction[0].route.coding[0].display == "Intravenous route (qualifier value)"
-    assert inst.dose.dosageInstruction[0].route.coding[0].system == "http://snomed.info/sct"
-    assert inst.dose.dosageInstruction[0].sequence == 1
-    assert inst.dose.dosageInstruction[0].text == "KCl 20 mEq in 1 L 0.9%NS IV at 100 ml/hr"
-    assert inst.dose.dosageInstruction[0].timing.repeat.frequency == 1
-    assert float(inst.dose.dosageInstruction[0].timing.repeat.period) == float(1)
-    assert inst.dose.dosageInstruction[0].timing.repeat.periodUnit == "h"
+    assert inst.dosageInstruction[0].doseAndRate[0].doseQuantity.code == "meq"
+    assert inst.dosageInstruction[0].doseAndRate[0].doseQuantity.system == "http://unitsofmeasure.org"
+    assert inst.dosageInstruction[0].doseAndRate[0].doseQuantity.unit == "meq"
+    assert float(inst.dosageInstruction[0].doseAndRate[0].doseQuantity.value) == float(20)
+    assert inst.dosageInstruction[0].doseAndRate[0].rateRatio.denominator.code == "h"
+    assert inst.dosageInstruction[0].doseAndRate[0].rateRatio.denominator.system == "http://unitsofmeasure.org"
+    assert float(inst.dosageInstruction[0].doseAndRate[0].rateRatio.denominator.value) == float(1)
+    assert inst.dosageInstruction[0].doseAndRate[0].rateRatio.numerator.code == "mL"
+    assert inst.dosageInstruction[0].doseAndRate[0].rateRatio.numerator.system == "http://unitsofmeasure.org"
+    assert float(inst.dosageInstruction[0].doseAndRate[0].rateRatio.numerator.value) == float(100)
+    assert inst.dosageInstruction[0].doseAndRate[0].type.coding[0].code == "ordered"
+    assert inst.dosageInstruction[0].doseAndRate[0].type.coding[0].display == "Ordered"
+    assert inst.dosageInstruction[0].doseAndRate[0].type.coding[0].system == "http://terminology.hl7.org/CodeSystem/dose-rate-type"
+    assert inst.dosageInstruction[0].route.coding[0].code == "47625008"
+    assert inst.dosageInstruction[0].route.coding[0].display == "Intravenous route (qualifier value)"
+    assert inst.dosageInstruction[0].route.coding[0].system == "http://snomed.info/sct"
+    assert inst.dosageInstruction[0].sequence == 1
+    assert inst.dosageInstruction[0].text == "KCl 20 mEq in 1 L 0.9%NS IV at 100 ml/hr"
+    assert inst.dosageInstruction[0].timing.repeat.frequency == 1
+    assert float(inst.dosageInstruction[0].timing.repeat.period) == float(1)
+    assert inst.dosageInstruction[0].timing.repeat.periodUnit == "h"
     assert inst.id == "medrx0322"
     assert inst.identifier[0].system == "http://www.bmc.nl/portal/prescriptions"
     assert inst.identifier[0].use == "official"
@@ -263,18 +263,18 @@ def impl_medicationrequest_4(inst):
     assert float(inst.dispenseRequest.quantity.value) == float(30)
     assert inst.dispenseRequest.validityPeriod.end == fhirtypes.DateTime.validate("2016-01-15")
     assert inst.dispenseRequest.validityPeriod.start == fhirtypes.DateTime.validate("2015-01-15")
-    assert inst.dose.dosageInstruction[0].doseAndRate[0].doseQuantity.code == "mg"
-    assert inst.dose.dosageInstruction[0].doseAndRate[0].doseQuantity.system == "http://unitsofmeasure.org"
-    assert inst.dose.dosageInstruction[0].doseAndRate[0].doseQuantity.unit == "mg"
-    assert float(inst.dose.dosageInstruction[0].doseAndRate[0].doseQuantity.value) == float(7)
-    assert inst.dose.dosageInstruction[0].doseAndRate[0].type.coding[0].code == "ordered"
-    assert inst.dose.dosageInstruction[0].doseAndRate[0].type.coding[0].display == "Ordered"
-    assert inst.dose.dosageInstruction[0].doseAndRate[0].type.coding[0].system == "http://terminology.hl7.org/CodeSystem/dose-rate-type"
-    assert inst.dose.dosageInstruction[0].sequence == 1
-    assert inst.dose.dosageInstruction[0].text == "7mg once daily"
-    assert inst.dose.dosageInstruction[0].timing.repeat.frequency == 1
-    assert float(inst.dose.dosageInstruction[0].timing.repeat.period) == float(1)
-    assert inst.dose.dosageInstruction[0].timing.repeat.periodUnit == "d"
+    assert inst.dosageInstruction[0].doseAndRate[0].doseQuantity.code == "mg"
+    assert inst.dosageInstruction[0].doseAndRate[0].doseQuantity.system == "http://unitsofmeasure.org"
+    assert inst.dosageInstruction[0].doseAndRate[0].doseQuantity.unit == "mg"
+    assert float(inst.dosageInstruction[0].doseAndRate[0].doseQuantity.value) == float(7)
+    assert inst.dosageInstruction[0].doseAndRate[0].type.coding[0].code == "ordered"
+    assert inst.dosageInstruction[0].doseAndRate[0].type.coding[0].display == "Ordered"
+    assert inst.dosageInstruction[0].doseAndRate[0].type.coding[0].system == "http://terminology.hl7.org/CodeSystem/dose-rate-type"
+    assert inst.dosageInstruction[0].sequence == 1
+    assert inst.dosageInstruction[0].text == "7mg once daily"
+    assert inst.dosageInstruction[0].timing.repeat.frequency == 1
+    assert float(inst.dosageInstruction[0].timing.repeat.period) == float(1)
+    assert inst.dosageInstruction[0].timing.repeat.periodUnit == "d"
     assert inst.id == "medrx0331"
     assert inst.identifier[0].system == "http://www.bmc.nl/portal/prescriptions"
     assert inst.identifier[0].use == "official"
@@ -330,27 +330,27 @@ def impl_medicationrequest_5(inst):
     assert float(inst.dispenseRequest.quantity.value) == float(5)
     assert inst.dispenseRequest.validityPeriod.end == fhirtypes.DateTime.validate("2016-01-15")
     assert inst.dispenseRequest.validityPeriod.start == fhirtypes.DateTime.validate("2015-01-15")
-    assert inst.dose.dosageInstruction[0].additionalInstruction[0].coding[0].code == "421984009"
-    assert inst.dose.dosageInstruction[0].additionalInstruction[0].coding[0].display == (
+    assert inst.dosageInstruction[0].additionalInstruction[0].coding[0].code == "421984009"
+    assert inst.dosageInstruction[0].additionalInstruction[0].coding[0].display == (
     "Until finished - dosing instruction fragment (qualifier "
     "value)"
     )
-    assert inst.dose.dosageInstruction[0].additionalInstruction[0].coding[0].system == "http://snomed.info/sct"
-    assert inst.dose.dosageInstruction[0].doseAndRate[0].doseQuantity.code == "mg"
-    assert inst.dose.dosageInstruction[0].doseAndRate[0].doseQuantity.system == "http://unitsofmeasure.org"
-    assert inst.dose.dosageInstruction[0].doseAndRate[0].doseQuantity.unit == "mg"
-    assert float(inst.dose.dosageInstruction[0].doseAndRate[0].doseQuantity.value) == float(500)
-    assert inst.dose.dosageInstruction[0].doseAndRate[0].type.coding[0].code == "ordered"
-    assert inst.dose.dosageInstruction[0].doseAndRate[0].type.coding[0].display == "Ordered"
-    assert inst.dose.dosageInstruction[0].doseAndRate[0].type.coding[0].system == "http://terminology.hl7.org/CodeSystem/dose-rate-type"
-    assert inst.dose.dosageInstruction[0].route.coding[0].code == "26643006"
-    assert inst.dose.dosageInstruction[0].route.coding[0].display == "Oral Route (qualifier value)"
-    assert inst.dose.dosageInstruction[0].route.coding[0].system == "http://snomed.info/sct"
-    assert inst.dose.dosageInstruction[0].sequence == 1
-    assert inst.dose.dosageInstruction[0].text == "500mg daily for 5 days"
-    assert inst.dose.dosageInstruction[0].timing.repeat.frequency == 1
-    assert float(inst.dose.dosageInstruction[0].timing.repeat.period) == float(1)
-    assert inst.dose.dosageInstruction[0].timing.repeat.periodUnit == "d"
+    assert inst.dosageInstruction[0].additionalInstruction[0].coding[0].system == "http://snomed.info/sct"
+    assert inst.dosageInstruction[0].doseAndRate[0].doseQuantity.code == "mg"
+    assert inst.dosageInstruction[0].doseAndRate[0].doseQuantity.system == "http://unitsofmeasure.org"
+    assert inst.dosageInstruction[0].doseAndRate[0].doseQuantity.unit == "mg"
+    assert float(inst.dosageInstruction[0].doseAndRate[0].doseQuantity.value) == float(500)
+    assert inst.dosageInstruction[0].doseAndRate[0].type.coding[0].code == "ordered"
+    assert inst.dosageInstruction[0].doseAndRate[0].type.coding[0].display == "Ordered"
+    assert inst.dosageInstruction[0].doseAndRate[0].type.coding[0].system == "http://terminology.hl7.org/CodeSystem/dose-rate-type"
+    assert inst.dosageInstruction[0].route.coding[0].code == "26643006"
+    assert inst.dosageInstruction[0].route.coding[0].display == "Oral Route (qualifier value)"
+    assert inst.dosageInstruction[0].route.coding[0].system == "http://snomed.info/sct"
+    assert inst.dosageInstruction[0].sequence == 1
+    assert inst.dosageInstruction[0].text == "500mg daily for 5 days"
+    assert inst.dosageInstruction[0].timing.repeat.frequency == 1
+    assert float(inst.dosageInstruction[0].timing.repeat.period) == float(1)
+    assert inst.dosageInstruction[0].timing.repeat.periodUnit == "d"
     assert inst.id == "medrx0313"
     assert inst.identifier[0].system == "http://www.bmc.nl/portal/prescriptions"
     assert inst.identifier[0].use == "official"
@@ -409,21 +409,21 @@ def impl_medicationrequest_6(inst):
     assert float(inst.dispenseRequest.quantity.value) == float(100)
     assert inst.dispenseRequest.validityPeriod.end == fhirtypes.DateTime.validate("2016-01-15")
     assert inst.dispenseRequest.validityPeriod.start == fhirtypes.DateTime.validate("2015-01-15")
-    assert inst.dose.dosageInstruction[0].doseAndRate[0].doseQuantity.code == "ug"
-    assert inst.dose.dosageInstruction[0].doseAndRate[0].doseQuantity.system == "http://unitsofmeasure.org"
-    assert inst.dose.dosageInstruction[0].doseAndRate[0].doseQuantity.unit == "mcg"
-    assert float(inst.dose.dosageInstruction[0].doseAndRate[0].doseQuantity.value) == float(75)
-    assert inst.dose.dosageInstruction[0].doseAndRate[0].type.coding[0].code == "ordered"
-    assert inst.dose.dosageInstruction[0].doseAndRate[0].type.coding[0].display == "Ordered"
-    assert inst.dose.dosageInstruction[0].doseAndRate[0].type.coding[0].system == "http://terminology.hl7.org/CodeSystem/dose-rate-type"
-    assert inst.dose.dosageInstruction[0].route.coding[0].code == "26643006"
-    assert inst.dose.dosageInstruction[0].route.coding[0].display == "Oral Route (qualifier value)"
-    assert inst.dose.dosageInstruction[0].route.coding[0].system == "http://snomed.info/sct"
-    assert inst.dose.dosageInstruction[0].sequence == 1
-    assert inst.dose.dosageInstruction[0].text == "75mcg daily"
-    assert inst.dose.dosageInstruction[0].timing.repeat.frequency == 1
-    assert float(inst.dose.dosageInstruction[0].timing.repeat.period) == float(1)
-    assert inst.dose.dosageInstruction[0].timing.repeat.periodUnit == "d"
+    assert inst.dosageInstruction[0].doseAndRate[0].doseQuantity.code == "ug"
+    assert inst.dosageInstruction[0].doseAndRate[0].doseQuantity.system == "http://unitsofmeasure.org"
+    assert inst.dosageInstruction[0].doseAndRate[0].doseQuantity.unit == "mcg"
+    assert float(inst.dosageInstruction[0].doseAndRate[0].doseQuantity.value) == float(75)
+    assert inst.dosageInstruction[0].doseAndRate[0].type.coding[0].code == "ordered"
+    assert inst.dosageInstruction[0].doseAndRate[0].type.coding[0].display == "Ordered"
+    assert inst.dosageInstruction[0].doseAndRate[0].type.coding[0].system == "http://terminology.hl7.org/CodeSystem/dose-rate-type"
+    assert inst.dosageInstruction[0].route.coding[0].code == "26643006"
+    assert inst.dosageInstruction[0].route.coding[0].display == "Oral Route (qualifier value)"
+    assert inst.dosageInstruction[0].route.coding[0].system == "http://snomed.info/sct"
+    assert inst.dosageInstruction[0].sequence == 1
+    assert inst.dosageInstruction[0].text == "75mcg daily"
+    assert inst.dosageInstruction[0].timing.repeat.frequency == 1
+    assert float(inst.dosageInstruction[0].timing.repeat.period) == float(1)
+    assert inst.dosageInstruction[0].timing.repeat.periodUnit == "d"
     assert inst.id == "medrx0314"
     assert inst.identifier[0].system == "http://www.bmc.nl/portal/prescriptions"
     assert inst.identifier[0].use == "official"
@@ -472,27 +472,27 @@ def test_medicationrequest_6(base_settings):
 def impl_medicationrequest_7(inst):
     assert inst.authoredOn == fhirtypes.DateTime.validate("2015-01-15")
     assert inst.contained[0].id == "med0302"
-    assert inst.dose.dosageInstruction[0].doseAndRate[0].doseQuantity.code == "g"
-    assert inst.dose.dosageInstruction[0].doseAndRate[0].doseQuantity.system == "http://unitsofmeasure.org"
-    assert inst.dose.dosageInstruction[0].doseAndRate[0].doseQuantity.unit == "g"
-    assert float(inst.dose.dosageInstruction[0].doseAndRate[0].doseQuantity.value) == float(4.5)
-    assert inst.dose.dosageInstruction[0].doseAndRate[0].rateQuantity.code == "ml/h"
-    assert inst.dose.dosageInstruction[0].doseAndRate[0].rateQuantity.system == "http://unitsofmeasure.org"
-    assert float(inst.dose.dosageInstruction[0].doseAndRate[0].rateQuantity.value) == float(50)
-    assert inst.dose.dosageInstruction[0].doseAndRate[0].type.coding[0].code == "ordered"
-    assert inst.dose.dosageInstruction[0].doseAndRate[0].type.coding[0].display == "Ordered"
-    assert inst.dose.dosageInstruction[0].doseAndRate[0].type.coding[0].system == "http://terminology.hl7.org/CodeSystem/dose-rate-type"
-    assert inst.dose.dosageInstruction[0].route.coding[0].code == "47625008"
-    assert inst.dose.dosageInstruction[0].route.coding[0].display == "Intravenous route (qualifier value)"
-    assert inst.dose.dosageInstruction[0].route.coding[0].system == "http://snomed.info/sct"
-    assert inst.dose.dosageInstruction[0].sequence == 1
-    assert inst.dose.dosageInstruction[0].text == (
+    assert inst.dosageInstruction[0].doseAndRate[0].doseQuantity.code == "g"
+    assert inst.dosageInstruction[0].doseAndRate[0].doseQuantity.system == "http://unitsofmeasure.org"
+    assert inst.dosageInstruction[0].doseAndRate[0].doseQuantity.unit == "g"
+    assert float(inst.dosageInstruction[0].doseAndRate[0].doseQuantity.value) == float(4.5)
+    assert inst.dosageInstruction[0].doseAndRate[0].rateQuantity.code == "ml/h"
+    assert inst.dosageInstruction[0].doseAndRate[0].rateQuantity.system == "http://unitsofmeasure.org"
+    assert float(inst.dosageInstruction[0].doseAndRate[0].rateQuantity.value) == float(50)
+    assert inst.dosageInstruction[0].doseAndRate[0].type.coding[0].code == "ordered"
+    assert inst.dosageInstruction[0].doseAndRate[0].type.coding[0].display == "Ordered"
+    assert inst.dosageInstruction[0].doseAndRate[0].type.coding[0].system == "http://terminology.hl7.org/CodeSystem/dose-rate-type"
+    assert inst.dosageInstruction[0].route.coding[0].code == "47625008"
+    assert inst.dosageInstruction[0].route.coding[0].display == "Intravenous route (qualifier value)"
+    assert inst.dosageInstruction[0].route.coding[0].system == "http://snomed.info/sct"
+    assert inst.dosageInstruction[0].sequence == 1
+    assert inst.dosageInstruction[0].text == (
     "4.5 grams in D5W 250 ml. IV every 6 hours.Infuse over 30 min"
     " at 8L/min "
     )
-    assert inst.dose.dosageInstruction[0].timing.repeat.frequency == 1
-    assert float(inst.dose.dosageInstruction[0].timing.repeat.period) == float(6)
-    assert inst.dose.dosageInstruction[0].timing.repeat.periodUnit == "h"
+    assert inst.dosageInstruction[0].timing.repeat.frequency == 1
+    assert float(inst.dosageInstruction[0].timing.repeat.period) == float(6)
+    assert inst.dosageInstruction[0].timing.repeat.periodUnit == "h"
     assert inst.id == "medrx0319"
     assert inst.identifier[0].system == "http://www.bmc.nl/portal/prescriptions"
     assert inst.identifier[0].use == "official"
@@ -550,25 +550,25 @@ def impl_medicationrequest_8(inst):
     assert float(inst.dispenseRequest.quantity.value) == float(30)
     assert inst.dispenseRequest.validityPeriod.end == fhirtypes.DateTime.validate("2016-01-15")
     assert inst.dispenseRequest.validityPeriod.start == fhirtypes.DateTime.validate("2015-01-15")
-    assert inst.dose.dosageInstruction[0].additionalInstruction[0].text == "Apply sparingly"
-    assert inst.dose.dosageInstruction[0].doseAndRate[0].doseQuantity.code == "OINT"
-    assert inst.dose.dosageInstruction[0].doseAndRate[0].doseQuantity.system == "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm"
-    assert inst.dose.dosageInstruction[0].doseAndRate[0].doseQuantity.unit == "ea"
-    assert float(inst.dose.dosageInstruction[0].doseAndRate[0].doseQuantity.value) == float(1)
-    assert inst.dose.dosageInstruction[0].doseAndRate[0].type.coding[0].code == "ordered"
-    assert inst.dose.dosageInstruction[0].doseAndRate[0].type.coding[0].display == "Ordered"
-    assert inst.dose.dosageInstruction[0].doseAndRate[0].type.coding[0].system == "http://terminology.hl7.org/CodeSystem/dose-rate-type"
-    assert inst.dose.dosageInstruction[0].route.coding[0].code == "359540000"
-    assert inst.dose.dosageInstruction[0].route.coding[0].display == "Topical (qualifier value)"
-    assert inst.dose.dosageInstruction[0].route.coding[0].system == "http://snomed.info/sct"
-    assert inst.dose.dosageInstruction[0].sequence == 1
-    assert inst.dose.dosageInstruction[0].site.coding[0].code == "72098002"
-    assert inst.dose.dosageInstruction[0].site.coding[0].display == "Entire left upper arm (body structure)"
-    assert inst.dose.dosageInstruction[0].site.coding[0].system == "http://snomed.info/sct"
-    assert inst.dose.dosageInstruction[0].text == "Apply twice daily to affected area on left arm"
-    assert inst.dose.dosageInstruction[0].timing.repeat.frequency == 2
-    assert float(inst.dose.dosageInstruction[0].timing.repeat.period) == float(1)
-    assert inst.dose.dosageInstruction[0].timing.repeat.periodUnit == "d"
+    assert inst.dosageInstruction[0].additionalInstruction[0].text == "Apply sparingly"
+    assert inst.dosageInstruction[0].doseAndRate[0].doseQuantity.code == "OINT"
+    assert inst.dosageInstruction[0].doseAndRate[0].doseQuantity.system == "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm"
+    assert inst.dosageInstruction[0].doseAndRate[0].doseQuantity.unit == "ea"
+    assert float(inst.dosageInstruction[0].doseAndRate[0].doseQuantity.value) == float(1)
+    assert inst.dosageInstruction[0].doseAndRate[0].type.coding[0].code == "ordered"
+    assert inst.dosageInstruction[0].doseAndRate[0].type.coding[0].display == "Ordered"
+    assert inst.dosageInstruction[0].doseAndRate[0].type.coding[0].system == "http://terminology.hl7.org/CodeSystem/dose-rate-type"
+    assert inst.dosageInstruction[0].route.coding[0].code == "359540000"
+    assert inst.dosageInstruction[0].route.coding[0].display == "Topical (qualifier value)"
+    assert inst.dosageInstruction[0].route.coding[0].system == "http://snomed.info/sct"
+    assert inst.dosageInstruction[0].sequence == 1
+    assert inst.dosageInstruction[0].site.coding[0].code == "72098002"
+    assert inst.dosageInstruction[0].site.coding[0].display == "Entire left upper arm (body structure)"
+    assert inst.dosageInstruction[0].site.coding[0].system == "http://snomed.info/sct"
+    assert inst.dosageInstruction[0].text == "Apply twice daily to affected area on left arm"
+    assert inst.dosageInstruction[0].timing.repeat.frequency == 2
+    assert float(inst.dosageInstruction[0].timing.repeat.period) == float(1)
+    assert inst.dosageInstruction[0].timing.repeat.periodUnit == "d"
     assert inst.id == "medrx0329"
     assert inst.identifier[0].system == "http://www.bmc.nl/portal/prescriptions"
     assert inst.identifier[0].use == "official"
@@ -611,32 +611,32 @@ def test_medicationrequest_8(base_settings):
 def impl_medicationrequest_9(inst):
     assert inst.authoredOn == fhirtypes.DateTime.validate("2015-01-15")
     assert inst.contained[0].id == "med0309"
-    assert inst.dose.dosageInstruction[0].additionalInstruction[0].text == "Take at bedtime"
-    assert inst.dose.dosageInstruction[0].asNeededFor[0].coding[0].code == "32914008"
-    assert inst.dose.dosageInstruction[0].asNeededFor[0].coding[0].display == "Restless Legs"
-    assert inst.dose.dosageInstruction[0].asNeededFor[0].coding[0].system == "http://snomed.info/sct"
-    assert inst.dose.dosageInstruction[0].doseAndRate[0].doseRange.high.code == "TAB"
-    assert inst.dose.dosageInstruction[0].doseAndRate[0].doseRange.high.system == "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm"
-    assert inst.dose.dosageInstruction[0].doseAndRate[0].doseRange.high.unit == "TAB"
-    assert float(inst.dose.dosageInstruction[0].doseAndRate[0].doseRange.high.value) == float(2)
-    assert inst.dose.dosageInstruction[0].doseAndRate[0].doseRange.low.code == "TAB"
-    assert inst.dose.dosageInstruction[0].doseAndRate[0].doseRange.low.system == "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm"
-    assert inst.dose.dosageInstruction[0].doseAndRate[0].doseRange.low.unit == "TAB"
-    assert float(inst.dose.dosageInstruction[0].doseAndRate[0].doseRange.low.value) == float(1)
-    assert inst.dose.dosageInstruction[0].doseAndRate[0].type.coding[0].code == "ordered"
-    assert inst.dose.dosageInstruction[0].doseAndRate[0].type.coding[0].display == "Ordered"
-    assert inst.dose.dosageInstruction[0].doseAndRate[0].type.coding[0].system == "http://terminology.hl7.org/CodeSystem/dose-rate-type"
-    assert inst.dose.dosageInstruction[0].route.coding[0].code == "26643006"
-    assert inst.dose.dosageInstruction[0].route.coding[0].display == "Oral Route"
-    assert inst.dose.dosageInstruction[0].route.coding[0].system == "http://snomed.info/sct"
-    assert inst.dose.dosageInstruction[0].sequence == 1
-    assert inst.dose.dosageInstruction[0].text == (
+    assert inst.dosageInstruction[0].additionalInstruction[0].text == "Take at bedtime"
+    assert inst.dosageInstruction[0].asNeededFor[0].coding[0].code == "32914008"
+    assert inst.dosageInstruction[0].asNeededFor[0].coding[0].display == "Restless Legs"
+    assert inst.dosageInstruction[0].asNeededFor[0].coding[0].system == "http://snomed.info/sct"
+    assert inst.dosageInstruction[0].doseAndRate[0].doseRange.high.code == "TAB"
+    assert inst.dosageInstruction[0].doseAndRate[0].doseRange.high.system == "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm"
+    assert inst.dosageInstruction[0].doseAndRate[0].doseRange.high.unit == "TAB"
+    assert float(inst.dosageInstruction[0].doseAndRate[0].doseRange.high.value) == float(2)
+    assert inst.dosageInstruction[0].doseAndRate[0].doseRange.low.code == "TAB"
+    assert inst.dosageInstruction[0].doseAndRate[0].doseRange.low.system == "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm"
+    assert inst.dosageInstruction[0].doseAndRate[0].doseRange.low.unit == "TAB"
+    assert float(inst.dosageInstruction[0].doseAndRate[0].doseRange.low.value) == float(1)
+    assert inst.dosageInstruction[0].doseAndRate[0].type.coding[0].code == "ordered"
+    assert inst.dosageInstruction[0].doseAndRate[0].type.coding[0].display == "Ordered"
+    assert inst.dosageInstruction[0].doseAndRate[0].type.coding[0].system == "http://terminology.hl7.org/CodeSystem/dose-rate-type"
+    assert inst.dosageInstruction[0].route.coding[0].code == "26643006"
+    assert inst.dosageInstruction[0].route.coding[0].display == "Oral Route"
+    assert inst.dosageInstruction[0].route.coding[0].system == "http://snomed.info/sct"
+    assert inst.dosageInstruction[0].sequence == 1
+    assert inst.dosageInstruction[0].text == (
     "Take 1-2 tablets once daily at bedtime as needed for "
     "restless legs"
     )
-    assert inst.dose.dosageInstruction[0].timing.repeat.frequency == 1
-    assert float(inst.dose.dosageInstruction[0].timing.repeat.period) == float(1)
-    assert inst.dose.dosageInstruction[0].timing.repeat.periodUnit == "d"
+    assert inst.dosageInstruction[0].timing.repeat.frequency == 1
+    assert float(inst.dosageInstruction[0].timing.repeat.period) == float(1)
+    assert inst.dosageInstruction[0].timing.repeat.periodUnit == "d"
     assert inst.encounter.display == "encounter who leads to this prescription"
     assert inst.encounter.reference == "Encounter/f001"
     assert inst.id == "medrx0310"
@@ -690,18 +690,18 @@ def impl_medicationrequest_10(inst):
     assert float(inst.dispenseRequest.quantity.value) == float(6)
     assert inst.dispenseRequest.validityPeriod.end == fhirtypes.DateTime.validate("2016-01-15")
     assert inst.dispenseRequest.validityPeriod.start == fhirtypes.DateTime.validate("2015-01-15")
-    assert inst.dose.dosageInstruction[0].doseAndRate[0].doseQuantity.code == "PATCH"
-    assert inst.dose.dosageInstruction[0].doseAndRate[0].doseQuantity.system == "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm"
-    assert inst.dose.dosageInstruction[0].doseAndRate[0].doseQuantity.unit == "patch"
-    assert float(inst.dose.dosageInstruction[0].doseAndRate[0].doseQuantity.value) == float(1)
-    assert inst.dose.dosageInstruction[0].doseAndRate[0].type.coding[0].code == "ordered"
-    assert inst.dose.dosageInstruction[0].doseAndRate[0].type.coding[0].display == "Ordered"
-    assert inst.dose.dosageInstruction[0].doseAndRate[0].type.coding[0].system == "http://terminology.hl7.org/CodeSystem/dose-rate-type"
-    assert inst.dose.dosageInstruction[0].sequence == 1
-    assert inst.dose.dosageInstruction[0].text == "apply one patch three times per week"
-    assert inst.dose.dosageInstruction[0].timing.repeat.frequency == 3
-    assert float(inst.dose.dosageInstruction[0].timing.repeat.period) == float(1)
-    assert inst.dose.dosageInstruction[0].timing.repeat.periodUnit == "wk"
+    assert inst.dosageInstruction[0].doseAndRate[0].doseQuantity.code == "PATCH"
+    assert inst.dosageInstruction[0].doseAndRate[0].doseQuantity.system == "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm"
+    assert inst.dosageInstruction[0].doseAndRate[0].doseQuantity.unit == "patch"
+    assert float(inst.dosageInstruction[0].doseAndRate[0].doseQuantity.value) == float(1)
+    assert inst.dosageInstruction[0].doseAndRate[0].type.coding[0].code == "ordered"
+    assert inst.dosageInstruction[0].doseAndRate[0].type.coding[0].display == "Ordered"
+    assert inst.dosageInstruction[0].doseAndRate[0].type.coding[0].system == "http://terminology.hl7.org/CodeSystem/dose-rate-type"
+    assert inst.dosageInstruction[0].sequence == 1
+    assert inst.dosageInstruction[0].text == "apply one patch three times per week"
+    assert inst.dosageInstruction[0].timing.repeat.frequency == 3
+    assert float(inst.dosageInstruction[0].timing.repeat.period) == float(1)
+    assert inst.dosageInstruction[0].timing.repeat.periodUnit == "wk"
     assert inst.id == "medrx0327"
     assert inst.identifier[0].system == "http://www.bmc.nl/portal/prescriptions"
     assert inst.identifier[0].use == "official"

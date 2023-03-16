@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
-Profile: http://hl7.org/fhir/StructureDefinition/MedicationUsage
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Profile: http://hl7.org/fhir/StructureDefinition/MedicationStatement
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 import typing
 from pydantic import Field
@@ -18,16 +18,16 @@ from . import fhirtypes
 
 from . import domainresource
 
-class MedicationUsage(domainresource.DomainResource):
+class MedicationStatement(domainresource.DomainResource):
     """Disclaimer: Any field name ends with ``__ext`` doesn't part of
     Resource StructureDefinition, instead used to enable Extensibility feature
     for FHIR Primitive Data Types.
 
     Record of medication being taken by a patient.
     A record of a medication that is being consumed by a patient.   A
-    MedicationUsage may indicate that the patient may be taking the medication
-    now or has taken the medication in the past or will be taking the
-    medication in the future.  The source of this information can be the
+    MedicationStatement may indicate that the patient may be taking the
+    medication now or has taken the medication in the past or will be taking
+    the medication in the future.  The source of this information can be the
     patient, significant other (such as a family member or spouse), or a
     clinician.  A common scenario where this information is captured is during
     the history taking process during a patient visit or stay.   The medication
@@ -35,30 +35,30 @@ class MedicationUsage(domainresource.DomainResource):
     prescription bottle,  or from a list of medications the patient, clinician
     or other party maintains.
     
-    The primary difference between a medicationusage and a
+    The primary difference between a medicationstatement and a
     medicationadministration is that the medication administration has complete
     administration information and is based on actual administration
     information from the person who administered the medication.  A
-    medicationusage is often, if not always, less specific.  There is no
+    medicationstatement is often, if not always, less specific.  There is no
     required date/time when the medication was administered, in fact we only
     know that a source has reported the patient is taking this medication,
     where details such as time, quantity, or rate or even medication product
     may be incomplete or missing or less precise.  As stated earlier, the
-    Medication Usage information may come from the patient's memory, from a
+    Medication Statement information may come from the patient's memory, from a
     prescription bottle or from a list of medications the patient, clinician or
     other party maintains.  Medication administration is more formal and is not
     missing detailed information.
     
-    The MedicationUsage resource was previously called MedicationStatement.
+    The MedicationStatement resource was previously called MedicationStatement.
     """
-    resource_type = Field("MedicationUsage", const=True)
+    resource_type = Field("MedicationStatement", const=True)
 	
-    adherence: fhirtypes.MedicationUsageAdherenceType = Field(
+    adherence: fhirtypes.MedicationStatementAdherenceType = Field(
 		None,
 		alias="adherence",
 		title=(
-    "Indicates if the medication is being consumed or administered as "
-    "instructed"
+    "Indicates whether the medication is or is not being consumed or "
+    "administered"
     ),
 		description=None,
         # if property is element of this resource.
@@ -68,10 +68,11 @@ class MedicationUsage(domainresource.DomainResource):
     category: typing.List[fhirtypes.CodeableConceptType] = Field(
 		None,
 		alias="category",
-		title="Type of medication usage",
+		title="Type of medication statement",
 		description=(
-    "Type of medication usage (for example, drug classification like ATC, "
-    "where meds would be administered, legal category of the medication.)."
+    "Type of medication statement (for example, drug classification like "
+    "ATC, where meds would be administered, legal category of the "
+    "medication.)."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -82,8 +83,8 @@ class MedicationUsage(domainresource.DomainResource):
 		alias="dateAsserted",
 		title="When the usage was asserted?",
 		description=(
-    "The date when the Medication Usage was asserted by the information "
-    "source."
+    "The date when the Medication Statement was asserted by the information"
+    " source."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -97,11 +98,11 @@ class MedicationUsage(domainresource.DomainResource):
     derivedFrom: typing.List[fhirtypes.ReferenceType] = Field(
 		None,
 		alias="derivedFrom",
-		title="Link to information used to derive the MedicationUsage",
+		title="Link to information used to derive the MedicationStatement",
 		description=(
-    "Allows linking the MedicationUsage to the underlying "
+    "Allows linking the MedicationStatement to the underlying "
     "MedicationRequest, or to other information that supports or is used to"
-    " derive the MedicationUsage."
+    " derive the MedicationStatement."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -125,7 +126,7 @@ class MedicationUsage(domainresource.DomainResource):
 		description=(
     "The interval of time during which it is being asserted that the "
     "patient is/was/will be taking the medication (or was not taking, when "
-    "the MedicationUsage.adherence element is Not Taking)."
+    "the MedicationStatement.adherence element is Not Taking)."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -146,7 +147,23 @@ class MedicationUsage(domainresource.DomainResource):
 		description=(
     "The interval of time during which it is being asserted that the "
     "patient is/was/will be taking the medication (or was not taking, when "
-    "the MedicationUsage.adherence element is Not Taking)."
+    "the MedicationStatement.adherence element is Not Taking)."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+        # Choice of Data Types. i.e effective[x]
+		one_of_many="effective",
+		one_of_many_required=False,
+	)
+	
+    effectiveTiming: fhirtypes.TimingType = Field(
+		None,
+		alias="effectiveTiming",
+		title="The date/time or interval when the medication is/was/will be taken",
+		description=(
+    "The interval of time during which it is being asserted that the "
+    "patient is/was/will be taking the medication (or was not taking, when "
+    "the MedicationStatement.adherence element is Not Taking)."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -158,8 +175,11 @@ class MedicationUsage(domainresource.DomainResource):
     encounter: fhirtypes.ReferenceType = Field(
 		None,
 		alias="encounter",
-		title="Encounter associated with MedicationUsage",
-		description="The encounter that establishes the context for this MedicationUsage.",
+		title="Encounter associated with MedicationStatement",
+		description=(
+    "The encounter that establishes the context for this "
+    "MedicationStatement."
+    ),
         # if property is element of this resource.
         element_property=True,
         # note: Listed Resource Type(s) should be allowed as Reference.
@@ -171,8 +191,8 @@ class MedicationUsage(domainresource.DomainResource):
 		alias="identifier",
 		title="External identifier",
 		description=(
-    "Identifiers associated with this Medication Usage that are defined by "
-    "business processes and/or used to refer to it when a direct URL "
+    "Identifiers associated with this Medication Statement that are defined"
+    " by business processes and/or used to refer to it when a direct URL "
     "reference to the resource itself is not appropriate. They are business"
     " identifiers assigned to this resource by the performer or other "
     "systems and remain constant as the resource is updated and propagates "
@@ -192,7 +212,7 @@ class MedicationUsage(domainresource.DomainResource):
 		description=(
     "The person or organization that provided the information about the "
     "taking of this medication. Note: Use derivedFrom when a "
-    "MedicationUsage is derived from other resources, e.g. Claim or "
+    "MedicationStatement is derived from other resources, e.g. Claim or "
     "MedicationRequest."
     ),
         # if property is element of this resource.
@@ -222,7 +242,7 @@ class MedicationUsage(domainresource.DomainResource):
 		alias="note",
 		title="Further information about the usage",
 		description=(
-    "Provides extra information about the Medication Usage that is not "
+    "Provides extra information about the Medication Statement that is not "
     "conveyed by the other attributes."
     ),
         # if property is element of this resource.
@@ -234,13 +254,13 @@ class MedicationUsage(domainresource.DomainResource):
 		alias="partOf",
 		title="Part of referenced event",
 		description=(
-    "A larger event of which this particular MedicationUsage is a component"
-    " or step."
+    "A larger event of which this particular MedicationStatement is a "
+    "component or step."
     ),
         # if property is element of this resource.
         element_property=True,
         # note: Listed Resource Type(s) should be allowed as Reference.
-		enum_reference_types=["Procedure"],
+		enum_reference_types=["Procedure", "MedicationStatement"],
 	)
 	
     reason: typing.List[fhirtypes.CodeableReferenceType] = Field(
@@ -262,7 +282,7 @@ class MedicationUsage(domainresource.DomainResource):
 		alias="relatedClinicalInformation",
 		title="Link to information relevant to the usage of a medication",
 		description=(
-    "Link to information that is relevant to a medication usage, for "
+    "Link to information that is relevant to a medication statement, for "
     "example, illicit drug use, gestational age, etc."
     ),
         # if property is element of this resource.
@@ -271,7 +291,7 @@ class MedicationUsage(domainresource.DomainResource):
 		enum_reference_types=["Observation", "Condition"],
 	)
 	
-    renderedDosageInstruction: fhirtypes.String = Field(
+    renderedDosageInstruction: fhirtypes.Markdown = Field(
 		None,
 		alias="renderedDosageInstruction",
 		title="Full representation of the dosage instructions",
@@ -294,7 +314,7 @@ class MedicationUsage(domainresource.DomainResource):
 		None,
 		alias="status",
 		title="recorded | entered-in-error | draft",
-		description="A code representing the status of recording the medication usage.",
+		description="A code representing the status of recording the medication statement.",
         # if property is element of this resource.
         element_property=True,
         element_required=True,
@@ -321,14 +341,14 @@ class MedicationUsage(domainresource.DomainResource):
     @classmethod
     def elements_sequence(cls):
         """returning all elements names from
-        ``MedicationUsage`` according specification,
+        ``MedicationStatement`` according specification,
         with preserving original sequence order.
         """
-        return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "identifier", "partOf", "status", "category", "medication", "subject", "encounter", "effectiveDateTime", "effectivePeriod", "dateAsserted", "informationSource", "derivedFrom", "reason", "note", "relatedClinicalInformation", "renderedDosageInstruction", "dosage", "adherence"]
+        return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "identifier", "partOf", "status", "category", "medication", "subject", "encounter", "effectiveDateTime", "effectivePeriod", "effectiveTiming", "dateAsserted", "informationSource", "derivedFrom", "reason", "note", "relatedClinicalInformation", "renderedDosageInstruction", "dosage", "adherence"]
 
 
     @root_validator(pre=True, allow_reuse=True)
-    def validate_required_primitive_elements_1700(
+    def validate_required_primitive_elements_2163(
         cls, values: typing.Dict[str, typing.Any]
     ) -> typing.Dict[str, typing.Any]:
         """https://www.hl7.org/fhir/extensibility.html#Special-Case
@@ -388,7 +408,7 @@ class MedicationUsage(domainresource.DomainResource):
         return values
 
     @root_validator(pre=True, allow_reuse=True)
-    def validate_one_of_many_1700(
+    def validate_one_of_many_2163(
         cls, values: typing.Dict[str, typing.Any]
     ) -> typing.Dict[str, typing.Any]:
         """https://www.hl7.org/fhir/formats.html#choice
@@ -406,7 +426,8 @@ class MedicationUsage(domainresource.DomainResource):
         one_of_many_fields = {
 			"effective": [
 			    "effectiveDateTime",
-			    "effectivePeriod"]}
+			    "effectivePeriod",
+			    "effectiveTiming"]}
         for prefix, fields in one_of_many_fields.items():
             assert cls.__fields__[fields[0]].field_info.extra["one_of_many"] == prefix
             required = (
@@ -431,14 +452,15 @@ class MedicationUsage(domainresource.DomainResource):
 
 from . import backboneelement
 
-class MedicationUsageAdherence(backboneelement.BackboneElement):
+class MedicationStatementAdherence(backboneelement.BackboneElement):
     """Disclaimer: Any field name ends with ``__ext`` doesn't part of
     Resource StructureDefinition, instead used to enable Extensibility feature
     for FHIR Primitive Data Types.
 
-    Indicates if the medication is being consumed or administered as instructed.
+    Indicates whether the medication is or is not being consumed or
+    administered.
     """
-    resource_type = Field("MedicationUsageAdherence", const=True)
+    resource_type = Field("MedicationStatementAdherence", const=True)
 	
     code: fhirtypes.CodeableConceptType = Field(
 		...,
@@ -460,7 +482,7 @@ class MedicationUsageAdherence(backboneelement.BackboneElement):
     @classmethod
     def elements_sequence(cls):
         """returning all elements names from
-        ``MedicationUsageAdherence`` according specification,
+        ``MedicationStatementAdherence`` according specification,
         with preserving original sequence order.
         """
         return ["id", "extension", "modifierExtension", "code", "reason"]

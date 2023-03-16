@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/SpecimenDefinition
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 import typing
 from pydantic import Field
@@ -83,6 +83,25 @@ class SpecimenDefinition(domainresource.DomainResource):
         None,
         alias="_copyright",
         title="Extension field for ``copyright``."
+    )
+	
+    copyrightLabel: fhirtypes.String = Field(
+		None,
+		alias="copyrightLabel",
+		title="Copyright holder and year(s)",
+		description=(
+    "A short string (<50 characters), suitable for inclusion in a page "
+    "footer that identifies the copyright holder, effective period, and "
+    "optionally whether rights are resctricted. (e.g. 'All rights "
+    "reserved', 'Some rights reserved')."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+	)
+    copyrightLabel__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
+        None,
+        alias="_copyrightLabel",
+        title="Extension field for ``copyrightLabel``."
     )
 	
     date: fhirtypes.DateTime = Field(
@@ -207,7 +226,7 @@ class SpecimenDefinition(domainresource.DomainResource):
     lastReviewDate: fhirtypes.Date = Field(
 		None,
 		alias="lastReviewDate",
-		title="The date on which the asset content was last reviewed",
+		title="The date on which the asset content was last reviewed by the publisher",
 		description=(
     "The date on which the asset content was last reviewed. Review happens "
     "periodically after that, but doesn't change the original approval "
@@ -222,6 +241,24 @@ class SpecimenDefinition(domainresource.DomainResource):
         title="Extension field for ``lastReviewDate``."
     )
 	
+    name: fhirtypes.String = Field(
+		None,
+		alias="name",
+		title="Name for this {{title}} (computer friendly)",
+		description=(
+    "A natural language name identifying the {{title}}. This name should be"
+    " usable as an identifier for the module by machine processing "
+    "applications such as code generation."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+	)
+    name__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
+        None,
+        alias="_name",
+        title="Extension field for ``name``."
+    )
+	
     patientPreparation: typing.List[fhirtypes.CodeableConceptType] = Field(
 		None,
 		alias="patientPreparation",
@@ -231,7 +268,7 @@ class SpecimenDefinition(domainresource.DomainResource):
         element_property=True,
 	)
 	
-    publisher: fhirtypes.ReferenceType = Field(
+    publisher: fhirtypes.String = Field(
 		None,
 		alias="publisher",
 		title=(
@@ -244,9 +281,12 @@ class SpecimenDefinition(domainresource.DomainResource):
     ),
         # if property is element of this resource.
         element_property=True,
-        # note: Listed Resource Type(s) should be allowed as Reference.
-		enum_reference_types=["Practitioner", "PractitionerRole", "Organization"],
 	)
+    publisher__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
+        None,
+        alias="_publisher",
+        title="Extension field for ``publisher``."
+    )
 	
     purpose: fhirtypes.Markdown = Field(
 		None,
@@ -419,13 +459,48 @@ class SpecimenDefinition(domainresource.DomainResource):
         alias="_version",
         title="Extension field for ``version``."
     )
+	
+    versionAlgorithmCoding: fhirtypes.CodingType = Field(
+		None,
+		alias="versionAlgorithmCoding",
+		title="How to compare versions",
+		description=(
+    "Indicates the mechanism used to compare versions to determine which is"
+    " more current."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+        # Choice of Data Types. i.e versionAlgorithm[x]
+		one_of_many="versionAlgorithm",
+		one_of_many_required=False,
+	)
+	
+    versionAlgorithmString: fhirtypes.String = Field(
+		None,
+		alias="versionAlgorithmString",
+		title="How to compare versions",
+		description=(
+    "Indicates the mechanism used to compare versions to determine which is"
+    " more current."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+        # Choice of Data Types. i.e versionAlgorithm[x]
+		one_of_many="versionAlgorithm",
+		one_of_many_required=False,
+	)
+    versionAlgorithmString__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
+        None,
+        alias="_versionAlgorithmString",
+        title="Extension field for ``versionAlgorithmString``."
+    )
     @classmethod
     def elements_sequence(cls):
         """returning all elements names from
         ``SpecimenDefinition`` according specification,
         with preserving original sequence order.
         """
-        return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "url", "identifier", "version", "title", "derivedFromCanonical", "derivedFromUri", "status", "experimental", "subjectCodeableConcept", "subjectReference", "date", "publisher", "contact", "description", "useContext", "jurisdiction", "purpose", "copyright", "approvalDate", "lastReviewDate", "effectivePeriod", "typeCollected", "patientPreparation", "timeAspect", "collection", "typeTested"]
+        return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "url", "identifier", "version", "versionAlgorithmString", "versionAlgorithmCoding", "name", "title", "derivedFromCanonical", "derivedFromUri", "status", "experimental", "subjectCodeableConcept", "subjectReference", "date", "publisher", "contact", "description", "useContext", "jurisdiction", "purpose", "copyright", "copyrightLabel", "approvalDate", "lastReviewDate", "effectivePeriod", "typeCollected", "patientPreparation", "timeAspect", "collection", "typeTested"]
 
 
     @root_validator(pre=True, allow_reuse=True)
@@ -507,7 +582,10 @@ class SpecimenDefinition(domainresource.DomainResource):
         one_of_many_fields = {
 			"subject": [
 			    "subjectCodeableConcept",
-			    "subjectReference"]}
+			    "subjectReference"],
+			"versionAlgorithm": [
+			    "versionAlgorithmCoding",
+			    "versionAlgorithmString"]}
         for prefix, fields in one_of_many_fields.items():
             assert cls.__fields__[fields[0]].field_info.extra["one_of_many"] == prefix
             required = (
@@ -607,7 +685,7 @@ class SpecimenDefinitionTypeTested(backboneelement.BackboneElement):
         element_property=True,
 	)
 	
-    requirement: fhirtypes.String = Field(
+    requirement: fhirtypes.Markdown = Field(
 		None,
 		alias="requirement",
 		title="Requirements for specimen delivery and special handling",
@@ -779,7 +857,7 @@ class SpecimenDefinitionTypeTestedContainer(backboneelement.BackboneElement):
         element_property=True,
 	)
 	
-    description: fhirtypes.String = Field(
+    description: fhirtypes.Markdown = Field(
 		None,
 		alias="description",
 		title="The description of the kind of container",
@@ -831,7 +909,7 @@ class SpecimenDefinitionTypeTestedContainer(backboneelement.BackboneElement):
         title="Extension field for ``minimumVolumeString``."
     )
 	
-    preparation: fhirtypes.String = Field(
+    preparation: fhirtypes.Markdown = Field(
 		None,
 		alias="preparation",
 		title="Special processing applied to the container for this specimen type",
@@ -1011,7 +1089,7 @@ class SpecimenDefinitionTypeTestedHandling(backboneelement.BackboneElement):
     """
     resource_type = Field("SpecimenDefinitionTypeTestedHandling", const=True)
 	
-    instruction: fhirtypes.String = Field(
+    instruction: fhirtypes.Markdown = Field(
 		None,
 		alias="instruction",
 		title="Preservation instruction",

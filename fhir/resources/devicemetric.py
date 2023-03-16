@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/DeviceMetric
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 import typing
 from pydantic import Field
@@ -24,8 +24,7 @@ class DeviceMetric(domainresource.DomainResource):
     for FHIR Primitive Data Types.
 
     Measurement, calculation or setting capability of a medical device.
-    Describes a measurement, calculation or setting capability of a medical
-    device.
+    Describes a measurement, calculation or setting capability of a device.
     """
     resource_type = Field("DeviceMetric", const=True)
 	
@@ -86,6 +85,20 @@ class DeviceMetric(domainresource.DomainResource):
         title="Extension field for ``color``."
     )
 	
+    device: fhirtypes.ReferenceType = Field(
+		...,
+		alias="device",
+		title="Describes the link to the Device",
+		description=(
+    "Describes the link to the Device.  This is also known as a channel "
+    "device."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+        # note: Listed Resource Type(s) should be allowed as Reference.
+		enum_reference_types=["Device"],
+	)
+	
     identifier: typing.List[fhirtypes.IdentifierType] = Field(
 		None,
 		alias="identifier",
@@ -99,20 +112,19 @@ class DeviceMetric(domainresource.DomainResource):
         element_property=True,
 	)
 	
-    measurementPeriod: fhirtypes.TimingType = Field(
+    measurementFrequency: fhirtypes.QuantityType = Field(
 		None,
-		alias="measurementPeriod",
-		title="Describes the measurement repetition time",
+		alias="measurementFrequency",
+		title="Indicates how often the metric is taken or recorded",
 		description=(
-    "Describes the measurement repetition time. This is not necessarily the"
-    " same as the update period. The measurement repetition time can range "
-    "from milliseconds up to hours. An example for a measurement repetition"
-    " time in the range of milliseconds is the sampling rate of an ECG. An "
-    "example for a measurement repetition time in the range of hours is a "
-    "NIBP that is triggered automatically every hour. The update period may"
-    " be different than the measurement repetition time, if the device does"
-    " not update the published observed value with the same frequency as it"
-    " was measured."
+    "The frequency at which the metric is taken or recorded. Devices "
+    "measure metrics at a wide range of frequencies; for example, an ECG "
+    "might sample measurements in the millisecond range, while an NIBP "
+    "might trigger only once an hour. Less often, the measurementFrequency "
+    "may be based on a unit other than time, such as distance (e.g. for a "
+    "measuring wheel). The update period may be different than the "
+    "measurement frequency, if the device does not update the published "
+    "observed value with the same frequency as it was measured."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -137,39 +149,6 @@ class DeviceMetric(domainresource.DomainResource):
         alias="_operationalStatus",
         title="Extension field for ``operationalStatus``."
     )
-	
-    parent: fhirtypes.ReferenceType = Field(
-		None,
-		alias="parent",
-		title="Describes the link to the parent Device",
-		description=(
-    "Describes the link to the  Device that this DeviceMetric belongs to "
-    "and that provide information about the location of this DeviceMetric "
-    "in the containment structure of the parent Device. An example would be"
-    " a Device that represents a Channel. This reference can be used by a "
-    "client application to distinguish DeviceMetrics that have the same "
-    "type, but should be interpreted based on their containment location."
-    ),
-        # if property is element of this resource.
-        element_property=True,
-        # note: Listed Resource Type(s) should be allowed as Reference.
-		enum_reference_types=["Device"],
-	)
-	
-    source: fhirtypes.ReferenceType = Field(
-		None,
-		alias="source",
-		title="Describes the link to the source Device",
-		description=(
-    "Describes the link to the  Device that this DeviceMetric belongs to "
-    "and that contains administrative device information such as "
-    "manufacturer, serial number, etc."
-    ),
-        # if property is element of this resource.
-        element_property=True,
-        # note: Listed Resource Type(s) should be allowed as Reference.
-		enum_reference_types=["Device"],
-	)
 	
     type: fhirtypes.CodeableConceptType = Field(
 		...,
@@ -200,7 +179,7 @@ class DeviceMetric(domainresource.DomainResource):
         ``DeviceMetric`` according specification,
         with preserving original sequence order.
         """
-        return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "identifier", "type", "unit", "source", "parent", "operationalStatus", "color", "category", "measurementPeriod", "calibration"]
+        return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "identifier", "type", "unit", "device", "operationalStatus", "color", "category", "measurementFrequency", "calibration"]
 
 
     @root_validator(pre=True, allow_reuse=True)

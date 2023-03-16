@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/Medication
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 from pydantic.validators import bytes_validator  # noqa: F401
 from fhir.resources import fhirtypes  # noqa: F401
@@ -460,16 +460,10 @@ def impl_medication_10(inst):
     assert inst.meta.tag[0].display == "test health data"
     assert inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
     assert inst.text.status == "generated"
-    assert inst.totalVolume.denominator.code == "vial"
-    assert inst.totalVolume.denominator.system == (
-    "http://terminology.hl7.org/CodeSystem/medicationknowledge-"
-    "package-type"
-    )
-    assert float(inst.totalVolume.denominator.value) == float(1)
-    assert inst.totalVolume.numerator.code == "ml"
-    assert inst.totalVolume.numerator.system == "http://unitsofmeasure.org"
-    assert inst.totalVolume.numerator.unit == "ml"
-    assert float(inst.totalVolume.numerator.value) == float(1)
+    assert inst.totalVolume.code == "ml"
+    assert inst.totalVolume.system == "http://unitsofmeasure.org"
+    assert inst.totalVolume.unit == "ml"
+    assert float(inst.totalVolume.value) == float(1)
 
 
 def test_medication_10(base_settings):

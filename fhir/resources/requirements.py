@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/Requirements
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 import typing
 from pydantic import Field
@@ -135,8 +135,8 @@ class Requirements(domainresource.DomainResource):
     description: fhirtypes.Markdown = Field(
 		None,
 		alias="description",
-		title="Natural language description of the actor",
-		description="A free text natural language description of the actor.",
+		title="Natural language description of the requirements",
+		description="A free text natural language description of the requirements.",
         # if property is element of this resource.
         element_property=True,
 	)
@@ -239,6 +239,27 @@ class Requirements(domainresource.DomainResource):
         None,
         alias="_purpose",
         title="Extension field for ``purpose``."
+    )
+	
+    reference: typing.List[fhirtypes.Url] = Field(
+		None,
+		alias="reference",
+		title=(
+    "External artifact (rule/document etc. that) created this set of "
+    "requirements"
+    ),
+		description=(
+    "A reference to another artifact that created this set of requirements."
+    " This could be a Profile, etc., or external regulation, or business "
+    "requirements expressed elsewhere."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+	)
+    reference__ext: typing.List[typing.Union[fhirtypes.FHIRPrimitiveExtensionType, None]] = Field(
+        None,
+        alias="_reference",
+        title="Extension field for ``reference``."
     )
 	
     statement: typing.List[fhirtypes.RequirementsStatementType] = Field(
@@ -346,13 +367,48 @@ class Requirements(domainresource.DomainResource):
         alias="_version",
         title="Extension field for ``version``."
     )
+	
+    versionAlgorithmCoding: fhirtypes.CodingType = Field(
+		None,
+		alias="versionAlgorithmCoding",
+		title="How to compare versions",
+		description=(
+    "Indicates the mechanism used to compare versions to determine which is"
+    " more current."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+        # Choice of Data Types. i.e versionAlgorithm[x]
+		one_of_many="versionAlgorithm",
+		one_of_many_required=False,
+	)
+	
+    versionAlgorithmString: fhirtypes.String = Field(
+		None,
+		alias="versionAlgorithmString",
+		title="How to compare versions",
+		description=(
+    "Indicates the mechanism used to compare versions to determine which is"
+    " more current."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+        # Choice of Data Types. i.e versionAlgorithm[x]
+		one_of_many="versionAlgorithm",
+		one_of_many_required=False,
+	)
+    versionAlgorithmString__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
+        None,
+        alias="_versionAlgorithmString",
+        title="Extension field for ``versionAlgorithmString``."
+    )
     @classmethod
     def elements_sequence(cls):
         """returning all elements names from
         ``Requirements`` according specification,
         with preserving original sequence order.
         """
-        return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "url", "identifier", "version", "name", "title", "status", "experimental", "date", "publisher", "contact", "description", "useContext", "jurisdiction", "purpose", "copyright", "copyrightLabel", "derivedFrom", "actor", "statement"]
+        return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "url", "identifier", "version", "versionAlgorithmString", "versionAlgorithmCoding", "name", "title", "status", "experimental", "date", "publisher", "contact", "description", "useContext", "jurisdiction", "purpose", "copyright", "copyrightLabel", "derivedFrom", "reference", "actor", "statement"]
 
 
     @root_validator(pre=True, allow_reuse=True)
@@ -415,6 +471,47 @@ class Requirements(domainresource.DomainResource):
 
         return values
 
+    @root_validator(pre=True, allow_reuse=True)
+    def validate_one_of_many_1481(
+        cls, values: typing.Dict[str, typing.Any]
+    ) -> typing.Dict[str, typing.Any]:
+        """https://www.hl7.org/fhir/formats.html#choice
+        A few elements have a choice of more than one data type for their content.
+        All such elements have a name that takes the form nnn[x].
+        The "nnn" part of the name is constant, and the "[x]" is replaced with
+        the title-cased name of the type that is actually used.
+        The table view shows each of these names explicitly.
+
+        Elements that have a choice of data type cannot repeat - they must have a
+        maximum cardinality of 1. When constructing an instance of an element with a
+        choice of types, the authoring system must create a single element with a
+        data type chosen from among the list of permitted data types.
+        """
+        one_of_many_fields = {
+			"versionAlgorithm": [
+			    "versionAlgorithmCoding",
+			    "versionAlgorithmString"]}
+        for prefix, fields in one_of_many_fields.items():
+            assert cls.__fields__[fields[0]].field_info.extra["one_of_many"] == prefix
+            required = (
+                cls.__fields__[fields[0]].field_info.extra["one_of_many_required"]
+                is True
+            )
+            found = False
+            for field in fields:
+                if field in values and values[field] is not None:
+                    if found is True:
+                        raise ValueError(
+                            "Any of one field value is expected from "
+                            f"this list {fields}, but got multiple!"
+                        )
+                    else:
+                        found = True
+            if required is True and found is False:
+                raise ValueError(f"Expect any of field value from this list {fields}.")
+
+        return values
+
 
 from . import backboneelement
 
@@ -427,6 +524,25 @@ class RequirementsStatement(backboneelement.BackboneElement):
     The actual statement of requirement, in markdown format.
     """
     resource_type = Field("RequirementsStatement", const=True)
+	
+    conditionality: bool = Field(
+		None,
+		alias="conditionality",
+		title="Set to true if requirements statement is conditional",
+		description=(
+    "This boolean flag is set to true of the text of the requirement is "
+    "conditional on something e.g. it includes lanauage like 'if x then y'."
+    " This conditionality flag is introduced for purposes of filtering and "
+    "colour highlighting etc."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+	)
+    conditionality__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
+        None,
+        alias="_conditionality",
+        title="Extension field for ``conditionality``."
+    )
 	
     conformance: typing.List[fhirtypes.Code] = Field(
 		None,
@@ -491,13 +607,27 @@ class RequirementsStatement(backboneelement.BackboneElement):
         title="Extension field for ``label``."
     )
 	
+    parent: fhirtypes.String = Field(
+		None,
+		alias="parent",
+		title="A larger requirement that this requirement helps to refine and enable",
+		description=None,
+        # if property is element of this resource.
+        element_property=True,
+	)
+    parent__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
+        None,
+        alias="_parent",
+        title="Extension field for ``parent``."
+    )
+	
     reference: typing.List[fhirtypes.Url] = Field(
 		None,
 		alias="reference",
-		title="External artifact (rule/document etc that) created this requirement",
+		title="External artifact (rule/document etc. that) created this requirement",
 		description=(
     "A reference to another artifact that created this requirement. This "
-    "could be a Profile, etc, or external regulation, or business "
+    "could be a Profile, etc., or external regulation, or business "
     "requirements expressed elsewhere."
     ),
         # if property is element of this resource.
@@ -554,7 +684,7 @@ class RequirementsStatement(backboneelement.BackboneElement):
         # if property is element of this resource.
         element_property=True,
         # note: Listed Resource Type(s) should be allowed as Reference.
-		enum_reference_types=["Practitioner", "Organization", "CareTeam", "Group"],
+		enum_reference_types=["CareTeam", "Device", "Group", "HealthcareService", "Organization", "Patient", "Practitioner", "PractitionerRole", "RelatedPerson"],
 	)
     @classmethod
     def elements_sequence(cls):
@@ -562,7 +692,7 @@ class RequirementsStatement(backboneelement.BackboneElement):
         ``RequirementsStatement`` according specification,
         with preserving original sequence order.
         """
-        return ["id", "extension", "modifierExtension", "key", "label", "conformance", "requirement", "derivedFrom", "satisfiedBy", "reference", "source"]
+        return ["id", "extension", "modifierExtension", "key", "label", "conformance", "conditionality", "requirement", "derivedFrom", "parent", "satisfiedBy", "reference", "source"]
 
 
     @root_validator(pre=True, allow_reuse=True)

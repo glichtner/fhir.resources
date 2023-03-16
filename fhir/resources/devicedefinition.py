@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/DeviceDefinition
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 import typing
 from pydantic import Field
@@ -43,6 +43,23 @@ class DeviceDefinition(domainresource.DomainResource):
 		alias="classification",
 		title="What kind of device or device system this is",
 		description=None,
+        # if property is element of this resource.
+        element_property=True,
+	)
+	
+    conformsTo: typing.List[fhirtypes.DeviceDefinitionConformsToType] = Field(
+		None,
+		alias="conformsTo",
+		title=(
+    "Identifies the standards, specifications, or formal guidances for the "
+    "capabilities supported by the device"
+    ),
+		description=(
+    "Identifies the standards, specifications, or formal guidances for the "
+    "capabilities supported by the device. The device may be certified as "
+    "conformant to these specifications e.g., communication, performance, "
+    "process, measurement, or specialization standards."
+    ),
         # if property is element of this resource.
         element_property=True,
 	)
@@ -235,17 +252,6 @@ class DeviceDefinition(domainresource.DomainResource):
         element_property=True,
 	)
 	
-    parentDevice: fhirtypes.ReferenceType = Field(
-		None,
-		alias="parentDevice",
-		title="The parent device it can be part of",
-		description=None,
-        # if property is element of this resource.
-        element_property=True,
-        # note: Listed Resource Type(s) should be allowed as Reference.
-		enum_reference_types=["DeviceDefinition"],
-	)
-	
     partNumber: fhirtypes.String = Field(
 		None,
 		alias="partNumber",
@@ -328,19 +334,6 @@ class DeviceDefinition(domainresource.DomainResource):
         element_property=True,
 	)
 	
-    specialization: typing.List[fhirtypes.RelatedArtifactType] = Field(
-		None,
-		alias="specialization",
-		title=(
-    "The capabilities supported on a  device, the standards to which the "
-    "device conforms for a particular purpose, and used for the "
-    "communication"
-    ),
-		description=None,
-        # if property is element of this resource.
-        element_property=True,
-	)
-	
     udiDeviceIdentifier: typing.List[fhirtypes.DeviceDefinitionUdiDeviceIdentifierType] = Field(
 		None,
 		alias="udiDeviceIdentifier",
@@ -369,7 +362,7 @@ class DeviceDefinition(domainresource.DomainResource):
         ``DeviceDefinition`` according specification,
         with preserving original sequence order.
         """
-        return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "description", "identifier", "udiDeviceIdentifier", "regulatoryIdentifier", "partNumber", "manufacturer", "deviceName", "modelNumber", "classification", "specialization", "hasPart", "packaging", "version", "safety", "shelfLifeStorage", "languageCode", "property", "owner", "contact", "link", "note", "parentDevice", "material", "productionIdentifierInUDI", "guideline", "correctiveAction", "chargeItem"]
+        return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "description", "identifier", "udiDeviceIdentifier", "regulatoryIdentifier", "partNumber", "manufacturer", "deviceName", "modelNumber", "classification", "conformsTo", "hasPart", "packaging", "version", "safety", "shelfLifeStorage", "languageCode", "property", "owner", "contact", "link", "note", "material", "productionIdentifierInUDI", "guideline", "correctiveAction", "chargeItem"]
 
 
 
@@ -464,6 +457,90 @@ class DeviceDefinitionClassification(backboneelement.BackboneElement):
         with preserving original sequence order.
         """
         return ["id", "extension", "modifierExtension", "type", "justification"]
+
+
+
+class DeviceDefinitionConformsTo(backboneelement.BackboneElement):
+    """Disclaimer: Any field name ends with ``__ext`` doesn't part of
+    Resource StructureDefinition, instead used to enable Extensibility feature
+    for FHIR Primitive Data Types.
+
+    Identifies the standards, specifications, or formal guidances for the
+    capabilities supported by the device.
+    Identifies the standards, specifications, or formal guidances for the
+    capabilities supported by the device. The device may be certified as
+    conformant to these specifications e.g., communication, performance,
+    process, measurement, or specialization standards.
+    """
+    resource_type = Field("DeviceDefinitionConformsTo", const=True)
+	
+    category: fhirtypes.CodeableConceptType = Field(
+		None,
+		alias="category",
+		title=(
+    "Describes the common type of the standard, specification, or formal "
+    "guidance"
+    ),
+		description="Describes the type of the standard, specification, or formal guidance.",
+        # if property is element of this resource.
+        element_property=True,
+	)
+	
+    source: typing.List[fhirtypes.RelatedArtifactType] = Field(
+		None,
+		alias="source",
+		title=(
+    "Standard, regulation, certification, or guidance website, document, or"
+    " other publication, or similar, supporting the conformance"
+    ),
+		description=None,
+        # if property is element of this resource.
+        element_property=True,
+	)
+	
+    specification: fhirtypes.CodeableConceptType = Field(
+		...,
+		alias="specification",
+		title=(
+    "Identifies the standard, specification, or formal guidance that the "
+    "device adheres to the Device Specification type"
+    ),
+		description=(
+    "Code that identifies the specific standard, specification, protocol, "
+    "formal guidance, regulation, legislation, or certification scheme to "
+    "which the device adheres."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+	)
+	
+    version: typing.List[typing.Optional[fhirtypes.String]] = Field(
+		None,
+		alias="version",
+		title=(
+    "The specific form or variant of the standard, specification or formal "
+    "guidance"
+    ),
+		description=(
+    "Identifies the specific form or variant of the standard, "
+    "specification, or formal guidance. This may be a 'version number', "
+    "release, document edition, publication year, or other label."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+	)
+    version__ext: typing.List[typing.Union[fhirtypes.FHIRPrimitiveExtensionType, None]] = Field(
+        None,
+        alias="_version",
+        title="Extension field for ``version``."
+    )
+    @classmethod
+    def elements_sequence(cls):
+        """returning all elements names from
+        ``DeviceDefinitionConformsTo`` according specification,
+        with preserving original sequence order.
+        """
+        return ["id", "extension", "modifierExtension", "category", "specification", "version", "source"]
 
 
 
@@ -720,7 +797,7 @@ class DeviceDefinitionGuideline(backboneelement.BackboneElement):
     """
     resource_type = Field("DeviceDefinitionGuideline", const=True)
 	
-    contraindication: typing.List[fhirtypes.CodeableReferenceType] = Field(
+    contraindication: typing.List[fhirtypes.CodeableConceptType] = Field(
 		None,
 		alias="contraindication",
 		title=(
@@ -730,19 +807,15 @@ class DeviceDefinitionGuideline(backboneelement.BackboneElement):
 		description=None,
         # if property is element of this resource.
         element_property=True,
-        # note: Listed Resource Type(s) should be allowed as Reference.
-		enum_reference_types=["ClinicalUseDefinition"],
 	)
 	
-    indication: typing.List[fhirtypes.CodeableReferenceType] = Field(
+    indication: typing.List[fhirtypes.CodeableConceptType] = Field(
 		None,
 		alias="indication",
 		title="A clinical condition for which the device was designed to be used",
 		description=None,
         # if property is element of this resource.
         element_property=True,
-        # note: Listed Resource Type(s) should be allowed as Reference.
-		enum_reference_types=["ClinicalUseDefinition"],
 	)
 	
     intendedUse: fhirtypes.String = Field(
@@ -797,7 +870,7 @@ class DeviceDefinitionGuideline(backboneelement.BackboneElement):
         element_property=True,
 	)
 	
-    warning: typing.List[fhirtypes.CodeableReferenceType] = Field(
+    warning: typing.List[fhirtypes.CodeableConceptType] = Field(
 		None,
 		alias="warning",
 		title=(
@@ -807,8 +880,6 @@ class DeviceDefinitionGuideline(backboneelement.BackboneElement):
 		description=None,
         # if property is element of this resource.
         element_property=True,
-        # note: Listed Resource Type(s) should be allowed as Reference.
-		enum_reference_types=["ClinicalUseDefinition"],
 	)
     @classmethod
     def elements_sequence(cls):

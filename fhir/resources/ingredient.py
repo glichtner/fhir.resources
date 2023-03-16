@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/Ingredient
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 import typing
 from pydantic import Field
@@ -44,6 +44,23 @@ class Ingredient(domainresource.DomainResource):
         None,
         alias="_allergenicIndicator",
         title="Extension field for ``allergenicIndicator``."
+    )
+	
+    comment: fhirtypes.Markdown = Field(
+		None,
+		alias="comment",
+		title=(
+    "A place for providing any notes that are relevant to the component, "
+    "e.g. removed during process, adjusted for loss on drying"
+    ),
+		description=None,
+        # if property is element of this resource.
+        element_property=True,
+	)
+    comment__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
+        None,
+        alias="_comment",
+        title="Extension field for ``comment``."
     )
 	
     for_fhir: typing.List[fhirtypes.ReferenceType] = Field(
@@ -162,7 +179,7 @@ class Ingredient(domainresource.DomainResource):
         ``Ingredient`` according specification,
         with preserving original sequence order.
         """
-        return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "identifier", "status", "for", "role", "function", "group", "allergenicIndicator", "manufacturer", "substance"]
+        return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "identifier", "status", "for", "role", "function", "group", "allergenicIndicator", "comment", "manufacturer", "substance"]
 
 
     @root_validator(pre=True, allow_reuse=True)
@@ -703,7 +720,7 @@ class IngredientSubstanceStrengthReferenceStrength(backboneelement.BackboneEleme
 	)
 	
     substance: fhirtypes.CodeableReferenceType = Field(
-		None,
+		...,
 		alias="substance",
 		title="Relevant reference substance",
 		description=None,

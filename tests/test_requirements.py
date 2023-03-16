@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/Requirements
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 from pydantic.validators import bytes_validator  # noqa: F401
 from fhir.resources import fhirtypes  # noqa: F401
@@ -15,6 +15,7 @@ def impl_requirements_1(inst):
     assert inst.actor[0] == "http://hl7.org/fhir/ActorDefinition/server"
     assert inst.date == fhirtypes.DateTime.validate("2021-11-02T14:31:30.239Z")
     assert inst.derivedFrom[0] == "http://hl7.org/fhir/Requirements/example2"
+    assert inst.description == "Example Requirements Set 2"
     assert inst.id == "example2"
     assert inst.identifier[0].system == "urn:ietf:rfc:3986"
     assert inst.identifier[0].value == "urn:oid:2.16.840.1.113883.4.642.18.2"
@@ -62,6 +63,7 @@ def test_requirements_1(base_settings):
 def impl_requirements_2(inst):
     assert inst.actor[0] == "http://hl7.org/fhir/ActorDefinition/server"
     assert inst.date == fhirtypes.DateTime.validate("2021-11-02T14:31:30.239Z")
+    assert inst.description == "Example Requirements Set 1"
     assert inst.id == "example1"
     assert inst.identifier[0].system == "urn:ietf:rfc:3986"
     assert inst.identifier[0].value == "urn:oid:2.16.840.1.113883.4.642.18.1"

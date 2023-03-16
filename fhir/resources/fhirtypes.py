@@ -650,7 +650,7 @@ def get_fhir_type_class(model_name):
 class AbstractType(dict):
     """ """
 
-    __fhir_release__: str = "2022Sep"
+    __fhir_release__: str = "5.0.0-draft-final"
     __resource_type__: str = ...  # type: ignore
 
     @classmethod
@@ -683,7 +683,7 @@ class FHIRPrimitiveExtensionType(AbstractType):
 class AbstractBaseType(dict):
     """ """
 
-    __fhir_release__: str = "2022Sep"
+    __fhir_release__: str = "5.0.0-draft-final"
     __resource_type__: str = ...  # type: ignore
 
     @classmethod
@@ -751,8 +751,16 @@ class AccountCoverageType(AbstractType):
     __resource_type__ = "AccountCoverage"
 
 
+class AccountDiagnosisType(AbstractType):
+    __resource_type__ = "AccountDiagnosis"
+
+
 class AccountGuarantorType(AbstractType):
     __resource_type__ = "AccountGuarantor"
+
+
+class AccountProcedureType(AbstractType):
+    __resource_type__ = "AccountProcedure"
 
 
 class AccountRelatedAccountType(AbstractType):
@@ -955,6 +963,14 @@ class BiologicallyDerivedProductCollectionType(AbstractType):
     __resource_type__ = "BiologicallyDerivedProductCollection"
 
 
+class BiologicallyDerivedProductDispenseType(AbstractType):
+    __resource_type__ = "BiologicallyDerivedProductDispense"
+
+
+class BiologicallyDerivedProductDispensePerformerType(AbstractType):
+    __resource_type__ = "BiologicallyDerivedProductDispensePerformer"
+
+
 class BiologicallyDerivedProductPropertyType(AbstractType):
     __resource_type__ = "BiologicallyDerivedProductProperty"
 
@@ -963,12 +979,16 @@ class BodyStructureType(AbstractType):
     __resource_type__ = "BodyStructure"
 
 
-class BodyStructureExcludedStructureType(AbstractType):
-    __resource_type__ = "BodyStructureExcludedStructure"
-
-
 class BodyStructureIncludedStructureType(AbstractType):
     __resource_type__ = "BodyStructureIncludedStructure"
+
+
+class BodyStructureIncludedStructureBodyLandmarkOrientationType(AbstractType):
+    __resource_type__ = "BodyStructureIncludedStructureBodyLandmarkOrientation"
+
+
+class BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmarkType(AbstractType):
+    __resource_type__ = "BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmark"
 
 
 class BundleType(AbstractType):
@@ -1061,10 +1081,6 @@ class CarePlanType(AbstractType):
 
 class CarePlanActivityType(AbstractType):
     __resource_type__ = "CarePlanActivity"
-
-
-class CarePlanActivityPlannedActivityDetailType(AbstractType):
-    __resource_type__ = "CarePlanActivityPlannedActivityDetail"
 
 
 class CareTeamType(AbstractType):
@@ -1187,6 +1203,10 @@ class ClaimDiagnosisType(AbstractType):
     __resource_type__ = "ClaimDiagnosis"
 
 
+class ClaimEventType(AbstractType):
+    __resource_type__ = "ClaimEvent"
+
+
 class ClaimInsuranceType(AbstractType):
     __resource_type__ = "ClaimInsurance"
 
@@ -1243,6 +1263,10 @@ class ClaimResponseErrorType(AbstractType):
     __resource_type__ = "ClaimResponseError"
 
 
+class ClaimResponseEventType(AbstractType):
+    __resource_type__ = "ClaimResponseEvent"
+
+
 class ClaimResponseInsuranceType(AbstractType):
     __resource_type__ = "ClaimResponseInsurance"
 
@@ -1261,6 +1285,10 @@ class ClaimResponseItemDetailType(AbstractType):
 
 class ClaimResponseItemDetailSubDetailType(AbstractType):
     __resource_type__ = "ClaimResponseItemDetailSubDetail"
+
+
+class ClaimResponseItemReviewOutcomeType(AbstractType):
+    __resource_type__ = "ClaimResponseItemReviewOutcome"
 
 
 class ClaimResponsePaymentType(AbstractType):
@@ -1399,6 +1427,10 @@ class ConceptMapType(AbstractType):
     __resource_type__ = "ConceptMap"
 
 
+class ConceptMapAdditionalAttributeType(AbstractType):
+    __resource_type__ = "ConceptMapAdditionalAttribute"
+
+
 class ConceptMapGroupType(AbstractType):
     __resource_type__ = "ConceptMapGroup"
 
@@ -1415,8 +1447,16 @@ class ConceptMapGroupElementTargetDependsOnType(AbstractType):
     __resource_type__ = "ConceptMapGroupElementTargetDependsOn"
 
 
+class ConceptMapGroupElementTargetPropertyType(AbstractType):
+    __resource_type__ = "ConceptMapGroupElementTargetProperty"
+
+
 class ConceptMapGroupUnmappedType(AbstractType):
     __resource_type__ = "ConceptMapGroupUnmapped"
+
+
+class ConceptMapPropertyType(AbstractType):
+    __resource_type__ = "ConceptMapProperty"
 
 
 class ConditionType(AbstractType):
@@ -1579,6 +1619,10 @@ class CoverageEligibilityRequestType(AbstractType):
     __resource_type__ = "CoverageEligibilityRequest"
 
 
+class CoverageEligibilityRequestEventType(AbstractType):
+    __resource_type__ = "CoverageEligibilityRequestEvent"
+
+
 class CoverageEligibilityRequestInsuranceType(AbstractType):
     __resource_type__ = "CoverageEligibilityRequestInsurance"
 
@@ -1601,6 +1645,10 @@ class CoverageEligibilityResponseType(AbstractType):
 
 class CoverageEligibilityResponseErrorType(AbstractType):
     __resource_type__ = "CoverageEligibilityResponseError"
+
+
+class CoverageEligibilityResponseEventType(AbstractType):
+    __resource_type__ = "CoverageEligibilityResponseEvent"
 
 
 class CoverageEligibilityResponseInsuranceType(AbstractType):
@@ -1663,6 +1711,14 @@ class DeviceAssociationType(AbstractType):
     __resource_type__ = "DeviceAssociation"
 
 
+class DeviceAssociationOperationType(AbstractType):
+    __resource_type__ = "DeviceAssociationOperation"
+
+
+class DeviceConformsToType(AbstractType):
+    __resource_type__ = "DeviceConformsTo"
+
+
 class DeviceDefinitionType(AbstractType):
     __resource_type__ = "DeviceDefinition"
 
@@ -1673,6 +1729,10 @@ class DeviceDefinitionChargeItemType(AbstractType):
 
 class DeviceDefinitionClassificationType(AbstractType):
     __resource_type__ = "DeviceDefinitionClassification"
+
+
+class DeviceDefinitionConformsToType(AbstractType):
+    __resource_type__ = "DeviceDefinitionConformsTo"
 
 
 class DeviceDefinitionCorrectiveActionType(AbstractType):
@@ -1727,10 +1787,6 @@ class DeviceDefinitionVersionType(AbstractType):
     __resource_type__ = "DeviceDefinitionVersion"
 
 
-class DeviceDeviceNameType(AbstractType):
-    __resource_type__ = "DeviceDeviceName"
-
-
 class DeviceDispenseType(AbstractType):
     __resource_type__ = "DeviceDispense"
 
@@ -1747,8 +1803,8 @@ class DeviceMetricCalibrationType(AbstractType):
     __resource_type__ = "DeviceMetricCalibration"
 
 
-class DeviceOperationType(AbstractType):
-    __resource_type__ = "DeviceOperation"
+class DeviceNameType(AbstractType):
+    __resource_type__ = "DeviceName"
 
 
 class DevicePropertyType(AbstractType):
@@ -1761,10 +1817,6 @@ class DeviceRequestType(AbstractType):
 
 class DeviceRequestParameterType(AbstractType):
     __resource_type__ = "DeviceRequestParameter"
-
-
-class DeviceSpecializationType(AbstractType):
-    __resource_type__ = "DeviceSpecialization"
 
 
 class DeviceUdiCarrierType(AbstractType):
@@ -1797,14 +1849,6 @@ class DiagnosticReportSupportingInfoType(AbstractType):
 
 class DistanceType(AbstractType):
     __resource_type__ = "Distance"
-
-
-class DocumentManifestType(AbstractType):
-    __resource_type__ = "DocumentManifest"
-
-
-class DocumentManifestRelatedType(AbstractType):
-    __resource_type__ = "DocumentManifestRelated"
 
 
 class DocumentReferenceType(AbstractType):
@@ -1856,6 +1900,10 @@ class ElementDefinitionBindingType(AbstractType):
     __resource_type__ = "ElementDefinitionBinding"
 
 
+class ElementDefinitionBindingAdditionalType(AbstractType):
+    __resource_type__ = "ElementDefinitionBindingAdditional"
+
+
 class ElementDefinitionConstraintType(AbstractType):
     __resource_type__ = "ElementDefinitionConstraint"
 
@@ -1888,12 +1936,16 @@ class EncounterAdmissionType(AbstractType):
     __resource_type__ = "EncounterAdmission"
 
 
-class EncounterClassHistoryType(AbstractType):
-    __resource_type__ = "EncounterClassHistory"
-
-
 class EncounterDiagnosisType(AbstractType):
     __resource_type__ = "EncounterDiagnosis"
+
+
+class EncounterHistoryType(AbstractType):
+    __resource_type__ = "EncounterHistory"
+
+
+class EncounterHistoryLocationType(AbstractType):
+    __resource_type__ = "EncounterHistoryLocation"
 
 
 class EncounterLocationType(AbstractType):
@@ -1904,12 +1956,16 @@ class EncounterParticipantType(AbstractType):
     __resource_type__ = "EncounterParticipant"
 
 
-class EncounterStatusHistoryType(AbstractType):
-    __resource_type__ = "EncounterStatusHistory"
+class EncounterReasonType(AbstractType):
+    __resource_type__ = "EncounterReason"
 
 
 class EndpointType(AbstractType):
     __resource_type__ = "Endpoint"
+
+
+class EndpointPayloadType(AbstractType):
+    __resource_type__ = "EndpointPayload"
 
 
 class EnrollmentRequestType(AbstractType):
@@ -1926,6 +1982,10 @@ class EpisodeOfCareType(AbstractType):
 
 class EpisodeOfCareDiagnosisType(AbstractType):
     __resource_type__ = "EpisodeOfCareDiagnosis"
+
+
+class EpisodeOfCareReasonType(AbstractType):
+    __resource_type__ = "EpisodeOfCareReason"
 
 
 class EpisodeOfCareStatusHistoryType(AbstractType):
@@ -2092,6 +2152,10 @@ class ExplanationOfBenefitDiagnosisType(AbstractType):
     __resource_type__ = "ExplanationOfBenefitDiagnosis"
 
 
+class ExplanationOfBenefitEventType(AbstractType):
+    __resource_type__ = "ExplanationOfBenefitEvent"
+
+
 class ExplanationOfBenefitInsuranceType(AbstractType):
     __resource_type__ = "ExplanationOfBenefitInsurance"
 
@@ -2114,6 +2178,10 @@ class ExplanationOfBenefitItemDetailType(AbstractType):
 
 class ExplanationOfBenefitItemDetailSubDetailType(AbstractType):
     __resource_type__ = "ExplanationOfBenefitItemDetailSubDetail"
+
+
+class ExplanationOfBenefitItemReviewOutcomeType(AbstractType):
+    __resource_type__ = "ExplanationOfBenefitItemReviewOutcome"
 
 
 class ExplanationOfBenefitPayeeType(AbstractType):
@@ -2162,6 +2230,10 @@ class FamilyMemberHistoryType(AbstractType):
 
 class FamilyMemberHistoryConditionType(AbstractType):
     __resource_type__ = "FamilyMemberHistoryCondition"
+
+
+class FamilyMemberHistoryParticipantType(AbstractType):
+    __resource_type__ = "FamilyMemberHistoryParticipant"
 
 
 class FamilyMemberHistoryProcedureType(AbstractType):
@@ -2216,12 +2288,12 @@ class GraphDefinitionLinkType(AbstractType):
     __resource_type__ = "GraphDefinitionLink"
 
 
-class GraphDefinitionLinkTargetType(AbstractType):
-    __resource_type__ = "GraphDefinitionLinkTarget"
+class GraphDefinitionLinkCompartmentType(AbstractType):
+    __resource_type__ = "GraphDefinitionLinkCompartment"
 
 
-class GraphDefinitionLinkTargetCompartmentType(AbstractType):
-    __resource_type__ = "GraphDefinitionLinkTargetCompartment"
+class GraphDefinitionNodeType(AbstractType):
+    __resource_type__ = "GraphDefinitionNode"
 
 
 class GroupType(AbstractType):
@@ -2260,16 +2332,16 @@ class ImagingSelectionType(AbstractType):
     __resource_type__ = "ImagingSelection"
 
 
-class ImagingSelectionImageRegionType(AbstractType):
-    __resource_type__ = "ImagingSelectionImageRegion"
-
-
 class ImagingSelectionInstanceType(AbstractType):
     __resource_type__ = "ImagingSelectionInstance"
 
 
-class ImagingSelectionInstanceImageRegionType(AbstractType):
-    __resource_type__ = "ImagingSelectionInstanceImageRegion"
+class ImagingSelectionInstanceImageRegion2DType(AbstractType):
+    __resource_type__ = "ImagingSelectionInstanceImageRegion2D"
+
+
+class ImagingSelectionInstanceImageRegion3DType(AbstractType):
+    __resource_type__ = "ImagingSelectionInstanceImageRegion3D"
 
 
 class ImagingSelectionPerformerType(AbstractType):
@@ -2432,6 +2504,34 @@ class InsurancePlanPlanSpecificCostBenefitCostType(AbstractType):
     __resource_type__ = "InsurancePlanPlanSpecificCostBenefitCost"
 
 
+class InventoryItemType(AbstractType):
+    __resource_type__ = "InventoryItem"
+
+
+class InventoryItemAssociationType(AbstractType):
+    __resource_type__ = "InventoryItemAssociation"
+
+
+class InventoryItemCharacteristicType(AbstractType):
+    __resource_type__ = "InventoryItemCharacteristic"
+
+
+class InventoryItemDescriptionType(AbstractType):
+    __resource_type__ = "InventoryItemDescription"
+
+
+class InventoryItemInstanceType(AbstractType):
+    __resource_type__ = "InventoryItemInstance"
+
+
+class InventoryItemNameType(AbstractType):
+    __resource_type__ = "InventoryItemName"
+
+
+class InventoryItemResponsibleOrganizationType(AbstractType):
+    __resource_type__ = "InventoryItemResponsibleOrganization"
+
+
 class InventoryReportType(AbstractType):
     __resource_type__ = "InventoryReport"
 
@@ -2440,8 +2540,8 @@ class InventoryReportInventoryListingType(AbstractType):
     __resource_type__ = "InventoryReportInventoryListing"
 
 
-class InventoryReportInventoryListingItemsType(AbstractType):
-    __resource_type__ = "InventoryReportInventoryListingItems"
+class InventoryReportInventoryListingItemType(AbstractType):
+    __resource_type__ = "InventoryReportInventoryListingItem"
 
 
 class InvoiceType(AbstractType):
@@ -2684,20 +2784,16 @@ class MedicationRequestDispenseRequestInitialFillType(AbstractType):
     __resource_type__ = "MedicationRequestDispenseRequestInitialFill"
 
 
-class MedicationRequestDoseType(AbstractType):
-    __resource_type__ = "MedicationRequestDose"
-
-
 class MedicationRequestSubstitutionType(AbstractType):
     __resource_type__ = "MedicationRequestSubstitution"
 
 
-class MedicationUsageType(AbstractType):
-    __resource_type__ = "MedicationUsage"
+class MedicationStatementType(AbstractType):
+    __resource_type__ = "MedicationStatement"
 
 
-class MedicationUsageAdherenceType(AbstractType):
-    __resource_type__ = "MedicationUsageAdherence"
+class MedicationStatementAdherenceType(AbstractType):
+    __resource_type__ = "MedicationStatementAdherence"
 
 
 class MedicinalProductDefinitionType(AbstractType):
@@ -3116,6 +3212,10 @@ class PractitionerType(AbstractType):
     __resource_type__ = "Practitioner"
 
 
+class PractitionerCommunicationType(AbstractType):
+    __resource_type__ = "PractitionerCommunication"
+
+
 class PractitionerQualificationType(AbstractType):
     __resource_type__ = "PractitionerQualification"
 
@@ -3280,10 +3380,6 @@ class ResearchStudyComparisonGroupType(AbstractType):
     __resource_type__ = "ResearchStudyComparisonGroup"
 
 
-class ResearchStudyFocusType(AbstractType):
-    __resource_type__ = "ResearchStudyFocus"
-
-
 class ResearchStudyLabelType(AbstractType):
     __resource_type__ = "ResearchStudyLabel"
 
@@ -3302,10 +3398,6 @@ class ResearchStudyProgressStatusType(AbstractType):
 
 class ResearchStudyRecruitmentType(AbstractType):
     __resource_type__ = "ResearchStudyRecruitment"
-
-
-class ResearchStudyWebLocationType(AbstractType):
-    __resource_type__ = "ResearchStudyWebLocation"
 
 
 class ResearchSubjectType(AbstractType):
@@ -3343,6 +3435,18 @@ class SearchParameterComponentType(AbstractType):
 
 class ServiceRequestType(AbstractType):
     __resource_type__ = "ServiceRequest"
+
+
+class ServiceRequestOrderDetailType(AbstractType):
+    __resource_type__ = "ServiceRequestOrderDetail"
+
+
+class ServiceRequestOrderDetailParameterType(AbstractType):
+    __resource_type__ = "ServiceRequestOrderDetailParameter"
+
+
+class ServiceRequestPatientInstructionType(AbstractType):
+    __resource_type__ = "ServiceRequestPatientInstruction"
 
 
 class SignatureType(AbstractType):
@@ -3417,6 +3521,10 @@ class StructureMapType(AbstractType):
     __resource_type__ = "StructureMap"
 
 
+class StructureMapConstType(AbstractType):
+    __resource_type__ = "StructureMapConst"
+
+
 class StructureMapGroupType(AbstractType):
     __resource_type__ = "StructureMapGroup"
 
@@ -3457,6 +3565,10 @@ class SubscriptionFilterByType(AbstractType):
     __resource_type__ = "SubscriptionFilterBy"
 
 
+class SubscriptionParameterType(AbstractType):
+    __resource_type__ = "SubscriptionParameter"
+
+
 class SubscriptionStatusType(AbstractType):
     __resource_type__ = "SubscriptionStatus"
 
@@ -3495,6 +3607,10 @@ class SubstanceType(AbstractType):
 
 class SubstanceDefinitionType(AbstractType):
     __resource_type__ = "SubstanceDefinition"
+
+
+class SubstanceDefinitionCharacterizationType(AbstractType):
+    __resource_type__ = "SubstanceDefinitionCharacterization"
 
 
 class SubstanceDefinitionCodeType(AbstractType):
@@ -3665,6 +3781,10 @@ class TaskOutputType(AbstractType):
     __resource_type__ = "TaskOutput"
 
 
+class TaskPerformerType(AbstractType):
+    __resource_type__ = "TaskPerformer"
+
+
 class TaskRestrictionType(AbstractType):
     __resource_type__ = "TaskRestriction"
 
@@ -3713,6 +3833,38 @@ class TerminologyCapabilitiesValidateCodeType(AbstractType):
     __resource_type__ = "TerminologyCapabilitiesValidateCode"
 
 
+class TestPlanType(AbstractType):
+    __resource_type__ = "TestPlan"
+
+
+class TestPlanDependenciesType(AbstractType):
+    __resource_type__ = "TestPlanDependencies"
+
+
+class TestPlanTestCaseType(AbstractType):
+    __resource_type__ = "TestPlanTestCase"
+
+
+class TestPlanTestCaseAssertionsType(AbstractType):
+    __resource_type__ = "TestPlanTestCaseAssertions"
+
+
+class TestPlanTestCaseDependenciesType(AbstractType):
+    __resource_type__ = "TestPlanTestCaseDependencies"
+
+
+class TestPlanTestCaseTestDataType(AbstractType):
+    __resource_type__ = "TestPlanTestCaseTestData"
+
+
+class TestPlanTestCaseTestRunType(AbstractType):
+    __resource_type__ = "TestPlanTestCaseTestRun"
+
+
+class TestPlanTestCaseTestRunScriptType(AbstractType):
+    __resource_type__ = "TestPlanTestCaseTestRunScript"
+
+
 class TestReportType(AbstractType):
     __resource_type__ = "TestReport"
 
@@ -3731,6 +3883,10 @@ class TestReportSetupActionType(AbstractType):
 
 class TestReportSetupActionAssertType(AbstractType):
     __resource_type__ = "TestReportSetupActionAssert"
+
+
+class TestReportSetupActionAssertRequirementType(AbstractType):
+    __resource_type__ = "TestReportSetupActionAssertRequirement"
 
 
 class TestReportSetupActionOperationType(AbstractType):
@@ -3795,6 +3951,10 @@ class TestScriptSetupActionType(AbstractType):
 
 class TestScriptSetupActionAssertType(AbstractType):
     __resource_type__ = "TestScriptSetupActionAssert"
+
+
+class TestScriptSetupActionAssertRequirementType(AbstractType):
+    __resource_type__ = "TestScriptSetupActionAssertRequirement"
 
 
 class TestScriptSetupActionOperationType(AbstractType):
@@ -3975,7 +4135,13 @@ __all__ = [
 	"AccountCoverageType",
 	
 	
+	"AccountDiagnosisType",
+	
+	
 	"AccountGuarantorType",
+	
+	
+	"AccountProcedureType",
 	
 	
 	"AccountRelatedAccountType",
@@ -4128,16 +4294,25 @@ __all__ = [
 	"BiologicallyDerivedProductCollectionType",
 	
 	
+	"BiologicallyDerivedProductDispenseType",
+	
+	
+	"BiologicallyDerivedProductDispensePerformerType",
+	
+	
 	"BiologicallyDerivedProductPropertyType",
 	
 	
 	"BodyStructureType",
 	
 	
-	"BodyStructureExcludedStructureType",
-	
-	
 	"BodyStructureIncludedStructureType",
+	
+	
+	"BodyStructureIncludedStructureBodyLandmarkOrientationType",
+	
+	
+	"BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmarkType",
 	
 	
 	"BundleType",
@@ -4207,9 +4382,6 @@ __all__ = [
 	
 	
 	"CarePlanActivityType",
-	
-	
-	"CarePlanActivityPlannedActivityDetailType",
 	
 	
 	"CareTeamType",
@@ -4302,6 +4474,9 @@ __all__ = [
 	"ClaimDiagnosisType",
 	
 	
+	"ClaimEventType",
+	
+	
 	"ClaimInsuranceType",
 	
 	
@@ -4344,6 +4519,9 @@ __all__ = [
 	"ClaimResponseErrorType",
 	
 	
+	"ClaimResponseEventType",
+	
+	
 	"ClaimResponseInsuranceType",
 	
 	
@@ -4357,6 +4535,9 @@ __all__ = [
 	
 	
 	"ClaimResponseItemDetailSubDetailType",
+	
+	
+	"ClaimResponseItemReviewOutcomeType",
 	
 	
 	"ClaimResponsePaymentType",
@@ -4461,6 +4642,9 @@ __all__ = [
 	"ConceptMapType",
 	
 	
+	"ConceptMapAdditionalAttributeType",
+	
+	
 	"ConceptMapGroupType",
 	
 	
@@ -4473,7 +4657,13 @@ __all__ = [
 	"ConceptMapGroupElementTargetDependsOnType",
 	
 	
+	"ConceptMapGroupElementTargetPropertyType",
+	
+	
 	"ConceptMapGroupUnmappedType",
+	
+	
+	"ConceptMapPropertyType",
 	
 	
 	"ConditionType",
@@ -4596,6 +4786,9 @@ __all__ = [
 	"CoverageEligibilityRequestType",
 	
 	
+	"CoverageEligibilityRequestEventType",
+	
+	
 	"CoverageEligibilityRequestInsuranceType",
 	
 	
@@ -4612,6 +4805,9 @@ __all__ = [
 	
 	
 	"CoverageEligibilityResponseErrorType",
+	
+	
+	"CoverageEligibilityResponseEventType",
 	
 	
 	"CoverageEligibilityResponseInsuranceType",
@@ -4659,6 +4855,12 @@ __all__ = [
 	"DeviceAssociationType",
 	
 	
+	"DeviceAssociationOperationType",
+	
+	
+	"DeviceConformsToType",
+	
+	
 	"DeviceDefinitionType",
 	
 	
@@ -4666,6 +4868,9 @@ __all__ = [
 	
 	
 	"DeviceDefinitionClassificationType",
+	
+	
+	"DeviceDefinitionConformsToType",
 	
 	
 	"DeviceDefinitionCorrectiveActionType",
@@ -4707,9 +4912,6 @@ __all__ = [
 	"DeviceDefinitionVersionType",
 	
 	
-	"DeviceDeviceNameType",
-	
-	
 	"DeviceDispenseType",
 	
 	
@@ -4722,7 +4924,7 @@ __all__ = [
 	"DeviceMetricCalibrationType",
 	
 	
-	"DeviceOperationType",
+	"DeviceNameType",
 	
 	
 	"DevicePropertyType",
@@ -4732,9 +4934,6 @@ __all__ = [
 	
 	
 	"DeviceRequestParameterType",
-	
-	
-	"DeviceSpecializationType",
 	
 	
 	"DeviceUdiCarrierType",
@@ -4759,12 +4958,6 @@ __all__ = [
 	
 	
 	"DistanceType",
-	
-	
-	"DocumentManifestType",
-	
-	
-	"DocumentManifestRelatedType",
 	
 	
 	"DocumentReferenceType",
@@ -4804,6 +4997,9 @@ __all__ = [
 	"ElementDefinitionBindingType",
 	
 	
+	"ElementDefinitionBindingAdditionalType",
+	
+	
 	"ElementDefinitionConstraintType",
 	
 	
@@ -4828,10 +5024,13 @@ __all__ = [
 	"EncounterAdmissionType",
 	
 	
-	"EncounterClassHistoryType",
-	
-	
 	"EncounterDiagnosisType",
+	
+	
+	"EncounterHistoryType",
+	
+	
+	"EncounterHistoryLocationType",
 	
 	
 	"EncounterLocationType",
@@ -4840,10 +5039,13 @@ __all__ = [
 	"EncounterParticipantType",
 	
 	
-	"EncounterStatusHistoryType",
+	"EncounterReasonType",
 	
 	
 	"EndpointType",
+	
+	
+	"EndpointPayloadType",
 	
 	
 	"EnrollmentRequestType",
@@ -4856,6 +5058,9 @@ __all__ = [
 	
 	
 	"EpisodeOfCareDiagnosisType",
+	
+	
+	"EpisodeOfCareReasonType",
 	
 	
 	"EpisodeOfCareStatusHistoryType",
@@ -4981,6 +5186,9 @@ __all__ = [
 	"ExplanationOfBenefitDiagnosisType",
 	
 	
+	"ExplanationOfBenefitEventType",
+	
+	
 	"ExplanationOfBenefitInsuranceType",
 	
 	
@@ -4997,6 +5205,9 @@ __all__ = [
 	
 	
 	"ExplanationOfBenefitItemDetailSubDetailType",
+	
+	
+	"ExplanationOfBenefitItemReviewOutcomeType",
 	
 	
 	"ExplanationOfBenefitPayeeType",
@@ -5033,6 +5244,9 @@ __all__ = [
 	
 	
 	"FamilyMemberHistoryConditionType",
+	
+	
+	"FamilyMemberHistoryParticipantType",
 	
 	
 	"FamilyMemberHistoryProcedureType",
@@ -5074,10 +5288,10 @@ __all__ = [
 	"GraphDefinitionLinkType",
 	
 	
-	"GraphDefinitionLinkTargetType",
+	"GraphDefinitionLinkCompartmentType",
 	
 	
-	"GraphDefinitionLinkTargetCompartmentType",
+	"GraphDefinitionNodeType",
 	
 	
 	"GroupType",
@@ -5107,13 +5321,13 @@ __all__ = [
 	"ImagingSelectionType",
 	
 	
-	"ImagingSelectionImageRegionType",
-	
-	
 	"ImagingSelectionInstanceType",
 	
 	
-	"ImagingSelectionInstanceImageRegionType",
+	"ImagingSelectionInstanceImageRegion2DType",
+	
+	
+	"ImagingSelectionInstanceImageRegion3DType",
 	
 	
 	"ImagingSelectionPerformerType",
@@ -5236,13 +5450,34 @@ __all__ = [
 	"InsurancePlanPlanSpecificCostBenefitCostType",
 	
 	
+	"InventoryItemType",
+	
+	
+	"InventoryItemAssociationType",
+	
+	
+	"InventoryItemCharacteristicType",
+	
+	
+	"InventoryItemDescriptionType",
+	
+	
+	"InventoryItemInstanceType",
+	
+	
+	"InventoryItemNameType",
+	
+	
+	"InventoryItemResponsibleOrganizationType",
+	
+	
 	"InventoryReportType",
 	
 	
 	"InventoryReportInventoryListingType",
 	
 	
-	"InventoryReportInventoryListingItemsType",
+	"InventoryReportInventoryListingItemType",
 	
 	
 	"InvoiceType",
@@ -5425,16 +5660,13 @@ __all__ = [
 	"MedicationRequestDispenseRequestInitialFillType",
 	
 	
-	"MedicationRequestDoseType",
-	
-	
 	"MedicationRequestSubstitutionType",
 	
 	
-	"MedicationUsageType",
+	"MedicationStatementType",
 	
 	
-	"MedicationUsageAdherenceType",
+	"MedicationStatementAdherenceType",
 	
 	
 	"MedicinalProductDefinitionType",
@@ -5749,6 +5981,9 @@ __all__ = [
 	"PractitionerType",
 	
 	
+	"PractitionerCommunicationType",
+	
+	
 	"PractitionerQualificationType",
 	
 	
@@ -5872,9 +6107,6 @@ __all__ = [
 	"ResearchStudyComparisonGroupType",
 	
 	
-	"ResearchStudyFocusType",
-	
-	
 	"ResearchStudyLabelType",
 	
 	
@@ -5888,9 +6120,6 @@ __all__ = [
 	
 	
 	"ResearchStudyRecruitmentType",
-	
-	
-	"ResearchStudyWebLocationType",
 	
 	
 	"ResearchSubjectType",
@@ -5919,6 +6148,15 @@ __all__ = [
 	
 	
 	"ServiceRequestType",
+	
+	
+	"ServiceRequestOrderDetailType",
+	
+	
+	"ServiceRequestOrderDetailParameterType",
+	
+	
+	"ServiceRequestPatientInstructionType",
 	
 	
 	"SignatureType",
@@ -5975,6 +6213,9 @@ __all__ = [
 	"StructureMapType",
 	
 	
+	"StructureMapConstType",
+	
+	
 	"StructureMapGroupType",
 	
 	
@@ -6005,6 +6246,9 @@ __all__ = [
 	"SubscriptionFilterByType",
 	
 	
+	"SubscriptionParameterType",
+	
+	
 	"SubscriptionStatusType",
 	
 	
@@ -6033,6 +6277,9 @@ __all__ = [
 	
 	
 	"SubstanceDefinitionType",
+	
+	
+	"SubstanceDefinitionCharacterizationType",
 	
 	
 	"SubstanceDefinitionCodeType",
@@ -6161,6 +6408,9 @@ __all__ = [
 	"TaskOutputType",
 	
 	
+	"TaskPerformerType",
+	
+	
 	"TaskRestrictionType",
 	
 	
@@ -6197,6 +6447,30 @@ __all__ = [
 	"TerminologyCapabilitiesValidateCodeType",
 	
 	
+	"TestPlanType",
+	
+	
+	"TestPlanDependenciesType",
+	
+	
+	"TestPlanTestCaseType",
+	
+	
+	"TestPlanTestCaseAssertionsType",
+	
+	
+	"TestPlanTestCaseDependenciesType",
+	
+	
+	"TestPlanTestCaseTestDataType",
+	
+	
+	"TestPlanTestCaseTestRunType",
+	
+	
+	"TestPlanTestCaseTestRunScriptType",
+	
+	
 	"TestReportType",
 	
 	
@@ -6210,6 +6484,9 @@ __all__ = [
 	
 	
 	"TestReportSetupActionAssertType",
+	
+	
+	"TestReportSetupActionAssertRequirementType",
 	
 	
 	"TestReportSetupActionOperationType",
@@ -6258,6 +6535,9 @@ __all__ = [
 	
 	
 	"TestScriptSetupActionAssertType",
+	
+	
+	"TestScriptSetupActionAssertRequirementType",
 	
 	
 	"TestScriptSetupActionOperationType",

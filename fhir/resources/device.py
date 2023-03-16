@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/Device
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 import typing
 from pydantic import Field
@@ -29,18 +29,6 @@ class Device(domainresource.DomainResource):
     be a medical or non-medical device.
     """
     resource_type = Field("Device", const=True)
-	
-    association: typing.List[fhirtypes.DeviceAssociationType] = Field(
-		None,
-		alias="association",
-		title="Current association of the device",
-		description=(
-    "The details about the device when it is affixed or inside of a "
-    "patient."
-    ),
-        # if property is element of this resource.
-        element_property=True,
-	)
 	
     availabilityStatus: fhirtypes.CodeableConceptType = Field(
 		None,
@@ -73,6 +61,23 @@ class Device(domainresource.DomainResource):
         element_property=True,
 	)
 	
+    conformsTo: typing.List[fhirtypes.DeviceConformsToType] = Field(
+		None,
+		alias="conformsTo",
+		title=(
+    "Identifies the standards, specifications, or formal guidances for the "
+    "capabilities supported by the device"
+    ),
+		description=(
+    "Identifies the standards, specifications, or formal guidances for the "
+    "capabilities supported by the device. The device may be certified as "
+    "conformant to these specifications e.g., communication, performance, "
+    "process, measurement, or specialization standards."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+	)
+	
     contact: typing.List[fhirtypes.ContactPointType] = Field(
 		None,
 		alias="contact",
@@ -81,6 +86,18 @@ class Device(domainresource.DomainResource):
     "Contact details for an organization or a particular human that is "
     "responsible for the device."
     ),
+        # if property is element of this resource.
+        element_property=True,
+	)
+	
+    cycle: fhirtypes.CountType = Field(
+		None,
+		alias="cycle",
+		title=(
+    "The series of occurrences that repeats during the operation of the "
+    "device"
+    ),
+		description=None,
         # if property is element of this resource.
         element_property=True,
 	)
@@ -96,24 +113,6 @@ class Device(domainresource.DomainResource):
 		enum_reference_types=["DeviceDefinition"],
 	)
 	
-    deviceName: typing.List[fhirtypes.DeviceDeviceNameType] = Field(
-		None,
-		alias="deviceName",
-		title=(
-    "The name or names of the device as known to the manufacturer and/or "
-    "patient"
-    ),
-		description=(
-    "This represents the manufacturer's name of the device as provided by "
-    "the device, from a UDI label, or by a person describing the Device.  "
-    "This typically would be used when a person provides the name(s) or "
-    "when the device represents one of the names available from "
-    "DeviceDefinition."
-    ),
-        # if property is element of this resource.
-        element_property=True,
-	)
-	
     displayName: fhirtypes.String = Field(
 		None,
 		alias="displayName",
@@ -121,7 +120,7 @@ class Device(domainresource.DomainResource):
 		description=(
     "The name used to display by default when the device is referenced. "
     "Based on intent of use by the resource creator, this may reflect one "
-    "of the names in Device.deviceName, or may be another simple name."
+    "of the names in Device.name, or may be another simple name."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -131,6 +130,18 @@ class Device(domainresource.DomainResource):
         alias="_displayName",
         title="Extension field for ``displayName``."
     )
+	
+    duration: fhirtypes.DurationType = Field(
+		None,
+		alias="duration",
+		title=(
+    "A measurement of time during the device's operation (e.g., days, "
+    "hours, mins, etc.)"
+    ),
+		description=None,
+        # if property is element of this resource.
+        element_property=True,
+	)
 	
     endpoint: typing.List[fhirtypes.ReferenceType] = Field(
 		None,
@@ -252,6 +263,15 @@ class Device(domainresource.DomainResource):
         title="Extension field for ``manufacturer``."
     )
 	
+    mode: fhirtypes.CodeableConceptType = Field(
+		None,
+		alias="mode",
+		title="The designated condition for performing a task",
+		description="The designated condition for performing a task with the device.",
+        # if property is element of this resource.
+        element_property=True,
+	)
+	
     modelNumber: fhirtypes.String = Field(
 		None,
 		alias="modelNumber",
@@ -266,6 +286,24 @@ class Device(domainresource.DomainResource):
         title="Extension field for ``modelNumber``."
     )
 	
+    name: typing.List[fhirtypes.DeviceNameType] = Field(
+		None,
+		alias="name",
+		title=(
+    "The name or names of the device as known to the manufacturer and/or "
+    "patient"
+    ),
+		description=(
+    "This represents the manufacturer's name of the device as provided by "
+    "the device, from a UDI label, or by a person describing the Device.  "
+    "This typically would be used when a person provides the name(s) or "
+    "when the device represents one of the names available from "
+    "DeviceDefinition."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+	)
+	
     note: typing.List[fhirtypes.AnnotationType] = Field(
 		None,
 		alias="note",
@@ -273,21 +311,6 @@ class Device(domainresource.DomainResource):
 		description=(
     "Descriptive information, usage information or implantation information"
     " that is not captured in an existing element."
-    ),
-        # if property is element of this resource.
-        element_property=True,
-	)
-	
-    operation: typing.List[fhirtypes.DeviceOperationType] = Field(
-		None,
-		alias="operation",
-		title=(
-    "The details about the device when it is in use to describe the "
-    "actions, conditions and status"
-    ),
-		description=(
-    "The status of the device itself - whether it is switched on, or "
-    "activated, etc."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -339,16 +362,14 @@ class Device(domainresource.DomainResource):
 		None,
 		alias="property",
 		title=(
-    "The actual configuration settings of a device as it actually operates,"
-    " e.g., regulation status, time properties"
+    "Inherent, essentially fixed, characteristics of the device.  e.g., "
+    "time properties, size, material, etc."
     ),
 		description=(
-    "Characteristics or features of the device that are otherwise not "
-    "captured in available attributes, e.g., actual configuration settings,"
-    " time or timing attributes, resolution, accuracy, and physical "
-    "attributes.  The focus is on properties of the device actually in use "
-    "while DeviceDefinition focuses on properties that are available to be "
-    "used."
+    "Static or essentially fixed characteristics or features of the device "
+    "(e.g., time or timing attributes, resolution, accuracy, intended use "
+    "or instructions for use, and physical attributes) that are not "
+    "otherwise captured in more specific attributes."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -382,19 +403,6 @@ class Device(domainresource.DomainResource):
         alias="_serialNumber",
         title="Extension field for ``serialNumber``."
     )
-	
-    specialization: typing.List[fhirtypes.DeviceSpecializationType] = Field(
-		None,
-		alias="specialization",
-		title="The standard(s) the device supports",
-		description=(
-    "The standards to which the device adheres and may be certified to in "
-    "support of its capabilities, e.g., communication, performance, "
-    "process, or measurement standards."
-    ),
-        # if property is element of this resource.
-        element_property=True,
-	)
 	
     status: fhirtypes.Code = Field(
 		None,
@@ -474,81 +482,82 @@ class Device(domainresource.DomainResource):
         ``Device`` according specification,
         with preserving original sequence order.
         """
-        return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "identifier", "displayName", "definition", "udiCarrier", "status", "availabilityStatus", "biologicalSourceEvent", "manufacturer", "manufactureDate", "expirationDate", "lotNumber", "serialNumber", "deviceName", "modelNumber", "partNumber", "category", "type", "version", "specialization", "property", "operation", "association", "owner", "contact", "location", "url", "endpoint", "gateway", "note", "safety", "parent"]
+        return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "identifier", "displayName", "definition", "udiCarrier", "status", "availabilityStatus", "biologicalSourceEvent", "manufacturer", "manufactureDate", "expirationDate", "lotNumber", "serialNumber", "name", "modelNumber", "partNumber", "category", "type", "version", "conformsTo", "property", "mode", "cycle", "duration", "owner", "contact", "location", "url", "endpoint", "gateway", "note", "safety", "parent"]
 
 
 
 from . import backboneelement
 
-class DeviceAssociation(backboneelement.BackboneElement):
+class DeviceConformsTo(backboneelement.BackboneElement):
     """Disclaimer: Any field name ends with ``__ext`` doesn't part of
     Resource StructureDefinition, instead used to enable Extensibility feature
     for FHIR Primitive Data Types.
 
-    Current association of the device.
-    The details about the device when it is affixed or inside of a patient.
+    Identifies the standards, specifications, or formal guidances for the
+    capabilities supported by the device.
+    Identifies the standards, specifications, or formal guidances for the
+    capabilities supported by the device. The device may be certified as
+    conformant to these specifications e.g., communication, performance,
+    process, measurement, or specialization standards.
     """
-    resource_type = Field("DeviceAssociation", const=True)
+    resource_type = Field("DeviceConformsTo", const=True)
 	
-    bodyStructure: fhirtypes.CodeableReferenceType = Field(
+    category: fhirtypes.CodeableConceptType = Field(
 		None,
-		alias="bodyStructure",
-		title="Current anatomical location of device in/on humanSubject",
-		description=(
-    "The current anatomical location of the device in/on the humanSubject "
-    "where it is attached or placed."
+		alias="category",
+		title=(
+    "Describes the common type of the standard, specification, or formal "
+    "guidance.  communication | performance | measurement"
     ),
+		description="Describes the type of the standard, specification, or formal guidance.",
         # if property is element of this resource.
         element_property=True,
-        # note: Listed Resource Type(s) should be allowed as Reference.
-		enum_reference_types=["BodyStructure"],
 	)
 	
-    humanSubject: fhirtypes.ReferenceType = Field(
-		None,
-		alias="humanSubject",
-		title="The individual associated with the device",
-		description=(
-    "The individual to whom the device is affixed or inserted in their "
-    "body."
-    ),
-        # if property is element of this resource.
-        element_property=True,
-        # note: Listed Resource Type(s) should be allowed as Reference.
-		enum_reference_types=["Patient"],
-	)
-	
-    status: fhirtypes.CodeableConceptType = Field(
+    specification: fhirtypes.CodeableConceptType = Field(
 		...,
-		alias="status",
-		title="Device useage state",
-		description="The state of the usage or application of the device.",
-        # if property is element of this resource.
-        element_property=True,
-	)
-	
-    statusReason: typing.List[fhirtypes.CodeableConceptType] = Field(
-		None,
-		alias="statusReason",
-		title="The reasons given for the current association status",
+		alias="specification",
+		title=(
+    "Identifies the standard, specification, or formal guidance that the "
+    "device adheres to"
+    ),
 		description=(
-    "The reasons given for the current association status - i.e. why is the"
-    " device explanted, or attached to the patient, etc."
+    "Code that identifies the specific standard, specification, protocol, "
+    "formal guidance, regulation, legislation, or certification scheme to "
+    "which the device adheres."
     ),
         # if property is element of this resource.
         element_property=True,
 	)
+	
+    version: fhirtypes.String = Field(
+		None,
+		alias="version",
+		title="Specific form or variant of the standard",
+		description=(
+    "Identifies the specific form or variant of the standard, "
+    "specification, or formal guidance. This may be a 'version number', "
+    "release, document edition, publication year, or other label."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+	)
+    version__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
+        None,
+        alias="_version",
+        title="Extension field for ``version``."
+    )
     @classmethod
     def elements_sequence(cls):
         """returning all elements names from
-        ``DeviceAssociation`` according specification,
+        ``DeviceConformsTo`` according specification,
         with preserving original sequence order.
         """
-        return ["id", "extension", "modifierExtension", "status", "statusReason", "humanSubject", "bodyStructure"]
+        return ["id", "extension", "modifierExtension", "category", "specification", "version"]
 
 
 
-class DeviceDeviceName(backboneelement.BackboneElement):
+class DeviceName(backboneelement.BackboneElement):
     """Disclaimer: Any field name ends with ``__ext`` doesn't part of
     Resource StructureDefinition, instead used to enable Extensibility feature
     for FHIR Primitive Data Types.
@@ -559,21 +568,20 @@ class DeviceDeviceName(backboneelement.BackboneElement):
     typically would be used when a person provides the name(s) or when the
     device represents one of the names available from DeviceDefinition.
     """
-    resource_type = Field("DeviceDeviceName", const=True)
+    resource_type = Field("DeviceName", const=True)
 	
-    name: fhirtypes.String = Field(
+    display: bool = Field(
 		None,
-		alias="name",
-		title="The name that identifies the device",
-		description=None,
+		alias="display",
+		title="The preferred device name",
+		description="Indicates the default or preferred name to be displayed.",
         # if property is element of this resource.
         element_property=True,
-        element_required=True,
 	)
-    name__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
+    display__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
         None,
-        alias="_name",
-        title="Extension field for ``name``."
+        alias="_display",
+        title="Extension field for ``display``."
     )
 	
     type: fhirtypes.Code = Field(
@@ -581,9 +589,8 @@ class DeviceDeviceName(backboneelement.BackboneElement):
 		alias="type",
 		title="registered-name | user-friendly-name | patient-reported-name",
 		description=(
-    "The type of deviceName. Note that ManufactureDeviceName means that the"
-    " name is the name as given by the manufacturer, not the name of the "
-    "manufacturer. RegisteredName | UserFriendlyName | PatientReportedName."
+    "Indicates the kind of name. RegisteredName | UserFriendlyName | "
+    "PatientReportedName."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -597,17 +604,32 @@ class DeviceDeviceName(backboneelement.BackboneElement):
         alias="_type",
         title="Extension field for ``type``."
     )
+	
+    value: fhirtypes.String = Field(
+		None,
+		alias="value",
+		title="The term that names the device",
+		description="The actual name that identifies the device.",
+        # if property is element of this resource.
+        element_property=True,
+        element_required=True,
+	)
+    value__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
+        None,
+        alias="_value",
+        title="Extension field for ``value``."
+    )
     @classmethod
     def elements_sequence(cls):
         """returning all elements names from
-        ``DeviceDeviceName`` according specification,
+        ``DeviceName`` according specification,
         with preserving original sequence order.
         """
-        return ["id", "extension", "modifierExtension", "name", "type"]
+        return ["id", "extension", "modifierExtension", "value", "type", "display"]
 
 
     @root_validator(pre=True, allow_reuse=True)
-    def validate_required_primitive_elements_1738(
+    def validate_required_primitive_elements_1146(
         cls, values: typing.Dict[str, typing.Any]
     ) -> typing.Dict[str, typing.Any]:
         """https://www.hl7.org/fhir/extensibility.html#Special-Case
@@ -618,8 +640,8 @@ class DeviceDeviceName(backboneelement.BackboneElement):
         the primitive value is not present.
         """
         required_fields = [
-			("name", "name__ext"),
-			("type", "type__ext")]
+			("type", "type__ext"),
+			("value", "value__ext")]
         _missing = object()
 
         def _fallback():
@@ -668,104 +690,17 @@ class DeviceDeviceName(backboneelement.BackboneElement):
         return values
 
 
-class DeviceOperation(backboneelement.BackboneElement):
-    """Disclaimer: Any field name ends with ``__ext`` doesn't part of
-    Resource StructureDefinition, instead used to enable Extensibility feature
-    for FHIR Primitive Data Types.
-
-    The details about the device when it is in use to describe the actions,
-    conditions and status.
-    The status of the device itself - whether it is switched on, or activated,
-    etc.
-    """
-    resource_type = Field("DeviceOperation", const=True)
-	
-    cycle: fhirtypes.CountType = Field(
-		None,
-		alias="cycle",
-		title=(
-    "The series of occurrences that repeats during the operation of the "
-    "device"
-    ),
-		description=None,
-        # if property is element of this resource.
-        element_property=True,
-	)
-	
-    duration: fhirtypes.DurationType = Field(
-		None,
-		alias="duration",
-		title=(
-    "A measurement of time during the device's operation (e.g., days, "
-    "hours, mins, etc)"
-    ),
-		description=None,
-        # if property is element of this resource.
-        element_property=True,
-	)
-	
-    mode: fhirtypes.CodeableConceptType = Field(
-		None,
-		alias="mode",
-		title="The designated condition for performing a task",
-		description="The designated condition for performing a task with the device.",
-        # if property is element of this resource.
-        element_property=True,
-	)
-	
-    operator: typing.List[fhirtypes.ReferenceType] = Field(
-		None,
-		alias="operator",
-		title="The individual performing the action enabled by the device",
-		description=None,
-        # if property is element of this resource.
-        element_property=True,
-        # note: Listed Resource Type(s) should be allowed as Reference.
-		enum_reference_types=["Patient", "Practitioner", "RelatedPerson"],
-	)
-	
-    status: fhirtypes.CodeableConceptType = Field(
-		...,
-		alias="status",
-		title="Device operational condition",
-		description="The state or condition of the device's operation.",
-        # if property is element of this resource.
-        element_property=True,
-	)
-	
-    statusReason: typing.List[fhirtypes.CodeableConceptType] = Field(
-		None,
-		alias="statusReason",
-		title="The rationale given for the current operational status",
-		description=(
-    "The reasons given for the current operational status - i.e. why is the"
-    " device switched on etc."
-    ),
-        # if property is element of this resource.
-        element_property=True,
-	)
-    @classmethod
-    def elements_sequence(cls):
-        """returning all elements names from
-        ``DeviceOperation`` according specification,
-        with preserving original sequence order.
-        """
-        return ["id", "extension", "modifierExtension", "status", "statusReason", "operator", "mode", "cycle", "duration"]
-
-
-
 class DeviceProperty(backboneelement.BackboneElement):
     """Disclaimer: Any field name ends with ``__ext`` doesn't part of
     Resource StructureDefinition, instead used to enable Extensibility feature
     for FHIR Primitive Data Types.
 
-    The actual configuration settings of a device as it actually operates,
-    e.g., regulation status, time properties.
-    Characteristics or features of the device that are otherwise not captured
-    in available attributes, e.g., actual configuration settings, time or
-    timing attributes, resolution, accuracy, and physical attributes.  The
-    focus is on properties of the device actually in use while DeviceDefinition
-    focuses on properties that are available to be used.
+    Inherent, essentially fixed, characteristics of the device.  e.g., time
+    properties, size, material, etc..
+    Static or essentially fixed characteristics or features of the device
+    (e.g., time or timing attributes, resolution, accuracy, intended use or
+    instructions for use, and physical attributes) that are not otherwise
+    captured in more specific attributes.
     """
     resource_type = Field("DeviceProperty", const=True)
 	
@@ -774,9 +709,8 @@ class DeviceProperty(backboneelement.BackboneElement):
 		alias="type",
 		title="Code that specifies the property being represented",
 		description=(
-    "Code that specifies the property being represented. No codes are "
-    "specified but the MDC codes are an example: "
-    "https://terminology.hl7.org/MDC.html."
+    "Code that specifies the property, such as resolution, color, size, "
+    "being represented."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -785,10 +719,10 @@ class DeviceProperty(backboneelement.BackboneElement):
     valueAttachment: fhirtypes.AttachmentType = Field(
 		None,
 		alias="valueAttachment",
-		title="Property value - as a code, quantity, boolean, string or attachment",
+		title="Value of the property",
 		description=(
-    "Property value - can be a code, quantity, boolean, string or "
-    "attachment."
+    "The value of the property specified by the associated [property.type] "
+    "code."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -800,10 +734,10 @@ class DeviceProperty(backboneelement.BackboneElement):
     valueBoolean: bool = Field(
 		None,
 		alias="valueBoolean",
-		title="Property value - as a code, quantity, boolean, string or attachment",
+		title="Value of the property",
 		description=(
-    "Property value - can be a code, quantity, boolean, string or "
-    "attachment."
+    "The value of the property specified by the associated [property.type] "
+    "code."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -820,10 +754,10 @@ class DeviceProperty(backboneelement.BackboneElement):
     valueCodeableConcept: fhirtypes.CodeableConceptType = Field(
 		None,
 		alias="valueCodeableConcept",
-		title="Property value - as a code, quantity, boolean, string or attachment",
+		title="Value of the property",
 		description=(
-    "Property value - can be a code, quantity, boolean, string or "
-    "attachment."
+    "The value of the property specified by the associated [property.type] "
+    "code."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -835,10 +769,10 @@ class DeviceProperty(backboneelement.BackboneElement):
     valueInteger: fhirtypes.Integer = Field(
 		None,
 		alias="valueInteger",
-		title="Property value - as a code, quantity, boolean, string or attachment",
+		title="Value of the property",
 		description=(
-    "Property value - can be a code, quantity, boolean, string or "
-    "attachment."
+    "The value of the property specified by the associated [property.type] "
+    "code."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -855,10 +789,10 @@ class DeviceProperty(backboneelement.BackboneElement):
     valueQuantity: fhirtypes.QuantityType = Field(
 		None,
 		alias="valueQuantity",
-		title="Property value - as a code, quantity, boolean, string or attachment",
+		title="Value of the property",
 		description=(
-    "Property value - can be a code, quantity, boolean, string or "
-    "attachment."
+    "The value of the property specified by the associated [property.type] "
+    "code."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -870,10 +804,10 @@ class DeviceProperty(backboneelement.BackboneElement):
     valueRange: fhirtypes.RangeType = Field(
 		None,
 		alias="valueRange",
-		title="Property value - as a code, quantity, boolean, string or attachment",
+		title="Value of the property",
 		description=(
-    "Property value - can be a code, quantity, boolean, string or "
-    "attachment."
+    "The value of the property specified by the associated [property.type] "
+    "code."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -885,10 +819,10 @@ class DeviceProperty(backboneelement.BackboneElement):
     valueString: fhirtypes.String = Field(
 		None,
 		alias="valueString",
-		title="Property value - as a code, quantity, boolean, string or attachment",
+		title="Value of the property",
 		description=(
-    "Property value - can be a code, quantity, boolean, string or "
-    "attachment."
+    "The value of the property specified by the associated [property.type] "
+    "code."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -955,68 +889,6 @@ class DeviceProperty(backboneelement.BackboneElement):
                 raise ValueError(f"Expect any of field value from this list {fields}.")
 
         return values
-
-
-class DeviceSpecialization(backboneelement.BackboneElement):
-    """Disclaimer: Any field name ends with ``__ext`` doesn't part of
-    Resource StructureDefinition, instead used to enable Extensibility feature
-    for FHIR Primitive Data Types.
-
-    The standard(s) the device supports.
-    The standards to which the device adheres and may be certified to in
-    support of its capabilities, e.g., communication, performance, process, or
-    measurement standards.
-    """
-    resource_type = Field("DeviceSpecialization", const=True)
-	
-    category: fhirtypes.CodingType = Field(
-		None,
-		alias="category",
-		title="communication | performance | measurement",
-		description=(
-    "Kind of standards that the device adheres to, e.g., communication, "
-    "performance or communication."
-    ),
-        # if property is element of this resource.
-        element_property=True,
-	)
-	
-    systemType: fhirtypes.CodeableConceptType = Field(
-		...,
-		alias="systemType",
-		title=(
-    "Code of the system that identifies the standard that the device "
-    "adheres to"
-    ),
-		description=(
-    "Code that specifies the system that identifies the specific standard "
-    "that the device adheres to."
-    ),
-        # if property is element of this resource.
-        element_property=True,
-	)
-	
-    version: fhirtypes.String = Field(
-		None,
-		alias="version",
-		title="Standard version used",
-		description="The version of the standard that is used to operate and communicate.",
-        # if property is element of this resource.
-        element_property=True,
-	)
-    version__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
-        None,
-        alias="_version",
-        title="Extension field for ``version``."
-    )
-    @classmethod
-    def elements_sequence(cls):
-        """returning all elements names from
-        ``DeviceSpecialization`` according specification,
-        with preserving original sequence order.
-        """
-        return ["id", "extension", "modifierExtension", "systemType", "version", "category"]
-
 
 
 class DeviceUdiCarrier(backboneelement.BackboneElement):

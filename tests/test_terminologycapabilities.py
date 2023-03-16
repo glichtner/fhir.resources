@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/TerminologyCapabilities
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 from pydantic.validators import bytes_validator  # noqa: F401
 from fhir.resources import fhirtypes  # noqa: F401
@@ -13,21 +13,18 @@ from fhir.resources import terminologycapabilities
 
 def impl_terminologycapabilities_1(inst):
     assert inst.codeSystem[0].content == "complete"
-    assert inst.codeSystem[0].uri == "http://hl7.org/fhir/gender-identity"
-    assert inst.codeSystem[0].version[0].code == "4.0.1"
+    assert inst.codeSystem[0].uri == "http://snomed.info/sct"
+    assert inst.codeSystem[0].version[0].code == "http://snomed.info/sct/32506021000036107/version/20220831"
     assert inst.codeSystem[1].content == "complete"
-    assert inst.codeSystem[1].uri == "http://snomed.info/sct"
-    assert inst.codeSystem[1].version[0].code == "http://snomed.info/sct/32506021000036107/version/20220831"
-    assert inst.codeSystem[2].content == "complete"
-    assert inst.codeSystem[2].uri == "http://loinc.org"
-    assert inst.codeSystem[2].version[0].code == "2.73"
+    assert inst.codeSystem[1].uri == "http://loinc.org"
+    assert inst.codeSystem[1].version[0].code == "2.73"
     assert inst.date == fhirtypes.DateTime.validate("2022-09-01")
     assert inst.id == "example-terminology-server"
     assert inst.identifier[0].system == "urn:ietf:rfc:3986"
     assert inst.identifier[0].value == "urn:oid:2.16.840.1.113883.4.642.6.1"
     assert inst.implementation.description == "The ACME FHIR Terminology Server"
     assert inst.kind == "instance"
-    assert inst.name == "ACMETerminologyService—TerminologyCapabilities"
+    assert inst.name == "ACMETerminologyServiceTerminologyCapabilities"
     assert inst.status == "draft"
     assert inst.text.status == "generated"
     assert inst.url == (
@@ -76,7 +73,7 @@ def impl_terminologycapabilities_2(inst):
     assert inst.implementation.description == "Acme Terminology Server"
     assert inst.implementation.url == "http://example.org/tx"
     assert inst.kind == "instance"
-    assert inst.name == "ACME-EHR"
+    assert inst.name == "ACMEEHR"
     assert inst.publisher == "ACME Corporation"
     assert inst.software.name == "TxServer"
     assert inst.software.version == "0.1.2"

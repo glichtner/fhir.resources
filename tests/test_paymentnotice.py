@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/PaymentNotice
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 from pydantic.validators import bytes_validator  # noqa: F401
 from fhir.resources import fhirtypes  # noqa: F401
@@ -26,9 +26,9 @@ def impl_paymentnotice_1(inst):
     assert inst.paymentDate == fhirtypes.Date.validate("2014-08-15")
     assert inst.paymentStatus.coding[0].code == "paid"
     assert inst.paymentStatus.coding[0].system == "http://terminology.hl7.org/CodeSystem/paymentstatus"
-    assert inst.provider.reference == "Organization/1"
     assert inst.recipient.identifier.system == "http://regulators.gov"
     assert inst.recipient.identifier.value == "AB123"
+    assert inst.reporter.reference == "Organization/1"
     assert inst.request.reference == "http://benefitsinc.com/fhir/claim/12345"
     assert inst.response.reference == "http://benefitsinc.com/fhir/claimresponse/CR12345"
     assert inst.status == "active"

@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/Practitioner
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 import typing
 from pydantic import Field
@@ -71,11 +71,17 @@ class Practitioner(domainresource.DomainResource):
         title="Extension field for ``birthDate``."
     )
 	
-    communication: typing.List[fhirtypes.CodeableConceptType] = Field(
+    communication: typing.List[fhirtypes.PractitionerCommunicationType] = Field(
 		None,
 		alias="communication",
-		title="A language the practitioner can use in patient communication",
-		description=None,
+		title="A language which may be used to communicate with the practitioner",
+		description=(
+    "A language which may be used to communicate with the practitioner, "
+    "often for correspondence/administrative purposes.  The "
+    "`PractitionerRole.communication` property should be used for "
+    "publishing the languages that a practitioner is able to communicate "
+    "with patients (on a per Organization/Role basis)."
+    ),
         # if property is element of this resource.
         element_property=True,
 	)
@@ -166,7 +172,7 @@ class Practitioner(domainresource.DomainResource):
 		alias="qualification",
 		title=(
     "Qualifications, certifications, accreditations, licenses, training, "
-    "etc pertaining to the provision of care"
+    "etc. pertaining to the provision of care"
     ),
 		description=(
     "The official qualifications, certifications, accreditations, training,"
@@ -244,12 +250,67 @@ class Practitioner(domainresource.DomainResource):
 
 from . import backboneelement
 
+class PractitionerCommunication(backboneelement.BackboneElement):
+    """Disclaimer: Any field name ends with ``__ext`` doesn't part of
+    Resource StructureDefinition, instead used to enable Extensibility feature
+    for FHIR Primitive Data Types.
+
+    A language which may be used to communicate with the practitioner.
+    A language which may be used to communicate with the practitioner, often
+    for correspondence/administrative purposes.
+    
+    The `PractitionerRole.communication` property should be used for publishing
+    the languages that a practitioner is able to communicate with patients (on
+    a per Organization/Role basis).
+    """
+    resource_type = Field("PractitionerCommunication", const=True)
+	
+    language: fhirtypes.CodeableConceptType = Field(
+		...,
+		alias="language",
+		title="The language code used to communicate with the practitioner",
+		description=(
+    "The ISO-639-1 alpha 2 code in lower case for the language, optionally "
+    "followed by a hyphen and the ISO-3166-1 alpha 2 code for the region in"
+    " upper case; e.g. \"en\" for English, or \"en-US\" for American English "
+    "versus \"en-AU\" for Australian English."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+	)
+	
+    preferred: bool = Field(
+		None,
+		alias="preferred",
+		title="Language preference indicator",
+		description=(
+    "Indicates whether or not the person prefers this language (over other "
+    "languages he masters up a certain level)."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+	)
+    preferred__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
+        None,
+        alias="_preferred",
+        title="Extension field for ``preferred``."
+    )
+    @classmethod
+    def elements_sequence(cls):
+        """returning all elements names from
+        ``PractitionerCommunication`` according specification,
+        with preserving original sequence order.
+        """
+        return ["id", "extension", "modifierExtension", "language", "preferred"]
+
+
+
 class PractitionerQualification(backboneelement.BackboneElement):
     """Disclaimer: Any field name ends with ``__ext`` doesn't part of
     Resource StructureDefinition, instead used to enable Extensibility feature
     for FHIR Primitive Data Types.
 
-    Qualifications, certifications, accreditations, licenses, training, etc
+    Qualifications, certifications, accreditations, licenses, training, etc.
     pertaining to the provision of care.
     The official qualifications, certifications, accreditations, training,
     licenses (and other types of educations/skills/capabilities) that authorize

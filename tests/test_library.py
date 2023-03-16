@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/Library
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 from pydantic.validators import bytes_validator  # noqa: F401
 from fhir.resources import fhirtypes  # noqa: F401
@@ -55,6 +55,7 @@ def impl_library_1(inst):
     assert inst.meta.tag[0].code == "HTEST"
     assert inst.meta.tag[0].display == "test health data"
     assert inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
+    assert inst.name == "OpioidCDSLogicForRecommendation10"
     assert inst.publisher == "Centers for Disease Control and Prevention (CDC)"
     assert inst.relatedArtifact[0].display == "CDC guideline for prescribing opioids for chronic pain"
     assert inst.relatedArtifact[0].document.url == (
@@ -127,6 +128,7 @@ def impl_library_2(inst):
     assert inst.meta.tag[0].code == "HTEST"
     assert inst.meta.tag[0].display == "test health data"
     assert inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
+    assert inst.name == "ZikaArtifacts"
     assert inst.relatedArtifact[0].resource == (
     "http://example.org/fhir/ActivityDefinition/administer-zika-"
     "virus-exposure-assessment"
@@ -203,6 +205,7 @@ def impl_library_3(inst):
     assert inst.meta.tag[0].code == "HTEST"
     assert inst.meta.tag[0].display == "test health data"
     assert inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
+    assert inst.name == "FHIRModelDefinition"
     assert inst.status == "draft"
     assert inst.text.status == "generated"
     assert inst.title == "FHIR Model Definition"
@@ -246,6 +249,7 @@ def impl_library_4(inst):
     assert inst.meta.tag[0].code == "HTEST"
     assert inst.meta.tag[0].display == "test health data"
     assert inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
+    assert inst.name == "FHIRHelpers"
     assert inst.relatedArtifact[0].resource == "http://example.org/fhir/Library/fhir-model-definition"
     assert inst.relatedArtifact[0].type == "depends-on"
     assert inst.relatedArtifact[1].resource == "http://example.org/fhir/Library/library-fhir-helpers"
@@ -302,6 +306,7 @@ def impl_library_5(inst):
     assert inst.meta.tag[0].code == "HTEST"
     assert inst.meta.tag[0].display == "test health data"
     assert inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
+    assert inst.name == "ZikaVirusInterventionLogic"
     assert inst.parameter[0].name == "Patient"
     assert inst.parameter[0].type == "Patient"
     assert inst.parameter[0].use == "in"
@@ -364,10 +369,11 @@ def impl_library_6(inst):
     assert inst.description == "Common Logic for adherence to Chlamydia Screening guidelines"
     assert inst.id == "example"
     assert inst.identifier[0].use == "official"
-    assert inst.identifier[0].value == "ChalmydiaScreening_Common"
+    assert inst.identifier[0].value == "ChlamydiaScreening_Common"
     assert inst.meta.tag[0].code == "HTEST"
     assert inst.meta.tag[0].display == "test health data"
     assert inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
+    assert inst.name == "ChlamydiaScreeningCommonLibrary"
     assert inst.relatedArtifact[0].resource == "http://hl7.org/fhir/Library/library-quick-model-definition"
     assert inst.relatedArtifact[0].type == "depends-on"
     assert inst.status == "draft"
@@ -430,6 +436,7 @@ def impl_library_7(inst):
     assert inst.meta.tag[0].code == "HTEST"
     assert inst.meta.tag[0].display == "test health data"
     assert inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
+    assert inst.name == "OpioidCDSLogicForRecommendation4"
     assert inst.publisher == "Centers for Disease Control and Prevention (CDC)"
     assert inst.purpose == (
     "The purpose of this library is to determine the "
@@ -532,6 +539,7 @@ def impl_library_8(inst):
     assert inst.meta.tag[0].code == "HTEST"
     assert inst.meta.tag[0].display == "test health data"
     assert inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
+    assert inst.name == "OpioidCDSLogicForRecommendation4"
     assert inst.publisher == "Centers for Disease Control and Prevention (CDC)"
     assert inst.purpose == (
     "The purpose of this library is to determine whether "
@@ -623,6 +631,7 @@ def impl_library_9(inst):
     assert inst.meta.tag[0].code == "HTEST"
     assert inst.meta.tag[0].display == "test health data"
     assert inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
+    assert inst.name == "OpioidCDSCommonLogic"
     assert inst.publisher == "Centers for Disease Control and Prevention (CDC)"
     assert inst.purpose == (
     "This library contains common logic across recommendations "
@@ -717,6 +726,7 @@ def impl_library_10(inst):
     assert inst.meta.tag[0].code == "HTEST"
     assert inst.meta.tag[0].display == "test health data"
     assert inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
+    assert inst.name == "OMTKLogic"
     assert inst.publisher == "Centers for Disease Control and Prevention (CDC)"
     assert inst.relatedArtifact[0].resource == "http://example.org/fhir/Library/omtk-modelinfo"
     assert inst.relatedArtifact[0].type == "depends-on"

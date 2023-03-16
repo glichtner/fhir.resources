@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/Account
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 import typing
 from pydantic import Field
@@ -91,7 +91,7 @@ class Account(domainresource.DomainResource):
         element_property=True,
 	)
 	
-    description: fhirtypes.String = Field(
+    description: fhirtypes.Markdown = Field(
 		None,
 		alias="description",
 		title="Explanation of purpose/use",
@@ -107,6 +107,20 @@ class Account(domainresource.DomainResource):
         alias="_description",
         title="Extension field for ``description``."
     )
+	
+    diagnosis: typing.List[fhirtypes.AccountDiagnosisType] = Field(
+		None,
+		alias="diagnosis",
+		title="The list of diagnoses relevant to this account",
+		description=(
+    "When using an account for billing a specific Encounter the set of "
+    "diagnoses that are relevant for billing are stored here on the account"
+    " where they are able to be sequenced appropriately prior to processing"
+    " to produce claim(s)."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+	)
 	
     guarantor: typing.List[fhirtypes.AccountGuarantorType] = Field(
 		None,
@@ -161,6 +175,20 @@ class Account(domainresource.DomainResource):
         element_property=True,
         # note: Listed Resource Type(s) should be allowed as Reference.
 		enum_reference_types=["Organization"],
+	)
+	
+    procedure: typing.List[fhirtypes.AccountProcedureType] = Field(
+		None,
+		alias="procedure",
+		title="The list of procedures relevant to this account",
+		description=(
+    "When using an account for billing a specific Encounter the set of "
+    "procedures that are relevant for billing are stored here on the "
+    "account where they are able to be sequenced appropriately prior to "
+    "processing to produce claim(s)."
+    ),
+        # if property is element of this resource.
+        element_property=True,
 	)
 	
     relatedAccount: typing.List[fhirtypes.AccountRelatedAccountType] = Field(
@@ -229,7 +257,7 @@ class Account(domainresource.DomainResource):
         ``Account`` according specification,
         with preserving original sequence order.
         """
-        return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "identifier", "status", "billingStatus", "type", "name", "subject", "servicePeriod", "coverage", "owner", "description", "guarantor", "relatedAccount", "currency", "balance", "calculatedAt"]
+        return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "identifier", "status", "billingStatus", "type", "name", "subject", "servicePeriod", "coverage", "owner", "description", "guarantor", "diagnosis", "procedure", "relatedAccount", "currency", "balance", "calculatedAt"]
 
 
     @root_validator(pre=True, allow_reuse=True)
@@ -421,6 +449,104 @@ class AccountCoverage(backboneelement.BackboneElement):
 
 
 
+class AccountDiagnosis(backboneelement.BackboneElement):
+    """Disclaimer: Any field name ends with ``__ext`` doesn't part of
+    Resource StructureDefinition, instead used to enable Extensibility feature
+    for FHIR Primitive Data Types.
+
+    The list of diagnoses relevant to this account.
+    When using an account for billing a specific Encounter the set of diagnoses
+    that are relevant for billing are stored here on the account where they are
+    able to be sequenced appropriately prior to processing to produce claim(s).
+    """
+    resource_type = Field("AccountDiagnosis", const=True)
+	
+    condition: fhirtypes.CodeableReferenceType = Field(
+		...,
+		alias="condition",
+		title="The diagnosis relevant to the account",
+		description=None,
+        # if property is element of this resource.
+        element_property=True,
+        # note: Listed Resource Type(s) should be allowed as Reference.
+		enum_reference_types=["Condition"],
+	)
+	
+    dateOfDiagnosis: fhirtypes.DateTime = Field(
+		None,
+		alias="dateOfDiagnosis",
+		title="Date of the diagnosis (when coded diagnosis)",
+		description="Ranking of the diagnosis (for each type).",
+        # if property is element of this resource.
+        element_property=True,
+	)
+    dateOfDiagnosis__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
+        None,
+        alias="_dateOfDiagnosis",
+        title="Extension field for ``dateOfDiagnosis``."
+    )
+	
+    onAdmission: bool = Field(
+		None,
+		alias="onAdmission",
+		title="Diagnosis present on Admission",
+		description="Was the Diagnosis present on Admission in the related Encounter.",
+        # if property is element of this resource.
+        element_property=True,
+	)
+    onAdmission__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
+        None,
+        alias="_onAdmission",
+        title="Extension field for ``onAdmission``."
+    )
+	
+    packageCode: typing.List[fhirtypes.CodeableConceptType] = Field(
+		None,
+		alias="packageCode",
+		title="Package Code specific for billing",
+		description=(
+    "The package code can be used to group diagnoses that may be priced or "
+    "delivered as a single product. Such as DRGs."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+	)
+	
+    sequence: fhirtypes.PositiveInt = Field(
+		None,
+		alias="sequence",
+		title="Ranking of the diagnosis (for each type)",
+		description=None,
+        # if property is element of this resource.
+        element_property=True,
+	)
+    sequence__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
+        None,
+        alias="_sequence",
+        title="Extension field for ``sequence``."
+    )
+	
+    type: typing.List[fhirtypes.CodeableConceptType] = Field(
+		None,
+		alias="type",
+		title=(
+    "Type that this diagnosis has relevant to the account (e.g. admission, "
+    "billing, discharge \u2026)"
+    ),
+		description=None,
+        # if property is element of this resource.
+        element_property=True,
+	)
+    @classmethod
+    def elements_sequence(cls):
+        """returning all elements names from
+        ``AccountDiagnosis`` according specification,
+        with preserving original sequence order.
+        """
+        return ["id", "extension", "modifierExtension", "sequence", "condition", "dateOfDiagnosis", "type", "onAdmission", "packageCode"]
+
+
+
 class AccountGuarantor(backboneelement.BackboneElement):
     """Disclaimer: Any field name ends with ``__ext`` doesn't part of
     Resource StructureDefinition, instead used to enable Extensibility feature
@@ -478,6 +604,106 @@ class AccountGuarantor(backboneelement.BackboneElement):
         with preserving original sequence order.
         """
         return ["id", "extension", "modifierExtension", "party", "onHold", "period"]
+
+
+
+class AccountProcedure(backboneelement.BackboneElement):
+    """Disclaimer: Any field name ends with ``__ext`` doesn't part of
+    Resource StructureDefinition, instead used to enable Extensibility feature
+    for FHIR Primitive Data Types.
+
+    The list of procedures relevant to this account.
+    When using an account for billing a specific Encounter the set of
+    procedures that are relevant for billing are stored here on the account
+    where they are able to be sequenced appropriately prior to processing to
+    produce claim(s).
+    """
+    resource_type = Field("AccountProcedure", const=True)
+	
+    code: fhirtypes.CodeableReferenceType = Field(
+		...,
+		alias="code",
+		title="The procedure relevant to the account",
+		description=None,
+        # if property is element of this resource.
+        element_property=True,
+        # note: Listed Resource Type(s) should be allowed as Reference.
+		enum_reference_types=["Procedure"],
+	)
+	
+    dateOfService: fhirtypes.DateTime = Field(
+		None,
+		alias="dateOfService",
+		title="Date of the procedure (when coded procedure)",
+		description=(
+    "Date of the procedure when using a coded procedure. If using a "
+    "reference to a procedure, then the date on the procedure should be "
+    "used."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+	)
+    dateOfService__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
+        None,
+        alias="_dateOfService",
+        title="Extension field for ``dateOfService``."
+    )
+	
+    device: typing.List[fhirtypes.ReferenceType] = Field(
+		None,
+		alias="device",
+		title="Any devices that were associated with the procedure",
+		description=(
+    "Any devices that were associated with the procedure relevant to the "
+    "account."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+        # note: Listed Resource Type(s) should be allowed as Reference.
+		enum_reference_types=["Device"],
+	)
+	
+    packageCode: typing.List[fhirtypes.CodeableConceptType] = Field(
+		None,
+		alias="packageCode",
+		title="Package Code specific for billing",
+		description=(
+    "The package code can be used to group procedures that may be priced or"
+    " delivered as a single product. Such as DRGs."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+	)
+	
+    sequence: fhirtypes.PositiveInt = Field(
+		None,
+		alias="sequence",
+		title="Ranking of the procedure (for each type)",
+		description=None,
+        # if property is element of this resource.
+        element_property=True,
+	)
+    sequence__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
+        None,
+        alias="_sequence",
+        title="Extension field for ``sequence``."
+    )
+	
+    type: typing.List[fhirtypes.CodeableConceptType] = Field(
+		None,
+		alias="type",
+		title="How this procedure value should be used in charging the account",
+		description=None,
+        # if property is element of this resource.
+        element_property=True,
+	)
+    @classmethod
+    def elements_sequence(cls):
+        """returning all elements names from
+        ``AccountProcedure`` according specification,
+        with preserving original sequence order.
+        """
+        return ["id", "extension", "modifierExtension", "sequence", "code", "dateOfService", "type", "packageCode", "device"]
 
 
 

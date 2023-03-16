@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/RegulatedAuthorization
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 from pydantic.validators import bytes_validator  # noqa: F401
 from fhir.resources import fhirtypes  # noqa: F401
@@ -17,7 +17,7 @@ def impl_regulatedauthorization_1(inst):
     assert inst.case.application[0].identifier.value == "IA38G"
     assert inst.case.application[0].type.coding[0].code == "GroupTypeIAVariationNotification"
     assert inst.case.application[0].type.coding[0].system == (
-    "http://ema.europa.eu/example/marketingAuthorisationApplicati"
+    "http://ema.europa.eu/example/marketingAuthorizationApplicati"
     "onType"
     )
     assert inst.case.application[1].dateDateTime == fhirtypes.DateTime.validate("2014-09-01")
@@ -25,7 +25,7 @@ def impl_regulatedauthorization_1(inst):
     assert inst.case.application[1].identifier.value == "IA38F"
     assert inst.case.application[1].type.coding[0].code == "GroupTypeIAVariationNotification"
     assert inst.case.application[1].type.coding[0].system == (
-    "http://ema.europa.eu/example/marketingAuthorisationApplicati"
+    "http://ema.europa.eu/example/marketingAuthorizationApplicati"
     "onType"
     )
     assert inst.case.datePeriod.end == fhirtypes.DateTime.validate("2015-08-21")
@@ -34,12 +34,12 @@ def impl_regulatedauthorization_1(inst):
     assert inst.case.identifier.value == "EMEA/H/C/009999/IA/0099/G"
     assert inst.case.type.coding[0].code == "VariationTypeIA"
     assert inst.case.type.coding[0].system == (
-    "http://ema.europa.eu/example/marketingAuthorisationProcedure"
+    "http://ema.europa.eu/example/marketingAuthorizationProcedure"
     "Type"
     )
     assert inst.holder.reference == "Organization/example"
     assert inst.id == "example"
-    assert inst.identifier[0].system == "http://ema.europa.eu/example/marketingAuthorisationNumber"
+    assert inst.identifier[0].system == "http://ema.europa.eu/example/marketingAuthorizationNumber"
     assert inst.identifier[0].value == "EU/1/11/999/001"
     assert inst.meta.tag[0].code == "HTEST"
     assert inst.meta.tag[0].display == "test health data"
@@ -48,7 +48,7 @@ def impl_regulatedauthorization_1(inst):
     assert inst.region[0].coding[0].system == "http://ema.europa.eu/example/country"
     assert inst.regulator.reference == "Organization/example"
     assert inst.status.coding[0].code == "active"
-    assert inst.status.coding[0].system == "http://ema.europa.eu/example/authorisationstatus"
+    assert inst.status.coding[0].system == "http://ema.europa.eu/example/authorizationstatus"
     assert inst.statusDate == fhirtypes.DateTime.validate("2015-01-14")
     assert inst.text.status == "generated"
     assert inst.validityPeriod.end == fhirtypes.DateTime.validate("2020-05-20")

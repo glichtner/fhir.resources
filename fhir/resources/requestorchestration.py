@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/RequestOrchestration
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 import typing
 from pydantic import Field
@@ -116,9 +116,13 @@ class RequestOrchestration(domainresource.DomainResource):
 		alias="groupIdentifier",
 		title="Composite request this is part of",
 		description=(
-    "A shared identifier common to all requests that were authorized more "
-    "or less simultaneously by a single author, representing the identifier"
-    " of the requisition, prescription or similar form."
+    "A shared identifier common to multiple independent Request instances "
+    "that were activated/authorized more or less simultaneously by a single"
+    " author.  The presence of the same identifier on each request ties "
+    "those requests together and may have business ramifications in terms "
+    "of reporting of results, billing, etc.  E.g. a requisition number "
+    "shared by a set of lab tests ordered together, or a prescription "
+    "number shared by all meds ordered at one time."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -288,7 +292,7 @@ class RequestOrchestration(domainresource.DomainResource):
         # if property is element of this resource.
         element_property=True,
         # note: Listed Resource Type(s) should be allowed as Reference.
-		enum_reference_types=["Patient", "Group"],
+		enum_reference_types=["CareTeam", "Device", "Group", "HealthcareService", "Location", "Organization", "Patient", "Practitioner", "PractitionerRole", "RelatedPerson"],
 	)
     @classmethod
     def elements_sequence(cls):
@@ -474,7 +478,7 @@ class RequestOrchestrationAction(backboneelement.BackboneElement):
         title="Extension field for ``definitionUri``."
     )
 	
-    description: fhirtypes.String = Field(
+    description: fhirtypes.Markdown = Field(
 		None,
 		alias="description",
 		title="Short description of the action",
@@ -722,7 +726,7 @@ class RequestOrchestrationAction(backboneelement.BackboneElement):
         title="Extension field for ``selectionBehavior``."
     )
 	
-    textEquivalent: fhirtypes.String = Field(
+    textEquivalent: fhirtypes.Markdown = Field(
 		None,
 		alias="textEquivalent",
 		title=(
@@ -1061,7 +1065,7 @@ class RequestOrchestrationActionDynamicValue(backboneelement.BackboneElement):
 		description=(
     "The path to the element to be customized. This is the path on the "
     "resource that will hold the result of the calculation defined by the "
-    "expression. The specified path SHALL be a FHIRPath resolveable on the "
+    "expression. The specified path SHALL be a FHIRPath resolvable on the "
     "specified target type of the ActivityDefinition, and SHALL consist "
     "only of identifiers, constant indexers, and a restricted subset of "
     "functions. The path is allowed to contain qualifiers (.) to traverse "
@@ -1261,7 +1265,7 @@ class RequestOrchestrationActionParticipant(backboneelement.BackboneElement):
     function: fhirtypes.CodeableConceptType = Field(
 		None,
 		alias="function",
-		title="E.g. Author, Reviewer, Witness, etc.",
+		title="E.g. Author, Reviewer, Witness, etc",
 		description=(
     "Indicates how the actor will be involved in the action - author, "
     "reviewer, witness, etc."
@@ -1273,7 +1277,7 @@ class RequestOrchestrationActionParticipant(backboneelement.BackboneElement):
     role: fhirtypes.CodeableConceptType = Field(
 		None,
 		alias="role",
-		title="E.g. Nurse, Surgeon, Parent, etc.",
+		title="E.g. Nurse, Surgeon, Parent, etc",
 		description=(
     "The role the participant should play in performing the described "
     "action."
@@ -1391,6 +1395,26 @@ class RequestOrchestrationActionRelatedAction(backboneelement.BackboneElement):
     """
     resource_type = Field("RequestOrchestrationActionRelatedAction", const=True)
 	
+    endRelationship: fhirtypes.Code = Field(
+		None,
+		alias="endRelationship",
+		title=(
+    "before | before-start | before-end | concurrent | concurrent-with-"
+    "start | concurrent-with-end | after | after-start | after-end"
+    ),
+		description="The relationship of the end of this action to the related action.",
+        # if property is element of this resource.
+        element_property=True,
+        # note: Enum values can be used in validation,
+        # but use in your own responsibilities, read official FHIR documentation.
+		enum_values=["before", "before-start", "before-end", "concurrent", "concurrent-with-start", "concurrent-with-end", "after", "after-start", "after-end"],
+	)
+    endRelationship__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
+        None,
+        alias="_endRelationship",
+        title="Extension field for ``endRelationship``."
+    )
+	
     offsetDuration: fhirtypes.DurationType = Field(
 		None,
 		alias="offsetDuration",
@@ -1425,8 +1449,8 @@ class RequestOrchestrationActionRelatedAction(backboneelement.BackboneElement):
 		None,
 		alias="relationship",
 		title=(
-    "before-start | before | before-end | concurrent-with-start | "
-    "concurrent | concurrent-with-end | after-start | after | after-end"
+    "before | before-start | before-end | concurrent | concurrent-with-"
+    "start | concurrent-with-end | after | after-start | after-end"
     ),
 		description="The relationship of this action to the related action.",
         # if property is element of this resource.
@@ -1434,7 +1458,7 @@ class RequestOrchestrationActionRelatedAction(backboneelement.BackboneElement):
         element_required=True,
         # note: Enum values can be used in validation,
         # but use in your own responsibilities, read official FHIR documentation.
-		enum_values=["before-start", "before", "before-end", "concurrent-with-start", "concurrent", "concurrent-with-end", "after-start", "after", "after-end"],
+		enum_values=["before", "before-start", "before-end", "concurrent", "concurrent-with-start", "concurrent-with-end", "after", "after-start", "after-end"],
 	)
     relationship__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
         None,
@@ -1462,7 +1486,7 @@ class RequestOrchestrationActionRelatedAction(backboneelement.BackboneElement):
         ``RequestOrchestrationActionRelatedAction`` according specification,
         with preserving original sequence order.
         """
-        return ["id", "extension", "modifierExtension", "targetId", "relationship", "offsetDuration", "offsetRange"]
+        return ["id", "extension", "modifierExtension", "targetId", "relationship", "endRelationship", "offsetDuration", "offsetRange"]
 
 
     @root_validator(pre=True, allow_reuse=True)

@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/MedicationKnowledge
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 import typing
 from pydantic import Field
@@ -731,7 +731,7 @@ class MedicationKnowledgeDefinitionalIngredient(backboneelement.BackboneElement)
     type: fhirtypes.CodeableConceptType = Field(
 		None,
 		alias="type",
-		title="A code that defines the type of ingredient, active, base, etc.",
+		title="A code that defines the type of ingredient, active, base, etc",
 		description=(
     "Indication of whether this ingredient affects the therapeutic action "
     "of the drug."

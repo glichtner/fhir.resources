@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/OperationDefinition
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 import typing
 from pydantic import Field
@@ -153,11 +153,11 @@ class OperationDefinition(domainresource.DomainResource):
 		alias="date",
 		title="Date last changed",
 		description=(
-    "The date  (and optionally time) when the operation definition was "
-    "published. The date must change when the business version changes and "
-    "it must change if the status code changes. In addition, it should "
-    "change when the substantive content of the operation definition "
-    "changes."
+    "The date  (and optionally time) when the operation definition was last"
+    " significantly changed. The date must change when the business version"
+    " changes and it must change if the status code changes. In addition, "
+    "it should change when the substantive content of the operation "
+    "definition changes."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -202,6 +202,22 @@ class OperationDefinition(domainresource.DomainResource):
         alias="_experimental",
         title="Extension field for ``experimental``."
     )
+	
+    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+		None,
+		alias="identifier",
+		title=(
+    "Additional identifier for the implementation guide (business "
+    "identifier)"
+    ),
+		description=(
+    "A formal identifier that is used to identify this implementation guide"
+    " when it is represented in other formats, or referenced in a "
+    "specification, model, design or an instance."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+	)
 	
     inputProfile: fhirtypes.Canonical = Field(
 		None,
@@ -559,7 +575,7 @@ class OperationDefinition(domainresource.DomainResource):
         ``OperationDefinition`` according specification,
         with preserving original sequence order.
         """
-        return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "url", "version", "versionAlgorithmString", "versionAlgorithmCoding", "name", "title", "status", "kind", "experimental", "date", "publisher", "contact", "description", "useContext", "jurisdiction", "purpose", "copyright", "copyrightLabel", "affectsState", "code", "comment", "base", "resource", "system", "type", "instance", "inputProfile", "outputProfile", "parameter", "overload"]
+        return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "url", "identifier", "version", "versionAlgorithmString", "versionAlgorithmCoding", "name", "title", "status", "kind", "experimental", "date", "publisher", "contact", "description", "useContext", "jurisdiction", "purpose", "copyright", "copyrightLabel", "affectsState", "code", "comment", "base", "resource", "system", "type", "instance", "inputProfile", "outputProfile", "parameter", "overload"]
 
 
     @root_validator(pre=True, allow_reuse=True)
@@ -894,7 +910,7 @@ class OperationDefinitionParameter(backboneelement.BackboneElement):
 		alias="targetProfile",
 		title=(
     "If type is Reference | canonical, allowed targets. If type is "
-    "'Resource', then this constrains the allowed reosurce types"
+    "'Resource', then this constrains the allowed resource types"
     ),
 		description=(
     "Used when the type is \"Reference\" or \"canonical\", and identifies a "

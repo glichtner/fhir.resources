@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/ManufacturedItemDefinition
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 import typing
 from pydantic import Field
@@ -148,9 +148,9 @@ class ManufacturedItemDefinition(domainresource.DomainResource):
     unitOfPresentation: fhirtypes.CodeableConceptType = Field(
 		None,
 		alias="unitOfPresentation",
-		title="The \u201creal world\u201d units in which the quantity of the item is described",
+		title="The \u201creal-world\u201d units in which the quantity of the item is described",
 		description=(
-    "The \u201creal world\u201d units in which the quantity of the manufactured item "
+    "The \u201creal-world\u201d units in which the quantity of the manufactured item "
     "is described."
     ),
         # if property is element of this resource.
@@ -242,8 +242,8 @@ class ManufacturedItemDefinitionComponent(backboneelement.BackboneElement):
 		None,
 		alias="amount",
 		title=(
-    "The measurable amount of substance in this component, expressable in "
-    "different ways (e.g. by mass or volume)"
+    "The measurable amount of total quantity of all substances in the "
+    "component, expressable in different ways (e.g. by mass or volume)"
     ),
 		description=None,
         # if property is element of this resource.
@@ -263,7 +263,7 @@ class ManufacturedItemDefinitionComponent(backboneelement.BackboneElement):
 		None,
 		alias="constituent",
 		title=(
-    "A reference to an constituent of the manufactured item as a whole, "
+    "A reference to a constituent of the manufactured item as a whole, "
     "linked here so that its component location within the item can be "
     "indicated. This not where the item's ingredient are primarily stated "
     "(for which see Ingredient.for or "
@@ -318,7 +318,7 @@ class ManufacturedItemDefinitionComponentConstituent(backboneelement.BackboneEle
     Resource StructureDefinition, instead used to enable Extensibility feature
     for FHIR Primitive Data Types.
 
-    A reference to an constituent of the manufactured item as a whole, linked
+    A reference to a constituent of the manufactured item as a whole, linked
     here so that its component location within the item can be indicated. This
     not where the item's ingredient are primarily stated (for which see
     Ingredient.for or ManufacturedItemDefinition.ingredient).
@@ -329,8 +329,8 @@ class ManufacturedItemDefinitionComponentConstituent(backboneelement.BackboneEle
 		None,
 		alias="amount",
 		title=(
-    "The measurable amount of this constituent in this component, "
-    "expressable in different ways (e.g. by mass or volume)"
+    "The measurable amount of the substance, expressable in different ways "
+    "(e.g. by mass or volume)"
     ),
 		description=None,
         # if property is element of this resource.
@@ -346,35 +346,32 @@ class ManufacturedItemDefinitionComponentConstituent(backboneelement.BackboneEle
         element_property=True,
 	)
 	
-    location: typing.List[fhirtypes.CodeableConceptType] = Field(
+    hasIngredient: typing.List[fhirtypes.CodeableReferenceType] = Field(
 		None,
-		alias="location",
-		title=(
-    "The type of location of the constituent within this component e.g. "
-    "intragranular, blend"
-    ),
+		alias="hasIngredient",
+		title="The ingredient that is the constituent of the given component",
 		description=None,
-        # if property is element of this resource.
-        element_property=True,
-	)
-	
-    locationForIngredient: typing.List[fhirtypes.CodeableReferenceType] = Field(
-		None,
-		alias="locationForIngredient",
-		title=(
-    "An ingredient that this component is the location of in this "
-    "manufactured item. The component is physically made of this ingredient"
-    " (and possibly others), rather than just being a container for it"
-    ),
-		description=(
-    "An ingredient that this component is the location for in this "
-    "manufactured item. The component is physically made of this ingredient"
-    " (and possibly others), rather than just being a container for it."
-    ),
         # if property is element of this resource.
         element_property=True,
         # note: Listed Resource Type(s) should be allowed as Reference.
 		enum_reference_types=["Ingredient"],
+	)
+	
+    location: typing.List[fhirtypes.CodeableConceptType] = Field(
+		None,
+		alias="location",
+		title=(
+    "The physical location of the constituent/ingredient within the "
+    "component"
+    ),
+		description=(
+    "The physical location of the constituent/ingredient within the "
+    "component. Example \u2013 if the component is the bead in the capsule, then"
+    " the location would be where the ingredient resides within the product"
+    " part \u2013 intragranular, extra-granular, etc."
+    ),
+        # if property is element of this resource.
+        element_property=True,
 	)
     @classmethod
     def elements_sequence(cls):
@@ -382,7 +379,7 @@ class ManufacturedItemDefinitionComponentConstituent(backboneelement.BackboneEle
         ``ManufacturedItemDefinitionComponentConstituent`` according specification,
         with preserving original sequence order.
         """
-        return ["id", "extension", "modifierExtension", "amount", "location", "function", "locationForIngredient"]
+        return ["id", "extension", "modifierExtension", "amount", "location", "function", "hasIngredient"]
 
 
 
@@ -462,6 +459,23 @@ class ManufacturedItemDefinitionProperty(backboneelement.BackboneElement):
         title="Extension field for ``valueDate``."
     )
 	
+    valueMarkdown: fhirtypes.Markdown = Field(
+		None,
+		alias="valueMarkdown",
+		title="A value for the characteristic",
+		description=None,
+        # if property is element of this resource.
+        element_property=True,
+        # Choice of Data Types. i.e value[x]
+		one_of_many="value",
+		one_of_many_required=False,
+	)
+    valueMarkdown__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
+        None,
+        alias="_valueMarkdown",
+        title="Extension field for ``valueMarkdown``."
+    )
+	
     valueQuantity: fhirtypes.QuantityType = Field(
 		None,
 		alias="valueQuantity",
@@ -473,13 +487,27 @@ class ManufacturedItemDefinitionProperty(backboneelement.BackboneElement):
 		one_of_many="value",
 		one_of_many_required=False,
 	)
+	
+    valueReference: fhirtypes.ReferenceType = Field(
+		None,
+		alias="valueReference",
+		title="A value for the characteristic",
+		description=None,
+        # if property is element of this resource.
+        element_property=True,
+        # Choice of Data Types. i.e value[x]
+		one_of_many="value",
+		one_of_many_required=False,
+        # note: Listed Resource Type(s) should be allowed as Reference.
+		enum_reference_types=["Binary"],
+	)
     @classmethod
     def elements_sequence(cls):
         """returning all elements names from
         ``ManufacturedItemDefinitionProperty`` according specification,
         with preserving original sequence order.
         """
-        return ["id", "extension", "modifierExtension", "type", "valueCodeableConcept", "valueQuantity", "valueDate", "valueBoolean", "valueAttachment"]
+        return ["id", "extension", "modifierExtension", "type", "valueCodeableConcept", "valueQuantity", "valueDate", "valueBoolean", "valueMarkdown", "valueAttachment", "valueReference"]
 
 
     @root_validator(pre=True, allow_reuse=True)
@@ -504,7 +532,9 @@ class ManufacturedItemDefinitionProperty(backboneelement.BackboneElement):
 			    "valueBoolean",
 			    "valueCodeableConcept",
 			    "valueDate",
-			    "valueQuantity"]}
+			    "valueMarkdown",
+			    "valueQuantity",
+			    "valueReference"]}
         for prefix, fields in one_of_many_fields.items():
             assert cls.__fields__[fields[0]].field_info.extra["one_of_many"] == prefix
             required = (

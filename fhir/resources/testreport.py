@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/TestReport
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 import typing
 from pydantic import Field
@@ -506,6 +506,18 @@ class TestReportSetupActionAssert(backboneelement.BackboneElement):
         title="Extension field for ``message``."
     )
 	
+    requirement: typing.List[fhirtypes.TestReportSetupActionAssertRequirementType] = Field(
+		None,
+		alias="requirement",
+		title="Links or references to the testing requirements",
+		description=(
+    "Links or references providing traceability to the testing requirements"
+    " for this assert."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+	)
+	
     result: fhirtypes.Code = Field(
 		None,
 		alias="result",
@@ -529,7 +541,7 @@ class TestReportSetupActionAssert(backboneelement.BackboneElement):
         ``TestReportSetupActionAssert`` according specification,
         with preserving original sequence order.
         """
-        return ["id", "extension", "modifierExtension", "result", "message", "detail"]
+        return ["id", "extension", "modifierExtension", "result", "message", "detail", "requirement"]
 
 
     @root_validator(pre=True, allow_reuse=True)
@@ -589,6 +601,109 @@ class TestReportSetupActionAssert(backboneelement.BackboneElement):
                     )
         if len(errors) > 0:
             raise ValidationError(errors, cls)  # type: ignore
+
+        return values
+
+
+class TestReportSetupActionAssertRequirement(backboneelement.BackboneElement):
+    """Disclaimer: Any field name ends with ``__ext`` doesn't part of
+    Resource StructureDefinition, instead used to enable Extensibility feature
+    for FHIR Primitive Data Types.
+
+    Links or references to the testing requirements.
+    Links or references providing traceability to the testing requirements for
+    this assert.
+    """
+    resource_type = Field("TestReportSetupActionAssertRequirement", const=True)
+	
+    linkCanonical: fhirtypes.Canonical = Field(
+		None,
+		alias="linkCanonical",
+		title="Link or reference to the testing requirement",
+		description=(
+    "Link or reference providing traceability to the testing requirement "
+    "for this test."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+        # Choice of Data Types. i.e link[x]
+		one_of_many="link",
+		one_of_many_required=False,
+        # note: Listed Resource Type(s) should be allowed as Reference.
+		enum_reference_types=["Requirements"],
+	)
+    linkCanonical__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
+        None,
+        alias="_linkCanonical",
+        title="Extension field for ``linkCanonical``."
+    )
+	
+    linkUri: fhirtypes.Uri = Field(
+		None,
+		alias="linkUri",
+		title="Link or reference to the testing requirement",
+		description=(
+    "Link or reference providing traceability to the testing requirement "
+    "for this test."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+        # Choice of Data Types. i.e link[x]
+		one_of_many="link",
+		one_of_many_required=False,
+	)
+    linkUri__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
+        None,
+        alias="_linkUri",
+        title="Extension field for ``linkUri``."
+    )
+    @classmethod
+    def elements_sequence(cls):
+        """returning all elements names from
+        ``TestReportSetupActionAssertRequirement`` according specification,
+        with preserving original sequence order.
+        """
+        return ["id", "extension", "modifierExtension", "linkUri", "linkCanonical"]
+
+
+    @root_validator(pre=True, allow_reuse=True)
+    def validate_one_of_many_4182(
+        cls, values: typing.Dict[str, typing.Any]
+    ) -> typing.Dict[str, typing.Any]:
+        """https://www.hl7.org/fhir/formats.html#choice
+        A few elements have a choice of more than one data type for their content.
+        All such elements have a name that takes the form nnn[x].
+        The "nnn" part of the name is constant, and the "[x]" is replaced with
+        the title-cased name of the type that is actually used.
+        The table view shows each of these names explicitly.
+
+        Elements that have a choice of data type cannot repeat - they must have a
+        maximum cardinality of 1. When constructing an instance of an element with a
+        choice of types, the authoring system must create a single element with a
+        data type chosen from among the list of permitted data types.
+        """
+        one_of_many_fields = {
+			"link": [
+			    "linkCanonical",
+			    "linkUri"]}
+        for prefix, fields in one_of_many_fields.items():
+            assert cls.__fields__[fields[0]].field_info.extra["one_of_many"] == prefix
+            required = (
+                cls.__fields__[fields[0]].field_info.extra["one_of_many_required"]
+                is True
+            )
+            found = False
+            for field in fields:
+                if field in values and values[field] is not None:
+                    if found is True:
+                        raise ValueError(
+                            "Any of one field value is expected from "
+                            f"this list {fields}, but got multiple!"
+                        )
+                    else:
+                        found = True
+            if required is True and found is False:
+                raise ValueError(f"Expect any of field value from this list {fields}.")
 
         return values
 

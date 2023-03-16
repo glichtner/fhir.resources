@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/NutritionOrder
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 import typing
 from pydantic import Field
@@ -136,6 +136,19 @@ class NutritionOrder(domainresource.DomainResource):
     "Kosher. This modifier applies to the entire nutrition order inclusive "
     "of the oral diet, nutritional supplements and enteral formula "
     "feedings."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+	)
+	
+    groupIdentifier: fhirtypes.IdentifierType = Field(
+		None,
+		alias="groupIdentifier",
+		title="Composite Request ID",
+		description=(
+    "A shared identifier common to all nutrition orders that were "
+    "authorized more or less simultaneously by a single author, "
+    "representing the composite or group identifier."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -383,7 +396,7 @@ class NutritionOrder(domainresource.DomainResource):
         ``NutritionOrder`` according specification,
         with preserving original sequence order.
         """
-        return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "identifier", "instantiatesCanonical", "instantiatesUri", "instantiates", "basedOn", "status", "intent", "priority", "subject", "encounter", "supportingInformation", "dateTime", "orderer", "performer", "allergyIntolerance", "foodPreferenceModifier", "excludeFoodModifier", "outsideFoodAllowed", "oralDiet", "supplement", "enteralFormula", "note"]
+        return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "identifier", "instantiatesCanonical", "instantiatesUri", "instantiates", "basedOn", "groupIdentifier", "status", "intent", "priority", "subject", "encounter", "supportingInformation", "dateTime", "orderer", "performer", "allergyIntolerance", "foodPreferenceModifier", "excludeFoodModifier", "outsideFoodAllowed", "oralDiet", "supplement", "enteralFormula", "note"]
 
 
     @root_validator(pre=True, allow_reuse=True)
@@ -489,7 +502,7 @@ class NutritionOrderEnteralFormula(backboneelement.BackboneElement):
         element_property=True,
 	)
 	
-    administrationInstruction: fhirtypes.String = Field(
+    administrationInstruction: fhirtypes.Markdown = Field(
 		None,
 		alias="administrationInstruction",
 		title="Formula feeding instructions expressed as text",

@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/OperationDefinition
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 from pydantic.validators import bytes_validator  # noqa: F401
 from fhir.resources import fhirtypes  # noqa: F401
@@ -18,7 +18,7 @@ def impl_operationdefinition_1(inst):
     assert inst.contact[0].telecom[0].value == "http://hl7.org/fhir"
     assert inst.contact[0].telecom[1].system == "email"
     assert inst.contact[0].telecom[1].value == "fhir@lists.hl7.org"
-    assert inst.date == fhirtypes.DateTime.validate("2022-09-10T04:52:37+10:00")
+    assert inst.date == fhirtypes.DateTime.validate("2023-03-01T23:03:57+11:00")
     assert inst.experimental is False
     assert inst.extension[0].url == (
     "http://hl7.org/fhir/StructureDefinition/structuredefinition-"
@@ -32,6 +32,9 @@ def impl_operationdefinition_1(inst):
     assert inst.extension[1].valueCode == "trial-use"
     assert inst.id == "DocumentReference-generate"
     assert inst.instance is False
+    assert inst.jurisdiction[0].coding[0].code == "001"
+    assert inst.jurisdiction[0].coding[0].display == "World"
+    assert inst.jurisdiction[0].coding[0].system == "http://unstats.un.org/unsd/methods/m49/m49.htm"
     assert inst.kind == "operation"
     assert inst.name == "Generate"
     assert inst.parameter[0].documentation == (
@@ -69,7 +72,7 @@ def impl_operationdefinition_1(inst):
     "http://hl7.org/fhir/OperationDefinition/DocumentReference-"
     "generate"
     )
-    assert inst.version == "5.0.0-ballot"
+    assert inst.version == "5.0.0-draft-final"
 
 
 def test_operationdefinition_1(base_settings):
@@ -101,7 +104,7 @@ def impl_operationdefinition_2(inst):
     assert inst.contact[0].telecom[0].value == "http://hl7.org/fhir"
     assert inst.contact[0].telecom[1].system == "email"
     assert inst.contact[0].telecom[1].value == "fhir@lists.hl7.org"
-    assert inst.date == fhirtypes.DateTime.validate("2022-09-10T04:52:37+10:00")
+    assert inst.date == fhirtypes.DateTime.validate("2023-03-01T23:03:57+11:00")
     assert inst.description == (
     "The data-requirements operation aggregates and returns the "
     "parameters and data requirements for the measure and all its"
@@ -120,6 +123,9 @@ def impl_operationdefinition_2(inst):
     assert inst.extension[1].valueCode == "trial-use"
     assert inst.id == "Measure-data-requirements"
     assert inst.instance is True
+    assert inst.jurisdiction[0].coding[0].code == "001"
+    assert inst.jurisdiction[0].coding[0].display == "World"
+    assert inst.jurisdiction[0].coding[0].system == "http://unstats.un.org/unsd/methods/m49/m49.htm"
     assert inst.kind == "operation"
     assert inst.name == "DataRequirements"
     assert inst.parameter[0].max == "1"
@@ -159,7 +165,7 @@ def impl_operationdefinition_2(inst):
     "http://hl7.org/fhir/OperationDefinition/Measure-data-"
     "requirements"
     )
-    assert inst.version == "5.0.0-ballot"
+    assert inst.version == "5.0.0-draft-final"
 
 
 def test_operationdefinition_2(base_settings):
@@ -205,7 +211,7 @@ def impl_operationdefinition_3(inst):
     assert inst.jurisdiction[0].coding[0].display == "United Kingdom of Great Britain and Northern Ireland (the)"
     assert inst.jurisdiction[0].coding[0].system == "urn:iso:std:iso:3166"
     assert inst.kind == "operation"
-    assert inst.name == "Populate Questionnaire"
+    assert inst.name == "PopulateQuestionnaire"
     assert inst.overload[0].parameterName[0] == "subject"
     assert inst.overload[0].parameterName[1] == "local"
     assert inst.overload[1].comment == "local defaults to false when not passed as a parameter"
@@ -239,6 +245,7 @@ def impl_operationdefinition_3(inst):
     assert inst.status == "draft"
     assert inst.system is False
     assert inst.text.status == "generated"
+    assert inst.title == "Populate Questionnaire"
     assert inst.type is False
     assert inst.url == "http://hl7.org/fhir/OperationDefinition/example"
     assert inst.useContext[0].code.code == "venue"
@@ -279,7 +286,7 @@ def impl_operationdefinition_4(inst):
     assert inst.contact[0].telecom[0].value == "http://hl7.org/fhir"
     assert inst.contact[0].telecom[1].system == "email"
     assert inst.contact[0].telecom[1].value == "fhir@lists.hl7.org"
-    assert inst.date == fhirtypes.DateTime.validate("2022-09-10T04:52:37+10:00")
+    assert inst.date == fhirtypes.DateTime.validate("2023-03-01T23:03:57+11:00")
     assert inst.description == (
     "This operation is used to get a token for a websocket client"
     " to use in order to bind to one or more subscriptions."
@@ -297,17 +304,17 @@ def impl_operationdefinition_4(inst):
     assert inst.extension[1].valueCode == "trial-use"
     assert inst.id == "Subscription-get-ws-binding-token"
     assert inst.instance is True
+    assert inst.jurisdiction[0].coding[0].code == "001"
+    assert inst.jurisdiction[0].coding[0].display == "World"
+    assert inst.jurisdiction[0].coding[0].system == "http://unstats.un.org/unsd/methods/m49/m49.htm"
     assert inst.kind == "operation"
     assert inst.name == "GetWsBindingToken"
     assert inst.parameter[0].max == "*"
     assert inst.parameter[0].min == 0
     assert inst.parameter[0].name == "id"
+    assert inst.parameter[0].scope[0] == "type"
     assert inst.parameter[0].type == "id"
     assert inst.parameter[0].use == "in"
-    assert inst.parameter[1].documentation == (
-    "An access token that a client may use to show authorization "
-    "during a websocket connection."
-    )
     assert inst.parameter[1].max == "1"
     assert inst.parameter[1].min == 1
     assert inst.parameter[1].name == "token"
@@ -342,7 +349,7 @@ def impl_operationdefinition_4(inst):
     "http://hl7.org/fhir/OperationDefinition/Subscription-get-ws-"
     "binding-token"
     )
-    assert inst.version == "5.0.0-ballot"
+    assert inst.version == "5.0.0-draft-final"
 
 
 def test_operationdefinition_4(base_settings):
@@ -374,7 +381,7 @@ def impl_operationdefinition_5(inst):
     assert inst.contact[0].telecom[0].value == "http://hl7.org/fhir"
     assert inst.contact[0].telecom[1].system == "email"
     assert inst.contact[0].telecom[1].value == "fhir@lists.hl7.org"
-    assert inst.date == fhirtypes.DateTime.validate("2022-09-10T04:52:37+10:00")
+    assert inst.date == fhirtypes.DateTime.validate("2023-03-01T23:03:57+11:00")
     assert inst.experimental is False
     assert inst.extension[0].url == (
     "http://hl7.org/fhir/StructureDefinition/structuredefinition-"
@@ -388,6 +395,9 @@ def impl_operationdefinition_5(inst):
     assert inst.extension[1].valueCode == "trial-use"
     assert inst.id == "StructureDefinition-questionnaire"
     assert inst.instance is True
+    assert inst.jurisdiction[0].coding[0].code == "001"
+    assert inst.jurisdiction[0].coding[0].display == "World"
+    assert inst.jurisdiction[0].coding[0].system == "http://unstats.un.org/unsd/methods/m49/m49.htm"
     assert inst.kind == "operation"
     assert inst.name == "Questionnaire"
     assert inst.parameter[0].documentation == (
@@ -399,7 +409,6 @@ def impl_operationdefinition_5(inst):
     assert inst.parameter[0].max == "1"
     assert inst.parameter[0].min == 0
     assert inst.parameter[0].name == "identifier"
-    assert inst.parameter[0].targetProfile[0] == "http://hl7.org/fhir/StructureDefinition/StructureDefinition"
     assert inst.parameter[0].type == "Identifier"
     assert inst.parameter[0].use == "in"
     assert inst.parameter[1].documentation == (
@@ -421,6 +430,7 @@ def impl_operationdefinition_5(inst):
     assert inst.parameter[2].max == "1"
     assert inst.parameter[2].min == 0
     assert inst.parameter[2].name == "url"
+    assert inst.parameter[2].scope[0] == "type"
     assert inst.parameter[2].targetProfile[0] == "http://hl7.org/fhir/StructureDefinition/StructureDefinition"
     assert inst.parameter[2].type == "canonical"
     assert inst.parameter[2].use == "in"
@@ -453,7 +463,7 @@ def impl_operationdefinition_5(inst):
     "http://hl7.org/fhir/OperationDefinition/StructureDefinition-"
     "questionnaire"
     )
-    assert inst.version == "5.0.0-ballot"
+    assert inst.version == "5.0.0-draft-final"
 
 
 def test_operationdefinition_5(base_settings):
@@ -485,7 +495,7 @@ def impl_operationdefinition_6(inst):
     assert inst.contact[0].telecom[0].value == "http://hl7.org/fhir"
     assert inst.contact[0].telecom[1].system == "email"
     assert inst.contact[0].telecom[1].value == "fhir@lists.hl7.org"
-    assert inst.date == fhirtypes.DateTime.validate("2022-09-10T04:52:37+10:00")
+    assert inst.date == fhirtypes.DateTime.validate("2023-03-01T23:03:57+11:00")
     assert inst.experimental is False
     assert inst.extension[0].url == (
     "http://hl7.org/fhir/StructureDefinition/structuredefinition-"
@@ -499,6 +509,9 @@ def impl_operationdefinition_6(inst):
     assert inst.extension[1].valueCode == "normative"
     assert inst.id == "CodeSystem-validate-code"
     assert inst.instance is True
+    assert inst.jurisdiction[0].coding[0].code == "001"
+    assert inst.jurisdiction[0].coding[0].display == "World"
+    assert inst.jurisdiction[0].coding[0].system == "http://unstats.un.org/unsd/methods/m49/m49.htm"
     assert inst.kind == "operation"
     assert inst.name == "ValidateCode"
     assert inst.parameter[0].documentation == (
@@ -509,11 +522,13 @@ def impl_operationdefinition_6(inst):
     assert inst.parameter[0].max == "1"
     assert inst.parameter[0].min == 0
     assert inst.parameter[0].name == "url"
+    assert inst.parameter[0].scope[0] == "type"
     assert inst.parameter[0].type == "uri"
     assert inst.parameter[0].use == "in"
     assert inst.parameter[1].max == "1"
     assert inst.parameter[1].min == 0
     assert inst.parameter[1].name == "codeSystem"
+    assert inst.parameter[1].scope[0] == "type"
     assert inst.parameter[1].type == "CodeSystem"
     assert inst.parameter[1].use == "in"
     assert inst.parameter[2].documentation == "The code that is to be validated"
@@ -529,6 +544,7 @@ def impl_operationdefinition_6(inst):
     assert inst.parameter[3].max == "1"
     assert inst.parameter[3].min == 0
     assert inst.parameter[3].name == "version"
+    assert inst.parameter[3].scope[0] == "type"
     assert inst.parameter[3].type == "string"
     assert inst.parameter[3].use == "in"
     assert inst.parameter[4].max == "1"
@@ -580,7 +596,7 @@ def impl_operationdefinition_6(inst):
     "http://hl7.org/fhir/OperationDefinition/CodeSystem-validate-"
     "code"
     )
-    assert inst.version == "5.0.0-ballot"
+    assert inst.version == "5.0.0-draft-final"
 
 
 def test_operationdefinition_6(base_settings):
@@ -612,7 +628,7 @@ def impl_operationdefinition_7(inst):
     assert inst.contact[0].telecom[0].value == "http://hl7.org/fhir"
     assert inst.contact[0].telecom[1].system == "email"
     assert inst.contact[0].telecom[1].value == "fhir@lists.hl7.org"
-    assert inst.date == fhirtypes.DateTime.validate("2022-09-10T04:52:37+10:00")
+    assert inst.date == fhirtypes.DateTime.validate("2023-03-01T23:03:57+11:00")
     assert inst.description == (
     "Filter content from an array in a large resource such as "
     "List or Group. See [Operations for Large "
@@ -631,6 +647,9 @@ def impl_operationdefinition_7(inst):
     assert inst.extension[1].valueCode == "trial-use"
     assert inst.id == "Resource-filter"
     assert inst.instance is True
+    assert inst.jurisdiction[0].coding[0].code == "001"
+    assert inst.jurisdiction[0].coding[0].display == "World"
+    assert inst.jurisdiction[0].coding[0].system == "http://unstats.un.org/unsd/methods/m49/m49.htm"
     assert inst.kind == "operation"
     assert inst.name == "Filter"
     assert inst.parameter[0].documentation == (
@@ -661,7 +680,7 @@ def impl_operationdefinition_7(inst):
     assert inst.title == "Filter an array in a large resource"
     assert inst.type is False
     assert inst.url == "http://hl7.org/fhir/OperationDefinition/Resource-filter"
-    assert inst.version == "5.0.0-ballot"
+    assert inst.version == "5.0.0-draft-final"
 
 
 def test_operationdefinition_7(base_settings):
@@ -688,12 +707,105 @@ def test_operationdefinition_7(base_settings):
 
 def impl_operationdefinition_8(inst):
     assert inst.affectsState is False
+    assert inst.code == "everything"
+    assert inst.contact[0].telecom[0].system == "url"
+    assert inst.contact[0].telecom[0].value == "http://hl7.org/fhir"
+    assert inst.contact[0].telecom[1].system == "email"
+    assert inst.contact[0].telecom[1].value == "fhir@lists.hl7.org"
+    assert inst.date == fhirtypes.DateTime.validate("2023-03-01T23:03:57+11:00")
+    assert inst.experimental is False
+    assert inst.extension[0].url == (
+    "http://hl7.org/fhir/StructureDefinition/structuredefinition-"
+    "fmm"
+    )
+    assert inst.extension[0].valueInteger == 2
+    assert inst.extension[1].url == (
+    "http://hl7.org/fhir/StructureDefinition/structuredefinition-"
+    "standards-status"
+    )
+    assert inst.extension[1].valueCode == "trial-use"
+    assert inst.id == "EpisodeOfCare-everything"
+    assert inst.instance is True
+    assert inst.jurisdiction[0].coding[0].code == "001"
+    assert inst.jurisdiction[0].coding[0].display == "World"
+    assert inst.jurisdiction[0].coding[0].system == "http://unstats.un.org/unsd/methods/m49/m49.htm"
+    assert inst.kind == "operation"
+    assert inst.name == "Everything"
+    assert inst.parameter[0].max == "1"
+    assert inst.parameter[0].min == 0
+    assert inst.parameter[0].name == "_since"
+    assert inst.parameter[0].type == "instant"
+    assert inst.parameter[0].use == "in"
+    assert inst.parameter[1].documentation == (
+    "One or more parameters, each containing one or more comma-"
+    "delimited FHIR resource types to include in the return "
+    "resources. In the absense of any specified types, the server"
+    " returns all resource types"
+    )
+    assert inst.parameter[1].max == "*"
+    assert inst.parameter[1].min == 0
+    assert inst.parameter[1].name == "_type"
+    assert inst.parameter[1].type == "code"
+    assert inst.parameter[1].use == "in"
+    assert inst.parameter[2].documentation == (
+    "See discussion below on the utility of paging through the "
+    "results of the $everything operation"
+    )
+    assert inst.parameter[2].max == "1"
+    assert inst.parameter[2].min == 0
+    assert inst.parameter[2].name == "_count"
+    assert inst.parameter[2].type == "integer"
+    assert inst.parameter[2].use == "in"
+    assert inst.parameter[3].documentation == "The bundle type is \"searchset\""
+    assert inst.parameter[3].max == "1"
+    assert inst.parameter[3].min == 1
+    assert inst.parameter[3].name == "return"
+    assert inst.parameter[3].type == "Bundle"
+    assert inst.parameter[3].use == "out"
+    assert inst.publisher == "HL7 (FHIR Project)"
+    assert inst.resource[0] == "EpisodeOfCare"
+    assert inst.status == "draft"
+    assert inst.system is False
+    assert inst.text.status == "extensions"
+    assert inst.title == "Fetch EpisodeOfCare Record"
+    assert inst.type is False
+    assert inst.url == (
+    "http://hl7.org/fhir/OperationDefinition/EpisodeOfCare-"
+    "everything"
+    )
+    assert inst.version == "5.0.0-draft-final"
+
+
+def test_operationdefinition_8(base_settings):
+    """No. 8 tests collection for OperationDefinition.
+    Test File: operation-episodeofcare-everything.json
+    """
+    filename = (
+        base_settings["unittest_data_dir"] / "operation-episodeofcare-everything.json"
+    )
+    inst = operationdefinition.OperationDefinition.parse_file(
+        filename, content_type="application/json", encoding="utf-8"
+    )
+    assert "OperationDefinition" == inst.resource_type
+
+    impl_operationdefinition_8(inst)
+
+    # testing reverse by generating data from itself and create again.
+    data = inst.dict()
+    assert "OperationDefinition" == data["resourceType"]
+
+    inst2 = operationdefinition.OperationDefinition(**data)
+    impl_operationdefinition_8(inst2)
+
+
+def impl_operationdefinition_9(inst):
+    assert inst.affectsState is False
     assert inst.code == "apply"
     assert inst.contact[0].telecom[0].system == "url"
     assert inst.contact[0].telecom[0].value == "http://hl7.org/fhir"
     assert inst.contact[0].telecom[1].system == "email"
     assert inst.contact[0].telecom[1].value == "fhir@lists.hl7.org"
-    assert inst.date == fhirtypes.DateTime.validate("2022-09-10T04:52:37+10:00")
+    assert inst.date == fhirtypes.DateTime.validate("2023-03-01T23:03:57+11:00")
     assert inst.description == (
     "The apply operation applies a PlanDefinition to a given "
     "subject"
@@ -711,23 +823,28 @@ def impl_operationdefinition_8(inst):
     assert inst.extension[1].valueCode == "trial-use"
     assert inst.id == "PlanDefinition-apply"
     assert inst.instance is True
+    assert inst.jurisdiction[0].coding[0].code == "001"
+    assert inst.jurisdiction[0].coding[0].display == "World"
+    assert inst.jurisdiction[0].coding[0].system == "http://unstats.un.org/unsd/methods/m49/m49.htm"
     assert inst.kind == "operation"
     assert inst.name == "Apply"
     assert inst.parameter[0].max == "1"
     assert inst.parameter[0].min == 0
     assert inst.parameter[0].name == "planDefinition"
+    assert inst.parameter[0].scope[0] == "type"
     assert inst.parameter[0].type == "PlanDefinition"
     assert inst.parameter[0].use == "in"
     assert inst.parameter[1].max == "1"
     assert inst.parameter[1].min == 0
     assert inst.parameter[1].name == "url"
-    assert inst.parameter[1].searchType == "reference"
+    assert inst.parameter[1].scope[0] == "type"
     assert inst.parameter[1].targetProfile[0] == "http://hl7.org/fhir/StructureDefinition/PlanDefinition"
     assert inst.parameter[1].type == "canonical"
     assert inst.parameter[1].use == "in"
     assert inst.parameter[2].max == "1"
     assert inst.parameter[2].min == 0
     assert inst.parameter[2].name == "version"
+    assert inst.parameter[2].scope[0] == "type"
     assert inst.parameter[2].type == "string"
     assert inst.parameter[2].use == "in"
     assert inst.parameter[3].max == "*"
@@ -786,11 +903,11 @@ def impl_operationdefinition_8(inst):
     assert inst.title == "Apply"
     assert inst.type is True
     assert inst.url == "http://hl7.org/fhir/OperationDefinition/PlanDefinition-apply"
-    assert inst.version == "5.0.0-ballot"
+    assert inst.version == "5.0.0-draft-final"
 
 
-def test_operationdefinition_8(base_settings):
-    """No. 8 tests collection for OperationDefinition.
+def test_operationdefinition_9(base_settings):
+    """No. 9 tests collection for OperationDefinition.
     Test File: operation-plandefinition-apply.json
     """
     filename = (
@@ -801,24 +918,24 @@ def test_operationdefinition_8(base_settings):
     )
     assert "OperationDefinition" == inst.resource_type
 
-    impl_operationdefinition_8(inst)
+    impl_operationdefinition_9(inst)
 
     # testing reverse by generating data from itself and create again.
     data = inst.dict()
     assert "OperationDefinition" == data["resourceType"]
 
     inst2 = operationdefinition.OperationDefinition(**data)
-    impl_operationdefinition_8(inst2)
+    impl_operationdefinition_9(inst2)
 
 
-def impl_operationdefinition_9(inst):
+def impl_operationdefinition_10(inst):
     assert inst.affectsState is True
     assert inst.code == "submit"
     assert inst.contact[0].telecom[0].system == "url"
     assert inst.contact[0].telecom[0].value == "http://hl7.org/fhir"
     assert inst.contact[0].telecom[1].system == "email"
     assert inst.contact[0].telecom[1].value == "fhir@lists.hl7.org"
-    assert inst.date == fhirtypes.DateTime.validate("2022-09-10T04:52:37+10:00")
+    assert inst.date == fhirtypes.DateTime.validate("2023-03-01T23:03:57+11:00")
     assert inst.experimental is False
     assert inst.extension[0].url == (
     "http://hl7.org/fhir/StructureDefinition/structuredefinition-"
@@ -832,6 +949,9 @@ def impl_operationdefinition_9(inst):
     assert inst.extension[1].valueCode == "trial-use"
     assert inst.id == "CoverageEligibilityRequest-submit"
     assert inst.instance is False
+    assert inst.jurisdiction[0].coding[0].code == "001"
+    assert inst.jurisdiction[0].coding[0].display == "World"
+    assert inst.jurisdiction[0].coding[0].system == "http://unstats.un.org/unsd/methods/m49/m49.htm"
     assert inst.kind == "operation"
     assert inst.name == "Submit"
     assert inst.parameter[0].documentation == (
@@ -861,86 +981,15 @@ def impl_operationdefinition_9(inst):
     "http://hl7.org/fhir/OperationDefinition/CoverageEligibilityR"
     "equest-submit"
     )
-    assert inst.version == "5.0.0-ballot"
-
-
-def test_operationdefinition_9(base_settings):
-    """No. 9 tests collection for OperationDefinition.
-    Test File: operation-coverageeligibilityrequest-submit.json
-    """
-    filename = (
-        base_settings["unittest_data_dir"] / "operation-coverageeligibilityrequest-submit.json"
-    )
-    inst = operationdefinition.OperationDefinition.parse_file(
-        filename, content_type="application/json", encoding="utf-8"
-    )
-    assert "OperationDefinition" == inst.resource_type
-
-    impl_operationdefinition_9(inst)
-
-    # testing reverse by generating data from itself and create again.
-    data = inst.dict()
-    assert "OperationDefinition" == data["resourceType"]
-
-    inst2 = operationdefinition.OperationDefinition(**data)
-    impl_operationdefinition_9(inst2)
-
-
-def impl_operationdefinition_10(inst):
-    assert inst.affectsState is False
-    assert inst.code == "submit-data"
-    assert inst.contact[0].telecom[0].system == "url"
-    assert inst.contact[0].telecom[0].value == "http://hl7.org/fhir"
-    assert inst.contact[0].telecom[1].system == "email"
-    assert inst.contact[0].telecom[1].value == "fhir@lists.hl7.org"
-    assert inst.date == fhirtypes.DateTime.validate("2022-09-10T04:52:37+10:00")
-    assert inst.experimental is False
-    assert inst.extension[0].url == (
-    "http://hl7.org/fhir/StructureDefinition/structuredefinition-"
-    "fmm"
-    )
-    assert inst.extension[0].valueInteger == 3
-    assert inst.extension[1].url == (
-    "http://hl7.org/fhir/StructureDefinition/structuredefinition-"
-    "standards-status"
-    )
-    assert inst.extension[1].valueCode == "trial-use"
-    assert inst.id == "Measure-submit-data"
-    assert inst.instance is True
-    assert inst.kind == "operation"
-    assert inst.name == "SubmitData"
-    assert inst.parameter[0].documentation == "The measure report being submitted"
-    assert inst.parameter[0].max == "1"
-    assert inst.parameter[0].min == 1
-    assert inst.parameter[0].name == "measureReport"
-    assert inst.parameter[0].type == "MeasureReport"
-    assert inst.parameter[0].use == "in"
-    assert inst.parameter[1].documentation == (
-    "The individual resources that make up the data-of-interest "
-    "being submitted"
-    )
-    assert inst.parameter[1].max == "*"
-    assert inst.parameter[1].min == 0
-    assert inst.parameter[1].name == "resource"
-    assert inst.parameter[1].type == "Resource"
-    assert inst.parameter[1].use == "in"
-    assert inst.publisher == "HL7 (FHIR Project)"
-    assert inst.resource[0] == "Measure"
-    assert inst.status == "draft"
-    assert inst.system is False
-    assert inst.text.status == "extensions"
-    assert inst.title == "Submit Data"
-    assert inst.type is True
-    assert inst.url == "http://hl7.org/fhir/OperationDefinition/Measure-submit-data"
-    assert inst.version == "5.0.0-ballot"
+    assert inst.version == "5.0.0-draft-final"
 
 
 def test_operationdefinition_10(base_settings):
     """No. 10 tests collection for OperationDefinition.
-    Test File: operation-measure-submit-data.json
+    Test File: operation-coverageeligibilityrequest-submit.json
     """
     filename = (
-        base_settings["unittest_data_dir"] / "operation-measure-submit-data.json"
+        base_settings["unittest_data_dir"] / "operation-coverageeligibilityrequest-submit.json"
     )
     inst = operationdefinition.OperationDefinition.parse_file(
         filename, content_type="application/json", encoding="utf-8"

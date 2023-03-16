@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/Consent
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 import typing
 from pydantic import Field
@@ -56,18 +56,35 @@ class Consent(domainresource.DomainResource):
 		enum_reference_types=["HealthcareService", "Organization", "Patient", "Practitioner"],
 	)
 	
-    dateTime: fhirtypes.DateTime = Field(
+    date: fhirtypes.Date = Field(
 		None,
-		alias="dateTime",
-		title="When consent was agreed to",
-		description="Date and time the consent instance was agreed to.",
+		alias="date",
+		title="Fully executed date of the consent",
+		description="Date the consent instance was agreed to.",
         # if property is element of this resource.
         element_property=True,
 	)
-    dateTime__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
+    date__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
         None,
-        alias="_dateTime",
-        title="Extension field for ``dateTime``."
+        alias="_date",
+        title="Extension field for ``date``."
+    )
+	
+    decision: fhirtypes.Code = Field(
+		None,
+		alias="decision",
+		title="deny | permit",
+		description="Action to take - permit or deny - as default.",
+        # if property is element of this resource.
+        element_property=True,
+        # note: Enum values can be used in validation,
+        # but use in your own responsibilities, read official FHIR documentation.
+		enum_values=["deny", "permit"],
+	)
+    decision__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
+        None,
+        alias="_decision",
+        title="Extension field for ``decision``."
     )
 	
     grantee: typing.List[fhirtypes.ReferenceType] = Field(
@@ -119,6 +136,18 @@ class Consent(domainresource.DomainResource):
 		enum_reference_types=["HealthcareService", "Organization", "Patient", "Practitioner"],
 	)
 	
+    period: fhirtypes.PeriodType = Field(
+		None,
+		alias="period",
+		title="Effective period for this Consent",
+		description=(
+    "Effective period for this Consent Resource and all provisions unless "
+    "specified in that provision."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+	)
+	
     policyBasis: fhirtypes.ConsentPolicyBasisType = Field(
 		None,
 		alias="policyBasis",
@@ -147,7 +176,7 @@ class Consent(domainresource.DomainResource):
 		enum_reference_types=["DocumentReference"],
 	)
 	
-    provision: fhirtypes.ConsentProvisionType = Field(
+    provision: typing.List[fhirtypes.ConsentProvisionType] = Field(
 		None,
 		alias="provision",
 		title="Constraints to the base Consent.policyRule/Consent.policy",
@@ -248,7 +277,7 @@ class Consent(domainresource.DomainResource):
         ``Consent`` according specification,
         with preserving original sequence order.
         """
-        return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "identifier", "status", "category", "subject", "dateTime", "grantor", "grantee", "manager", "controller", "sourceAttachment", "sourceReference", "regulatoryBasis", "policyBasis", "policyText", "verification", "provision"]
+        return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "identifier", "status", "category", "subject", "date", "period", "grantor", "grantee", "manager", "controller", "sourceAttachment", "sourceReference", "regulatoryBasis", "policyBasis", "policyText", "verification", "decision", "provision"]
 
 
     @root_validator(pre=True, allow_reuse=True)
@@ -381,8 +410,8 @@ class ConsentProvision(backboneelement.BackboneElement):
     action: typing.List[fhirtypes.CodeableConceptType] = Field(
 		None,
 		alias="action",
-		title="Actions controlled by this rule",
-		description="Actions controlled by this Rule.",
+		title="Actions controlled by this provision",
+		description=None,
         # if property is element of this resource.
         element_property=True,
 	)
@@ -390,23 +419,10 @@ class ConsentProvision(backboneelement.BackboneElement):
     actor: typing.List[fhirtypes.ConsentProvisionActorType] = Field(
 		None,
 		alias="actor",
-		title="Who|what controlled by this rule (or group, by role)",
+		title="Who|what controlled by this provision (or group, by role)",
 		description=(
-    "Who or what is controlled by this rule. Use group to identify a set of"
-    " actors by some property they share (e.g. 'admitting officers')."
-    ),
-        # if property is element of this resource.
-        element_property=True,
-	)
-	
-    class_fhir: typing.List[fhirtypes.CodingType] = Field(
-		None,
-		alias="class",
-		title="e.g. Resource Type, Profile, CDA, etc.",
-		description=(
-    "The class of information covered by this rule. The type can be a FHIR "
-    "resource type, a profile on a type, or a CDA document, or some other "
-    "type that indicates what sort of information the consent relates to."
+    "Who or what is controlled by this provision. Use group to identify a "
+    "set of actors by some property they share (e.g. 'admitting officers')."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -416,7 +432,7 @@ class ConsentProvision(backboneelement.BackboneElement):
 		None,
 		alias="code",
 		title="e.g. LOINC or SNOMED CT code, etc. in the content",
-		description="If this code is found in an instance, then the rule applies.",
+		description="If this code is found in an instance, then the provision applies.",
         # if property is element of this resource.
         element_property=True,
 	)
@@ -424,9 +440,9 @@ class ConsentProvision(backboneelement.BackboneElement):
     data: typing.List[fhirtypes.ConsentProvisionDataType] = Field(
 		None,
 		alias="data",
-		title="Data controlled by this rule",
+		title="Data controlled by this provision",
 		description=(
-    "The resources controlled by this rule if specific resources are "
+    "The resources controlled by this provision if specific resources are "
     "referenced."
     ),
         # if property is element of this resource.
@@ -436,10 +452,23 @@ class ConsentProvision(backboneelement.BackboneElement):
     dataPeriod: fhirtypes.PeriodType = Field(
 		None,
 		alias="dataPeriod",
-		title="Timeframe for data controlled by this rule",
+		title="Timeframe for data controlled by this provision",
 		description=(
     "Clinical or Operational Relevant period of time that bounds the data "
-    "controlled by this rule."
+    "controlled by this provision."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+	)
+	
+    documentType: typing.List[fhirtypes.CodingType] = Field(
+		None,
+		alias="documentType",
+		title="e.g. Resource Type, Profile, CDA, etc",
+		description=(
+    "The documentType(s) covered by this provision. The type can be a CDA "
+    "document, or some other type that indicates what sort of information "
+    "the consent relates to."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -460,8 +489,8 @@ class ConsentProvision(backboneelement.BackboneElement):
     period: fhirtypes.PeriodType = Field(
 		None,
 		alias="period",
-		title="Timeframe for this rule",
-		description="The timeframe in this rule is valid.",
+		title="Timeframe for this provision",
+		description=None,
         # if property is element of this resource.
         element_property=True,
 	)
@@ -469,8 +498,11 @@ class ConsentProvision(backboneelement.BackboneElement):
     provision: typing.List[fhirtypes.ConsentProvisionType] = Field(
 		None,
 		alias="provision",
-		title="Nested Exception Rules",
-		description="Rules which provide exceptions to the base rule or subrules.",
+		title="Nested Exception Provisions",
+		description=(
+    "Provisions which provide exceptions to the base provision or "
+    "subprovisions."
+    ),
         # if property is element of this resource.
         element_property=True,
 	)
@@ -478,10 +510,23 @@ class ConsentProvision(backboneelement.BackboneElement):
     purpose: typing.List[fhirtypes.CodingType] = Field(
 		None,
 		alias="purpose",
-		title="Context of activities covered by this rule",
+		title="Context of activities covered by this provision",
 		description=(
     "The context of the activities a user is taking - why the user is "
-    "accessing the data - that are controlled by this rule."
+    "accessing the data - that are controlled by this provision."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+	)
+	
+    resourceType: typing.List[fhirtypes.CodingType] = Field(
+		None,
+		alias="resourceType",
+		title="e.g. Resource Type, Profile, etc",
+		description=(
+    "The resourceType(s) covered by this provision. The type can be a FHIR "
+    "resource type or a profile on a type that indicates what information "
+    "the consent relates to."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -498,33 +543,13 @@ class ConsentProvision(backboneelement.BackboneElement):
         # if property is element of this resource.
         element_property=True,
 	)
-	
-    type: fhirtypes.Code = Field(
-		None,
-		alias="type",
-		title="deny | permit",
-		description=(
-    "Action  to take - permit or deny - when the rule conditions are met.  "
-    "Not permitted in root rule, required in all nested rules."
-    ),
-        # if property is element of this resource.
-        element_property=True,
-        # note: Enum values can be used in validation,
-        # but use in your own responsibilities, read official FHIR documentation.
-		enum_values=["deny", "permit"],
-	)
-    type__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
-        None,
-        alias="_type",
-        title="Extension field for ``type``."
-    )
     @classmethod
     def elements_sequence(cls):
         """returning all elements names from
         ``ConsentProvision`` according specification,
         with preserving original sequence order.
         """
-        return ["id", "extension", "modifierExtension", "type", "period", "actor", "action", "securityLabel", "purpose", "class", "code", "dataPeriod", "data", "expression", "provision"]
+        return ["id", "extension", "modifierExtension", "period", "actor", "action", "securityLabel", "purpose", "documentType", "resourceType", "code", "dataPeriod", "data", "expression", "provision"]
 
 
 
@@ -533,8 +558,8 @@ class ConsentProvisionActor(backboneelement.BackboneElement):
     Resource StructureDefinition, instead used to enable Extensibility feature
     for FHIR Primitive Data Types.
 
-    Who|what controlled by this rule (or group, by role).
-    Who or what is controlled by this rule. Use group to identify a set of
+    Who|what controlled by this provision (or group, by role).
+    Who or what is controlled by this provision. Use group to identify a set of
     actors by some property they share (e.g. 'admitting officers').
     """
     resource_type = Field("ConsentProvisionActor", const=True)
@@ -580,8 +605,9 @@ class ConsentProvisionData(backboneelement.BackboneElement):
     Resource StructureDefinition, instead used to enable Extensibility feature
     for FHIR Primitive Data Types.
 
-    Data controlled by this rule.
-    The resources controlled by this rule if specific resources are referenced.
+    Data controlled by this provision.
+    The resources controlled by this provision if specific resources are
+    referenced.
     """
     resource_type = Field("ConsentProvisionData", const=True)
 	

@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/MedicationAdministration
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 from pydantic.validators import bytes_validator  # noqa: F401
 from fhir.resources import fhirtypes  # noqa: F401
@@ -29,8 +29,8 @@ def impl_medicationadministration_1(inst):
     assert inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
     assert inst.occurencePeriod.end == fhirtypes.DateTime.validate("2015-01-16T02:03:00+01:00")
     assert inst.occurencePeriod.start == fhirtypes.DateTime.validate("2015-01-15T22:03:00+01:00")
-    assert inst.performer[0].actor.display == "Patrick Pump"
-    assert inst.performer[0].actor.reference == "Practitioner/f007"
+    assert inst.performer[0].actor.reference.display == "Patrick Pump"
+    assert inst.performer[0].actor.reference.reference == "Practitioner/f007"
     assert inst.request.reference == "MedicationRequest/medrx0305"
     assert inst.status == "completed"
     assert inst.subject.display == "Donald Duck"
@@ -88,8 +88,8 @@ def impl_medicationadministration_2(inst):
     assert inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
     assert inst.occurencePeriod.end == fhirtypes.DateTime.validate("2015-01-15T14:30:00+01:00")
     assert inst.occurencePeriod.start == fhirtypes.DateTime.validate("2015-01-15T04:30:00+01:00")
-    assert inst.performer[0].actor.display == "Patrick Pump"
-    assert inst.performer[0].actor.reference == "Practitioner/f007"
+    assert inst.performer[0].actor.reference.display == "Patrick Pump"
+    assert inst.performer[0].actor.reference.reference == "Practitioner/f007"
     assert inst.request.reference == "MedicationRequest/medrx0319"
     assert inst.status == "entered-in-error"
     assert inst.subject.display == "Donald Duck"
@@ -141,8 +141,8 @@ def impl_medicationadministration_3(inst):
     assert inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
     assert inst.occurencePeriod.end == fhirtypes.DateTime.validate("2015-01-15T14:30:00+01:00")
     assert inst.occurencePeriod.start == fhirtypes.DateTime.validate("2015-01-15T04:30:00+01:00")
-    assert inst.performer[0].actor.display == "Patrick Pump"
-    assert inst.performer[0].actor.reference == "Practitioner/f007"
+    assert inst.performer[0].actor.reference.display == "Patrick Pump"
+    assert inst.performer[0].actor.reference.reference == "Practitioner/f007"
     assert inst.performer[0].function.coding[0].code == "performer"
     assert inst.performer[0].function.coding[0].display == "Performer"
     assert inst.performer[0].function.coding[0].system == (
@@ -203,8 +203,8 @@ def impl_medicationadministration_4(inst):
     assert inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
     assert inst.occurencePeriod.end == fhirtypes.DateTime.validate("2015-01-15T14:30:00+01:00")
     assert inst.occurencePeriod.start == fhirtypes.DateTime.validate("2015-01-15T04:30:00+01:00")
-    assert inst.performer[0].actor.display == "Patrick Pump"
-    assert inst.performer[0].actor.reference == "Practitioner/f007"
+    assert inst.performer[0].actor.reference.display == "Patrick Pump"
+    assert inst.performer[0].actor.reference.reference == "Practitioner/f007"
     assert inst.request.reference == "MedicationRequest/medrx0316"
     assert inst.status == "completed"
     assert inst.subject.display == "Donald Duck"
@@ -256,8 +256,8 @@ def impl_medicationadministration_5(inst):
     assert inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
     assert inst.occurencePeriod.end == fhirtypes.DateTime.validate("2015-01-16T02:03:00+01:00")
     assert inst.occurencePeriod.start == fhirtypes.DateTime.validate("2015-01-15T22:03:00+01:00")
-    assert inst.performer[0].actor.display == "Patrick Pump"
-    assert inst.performer[0].actor.reference == "Practitioner/f007"
+    assert inst.performer[0].actor.reference.display == "Patrick Pump"
+    assert inst.performer[0].actor.reference.reference == "Practitioner/f007"
     assert inst.request.reference == "MedicationRequest/medrx0306"
     assert inst.status == "completed"
     assert inst.subject.display == "Donald Duck"
@@ -308,8 +308,8 @@ def impl_medicationadministration_6(inst):
     assert inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
     assert inst.occurencePeriod.end == fhirtypes.DateTime.validate("2015-01-16T02:03:00+01:00")
     assert inst.occurencePeriod.start == fhirtypes.DateTime.validate("2015-01-15T22:03:00+01:00")
-    assert inst.performer[0].actor.display == "Patrick Pump"
-    assert inst.performer[0].actor.reference == "Practitioner/f007"
+    assert inst.performer[0].actor.reference.display == "Patrick Pump"
+    assert inst.performer[0].actor.reference.reference == "Practitioner/f007"
     assert inst.reason[0].concept.coding[0].code == "c"
     assert inst.reason[0].concept.coding[0].display == "Emergency"
     assert inst.reason[0].concept.coding[0].system == (
@@ -381,8 +381,8 @@ def impl_medicationadministration_7(inst):
     assert inst.occurencePeriod.end == fhirtypes.DateTime.validate("2015-01-15T14:30:00+01:00")
     assert inst.occurencePeriod.start == fhirtypes.DateTime.validate("2015-01-15T04:30:00+01:00")
     assert inst.partOf[0].reference == "Procedure/biopsy"
-    assert inst.performer[0].actor.display == "Patrick Pump"
-    assert inst.performer[0].actor.reference == "Practitioner/f007"
+    assert inst.performer[0].actor.reference.display == "Patrick Pump"
+    assert inst.performer[0].actor.reference.reference == "Practitioner/f007"
     assert inst.reason[0].concept.coding[0].code == "b"
     assert inst.reason[0].concept.coding[0].display == "Given as Ordered"
     assert inst.reason[0].concept.coding[0].system == (
@@ -470,7 +470,7 @@ def test_medicationadministration_8(base_settings):
 
 def impl_medicationadministration_9(inst):
     assert inst.contained[0].id == "med0313"
-    assert inst.device[0].reference == "Device/f001"
+    assert inst.device[0].reference.reference == "Device/f001"
     assert inst.dosage.dose.code == "mg"
     assert inst.dosage.dose.system == "http://unitsofmeasure.org"
     assert inst.dosage.dose.unit == "mg"
@@ -498,8 +498,8 @@ def impl_medicationadministration_9(inst):
     assert inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
     assert inst.occurencePeriod.end == fhirtypes.DateTime.validate("2015-01-15T14:30:00+01:00")
     assert inst.occurencePeriod.start == fhirtypes.DateTime.validate("2015-01-15T04:30:00+01:00")
-    assert inst.performer[0].actor.display == "Patrick Pump"
-    assert inst.performer[0].actor.reference == "Practitioner/f007"
+    assert inst.performer[0].actor.reference.display == "Patrick Pump"
+    assert inst.performer[0].actor.reference.reference == "Practitioner/f007"
     assert inst.performer[0].function.coding[0].code == "performer"
     assert inst.performer[0].function.coding[0].display == "Performer"
     assert inst.performer[0].function.coding[0].system == (
@@ -537,7 +537,7 @@ def test_medicationadministration_9(base_settings):
 
 def impl_medicationadministration_10(inst):
     assert inst.contained[0].id == "med0318"
-    assert inst.device[0].reference == "Device/f001"
+    assert inst.device[0].reference.reference == "Device/f001"
     assert inst.dosage.dose.code == "mL"
     assert inst.dosage.dose.system == "http://unitsofmeasure.org"
     assert inst.dosage.dose.unit == "mL"
@@ -565,8 +565,8 @@ def impl_medicationadministration_10(inst):
     assert inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
     assert inst.occurencePeriod.end == fhirtypes.DateTime.validate("2015-01-16T02:03:00+01:00")
     assert inst.occurencePeriod.start == fhirtypes.DateTime.validate("2015-01-15T22:03:00+01:00")
-    assert inst.performer[0].actor.display == "Patrick Pump"
-    assert inst.performer[0].actor.reference == "Practitioner/f007"
+    assert inst.performer[0].actor.reference.display == "Patrick Pump"
+    assert inst.performer[0].actor.reference.reference == "Practitioner/f007"
     assert inst.performer[0].function.coding[0].code == "performer"
     assert inst.performer[0].function.coding[0].display == "Performer"
     assert inst.performer[0].function.coding[0].system == (

@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/Evidence
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 import typing
 from pydantic import Field
@@ -130,15 +130,52 @@ class Evidence(domainresource.DomainResource):
         element_property=True,
 	)
 	
+    copyright: fhirtypes.Markdown = Field(
+		None,
+		alias="copyright",
+		title="Use and/or publishing restrictions",
+		description=(
+    "A copyright statement relating to the Evidence and/or its contents. "
+    "Copyright statements are generally legal restrictions on the use and "
+    "publishing of the Evidence."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+	)
+    copyright__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
+        None,
+        alias="_copyright",
+        title="Extension field for ``copyright``."
+    )
+	
+    copyrightLabel: fhirtypes.String = Field(
+		None,
+		alias="copyrightLabel",
+		title="Copyright holder and year(s)",
+		description=(
+    "A short string (<50 characters), suitable for inclusion in a page "
+    "footer that identifies the copyright holder, effective period, and "
+    "optionally whether rights are resctricted. (e.g. 'All rights "
+    "reserved', 'Some rights reserved')."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+	)
+    copyrightLabel__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
+        None,
+        alias="_copyrightLabel",
+        title="Extension field for ``copyrightLabel``."
+    )
+	
     date: fhirtypes.DateTime = Field(
 		None,
 		alias="date",
 		title="Date last changed",
 		description=(
-    "The date  (and optionally time) when the summary was published. The "
-    "date must change when the business version changes and it must change "
-    "if the status code changes. In addition, it should change when the "
-    "substantive content of the summary changes."
+    "The date  (and optionally time) when the summary was last "
+    "significantly changed. The date must change when the business version "
+    "changes and it must change if the status code changes. In addition, it"
+    " should change when the substantive content of the summary changes."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -224,7 +261,7 @@ class Evidence(domainresource.DomainResource):
     lastReviewDate: fhirtypes.Date = Field(
 		None,
 		alias="lastReviewDate",
-		title="When the summary was last reviewed",
+		title="When the summary was last reviewed by the publisher",
 		description=(
     "The date on which the resource content was last reviewed. Review "
     "happens periodically after approval but does not change the original "
@@ -281,6 +318,23 @@ class Evidence(domainresource.DomainResource):
         None,
         alias="_publisher",
         title="Extension field for ``publisher``."
+    )
+	
+    purpose: fhirtypes.Markdown = Field(
+		None,
+		alias="purpose",
+		title="Why this Evidence is defined",
+		description=(
+    "Explanation of why this Evidence is needed and why it has been "
+    "designed as it has."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+	)
+    purpose__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
+        None,
+        alias="_purpose",
+        title="Extension field for ``purpose``."
     )
 	
     relatedArtifact: typing.List[fhirtypes.RelatedArtifactType] = Field(
@@ -439,13 +493,48 @@ class Evidence(domainresource.DomainResource):
         alias="_version",
         title="Extension field for ``version``."
     )
+	
+    versionAlgorithmCoding: fhirtypes.CodingType = Field(
+		None,
+		alias="versionAlgorithmCoding",
+		title="How to compare versions",
+		description=(
+    "Indicates the mechanism used to compare versions to determine which is"
+    " more current."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+        # Choice of Data Types. i.e versionAlgorithm[x]
+		one_of_many="versionAlgorithm",
+		one_of_many_required=False,
+	)
+	
+    versionAlgorithmString: fhirtypes.String = Field(
+		None,
+		alias="versionAlgorithmString",
+		title="How to compare versions",
+		description=(
+    "Indicates the mechanism used to compare versions to determine which is"
+    " more current."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+        # Choice of Data Types. i.e versionAlgorithm[x]
+		one_of_many="versionAlgorithm",
+		one_of_many_required=False,
+	)
+    versionAlgorithmString__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
+        None,
+        alias="_versionAlgorithmString",
+        title="Extension field for ``versionAlgorithmString``."
+    )
     @classmethod
     def elements_sequence(cls):
         """returning all elements names from
         ``Evidence`` according specification,
         with preserving original sequence order.
         """
-        return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "url", "identifier", "version", "name", "title", "citeAsReference", "citeAsMarkdown", "status", "experimental", "date", "useContext", "approvalDate", "lastReviewDate", "publisher", "contact", "author", "editor", "reviewer", "endorser", "relatedArtifact", "description", "assertion", "note", "variableDefinition", "synthesisType", "studyDesign", "statistic", "certainty"]
+        return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "url", "identifier", "version", "versionAlgorithmString", "versionAlgorithmCoding", "name", "title", "citeAsReference", "citeAsMarkdown", "status", "experimental", "date", "approvalDate", "lastReviewDate", "publisher", "contact", "author", "editor", "reviewer", "endorser", "useContext", "purpose", "copyright", "copyrightLabel", "relatedArtifact", "description", "assertion", "note", "variableDefinition", "synthesisType", "studyDesign", "statistic", "certainty"]
 
 
     @root_validator(pre=True, allow_reuse=True)
@@ -527,7 +616,10 @@ class Evidence(domainresource.DomainResource):
         one_of_many_fields = {
 			"citeAs": [
 			    "citeAsMarkdown",
-			    "citeAsReference"]}
+			    "citeAsReference"],
+			"versionAlgorithm": [
+			    "versionAlgorithmCoding",
+			    "versionAlgorithmString"]}
         for prefix, fields in one_of_many_fields.items():
             assert cls.__fields__[fields[0]].field_info.extra["one_of_many"] == prefix
             required = (
@@ -563,7 +655,7 @@ class EvidenceCertainty(backboneelement.BackboneElement):
     """
     resource_type = Field("EvidenceCertainty", const=True)
 	
-    description: fhirtypes.String = Field(
+    description: fhirtypes.Markdown = Field(
 		None,
 		alias="description",
 		title="Textual description of certainty",
@@ -669,7 +761,7 @@ class EvidenceStatistic(backboneelement.BackboneElement):
         element_property=True,
 	)
 	
-    description: fhirtypes.String = Field(
+    description: fhirtypes.Markdown = Field(
 		None,
 		alias="description",
 		title="Description of content",
@@ -795,7 +887,7 @@ class EvidenceStatisticAttributeEstimate(backboneelement.BackboneElement):
         element_property=True,
 	)
 	
-    description: fhirtypes.String = Field(
+    description: fhirtypes.Markdown = Field(
 		None,
 		alias="description",
 		title="Textual description of the attribute estimate",
@@ -1012,7 +1104,7 @@ class EvidenceStatisticSampleSize(backboneelement.BackboneElement):
     """
     resource_type = Field("EvidenceStatisticSampleSize", const=True)
 	
-    description: fhirtypes.String = Field(
+    description: fhirtypes.Markdown = Field(
 		None,
 		alias="description",
 		title="Textual description of sample size for statistic",

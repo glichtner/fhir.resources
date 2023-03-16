@@ -25,7 +25,11 @@ MODEL_CLASSES = {
      
      "AccountCoverage": (None, ".account"),
      
+     "AccountDiagnosis": (None, ".account"),
+     
      "AccountGuarantor": (None, ".account"),
+     
+     "AccountProcedure": (None, ".account"),
      
      "AccountRelatedAccount": (None, ".account"),
      
@@ -127,13 +131,19 @@ MODEL_CLASSES = {
      
      "BiologicallyDerivedProductCollection": (None, ".biologicallyderivedproduct"),
      
+     "BiologicallyDerivedProductDispense": (None, ".biologicallyderivedproductdispense"),
+     
+     "BiologicallyDerivedProductDispensePerformer": (None, ".biologicallyderivedproductdispense"),
+     
      "BiologicallyDerivedProductProperty": (None, ".biologicallyderivedproduct"),
      
      "BodyStructure": (None, ".bodystructure"),
      
-     "BodyStructureExcludedStructure": (None, ".bodystructure"),
-     
      "BodyStructureIncludedStructure": (None, ".bodystructure"),
+     
+     "BodyStructureIncludedStructureBodyLandmarkOrientation": (None, ".bodystructure"),
+     
+     "BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmark": (None, ".bodystructure"),
      
      "Bundle": (None, ".bundle"),
      
@@ -180,8 +190,6 @@ MODEL_CLASSES = {
      "CarePlan": (None, ".careplan"),
      
      "CarePlanActivity": (None, ".careplan"),
-     
-     "CarePlanActivityPlannedActivityDetail": (None, ".careplan"),
      
      "CareTeam": (None, ".careteam"),
      
@@ -243,6 +251,8 @@ MODEL_CLASSES = {
      
      "ClaimDiagnosis": (None, ".claim"),
      
+     "ClaimEvent": (None, ".claim"),
+     
      "ClaimInsurance": (None, ".claim"),
      
      "ClaimItem": (None, ".claim"),
@@ -271,6 +281,8 @@ MODEL_CLASSES = {
      
      "ClaimResponseError": (None, ".claimresponse"),
      
+     "ClaimResponseEvent": (None, ".claimresponse"),
+     
      "ClaimResponseInsurance": (None, ".claimresponse"),
      
      "ClaimResponseItem": (None, ".claimresponse"),
@@ -280,6 +292,8 @@ MODEL_CLASSES = {
      "ClaimResponseItemDetail": (None, ".claimresponse"),
      
      "ClaimResponseItemDetailSubDetail": (None, ".claimresponse"),
+     
+     "ClaimResponseItemReviewOutcome": (None, ".claimresponse"),
      
      "ClaimResponsePayment": (None, ".claimresponse"),
      
@@ -349,6 +363,8 @@ MODEL_CLASSES = {
      
      "ConceptMap": (None, ".conceptmap"),
      
+     "ConceptMapAdditionalAttribute": (None, ".conceptmap"),
+     
      "ConceptMapGroup": (None, ".conceptmap"),
      
      "ConceptMapGroupElement": (None, ".conceptmap"),
@@ -357,7 +373,11 @@ MODEL_CLASSES = {
      
      "ConceptMapGroupElementTargetDependsOn": (None, ".conceptmap"),
      
+     "ConceptMapGroupElementTargetProperty": (None, ".conceptmap"),
+     
      "ConceptMapGroupUnmapped": (None, ".conceptmap"),
+     
+     "ConceptMapProperty": (None, ".conceptmap"),
      
      "Condition": (None, ".condition"),
      
@@ -439,6 +459,8 @@ MODEL_CLASSES = {
      
      "CoverageEligibilityRequest": (None, ".coverageeligibilityrequest"),
      
+     "CoverageEligibilityRequestEvent": (None, ".coverageeligibilityrequest"),
+     
      "CoverageEligibilityRequestInsurance": (None, ".coverageeligibilityrequest"),
      
      "CoverageEligibilityRequestItem": (None, ".coverageeligibilityrequest"),
@@ -450,6 +472,8 @@ MODEL_CLASSES = {
      "CoverageEligibilityResponse": (None, ".coverageeligibilityresponse"),
      
      "CoverageEligibilityResponseError": (None, ".coverageeligibilityresponse"),
+     
+     "CoverageEligibilityResponseEvent": (None, ".coverageeligibilityresponse"),
      
      "CoverageEligibilityResponseInsurance": (None, ".coverageeligibilityresponse"),
      
@@ -479,13 +503,19 @@ MODEL_CLASSES = {
      
      "Device": (None, ".device"),
      
-     "DeviceAssociation": (None, ".device"),
+     "DeviceAssociation": (None, ".deviceassociation"),
+     
+     "DeviceAssociationOperation": (None, ".deviceassociation"),
+     
+     "DeviceConformsTo": (None, ".device"),
      
      "DeviceDefinition": (None, ".devicedefinition"),
      
      "DeviceDefinitionChargeItem": (None, ".devicedefinition"),
      
      "DeviceDefinitionClassification": (None, ".devicedefinition"),
+     
+     "DeviceDefinitionConformsTo": (None, ".devicedefinition"),
      
      "DeviceDefinitionCorrectiveAction": (None, ".devicedefinition"),
      
@@ -513,8 +543,6 @@ MODEL_CLASSES = {
      
      "DeviceDefinitionVersion": (None, ".devicedefinition"),
      
-     "DeviceDeviceName": (None, ".device"),
-     
      "DeviceDispense": (None, ".devicedispense"),
      
      "DeviceDispensePerformer": (None, ".devicedispense"),
@@ -523,15 +551,13 @@ MODEL_CLASSES = {
      
      "DeviceMetricCalibration": (None, ".devicemetric"),
      
-     "DeviceOperation": (None, ".device"),
+     "DeviceName": (None, ".device"),
      
      "DeviceProperty": (None, ".device"),
      
      "DeviceRequest": (None, ".devicerequest"),
      
      "DeviceRequestParameter": (None, ".devicerequest"),
-     
-     "DeviceSpecialization": (None, ".device"),
      
      "DeviceUdiCarrier": (None, ".device"),
      
@@ -548,10 +574,6 @@ MODEL_CLASSES = {
      "DiagnosticReportSupportingInfo": (None, ".diagnosticreport"),
      
      "Distance": (None, ".distance"),
-     
-     "DocumentManifest": (None, ".documentmanifest"),
-     
-     "DocumentManifestRelated": (None, ".documentmanifest"),
      
      "DocumentReference": (None, ".documentreference"),
      
@@ -579,6 +601,8 @@ MODEL_CLASSES = {
      
      "ElementDefinitionBinding": (None, ".elementdefinition"),
      
+     "ElementDefinitionBindingAdditional": (None, ".elementdefinition"),
+     
      "ElementDefinitionConstraint": (None, ".elementdefinition"),
      
      "ElementDefinitionExample": (None, ".elementdefinition"),
@@ -595,17 +619,21 @@ MODEL_CLASSES = {
      
      "EncounterAdmission": (None, ".encounter"),
      
-     "EncounterClassHistory": (None, ".encounter"),
-     
      "EncounterDiagnosis": (None, ".encounter"),
+     
+     "EncounterHistory": (None, ".encounterhistory"),
+     
+     "EncounterHistoryLocation": (None, ".encounterhistory"),
      
      "EncounterLocation": (None, ".encounter"),
      
      "EncounterParticipant": (None, ".encounter"),
      
-     "EncounterStatusHistory": (None, ".encounter"),
+     "EncounterReason": (None, ".encounter"),
      
      "Endpoint": (None, ".endpoint"),
+     
+     "EndpointPayload": (None, ".endpoint"),
      
      "EnrollmentRequest": (None, ".enrollmentrequest"),
      
@@ -614,6 +642,8 @@ MODEL_CLASSES = {
      "EpisodeOfCare": (None, ".episodeofcare"),
      
      "EpisodeOfCareDiagnosis": (None, ".episodeofcare"),
+     
+     "EpisodeOfCareReason": (None, ".episodeofcare"),
      
      "EpisodeOfCareStatusHistory": (None, ".episodeofcare"),
      
@@ -697,6 +727,8 @@ MODEL_CLASSES = {
      
      "ExplanationOfBenefitDiagnosis": (None, ".explanationofbenefit"),
      
+     "ExplanationOfBenefitEvent": (None, ".explanationofbenefit"),
+     
      "ExplanationOfBenefitInsurance": (None, ".explanationofbenefit"),
      
      "ExplanationOfBenefitItem": (None, ".explanationofbenefit"),
@@ -708,6 +740,8 @@ MODEL_CLASSES = {
      "ExplanationOfBenefitItemDetail": (None, ".explanationofbenefit"),
      
      "ExplanationOfBenefitItemDetailSubDetail": (None, ".explanationofbenefit"),
+     
+     "ExplanationOfBenefitItemReviewOutcome": (None, ".explanationofbenefit"),
      
      "ExplanationOfBenefitPayee": (None, ".explanationofbenefit"),
      
@@ -732,6 +766,8 @@ MODEL_CLASSES = {
      "FamilyMemberHistory": (None, ".familymemberhistory"),
      
      "FamilyMemberHistoryCondition": (None, ".familymemberhistory"),
+     
+     "FamilyMemberHistoryParticipant": (None, ".familymemberhistory"),
      
      "FamilyMemberHistoryProcedure": (None, ".familymemberhistory"),
      
@@ -759,9 +795,9 @@ MODEL_CLASSES = {
      
      "GraphDefinitionLink": (None, ".graphdefinition"),
      
-     "GraphDefinitionLinkTarget": (None, ".graphdefinition"),
+     "GraphDefinitionLinkCompartment": (None, ".graphdefinition"),
      
-     "GraphDefinitionLinkTargetCompartment": (None, ".graphdefinition"),
+     "GraphDefinitionNode": (None, ".graphdefinition"),
      
      "Group": (None, ".group"),
      
@@ -781,11 +817,11 @@ MODEL_CLASSES = {
      
      "ImagingSelection": (None, ".imagingselection"),
      
-     "ImagingSelectionImageRegion": (None, ".imagingselection"),
-     
      "ImagingSelectionInstance": (None, ".imagingselection"),
      
-     "ImagingSelectionInstanceImageRegion": (None, ".imagingselection"),
+     "ImagingSelectionInstanceImageRegion2D": (None, ".imagingselection"),
+     
+     "ImagingSelectionInstanceImageRegion3D": (None, ".imagingselection"),
      
      "ImagingSelectionPerformer": (None, ".imagingselection"),
      
@@ -867,11 +903,25 @@ MODEL_CLASSES = {
      
      "InsurancePlanPlanSpecificCostBenefitCost": (None, ".insuranceplan"),
      
+     "InventoryItem": (None, ".inventoryitem"),
+     
+     "InventoryItemAssociation": (None, ".inventoryitem"),
+     
+     "InventoryItemCharacteristic": (None, ".inventoryitem"),
+     
+     "InventoryItemDescription": (None, ".inventoryitem"),
+     
+     "InventoryItemInstance": (None, ".inventoryitem"),
+     
+     "InventoryItemName": (None, ".inventoryitem"),
+     
+     "InventoryItemResponsibleOrganization": (None, ".inventoryitem"),
+     
      "InventoryReport": (None, ".inventoryreport"),
      
      "InventoryReportInventoryListing": (None, ".inventoryreport"),
      
-     "InventoryReportInventoryListingItems": (None, ".inventoryreport"),
+     "InventoryReportInventoryListingItem": (None, ".inventoryreport"),
      
      "Invoice": (None, ".invoice"),
      
@@ -993,13 +1043,11 @@ MODEL_CLASSES = {
      
      "MedicationRequestDispenseRequestInitialFill": (None, ".medicationrequest"),
      
-     "MedicationRequestDose": (None, ".medicationrequest"),
-     
      "MedicationRequestSubstitution": (None, ".medicationrequest"),
      
-     "MedicationUsage": (None, ".medicationusage"),
+     "MedicationStatement": (None, ".medicationstatement"),
      
-     "MedicationUsageAdherence": (None, ".medicationusage"),
+     "MedicationStatementAdherence": (None, ".medicationstatement"),
      
      "MedicinalProductDefinition": (None, ".medicinalproductdefinition"),
      
@@ -1209,6 +1257,8 @@ MODEL_CLASSES = {
      
      "Practitioner": (None, ".practitioner"),
      
+     "PractitionerCommunication": (None, ".practitioner"),
+     
      "PractitionerQualification": (None, ".practitioner"),
      
      "PractitionerRole": (None, ".practitionerrole"),
@@ -1291,8 +1341,6 @@ MODEL_CLASSES = {
      
      "ResearchStudyComparisonGroup": (None, ".researchstudy"),
      
-     "ResearchStudyFocus": (None, ".researchstudy"),
-     
      "ResearchStudyLabel": (None, ".researchstudy"),
      
      "ResearchStudyObjective": (None, ".researchstudy"),
@@ -1302,8 +1350,6 @@ MODEL_CLASSES = {
      "ResearchStudyProgressStatus": (None, ".researchstudy"),
      
      "ResearchStudyRecruitment": (None, ".researchstudy"),
-     
-     "ResearchStudyWebLocation": (None, ".researchstudy"),
      
      "ResearchSubject": (None, ".researchsubject"),
      
@@ -1324,6 +1370,12 @@ MODEL_CLASSES = {
      "SearchParameterComponent": (None, ".searchparameter"),
      
      "ServiceRequest": (None, ".servicerequest"),
+     
+     "ServiceRequestOrderDetail": (None, ".servicerequest"),
+     
+     "ServiceRequestOrderDetailParameter": (None, ".servicerequest"),
+     
+     "ServiceRequestPatientInstruction": (None, ".servicerequest"),
      
      "Signature": (None, ".signature"),
      
@@ -1361,6 +1413,8 @@ MODEL_CLASSES = {
      
      "StructureMap": (None, ".structuremap"),
      
+     "StructureMapConst": (None, ".structuremap"),
+     
      "StructureMapGroup": (None, ".structuremap"),
      
      "StructureMapGroupInput": (None, ".structuremap"),
@@ -1381,6 +1435,8 @@ MODEL_CLASSES = {
      
      "SubscriptionFilterBy": (None, ".subscription"),
      
+     "SubscriptionParameter": (None, ".subscription"),
+     
      "SubscriptionStatus": (None, ".subscriptionstatus"),
      
      "SubscriptionStatusNotificationEvent": (None, ".subscriptionstatus"),
@@ -1400,6 +1456,8 @@ MODEL_CLASSES = {
      "Substance": (None, ".substance"),
      
      "SubstanceDefinition": (None, ".substancedefinition"),
+     
+     "SubstanceDefinitionCharacterization": (None, ".substancedefinition"),
      
      "SubstanceDefinitionCode": (None, ".substancedefinition"),
      
@@ -1485,6 +1543,8 @@ MODEL_CLASSES = {
      
      "TaskOutput": (None, ".task"),
      
+     "TaskPerformer": (None, ".task"),
+     
      "TaskRestriction": (None, ".task"),
      
      "TerminologyCapabilities": (None, ".terminologycapabilities"),
@@ -1509,6 +1569,22 @@ MODEL_CLASSES = {
      
      "TerminologyCapabilitiesValidateCode": (None, ".terminologycapabilities"),
      
+     "TestPlan": (None, ".testplan"),
+     
+     "TestPlanDependencies": (None, ".testplan"),
+     
+     "TestPlanTestCase": (None, ".testplan"),
+     
+     "TestPlanTestCaseAssertions": (None, ".testplan"),
+     
+     "TestPlanTestCaseDependencies": (None, ".testplan"),
+     
+     "TestPlanTestCaseTestData": (None, ".testplan"),
+     
+     "TestPlanTestCaseTestRun": (None, ".testplan"),
+     
+     "TestPlanTestCaseTestRunScript": (None, ".testplan"),
+     
      "TestReport": (None, ".testreport"),
      
      "TestReportParticipant": (None, ".testreport"),
@@ -1518,6 +1594,8 @@ MODEL_CLASSES = {
      "TestReportSetupAction": (None, ".testreport"),
      
      "TestReportSetupActionAssert": (None, ".testreport"),
+     
+     "TestReportSetupActionAssertRequirement": (None, ".testreport"),
      
      "TestReportSetupActionOperation": (None, ".testreport"),
      
@@ -1550,6 +1628,8 @@ MODEL_CLASSES = {
      "TestScriptSetupAction": (None, ".testscript"),
      
      "TestScriptSetupActionAssert": (None, ".testscript"),
+     
+     "TestScriptSetupActionAssertRequirement": (None, ".testscript"),
      
      "TestScriptSetupActionOperation": (None, ".testscript"),
      
@@ -1764,9 +1844,17 @@ def accountcoverage_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel])
 
 	return fhir_model_validator("AccountCoverage", v)
 
+def accountdiagnosis_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
+
+	return fhir_model_validator("AccountDiagnosis", v)
+
 def accountguarantor_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
 
 	return fhir_model_validator("AccountGuarantor", v)
+
+def accountprocedure_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
+
+	return fhir_model_validator("AccountProcedure", v)
 
 def accountrelatedaccount_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
 
@@ -1968,6 +2056,14 @@ def biologicallyderivedproductcollection_validator(v: Union[StrBytes, dict, Path
 
 	return fhir_model_validator("BiologicallyDerivedProductCollection", v)
 
+def biologicallyderivedproductdispense_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
+
+	return fhir_model_validator("BiologicallyDerivedProductDispense", v)
+
+def biologicallyderivedproductdispenseperformer_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
+
+	return fhir_model_validator("BiologicallyDerivedProductDispensePerformer", v)
+
 def biologicallyderivedproductproperty_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
 
 	return fhir_model_validator("BiologicallyDerivedProductProperty", v)
@@ -1976,13 +2072,17 @@ def bodystructure_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
 
 	return fhir_model_validator("BodyStructure", v)
 
-def bodystructureexcludedstructure_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
-
-	return fhir_model_validator("BodyStructureExcludedStructure", v)
-
 def bodystructureincludedstructure_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
 
 	return fhir_model_validator("BodyStructureIncludedStructure", v)
+
+def bodystructureincludedstructurebodylandmarkorientation_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
+
+	return fhir_model_validator("BodyStructureIncludedStructureBodyLandmarkOrientation", v)
+
+def bodystructureincludedstructurebodylandmarkorientationdistancefromlandmark_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
+
+	return fhir_model_validator("BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmark", v)
 
 def bundle_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
 
@@ -2075,10 +2175,6 @@ def careplan_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
 def careplanactivity_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
 
 	return fhir_model_validator("CarePlanActivity", v)
-
-def careplanactivityplannedactivitydetail_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
-
-	return fhir_model_validator("CarePlanActivityPlannedActivityDetail", v)
 
 def careteam_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
 
@@ -2200,6 +2296,10 @@ def claimdiagnosis_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
 
 	return fhir_model_validator("ClaimDiagnosis", v)
 
+def claimevent_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
+
+	return fhir_model_validator("ClaimEvent", v)
+
 def claiminsurance_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
 
 	return fhir_model_validator("ClaimInsurance", v)
@@ -2256,6 +2356,10 @@ def claimresponseerror_validator(v: Union[StrBytes, dict, Path, FHIRAbstractMode
 
 	return fhir_model_validator("ClaimResponseError", v)
 
+def claimresponseevent_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
+
+	return fhir_model_validator("ClaimResponseEvent", v)
+
 def claimresponseinsurance_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
 
 	return fhir_model_validator("ClaimResponseInsurance", v)
@@ -2275,6 +2379,10 @@ def claimresponseitemdetail_validator(v: Union[StrBytes, dict, Path, FHIRAbstrac
 def claimresponseitemdetailsubdetail_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
 
 	return fhir_model_validator("ClaimResponseItemDetailSubDetail", v)
+
+def claimresponseitemreviewoutcome_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
+
+	return fhir_model_validator("ClaimResponseItemReviewOutcome", v)
 
 def claimresponsepayment_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
 
@@ -2412,6 +2520,10 @@ def conceptmap_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
 
 	return fhir_model_validator("ConceptMap", v)
 
+def conceptmapadditionalattribute_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
+
+	return fhir_model_validator("ConceptMapAdditionalAttribute", v)
+
 def conceptmapgroup_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
 
 	return fhir_model_validator("ConceptMapGroup", v)
@@ -2428,9 +2540,17 @@ def conceptmapgroupelementtargetdependson_validator(v: Union[StrBytes, dict, Pat
 
 	return fhir_model_validator("ConceptMapGroupElementTargetDependsOn", v)
 
+def conceptmapgroupelementtargetproperty_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
+
+	return fhir_model_validator("ConceptMapGroupElementTargetProperty", v)
+
 def conceptmapgroupunmapped_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
 
 	return fhir_model_validator("ConceptMapGroupUnmapped", v)
+
+def conceptmapproperty_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
+
+	return fhir_model_validator("ConceptMapProperty", v)
 
 def condition_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
 
@@ -2592,6 +2712,10 @@ def coverageeligibilityrequest_validator(v: Union[StrBytes, dict, Path, FHIRAbst
 
 	return fhir_model_validator("CoverageEligibilityRequest", v)
 
+def coverageeligibilityrequestevent_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
+
+	return fhir_model_validator("CoverageEligibilityRequestEvent", v)
+
 def coverageeligibilityrequestinsurance_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
 
 	return fhir_model_validator("CoverageEligibilityRequestInsurance", v)
@@ -2615,6 +2739,10 @@ def coverageeligibilityresponse_validator(v: Union[StrBytes, dict, Path, FHIRAbs
 def coverageeligibilityresponseerror_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
 
 	return fhir_model_validator("CoverageEligibilityResponseError", v)
+
+def coverageeligibilityresponseevent_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
+
+	return fhir_model_validator("CoverageEligibilityResponseEvent", v)
 
 def coverageeligibilityresponseinsurance_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
 
@@ -2676,6 +2804,14 @@ def deviceassociation_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel
 
 	return fhir_model_validator("DeviceAssociation", v)
 
+def deviceassociationoperation_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
+
+	return fhir_model_validator("DeviceAssociationOperation", v)
+
+def deviceconformsto_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
+
+	return fhir_model_validator("DeviceConformsTo", v)
+
 def devicedefinition_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
 
 	return fhir_model_validator("DeviceDefinition", v)
@@ -2687,6 +2823,10 @@ def devicedefinitionchargeitem_validator(v: Union[StrBytes, dict, Path, FHIRAbst
 def devicedefinitionclassification_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
 
 	return fhir_model_validator("DeviceDefinitionClassification", v)
+
+def devicedefinitionconformsto_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
+
+	return fhir_model_validator("DeviceDefinitionConformsTo", v)
 
 def devicedefinitioncorrectiveaction_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
 
@@ -2740,10 +2880,6 @@ def devicedefinitionversion_validator(v: Union[StrBytes, dict, Path, FHIRAbstrac
 
 	return fhir_model_validator("DeviceDefinitionVersion", v)
 
-def devicedevicename_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
-
-	return fhir_model_validator("DeviceDeviceName", v)
-
 def devicedispense_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
 
 	return fhir_model_validator("DeviceDispense", v)
@@ -2760,9 +2896,9 @@ def devicemetriccalibration_validator(v: Union[StrBytes, dict, Path, FHIRAbstrac
 
 	return fhir_model_validator("DeviceMetricCalibration", v)
 
-def deviceoperation_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
+def devicename_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
 
-	return fhir_model_validator("DeviceOperation", v)
+	return fhir_model_validator("DeviceName", v)
 
 def deviceproperty_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
 
@@ -2775,10 +2911,6 @@ def devicerequest_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
 def devicerequestparameter_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
 
 	return fhir_model_validator("DeviceRequestParameter", v)
-
-def devicespecialization_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
-
-	return fhir_model_validator("DeviceSpecialization", v)
 
 def deviceudicarrier_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
 
@@ -2811,14 +2943,6 @@ def diagnosticreportsupportinginfo_validator(v: Union[StrBytes, dict, Path, FHIR
 def distance_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
 
 	return fhir_model_validator("Distance", v)
-
-def documentmanifest_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
-
-	return fhir_model_validator("DocumentManifest", v)
-
-def documentmanifestrelated_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
-
-	return fhir_model_validator("DocumentManifestRelated", v)
 
 def documentreference_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
 
@@ -2872,6 +2996,10 @@ def elementdefinitionbinding_validator(v: Union[StrBytes, dict, Path, FHIRAbstra
 
 	return fhir_model_validator("ElementDefinitionBinding", v)
 
+def elementdefinitionbindingadditional_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
+
+	return fhir_model_validator("ElementDefinitionBindingAdditional", v)
+
 def elementdefinitionconstraint_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
 
 	return fhir_model_validator("ElementDefinitionConstraint", v)
@@ -2904,13 +3032,17 @@ def encounteradmission_validator(v: Union[StrBytes, dict, Path, FHIRAbstractMode
 
 	return fhir_model_validator("EncounterAdmission", v)
 
-def encounterclasshistory_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
-
-	return fhir_model_validator("EncounterClassHistory", v)
-
 def encounterdiagnosis_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
 
 	return fhir_model_validator("EncounterDiagnosis", v)
+
+def encounterhistory_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
+
+	return fhir_model_validator("EncounterHistory", v)
+
+def encounterhistorylocation_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
+
+	return fhir_model_validator("EncounterHistoryLocation", v)
 
 def encounterlocation_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
 
@@ -2920,13 +3052,17 @@ def encounterparticipant_validator(v: Union[StrBytes, dict, Path, FHIRAbstractMo
 
 	return fhir_model_validator("EncounterParticipant", v)
 
-def encounterstatushistory_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
+def encounterreason_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
 
-	return fhir_model_validator("EncounterStatusHistory", v)
+	return fhir_model_validator("EncounterReason", v)
 
 def endpoint_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
 
 	return fhir_model_validator("Endpoint", v)
+
+def endpointpayload_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
+
+	return fhir_model_validator("EndpointPayload", v)
 
 def enrollmentrequest_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
 
@@ -2943,6 +3079,10 @@ def episodeofcare_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
 def episodeofcarediagnosis_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
 
 	return fhir_model_validator("EpisodeOfCareDiagnosis", v)
+
+def episodeofcarereason_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
+
+	return fhir_model_validator("EpisodeOfCareReason", v)
 
 def episodeofcarestatushistory_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
 
@@ -3108,6 +3248,10 @@ def explanationofbenefitdiagnosis_validator(v: Union[StrBytes, dict, Path, FHIRA
 
 	return fhir_model_validator("ExplanationOfBenefitDiagnosis", v)
 
+def explanationofbenefitevent_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
+
+	return fhir_model_validator("ExplanationOfBenefitEvent", v)
+
 def explanationofbenefitinsurance_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
 
 	return fhir_model_validator("ExplanationOfBenefitInsurance", v)
@@ -3131,6 +3275,10 @@ def explanationofbenefititemdetail_validator(v: Union[StrBytes, dict, Path, FHIR
 def explanationofbenefititemdetailsubdetail_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
 
 	return fhir_model_validator("ExplanationOfBenefitItemDetailSubDetail", v)
+
+def explanationofbenefititemreviewoutcome_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
+
+	return fhir_model_validator("ExplanationOfBenefitItemReviewOutcome", v)
 
 def explanationofbenefitpayee_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
 
@@ -3179,6 +3327,10 @@ def familymemberhistory_validator(v: Union[StrBytes, dict, Path, FHIRAbstractMod
 def familymemberhistorycondition_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
 
 	return fhir_model_validator("FamilyMemberHistoryCondition", v)
+
+def familymemberhistoryparticipant_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
+
+	return fhir_model_validator("FamilyMemberHistoryParticipant", v)
 
 def familymemberhistoryprocedure_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
 
@@ -3232,13 +3384,13 @@ def graphdefinitionlink_validator(v: Union[StrBytes, dict, Path, FHIRAbstractMod
 
 	return fhir_model_validator("GraphDefinitionLink", v)
 
-def graphdefinitionlinktarget_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
+def graphdefinitionlinkcompartment_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
 
-	return fhir_model_validator("GraphDefinitionLinkTarget", v)
+	return fhir_model_validator("GraphDefinitionLinkCompartment", v)
 
-def graphdefinitionlinktargetcompartment_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
+def graphdefinitionnode_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
 
-	return fhir_model_validator("GraphDefinitionLinkTargetCompartment", v)
+	return fhir_model_validator("GraphDefinitionNode", v)
 
 def group_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
 
@@ -3276,17 +3428,17 @@ def imagingselection_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]
 
 	return fhir_model_validator("ImagingSelection", v)
 
-def imagingselectionimageregion_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
-
-	return fhir_model_validator("ImagingSelectionImageRegion", v)
-
 def imagingselectioninstance_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
 
 	return fhir_model_validator("ImagingSelectionInstance", v)
 
-def imagingselectioninstanceimageregion_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
+def imagingselectioninstanceimageregion2d_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
 
-	return fhir_model_validator("ImagingSelectionInstanceImageRegion", v)
+	return fhir_model_validator("ImagingSelectionInstanceImageRegion2D", v)
+
+def imagingselectioninstanceimageregion3d_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
+
+	return fhir_model_validator("ImagingSelectionInstanceImageRegion3D", v)
 
 def imagingselectionperformer_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
 
@@ -3448,6 +3600,34 @@ def insuranceplanplanspecificcostbenefitcost_validator(v: Union[StrBytes, dict, 
 
 	return fhir_model_validator("InsurancePlanPlanSpecificCostBenefitCost", v)
 
+def inventoryitem_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
+
+	return fhir_model_validator("InventoryItem", v)
+
+def inventoryitemassociation_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
+
+	return fhir_model_validator("InventoryItemAssociation", v)
+
+def inventoryitemcharacteristic_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
+
+	return fhir_model_validator("InventoryItemCharacteristic", v)
+
+def inventoryitemdescription_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
+
+	return fhir_model_validator("InventoryItemDescription", v)
+
+def inventoryiteminstance_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
+
+	return fhir_model_validator("InventoryItemInstance", v)
+
+def inventoryitemname_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
+
+	return fhir_model_validator("InventoryItemName", v)
+
+def inventoryitemresponsibleorganization_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
+
+	return fhir_model_validator("InventoryItemResponsibleOrganization", v)
+
 def inventoryreport_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
 
 	return fhir_model_validator("InventoryReport", v)
@@ -3456,9 +3636,9 @@ def inventoryreportinventorylisting_validator(v: Union[StrBytes, dict, Path, FHI
 
 	return fhir_model_validator("InventoryReportInventoryListing", v)
 
-def inventoryreportinventorylistingitems_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
+def inventoryreportinventorylistingitem_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
 
-	return fhir_model_validator("InventoryReportInventoryListingItems", v)
+	return fhir_model_validator("InventoryReportInventoryListingItem", v)
 
 def invoice_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
 
@@ -3700,21 +3880,17 @@ def medicationrequestdispenserequestinitialfill_validator(v: Union[StrBytes, dic
 
 	return fhir_model_validator("MedicationRequestDispenseRequestInitialFill", v)
 
-def medicationrequestdose_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
-
-	return fhir_model_validator("MedicationRequestDose", v)
-
 def medicationrequestsubstitution_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
 
 	return fhir_model_validator("MedicationRequestSubstitution", v)
 
-def medicationusage_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
+def medicationstatement_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
 
-	return fhir_model_validator("MedicationUsage", v)
+	return fhir_model_validator("MedicationStatement", v)
 
-def medicationusageadherence_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
+def medicationstatementadherence_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
 
-	return fhir_model_validator("MedicationUsageAdherence", v)
+	return fhir_model_validator("MedicationStatementAdherence", v)
 
 def medicinalproductdefinition_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
 
@@ -4132,6 +4308,10 @@ def practitioner_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
 
 	return fhir_model_validator("Practitioner", v)
 
+def practitionercommunication_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
+
+	return fhir_model_validator("PractitionerCommunication", v)
+
 def practitionerqualification_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
 
 	return fhir_model_validator("PractitionerQualification", v)
@@ -4296,10 +4476,6 @@ def researchstudycomparisongroup_validator(v: Union[StrBytes, dict, Path, FHIRAb
 
 	return fhir_model_validator("ResearchStudyComparisonGroup", v)
 
-def researchstudyfocus_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
-
-	return fhir_model_validator("ResearchStudyFocus", v)
-
 def researchstudylabel_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
 
 	return fhir_model_validator("ResearchStudyLabel", v)
@@ -4319,10 +4495,6 @@ def researchstudyprogressstatus_validator(v: Union[StrBytes, dict, Path, FHIRAbs
 def researchstudyrecruitment_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
 
 	return fhir_model_validator("ResearchStudyRecruitment", v)
-
-def researchstudyweblocation_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
-
-	return fhir_model_validator("ResearchStudyWebLocation", v)
 
 def researchsubject_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
 
@@ -4363,6 +4535,18 @@ def searchparametercomponent_validator(v: Union[StrBytes, dict, Path, FHIRAbstra
 def servicerequest_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
 
 	return fhir_model_validator("ServiceRequest", v)
+
+def servicerequestorderdetail_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
+
+	return fhir_model_validator("ServiceRequestOrderDetail", v)
+
+def servicerequestorderdetailparameter_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
+
+	return fhir_model_validator("ServiceRequestOrderDetailParameter", v)
+
+def servicerequestpatientinstruction_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
+
+	return fhir_model_validator("ServiceRequestPatientInstruction", v)
 
 def signature_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
 
@@ -4436,6 +4620,10 @@ def structuremap_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
 
 	return fhir_model_validator("StructureMap", v)
 
+def structuremapconst_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
+
+	return fhir_model_validator("StructureMapConst", v)
+
 def structuremapgroup_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
 
 	return fhir_model_validator("StructureMapGroup", v)
@@ -4476,6 +4664,10 @@ def subscriptionfilterby_validator(v: Union[StrBytes, dict, Path, FHIRAbstractMo
 
 	return fhir_model_validator("SubscriptionFilterBy", v)
 
+def subscriptionparameter_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
+
+	return fhir_model_validator("SubscriptionParameter", v)
+
 def subscriptionstatus_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
 
 	return fhir_model_validator("SubscriptionStatus", v)
@@ -4515,6 +4707,10 @@ def substance_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
 def substancedefinition_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
 
 	return fhir_model_validator("SubstanceDefinition", v)
+
+def substancedefinitioncharacterization_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
+
+	return fhir_model_validator("SubstanceDefinitionCharacterization", v)
 
 def substancedefinitioncode_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
 
@@ -4684,6 +4880,10 @@ def taskoutput_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
 
 	return fhir_model_validator("TaskOutput", v)
 
+def taskperformer_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
+
+	return fhir_model_validator("TaskPerformer", v)
+
 def taskrestriction_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
 
 	return fhir_model_validator("TaskRestriction", v)
@@ -4732,6 +4932,38 @@ def terminologycapabilitiesvalidatecode_validator(v: Union[StrBytes, dict, Path,
 
 	return fhir_model_validator("TerminologyCapabilitiesValidateCode", v)
 
+def testplan_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
+
+	return fhir_model_validator("TestPlan", v)
+
+def testplandependencies_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
+
+	return fhir_model_validator("TestPlanDependencies", v)
+
+def testplantestcase_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
+
+	return fhir_model_validator("TestPlanTestCase", v)
+
+def testplantestcaseassertions_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
+
+	return fhir_model_validator("TestPlanTestCaseAssertions", v)
+
+def testplantestcasedependencies_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
+
+	return fhir_model_validator("TestPlanTestCaseDependencies", v)
+
+def testplantestcasetestdata_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
+
+	return fhir_model_validator("TestPlanTestCaseTestData", v)
+
+def testplantestcasetestrun_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
+
+	return fhir_model_validator("TestPlanTestCaseTestRun", v)
+
+def testplantestcasetestrunscript_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
+
+	return fhir_model_validator("TestPlanTestCaseTestRunScript", v)
+
 def testreport_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
 
 	return fhir_model_validator("TestReport", v)
@@ -4751,6 +4983,10 @@ def testreportsetupaction_validator(v: Union[StrBytes, dict, Path, FHIRAbstractM
 def testreportsetupactionassert_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
 
 	return fhir_model_validator("TestReportSetupActionAssert", v)
+
+def testreportsetupactionassertrequirement_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
+
+	return fhir_model_validator("TestReportSetupActionAssertRequirement", v)
 
 def testreportsetupactionoperation_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
 
@@ -4815,6 +5051,10 @@ def testscriptsetupaction_validator(v: Union[StrBytes, dict, Path, FHIRAbstractM
 def testscriptsetupactionassert_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
 
 	return fhir_model_validator("TestScriptSetupActionAssert", v)
+
+def testscriptsetupactionassertrequirement_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
+
+	return fhir_model_validator("TestScriptSetupActionAssertRequirement", v)
 
 def testscriptsetupactionoperation_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
 
@@ -4967,7 +5207,11 @@ __all__ = [
 	
 	"accountcoverage_validator",
 	
+	"accountdiagnosis_validator",
+	
 	"accountguarantor_validator",
+	
+	"accountprocedure_validator",
 	
 	"accountrelatedaccount_validator",
 	
@@ -5069,13 +5313,19 @@ __all__ = [
 	
 	"biologicallyderivedproductcollection_validator",
 	
+	"biologicallyderivedproductdispense_validator",
+	
+	"biologicallyderivedproductdispenseperformer_validator",
+	
 	"biologicallyderivedproductproperty_validator",
 	
 	"bodystructure_validator",
 	
-	"bodystructureexcludedstructure_validator",
-	
 	"bodystructureincludedstructure_validator",
+	
+	"bodystructureincludedstructurebodylandmarkorientation_validator",
+	
+	"bodystructureincludedstructurebodylandmarkorientationdistancefromlandmark_validator",
 	
 	"bundle_validator",
 	
@@ -5122,8 +5372,6 @@ __all__ = [
 	"careplan_validator",
 	
 	"careplanactivity_validator",
-	
-	"careplanactivityplannedactivitydetail_validator",
 	
 	"careteam_validator",
 	
@@ -5185,6 +5433,8 @@ __all__ = [
 	
 	"claimdiagnosis_validator",
 	
+	"claimevent_validator",
+	
 	"claiminsurance_validator",
 	
 	"claimitem_validator",
@@ -5213,6 +5463,8 @@ __all__ = [
 	
 	"claimresponseerror_validator",
 	
+	"claimresponseevent_validator",
+	
 	"claimresponseinsurance_validator",
 	
 	"claimresponseitem_validator",
@@ -5222,6 +5474,8 @@ __all__ = [
 	"claimresponseitemdetail_validator",
 	
 	"claimresponseitemdetailsubdetail_validator",
+	
+	"claimresponseitemreviewoutcome_validator",
 	
 	"claimresponsepayment_validator",
 	
@@ -5291,6 +5545,8 @@ __all__ = [
 	
 	"conceptmap_validator",
 	
+	"conceptmapadditionalattribute_validator",
+	
 	"conceptmapgroup_validator",
 	
 	"conceptmapgroupelement_validator",
@@ -5299,7 +5555,11 @@ __all__ = [
 	
 	"conceptmapgroupelementtargetdependson_validator",
 	
+	"conceptmapgroupelementtargetproperty_validator",
+	
 	"conceptmapgroupunmapped_validator",
+	
+	"conceptmapproperty_validator",
 	
 	"condition_validator",
 	
@@ -5381,6 +5641,8 @@ __all__ = [
 	
 	"coverageeligibilityrequest_validator",
 	
+	"coverageeligibilityrequestevent_validator",
+	
 	"coverageeligibilityrequestinsurance_validator",
 	
 	"coverageeligibilityrequestitem_validator",
@@ -5392,6 +5654,8 @@ __all__ = [
 	"coverageeligibilityresponse_validator",
 	
 	"coverageeligibilityresponseerror_validator",
+	
+	"coverageeligibilityresponseevent_validator",
 	
 	"coverageeligibilityresponseinsurance_validator",
 	
@@ -5423,11 +5687,17 @@ __all__ = [
 	
 	"deviceassociation_validator",
 	
+	"deviceassociationoperation_validator",
+	
+	"deviceconformsto_validator",
+	
 	"devicedefinition_validator",
 	
 	"devicedefinitionchargeitem_validator",
 	
 	"devicedefinitionclassification_validator",
+	
+	"devicedefinitionconformsto_validator",
 	
 	"devicedefinitioncorrectiveaction_validator",
 	
@@ -5455,8 +5725,6 @@ __all__ = [
 	
 	"devicedefinitionversion_validator",
 	
-	"devicedevicename_validator",
-	
 	"devicedispense_validator",
 	
 	"devicedispenseperformer_validator",
@@ -5465,15 +5733,13 @@ __all__ = [
 	
 	"devicemetriccalibration_validator",
 	
-	"deviceoperation_validator",
+	"devicename_validator",
 	
 	"deviceproperty_validator",
 	
 	"devicerequest_validator",
 	
 	"devicerequestparameter_validator",
-	
-	"devicespecialization_validator",
 	
 	"deviceudicarrier_validator",
 	
@@ -5490,10 +5756,6 @@ __all__ = [
 	"diagnosticreportsupportinginfo_validator",
 	
 	"distance_validator",
-	
-	"documentmanifest_validator",
-	
-	"documentmanifestrelated_validator",
 	
 	"documentreference_validator",
 	
@@ -5521,6 +5783,8 @@ __all__ = [
 	
 	"elementdefinitionbinding_validator",
 	
+	"elementdefinitionbindingadditional_validator",
+	
 	"elementdefinitionconstraint_validator",
 	
 	"elementdefinitionexample_validator",
@@ -5537,17 +5801,21 @@ __all__ = [
 	
 	"encounteradmission_validator",
 	
-	"encounterclasshistory_validator",
-	
 	"encounterdiagnosis_validator",
+	
+	"encounterhistory_validator",
+	
+	"encounterhistorylocation_validator",
 	
 	"encounterlocation_validator",
 	
 	"encounterparticipant_validator",
 	
-	"encounterstatushistory_validator",
+	"encounterreason_validator",
 	
 	"endpoint_validator",
+	
+	"endpointpayload_validator",
 	
 	"enrollmentrequest_validator",
 	
@@ -5556,6 +5824,8 @@ __all__ = [
 	"episodeofcare_validator",
 	
 	"episodeofcarediagnosis_validator",
+	
+	"episodeofcarereason_validator",
 	
 	"episodeofcarestatushistory_validator",
 	
@@ -5639,6 +5909,8 @@ __all__ = [
 	
 	"explanationofbenefitdiagnosis_validator",
 	
+	"explanationofbenefitevent_validator",
+	
 	"explanationofbenefitinsurance_validator",
 	
 	"explanationofbenefititem_validator",
@@ -5650,6 +5922,8 @@ __all__ = [
 	"explanationofbenefititemdetail_validator",
 	
 	"explanationofbenefititemdetailsubdetail_validator",
+	
+	"explanationofbenefititemreviewoutcome_validator",
 	
 	"explanationofbenefitpayee_validator",
 	
@@ -5674,6 +5948,8 @@ __all__ = [
 	"familymemberhistory_validator",
 	
 	"familymemberhistorycondition_validator",
+	
+	"familymemberhistoryparticipant_validator",
 	
 	"familymemberhistoryprocedure_validator",
 	
@@ -5701,9 +5977,9 @@ __all__ = [
 	
 	"graphdefinitionlink_validator",
 	
-	"graphdefinitionlinktarget_validator",
+	"graphdefinitionlinkcompartment_validator",
 	
-	"graphdefinitionlinktargetcompartment_validator",
+	"graphdefinitionnode_validator",
 	
 	"group_validator",
 	
@@ -5723,11 +5999,11 @@ __all__ = [
 	
 	"imagingselection_validator",
 	
-	"imagingselectionimageregion_validator",
-	
 	"imagingselectioninstance_validator",
 	
-	"imagingselectioninstanceimageregion_validator",
+	"imagingselectioninstanceimageregion2d_validator",
+	
+	"imagingselectioninstanceimageregion3d_validator",
 	
 	"imagingselectionperformer_validator",
 	
@@ -5809,11 +6085,25 @@ __all__ = [
 	
 	"insuranceplanplanspecificcostbenefitcost_validator",
 	
+	"inventoryitem_validator",
+	
+	"inventoryitemassociation_validator",
+	
+	"inventoryitemcharacteristic_validator",
+	
+	"inventoryitemdescription_validator",
+	
+	"inventoryiteminstance_validator",
+	
+	"inventoryitemname_validator",
+	
+	"inventoryitemresponsibleorganization_validator",
+	
 	"inventoryreport_validator",
 	
 	"inventoryreportinventorylisting_validator",
 	
-	"inventoryreportinventorylistingitems_validator",
+	"inventoryreportinventorylistingitem_validator",
 	
 	"invoice_validator",
 	
@@ -5935,13 +6225,11 @@ __all__ = [
 	
 	"medicationrequestdispenserequestinitialfill_validator",
 	
-	"medicationrequestdose_validator",
-	
 	"medicationrequestsubstitution_validator",
 	
-	"medicationusage_validator",
+	"medicationstatement_validator",
 	
-	"medicationusageadherence_validator",
+	"medicationstatementadherence_validator",
 	
 	"medicinalproductdefinition_validator",
 	
@@ -6151,6 +6439,8 @@ __all__ = [
 	
 	"practitioner_validator",
 	
+	"practitionercommunication_validator",
+	
 	"practitionerqualification_validator",
 	
 	"practitionerrole_validator",
@@ -6233,8 +6523,6 @@ __all__ = [
 	
 	"researchstudycomparisongroup_validator",
 	
-	"researchstudyfocus_validator",
-	
 	"researchstudylabel_validator",
 	
 	"researchstudyobjective_validator",
@@ -6244,8 +6532,6 @@ __all__ = [
 	"researchstudyprogressstatus_validator",
 	
 	"researchstudyrecruitment_validator",
-	
-	"researchstudyweblocation_validator",
 	
 	"researchsubject_validator",
 	
@@ -6266,6 +6552,12 @@ __all__ = [
 	"searchparametercomponent_validator",
 	
 	"servicerequest_validator",
+	
+	"servicerequestorderdetail_validator",
+	
+	"servicerequestorderdetailparameter_validator",
+	
+	"servicerequestpatientinstruction_validator",
 	
 	"signature_validator",
 	
@@ -6303,6 +6595,8 @@ __all__ = [
 	
 	"structuremap_validator",
 	
+	"structuremapconst_validator",
+	
 	"structuremapgroup_validator",
 	
 	"structuremapgroupinput_validator",
@@ -6323,6 +6617,8 @@ __all__ = [
 	
 	"subscriptionfilterby_validator",
 	
+	"subscriptionparameter_validator",
+	
 	"subscriptionstatus_validator",
 	
 	"subscriptionstatusnotificationevent_validator",
@@ -6342,6 +6638,8 @@ __all__ = [
 	"substance_validator",
 	
 	"substancedefinition_validator",
+	
+	"substancedefinitioncharacterization_validator",
 	
 	"substancedefinitioncode_validator",
 	
@@ -6427,6 +6725,8 @@ __all__ = [
 	
 	"taskoutput_validator",
 	
+	"taskperformer_validator",
+	
 	"taskrestriction_validator",
 	
 	"terminologycapabilities_validator",
@@ -6451,6 +6751,22 @@ __all__ = [
 	
 	"terminologycapabilitiesvalidatecode_validator",
 	
+	"testplan_validator",
+	
+	"testplandependencies_validator",
+	
+	"testplantestcase_validator",
+	
+	"testplantestcaseassertions_validator",
+	
+	"testplantestcasedependencies_validator",
+	
+	"testplantestcasetestdata_validator",
+	
+	"testplantestcasetestrun_validator",
+	
+	"testplantestcasetestrunscript_validator",
+	
 	"testreport_validator",
 	
 	"testreportparticipant_validator",
@@ -6460,6 +6776,8 @@ __all__ = [
 	"testreportsetupaction_validator",
 	
 	"testreportsetupactionassert_validator",
+	
+	"testreportsetupactionassertrequirement_validator",
 	
 	"testreportsetupactionoperation_validator",
 	
@@ -6492,6 +6810,8 @@ __all__ = [
 	"testscriptsetupaction_validator",
 	
 	"testscriptsetupactionassert_validator",
+	
+	"testscriptsetupactionassertrequirement_validator",
 	
 	"testscriptsetupactionoperation_validator",
 	

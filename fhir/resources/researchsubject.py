@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/ResearchSubject
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 import typing
 from pydantic import Field
@@ -23,15 +23,16 @@ class ResearchSubject(domainresource.DomainResource):
     Resource StructureDefinition, instead used to enable Extensibility feature
     for FHIR Primitive Data Types.
 
-    Physical entity which is the primary unit of interest in the study.
-    A physical entity which is the primary unit of operational and/or
-    administrative interest in a study.
+    Participant or object which is the recipient of investigative activities in
+    a study.
+    A ResearchSubject is a participant or object which is the recipient of
+    investigative activities in a research study.
     """
     resource_type = Field("ResearchSubject", const=True)
 	
-    actualArm: fhirtypes.String = Field(
+    actualComparisonGroup: fhirtypes.Id = Field(
 		None,
-		alias="actualArm",
+		alias="actualComparisonGroup",
 		title="What path was followed",
 		description=(
     "The name of the arm in the study the subject actually followed as part"
@@ -40,15 +41,15 @@ class ResearchSubject(domainresource.DomainResource):
         # if property is element of this resource.
         element_property=True,
 	)
-    actualArm__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
+    actualComparisonGroup__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
         None,
-        alias="_actualArm",
-        title="Extension field for ``actualArm``."
+        alias="_actualComparisonGroup",
+        title="Extension field for ``actualComparisonGroup``."
     )
 	
-    assignedArm: fhirtypes.String = Field(
+    assignedComparisonGroup: fhirtypes.Id = Field(
 		None,
-		alias="assignedArm",
+		alias="assignedComparisonGroup",
 		title="What path should be followed",
 		description=(
     "The name of the arm in the study the subject is expected to follow as "
@@ -57,13 +58,13 @@ class ResearchSubject(domainresource.DomainResource):
         # if property is element of this resource.
         element_property=True,
 	)
-    assignedArm__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
+    assignedComparisonGroup__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
         None,
-        alias="_assignedArm",
-        title="Extension field for ``assignedArm``."
+        alias="_assignedComparisonGroup",
+        title="Extension field for ``assignedComparisonGroup``."
     )
 	
-    consent: fhirtypes.ReferenceType = Field(
+    consent: typing.List[fhirtypes.ReferenceType] = Field(
 		None,
 		alias="consent",
 		title="Agreement to participate in study",
@@ -158,7 +159,7 @@ class ResearchSubject(domainresource.DomainResource):
         ``ResearchSubject`` according specification,
         with preserving original sequence order.
         """
-        return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "identifier", "status", "progress", "period", "study", "subject", "assignedArm", "actualArm", "consent"]
+        return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "identifier", "status", "progress", "period", "study", "subject", "assignedComparisonGroup", "actualComparisonGroup", "consent"]
 
 
     @root_validator(pre=True, allow_reuse=True)

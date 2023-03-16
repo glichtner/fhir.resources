@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/EpisodeOfCare
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 from pydantic.validators import bytes_validator  # noqa: F401
 from fhir.resources import fhirtypes  # noqa: F401
@@ -18,11 +18,10 @@ def impl_episodeofcare_1(inst):
     assert inst.careManager.reference == "Practitioner/14"
     assert inst.careTeam[0].display == "example care team"
     assert inst.careTeam[0].reference == "CareTeam/example"
-    assert inst.diagnosis[0].condition.reference.reference == "Condition/stroke"
-    assert inst.diagnosis[0].rank == 1
-    assert inst.diagnosis[0].role.coding[0].code == "CC"
-    assert inst.diagnosis[0].role.coding[0].display == "Chief complaint"
-    assert inst.diagnosis[0].role.coding[0].system == "http://terminology.hl7.org/CodeSystem/diagnosis-role"
+    assert inst.diagnosis[0].condition[0].reference.reference == "Condition/stroke"
+    assert inst.diagnosis[0].use.coding[0].code == "CC"
+    assert inst.diagnosis[0].use.coding[0].display == "Chief complaint"
+    assert inst.diagnosis[0].use.coding[0].system == "http://terminology.hl7.org/CodeSystem/diagnosis-role"
     assert inst.id == "example"
     assert inst.identifier[0].system == "http://example.org/sampleepisodeofcare-identifier"
     assert inst.identifier[0].value == "123"

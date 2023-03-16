@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/Medication
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 import typing
 from pydantic import Field
@@ -50,6 +50,20 @@ class Medication(domainresource.DomainResource):
     ),
         # if property is element of this resource.
         element_property=True,
+	)
+	
+    definition: fhirtypes.ReferenceType = Field(
+		None,
+		alias="definition",
+		title="Knowledge about this medication",
+		description=(
+    "A reference to a knowledge resource that provides more information "
+    "about this medication."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+        # note: Listed Resource Type(s) should be allowed as Reference.
+		enum_reference_types=["MedicationKnowledge"],
 	)
 	
     doseForm: fhirtypes.CodeableConceptType = Field(
@@ -113,7 +127,7 @@ class Medication(domainresource.DomainResource):
         title="Extension field for ``status``."
     )
 	
-    totalVolume: fhirtypes.RatioType = Field(
+    totalVolume: fhirtypes.QuantityType = Field(
 		None,
 		alias="totalVolume",
 		title=(
@@ -137,7 +151,7 @@ class Medication(domainresource.DomainResource):
         ``Medication`` according specification,
         with preserving original sequence order.
         """
-        return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "identifier", "code", "status", "marketingAuthorizationHolder", "doseForm", "totalVolume", "ingredient", "batch"]
+        return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "identifier", "code", "status", "marketingAuthorizationHolder", "doseForm", "totalVolume", "ingredient", "batch", "definition"]
 
 
 

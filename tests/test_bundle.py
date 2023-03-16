@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/Bundle
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 from pydantic.validators import bytes_validator  # noqa: F401
 from fhir.resources import fhirtypes  # noqa: F401
@@ -71,13 +71,16 @@ def impl_bundle_2(inst):
     assert inst.entry[0].request.method == "GET"
     assert inst.entry[0].request.url == "/Patient/example"
     assert inst.entry[1].request.method == "GET"
-    assert inst.entry[1].request.url == "/MedicationUsage?patient=example&_list=$current-medications"
+    assert inst.entry[1].request.url == (
+    "/MedicationStatement?patient=example&_list=$current-"
+    "medications"
+    )
     assert inst.entry[2].request.method == "GET"
     assert inst.entry[2].request.url == "/AllergyIntolerance?patient=example&_list=$current-allergies"
     assert inst.entry[3].request.method == "GET"
     assert inst.entry[3].request.url == "/Condition?patient=example&_list=$current-problems"
     assert inst.entry[4].request.method == "GET"
-    assert inst.entry[4].request.url == "/MedicationUsage?patient=example&notgiven:not=true"
+    assert inst.entry[4].request.url == "/MedicationStatement?patient=example&notgiven:not=true"
     assert inst.id == "bundle-request-medsallergies"
     assert inst.meta.tag[0].code == "HTEST"
     assert inst.meta.tag[0].display == "test health data"
@@ -376,7 +379,7 @@ def test_bundle_9(base_settings):
 
 def impl_bundle_10(inst):
     assert inst.id == "externals"
-    assert inst.meta.lastUpdated == fhirtypes.Instant.validate("2022-09-10T04:52:37.223+10:00")
+    assert inst.meta.lastUpdated == fhirtypes.Instant.validate("2023-03-01T23:03:57.298+11:00")
     assert inst.meta.tag[0].code == "HTEST"
     assert inst.meta.tag[0].display == "test health data"
     assert inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"

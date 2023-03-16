@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/ExampleScenario
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 from pydantic.validators import bytes_validator  # noqa: F401
 from fhir.resources import fhirtypes  # noqa: F401
@@ -240,10 +240,13 @@ def impl_examplescenario_2(inst):
     assert inst.instance[0].title == "Request for a lab procedure"
     assert inst.instance[0].version[0].description == "Initial order"
     assert inst.instance[0].version[0].key == "req1-v1"
+    assert inst.instance[0].version[0].title == "v1- initial"
     assert inst.instance[0].version[1].description == "Order in progress"
     assert inst.instance[0].version[1].key == "req1-v2"
+    assert inst.instance[0].version[1].title == "v2 - in progress"
     assert inst.instance[0].version[2].description == "Order completed"
     assert inst.instance[0].version[2].key == "req1-v3"
+    assert inst.instance[0].version[2].title == "v3 - completed"
     assert inst.instance[1].description == "The task that handles the status updates..."
     assert inst.instance[1].key == "task1"
     assert inst.instance[1].structureType.code == "Task"
@@ -251,12 +254,16 @@ def impl_examplescenario_2(inst):
     assert inst.instance[1].title == "Task"
     assert inst.instance[1].version[0].description == "Initially created"
     assert inst.instance[1].version[0].key == "task1-v1"
+    assert inst.instance[1].version[0].title == "v1 - created"
     assert inst.instance[1].version[1].description == "Accepted"
     assert inst.instance[1].version[1].key == "task1-v2"
+    assert inst.instance[1].version[1].title == "v2 - accepted"
     assert inst.instance[1].version[2].description == "In progress"
     assert inst.instance[1].version[2].key == "task1-v3"
+    assert inst.instance[1].version[2].title == "v3 - in progress"
     assert inst.instance[1].version[3].description == "Completed"
     assert inst.instance[1].version[3].key == "task1-v4"
+    assert inst.instance[1].version[3].title == "v4 - completed"
     assert inst.instance[2].description == "Lab's internal request for the procedure"
     assert inst.instance[2].key == "req.lab1"
     assert inst.instance[2].structureType.code == "ServiceRequest"
@@ -264,13 +271,17 @@ def impl_examplescenario_2(inst):
     assert inst.instance[2].title == "Internal lab request"
     assert inst.instance[2].version[0].description == "Order in progress"
     assert inst.instance[2].version[0].key == "req.lab1-v1"
+    assert inst.instance[2].version[0].title == "v1 - created"
     assert inst.instance[2].version[1].description == "Order in progress"
     assert inst.instance[2].version[1].key == "req.lab1-v2"
+    assert inst.instance[2].version[1].title == "v2 - in progress"
     assert inst.instance[2].version[2].description == "Order completed"
     assert inst.instance[2].version[2].key == "req.lab1-v3"
+    assert inst.instance[2].version[2].title == "v3 - completed"
     assert inst.meta.tag[0].code == "HTEST"
     assert inst.meta.tag[0].display == "test health data"
     assert inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
+    assert inst.name == "LabOrderTrackingWithTask"
     assert inst.process[0].description == (
     "Lab order, status updates handled with Task between CPOE, "
     "EMR and Lab systems"

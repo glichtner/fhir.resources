@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/AdministrableProductDefinition
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 import typing
 from pydantic import Field
@@ -49,6 +49,29 @@ class AdministrableProductDefinition(domainresource.DomainResource):
         # if property is element of this resource.
         element_property=True,
 	)
+	
+    description: fhirtypes.Markdown = Field(
+		None,
+		alias="description",
+		title=(
+    "A general description of the product, when in its final form, suitable"
+    " for administration e.g. effervescent blue liquid, to be swallowed"
+    ),
+		description=(
+    "A general description of the product, when in its final form, suitable"
+    " for administration e.g. effervescent blue liquid, to be swallowed. "
+    "Intended to be used when the other structured properties of this "
+    "resource are insufficient or cannot be supported. It is not intended "
+    "to duplicate information already carried elswehere."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+	)
+    description__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
+        None,
+        alias="_description",
+        title="Extension field for ``description``."
+    )
 	
     device: fhirtypes.ReferenceType = Field(
 		None,
@@ -216,7 +239,7 @@ class AdministrableProductDefinition(domainresource.DomainResource):
         ``AdministrableProductDefinition`` according specification,
         with preserving original sequence order.
         """
-        return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "identifier", "status", "formOf", "administrableDoseForm", "unitOfPresentation", "producedFrom", "ingredient", "device", "property", "routeOfAdministration"]
+        return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "identifier", "status", "formOf", "administrableDoseForm", "unitOfPresentation", "producedFrom", "ingredient", "device", "description", "property", "routeOfAdministration"]
 
 
     @root_validator(pre=True, allow_reuse=True)
@@ -367,6 +390,23 @@ class AdministrableProductDefinitionProperty(backboneelement.BackboneElement):
         title="Extension field for ``valueDate``."
     )
 	
+    valueMarkdown: fhirtypes.Markdown = Field(
+		None,
+		alias="valueMarkdown",
+		title="A value for the characteristic",
+		description=None,
+        # if property is element of this resource.
+        element_property=True,
+        # Choice of Data Types. i.e value[x]
+		one_of_many="value",
+		one_of_many_required=False,
+	)
+    valueMarkdown__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
+        None,
+        alias="_valueMarkdown",
+        title="Extension field for ``valueMarkdown``."
+    )
+	
     valueQuantity: fhirtypes.QuantityType = Field(
 		None,
 		alias="valueQuantity",
@@ -378,13 +418,27 @@ class AdministrableProductDefinitionProperty(backboneelement.BackboneElement):
 		one_of_many="value",
 		one_of_many_required=False,
 	)
+	
+    valueReference: fhirtypes.ReferenceType = Field(
+		None,
+		alias="valueReference",
+		title="A value for the characteristic",
+		description=None,
+        # if property is element of this resource.
+        element_property=True,
+        # Choice of Data Types. i.e value[x]
+		one_of_many="value",
+		one_of_many_required=False,
+        # note: Listed Resource Type(s) should be allowed as Reference.
+		enum_reference_types=["Binary"],
+	)
     @classmethod
     def elements_sequence(cls):
         """returning all elements names from
         ``AdministrableProductDefinitionProperty`` according specification,
         with preserving original sequence order.
         """
-        return ["id", "extension", "modifierExtension", "type", "valueCodeableConcept", "valueQuantity", "valueDate", "valueBoolean", "valueAttachment", "status"]
+        return ["id", "extension", "modifierExtension", "type", "valueCodeableConcept", "valueQuantity", "valueDate", "valueBoolean", "valueMarkdown", "valueAttachment", "valueReference", "status"]
 
 
     @root_validator(pre=True, allow_reuse=True)
@@ -409,7 +463,9 @@ class AdministrableProductDefinitionProperty(backboneelement.BackboneElement):
 			    "valueBoolean",
 			    "valueCodeableConcept",
 			    "valueDate",
-			    "valueQuantity"]}
+			    "valueMarkdown",
+			    "valueQuantity",
+			    "valueReference"]}
         for prefix, fields in one_of_many_fields.items():
             assert cls.__fields__[fields[0]].field_info.extra["one_of_many"] == prefix
             required = (

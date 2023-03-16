@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/MedicinalProductDefinition
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 import typing
 from pydantic import Field
@@ -396,7 +396,7 @@ class MedicinalProductDefinition(domainresource.DomainResource):
 		description=(
     "Whether the Medicinal Product is subject to special measures for "
     "regulatory reasons, such as a requirement to conduct post-"
-    "authorisation studies."
+    "authorization studies."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -561,6 +561,23 @@ class MedicinalProductDefinitionCharacteristic(backboneelement.BackboneElement):
         title="Extension field for ``valueInteger``."
     )
 	
+    valueMarkdown: fhirtypes.Markdown = Field(
+		None,
+		alias="valueMarkdown",
+		title="A value for the characteristic",
+		description="A value for the characteristic.text.",
+        # if property is element of this resource.
+        element_property=True,
+        # Choice of Data Types. i.e value[x]
+		one_of_many="value",
+		one_of_many_required=False,
+	)
+    valueMarkdown__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
+        None,
+        alias="_valueMarkdown",
+        title="Extension field for ``valueMarkdown``."
+    )
+	
     valueQuantity: fhirtypes.QuantityType = Field(
 		None,
 		alias="valueQuantity",
@@ -572,30 +589,13 @@ class MedicinalProductDefinitionCharacteristic(backboneelement.BackboneElement):
 		one_of_many="value",
 		one_of_many_required=False,
 	)
-	
-    valueString: fhirtypes.String = Field(
-		None,
-		alias="valueString",
-		title="A value for the characteristic",
-		description="A value for the characteristic.text.",
-        # if property is element of this resource.
-        element_property=True,
-        # Choice of Data Types. i.e value[x]
-		one_of_many="value",
-		one_of_many_required=False,
-	)
-    valueString__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
-        None,
-        alias="_valueString",
-        title="Extension field for ``valueString``."
-    )
     @classmethod
     def elements_sequence(cls):
         """returning all elements names from
         ``MedicinalProductDefinitionCharacteristic`` according specification,
         with preserving original sequence order.
         """
-        return ["id", "extension", "modifierExtension", "type", "valueCodeableConcept", "valueString", "valueQuantity", "valueInteger", "valueDate", "valueBoolean", "valueAttachment"]
+        return ["id", "extension", "modifierExtension", "type", "valueCodeableConcept", "valueMarkdown", "valueQuantity", "valueInteger", "valueDate", "valueBoolean", "valueAttachment"]
 
 
     @root_validator(pre=True, allow_reuse=True)
@@ -621,8 +621,8 @@ class MedicinalProductDefinitionCharacteristic(backboneelement.BackboneElement):
 			    "valueCodeableConcept",
 			    "valueDate",
 			    "valueInteger",
-			    "valueQuantity",
-			    "valueString"]}
+			    "valueMarkdown",
+			    "valueQuantity"]}
         for prefix, fields in one_of_many_fields.items():
             assert cls.__fields__[fields[0]].field_info.extra["one_of_many"] == prefix
             required = (

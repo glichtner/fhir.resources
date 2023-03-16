@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/DeviceRequest
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 from pydantic.validators import bytes_validator  # noqa: F401
 from fhir.resources import fhirtypes  # noqa: F401
@@ -31,9 +31,7 @@ def impl_devicerequest_1(inst):
     assert inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
     assert inst.note[0].text == "this is the right device brand and model"
     assert inst.occurrenceDateTime == fhirtypes.DateTime.validate("2013-05-08T09:33:27+07:00")
-    assert inst.performer.display == "Nurse Rossignol"
-    assert inst.performerType.coding[0].display == "Qualified nurse"
-    assert inst.performerType.text == "Nurse"
+    assert inst.performer.reference.display == "Nurse Rossignol"
     assert inst.priority == "routine"
     assert inst.reason[0].concept.text == "gastroparesis"
     assert inst.reason[1].reference.display == "Gastroparesis"

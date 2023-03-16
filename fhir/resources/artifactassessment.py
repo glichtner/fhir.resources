@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/ArtifactAssessment
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 import typing
 from pydantic import Field
@@ -226,7 +226,7 @@ class ArtifactAssessment(domainresource.DomainResource):
     lastReviewDate: fhirtypes.Date = Field(
 		None,
 		alias="lastReviewDate",
-		title="When the artifact assessment was last reviewed",
+		title="When the artifact assessment was last reviewed by the publisher",
 		description=(
     "The date on which the resource content was last reviewed. Review "
     "happens periodically after approval but does not change the original "
@@ -239,6 +239,20 @@ class ArtifactAssessment(domainresource.DomainResource):
         None,
         alias="_lastReviewDate",
         title="Extension field for ``lastReviewDate``."
+    )
+	
+    title: fhirtypes.String = Field(
+		None,
+		alias="title",
+		title="A short title for the assessment for use in displaying and selecting",
+		description=None,
+        # if property is element of this resource.
+        element_property=True,
+	)
+    title__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
+        None,
+        alias="_title",
+        title="Extension field for ``title``."
     )
 	
     workflowStatus: fhirtypes.Code = Field(
@@ -266,7 +280,7 @@ class ArtifactAssessment(domainresource.DomainResource):
         ``ArtifactAssessment`` according specification,
         with preserving original sequence order.
         """
-        return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "identifier", "citeAsReference", "citeAsMarkdown", "date", "copyright", "approvalDate", "lastReviewDate", "artifactReference", "artifactCanonical", "artifactUri", "content", "workflowStatus", "disposition"]
+        return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "identifier", "title", "citeAsReference", "citeAsMarkdown", "date", "copyright", "approvalDate", "lastReviewDate", "artifactReference", "artifactCanonical", "artifactUri", "content", "workflowStatus", "disposition"]
 
 
     @root_validator(pre=True, allow_reuse=True)
@@ -404,6 +418,15 @@ class ArtifactAssessmentContent(backboneelement.BackboneElement):
         title="Extension field for ``path``."
     )
 	
+    quantity: fhirtypes.QuantityType = Field(
+		None,
+		alias="quantity",
+		title="Quantitative rating",
+		description="A quantitative rating of the artifact.",
+        # if property is element of this resource.
+        element_property=True,
+	)
+	
     relatedArtifact: typing.List[fhirtypes.RelatedArtifactType] = Field(
 		None,
 		alias="relatedArtifact",
@@ -444,5 +467,5 @@ class ArtifactAssessmentContent(backboneelement.BackboneElement):
         ``ArtifactAssessmentContent`` according specification,
         with preserving original sequence order.
         """
-        return ["id", "extension", "modifierExtension", "informationType", "summary", "type", "classifier", "author", "path", "relatedArtifact", "freeToShare", "component"]
+        return ["id", "extension", "modifierExtension", "informationType", "summary", "type", "classifier", "quantity", "author", "path", "relatedArtifact", "freeToShare", "component"]
 

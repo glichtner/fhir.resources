@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/DetectedIssue
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 import typing
 from pydantic import Field
@@ -49,7 +49,7 @@ class DetectedIssue(domainresource.DomainResource):
     category: typing.List[fhirtypes.CodeableConceptType] = Field(
 		None,
 		alias="category",
-		title="Type of detected issue, e.g. drug-drug, duplicate therapy, etc.",
+		title="Type of detected issue, e.g. drug-drug, duplicate therapy, etc",
 		description="A code that classifies the general type of detected issue.",
         # if property is element of this resource.
         element_property=True,
@@ -60,14 +60,14 @@ class DetectedIssue(domainresource.DomainResource):
 		alias="code",
 		title=(
     "Specific type of detected issue, e.g. drug-drug, duplicate therapy, "
-    "etc."
+    "etc"
     ),
 		description="Identifies the specific type of issue identified.",
         # if property is element of this resource.
         element_property=True,
 	)
 	
-    detail: fhirtypes.String = Field(
+    detail: fhirtypes.Markdown = Field(
 		None,
 		alias="detail",
 		title="Description and context",
@@ -80,6 +80,17 @@ class DetectedIssue(domainresource.DomainResource):
         alias="_detail",
         title="Extension field for ``detail``."
     )
+	
+    encounter: fhirtypes.ReferenceType = Field(
+		None,
+		alias="encounter",
+		title="Encounter detected issue is part of",
+		description="The encounter during which this issue was detected.",
+        # if property is element of this resource.
+        element_property=True,
+        # note: Listed Resource Type(s) should be allowed as Reference.
+		enum_reference_types=["Encounter"],
+	)
 	
     evidence: typing.List[fhirtypes.DetectedIssueEvidenceType] = Field(
 		None,
@@ -234,7 +245,7 @@ class DetectedIssue(domainresource.DomainResource):
         ``DetectedIssue`` according specification,
         with preserving original sequence order.
         """
-        return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "identifier", "status", "category", "code", "severity", "subject", "identifiedDateTime", "identifiedPeriod", "author", "implicated", "evidence", "detail", "reference", "mitigation"]
+        return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "identifier", "status", "category", "code", "severity", "subject", "encounter", "identifiedDateTime", "identifiedPeriod", "author", "implicated", "evidence", "detail", "reference", "mitigation"]
 
 
     @root_validator(pre=True, allow_reuse=True)
@@ -436,11 +447,25 @@ class DetectedIssueMitigation(backboneelement.BackboneElement):
         alias="_date",
         title="Extension field for ``date``."
     )
+	
+    note: typing.List[fhirtypes.AnnotationType] = Field(
+		None,
+		alias="note",
+		title="Additional notes about the mitigation",
+		description=(
+    "Clinicians may add additional notes or justifications about the "
+    "mitigation action. For example, patient can have this drug because "
+    "they have had it before without any issues. Multiple justifications "
+    "may be provided."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+	)
     @classmethod
     def elements_sequence(cls):
         """returning all elements names from
         ``DetectedIssueMitigation`` according specification,
         with preserving original sequence order.
         """
-        return ["id", "extension", "modifierExtension", "action", "date", "author"]
+        return ["id", "extension", "modifierExtension", "action", "date", "author", "note"]
 

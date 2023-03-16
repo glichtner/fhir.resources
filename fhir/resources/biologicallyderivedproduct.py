@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/BiologicallyDerivedProduct
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 import typing
 from pydantic import Field
@@ -250,7 +250,10 @@ class BiologicallyDerivedProductCollection(backboneelement.BackboneElement):
     source: fhirtypes.ReferenceType = Field(
 		None,
 		alias="source",
-		title="The patient or entity providing the product",
+		title=(
+    "The patient who underwent the medical procedure to collect the product"
+    " or the organization that facilitated the collection"
+    ),
 		description=(
     "The patient or entity, such as a hospital or vendor in the case of a "
     "processed/manipulated/manufactured product, providing the product."
@@ -320,7 +323,7 @@ class BiologicallyDerivedProductProperty(backboneelement.BackboneElement):
     """
     resource_type = Field("BiologicallyDerivedProductProperty", const=True)
 	
-    type: fhirtypes.CodingType = Field(
+    type: fhirtypes.CodeableConceptType = Field(
 		...,
 		alias="type",
 		title="Code that specifies the property",

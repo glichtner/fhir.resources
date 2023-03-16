@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/Task
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 import typing
 from pydantic import Field
@@ -169,8 +169,13 @@ class Task(domainresource.DomainResource):
 		alias="groupIdentifier",
 		title="Requisition or grouper id",
 		description=(
-    "An identifier that links together multiple tasks and other requests "
-    "that were created in the same context."
+    "A shared identifier common to multiple independent Task and Request "
+    "instances that were activated/authorized more or less simultaneously "
+    "by a single author.  The presence of the same identifier on each "
+    "request ties those requests together and may have business "
+    "ramifications in terms of reporting of results, billing, etc.  E.g. a "
+    "requisition number shared by a set of lab tests ordered together, or a"
+    " prescription number shared by all meds ordered at one time."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -291,7 +296,7 @@ class Task(domainresource.DomainResource):
 		None,
 		alias="location",
 		title="Where task occurs",
-		description="Principal physical location where the this task is performed.",
+		description="Principal physical location where this task is performed.",
         # if property is element of this resource.
         element_property=True,
         # note: Listed Resource Type(s) should be allowed as Reference.
@@ -320,14 +325,11 @@ class Task(domainresource.DomainResource):
 		None,
 		alias="owner",
 		title="Responsible individual",
-		description=(
-    "Individual organization or Device currently responsible for task "
-    "execution."
-    ),
+		description="Party responsible for managing task execution.",
         # if property is element of this resource.
         element_property=True,
         # note: Listed Resource Type(s) should be allowed as Reference.
-		enum_reference_types=["Practitioner", "PractitionerRole", "Organization", "CareTeam", "HealthcareService", "Patient", "Device", "RelatedPerson"],
+		enum_reference_types=["Practitioner", "PractitionerRole", "Organization", "CareTeam", "Patient", "RelatedPerson"],
 	)
 	
     partOf: typing.List[fhirtypes.ReferenceType] = Field(
@@ -339,6 +341,15 @@ class Task(domainresource.DomainResource):
         element_property=True,
         # note: Listed Resource Type(s) should be allowed as Reference.
 		enum_reference_types=["Task"],
+	)
+	
+    performer: typing.List[fhirtypes.TaskPerformerType] = Field(
+		None,
+		alias="performer",
+		title="Who or what performed the task",
+		description="The entity who performed the requested task.",
+        # if property is element of this resource.
+        element_property=True,
 	)
 	
     priority: fhirtypes.Code = Field(
@@ -471,7 +482,7 @@ class Task(domainresource.DomainResource):
         ``Task`` according specification,
         with preserving original sequence order.
         """
-        return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "identifier", "instantiatesCanonical", "instantiatesUri", "basedOn", "groupIdentifier", "partOf", "status", "statusReason", "businessStatus", "intent", "priority", "doNotPerform", "code", "description", "focus", "for", "encounter", "requestedPeriod", "executionPeriod", "authoredOn", "lastModified", "requester", "requestedPerformer", "owner", "location", "reason", "insurance", "note", "relevantHistory", "restriction", "input", "output"]
+        return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "identifier", "instantiatesCanonical", "instantiatesUri", "basedOn", "groupIdentifier", "partOf", "status", "statusReason", "businessStatus", "intent", "priority", "doNotPerform", "code", "description", "focus", "for", "encounter", "requestedPeriod", "executionPeriod", "authoredOn", "lastModified", "requester", "requestedPerformer", "owner", "performer", "location", "reason", "insurance", "note", "relevantHistory", "restriction", "input", "output"]
 
 
     @root_validator(pre=True, allow_reuse=True)
@@ -2277,6 +2288,45 @@ class TaskOutput(backboneelement.BackboneElement):
                 raise ValueError(f"Expect any of field value from this list {fields}.")
 
         return values
+
+
+class TaskPerformer(backboneelement.BackboneElement):
+    """Disclaimer: Any field name ends with ``__ext`` doesn't part of
+    Resource StructureDefinition, instead used to enable Extensibility feature
+    for FHIR Primitive Data Types.
+
+    Who or what performed the task.
+    The entity who performed the requested task.
+    """
+    resource_type = Field("TaskPerformer", const=True)
+	
+    actor: fhirtypes.ReferenceType = Field(
+		...,
+		alias="actor",
+		title="Who performed the task",
+		description="The actor or entity who performed the task.",
+        # if property is element of this resource.
+        element_property=True,
+        # note: Listed Resource Type(s) should be allowed as Reference.
+		enum_reference_types=["Practitioner", "PractitionerRole", "Organization", "CareTeam", "Patient", "RelatedPerson"],
+	)
+	
+    function: fhirtypes.CodeableConceptType = Field(
+		None,
+		alias="function",
+		title="Type of performance",
+		description="A code or description of the performer of the task.",
+        # if property is element of this resource.
+        element_property=True,
+	)
+    @classmethod
+    def elements_sequence(cls):
+        """returning all elements names from
+        ``TaskPerformer`` according specification,
+        with preserving original sequence order.
+        """
+        return ["id", "extension", "modifierExtension", "function", "actor"]
+
 
 
 class TaskRestriction(backboneelement.BackboneElement):

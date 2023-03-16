@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/HumanName
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 import typing
 from pydantic import Field
@@ -20,7 +20,7 @@ class HumanName(datatype.DataType):
 
     Name of a human or other living entity - parts and usage.
     A name, normally of a human, that can be used for other living entities
-    (eg. animals but not organizations) that have been assigned names by a
+    (e.g. animals but not organizations) that have been assigned names by a
     human and may need the use of name parts or the need for usage information.
     """
     resource_type = Field("HumanName", const=True)

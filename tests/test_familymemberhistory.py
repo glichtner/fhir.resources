@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/FamilyMemberHistory
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 from pydantic.validators import bytes_validator  # noqa: F401
 from fhir.resources import fhirtypes  # noqa: F401
@@ -124,6 +124,13 @@ def impl_familymemberhistory_3(inst):
     assert inst.meta.tag[0].code == "HTEST"
     assert inst.meta.tag[0].display == "test health data"
     assert inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
+    assert inst.participant[0].actor.reference == "Practitioner/f201"
+    assert inst.participant[0].function.coding[0].code == "verifier"
+    assert inst.participant[0].function.coding[0].display == "Verifier"
+    assert inst.participant[0].function.coding[0].system == (
+    "http://terminology.hl7.org/CodeSystem/provenance-"
+    "participant-type"
+    )
     assert inst.patient.display == "Peter Patient"
     assert inst.patient.reference == "Patient/example"
     assert inst.relationship.coding[0].code == "FTH"

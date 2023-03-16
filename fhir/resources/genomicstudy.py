@@ -1,14 +1,17 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/GenomicStudy
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 import typing
 from pydantic import Field
 from pydantic import root_validator
+
+from pydantic.error_wrappers import ErrorWrapper, ValidationError
+from pydantic.errors import MissingError, NoneIsNotAllowedError
 
 from . import fhirtypes
 
@@ -49,7 +52,7 @@ class GenomicStudy(domainresource.DomainResource):
 		enum_reference_types=["ServiceRequest", "Task"],
 	)
 	
-    description: fhirtypes.String = Field(
+    description: fhirtypes.Markdown = Field(
 		None,
 		alias="description",
 		title="Description of the genomic study",
@@ -172,14 +175,23 @@ class GenomicStudy(domainresource.DomainResource):
         title="Extension field for ``startDate``."
     )
 	
-    status: fhirtypes.CodeableConceptType = Field(
-		...,
+    status: fhirtypes.Code = Field(
+		None,
 		alias="status",
-		title="The status of the genomic study",
-		description=None,
+		title="registered | available | cancelled | entered-in-error | unknown",
+		description="The status of the genomic study.",
         # if property is element of this resource.
         element_property=True,
+        element_required=True,
+        # note: Enum values can be used in validation,
+        # but use in your own responsibilities, read official FHIR documentation.
+		enum_values=["registered", "available", "cancelled", "entered-in-error", "unknown"],
 	)
+    status__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
+        None,
+        alias="_status",
+        title="Extension field for ``status``."
+    )
 	
     subject: fhirtypes.ReferenceType = Field(
 		...,
@@ -189,7 +201,7 @@ class GenomicStudy(domainresource.DomainResource):
         # if property is element of this resource.
         element_property=True,
         # note: Listed Resource Type(s) should be allowed as Reference.
-		enum_reference_types=["Patient", "Group", "Device", "Location", "Organization", "Procedure", "Practitioner", "Medication", "Substance", "BiologicallyDerivedProduct", "NutritionProduct"],
+		enum_reference_types=["Patient", "Group", "Substance", "BiologicallyDerivedProduct", "NutritionProduct"],
 	)
 	
     type: typing.List[fhirtypes.CodeableConceptType] = Field(
@@ -214,6 +226,66 @@ class GenomicStudy(domainresource.DomainResource):
         """
         return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "identifier", "status", "type", "subject", "encounter", "startDate", "basedOn", "referrer", "interpreter", "reason", "instantiatesCanonical", "instantiatesUri", "note", "description", "analysis"]
 
+
+    @root_validator(pre=True, allow_reuse=True)
+    def validate_required_primitive_elements_1435(
+        cls, values: typing.Dict[str, typing.Any]
+    ) -> typing.Dict[str, typing.Any]:
+        """https://www.hl7.org/fhir/extensibility.html#Special-Case
+        In some cases, implementers might find that they do not have appropriate data for
+        an element with minimum cardinality = 1. In this case, the element must be present,
+        but unless the resource or a profile on it has made the actual value of the primitive
+        data type mandatory, it is possible to provide an extension that explains why
+        the primitive value is not present.
+        """
+        required_fields = [
+			("status", "status__ext")]
+        _missing = object()
+
+        def _fallback():
+            return ""
+
+        errors: typing.List["ErrorWrapper"] = []
+        for name, ext in required_fields:
+            field = cls.__fields__[name]
+            ext_field = cls.__fields__[ext]
+            value = values.get(field.alias, _missing)
+            if value not in (_missing, None):
+                continue
+            ext_value = values.get(ext_field.alias, _missing)
+            missing_ext = True
+            if ext_value not in (_missing, None):
+                if isinstance(ext_value, dict):
+                    missing_ext = len(ext_value.get("extension", [])) == 0
+                elif (
+                    getattr(ext_value.__class__, "get_resource_type", _fallback)()
+                    == "FHIRPrimitiveExtension"
+                ):
+                    if ext_value.extension and len(ext_value.extension) > 0:
+                        missing_ext = False
+                else:
+                    validate_pass = True
+                    for validator in ext_field.type_.__get_validators__():
+                        try:
+                            ext_value = validator(v=ext_value)
+                        except ValidationError as exc:
+                            errors.append(ErrorWrapper(exc, loc=ext_field.alias))
+                            validate_pass = False
+                    if not validate_pass:
+                        continue
+                    if ext_value.extension and len(ext_value.extension) > 0:
+                        missing_ext = False
+            if missing_ext:
+                if value is _missing:
+                    errors.append(ErrorWrapper(MissingError(), loc=field.alias))
+                else:
+                    errors.append(
+                        ErrorWrapper(NoneIsNotAllowedError(), loc=field.alias)
+                    )
+        if len(errors) > 0:
+            raise ValidationError(errors, cls)  # type: ignore
+
+        return values
 
 
 from . import backboneelement
@@ -268,6 +340,27 @@ class GenomicStudyAnalysis(backboneelement.BackboneElement):
 		description=None,
         # if property is element of this resource.
         element_property=True,
+	)
+	
+    focus: typing.List[fhirtypes.ReferenceType] = Field(
+		None,
+		alias="focus",
+		title=(
+    "What the genomic analysis is about, when it is not about the subject "
+    "of record"
+    ),
+		description=(
+    "The focus of a genomic analysis when it is not the patient of record "
+    "representing something or someone associated with the patient such as "
+    "a spouse, parent, child, or sibling. For example, in trio testing, the"
+    " GenomicStudy.subject would be the child (proband) and the "
+    "GenomicStudy.analysis.focus of a specific analysis would be the "
+    "parent."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+        # note: Listed Resource Type(s) should be allowed as Reference.
+		enum_reference_types=["Resource"],
 	)
 	
     genomeBuild: fhirtypes.CodeableConceptType = Field(
@@ -417,17 +510,6 @@ class GenomicStudyAnalysis(backboneelement.BackboneElement):
 		enum_reference_types=["Specimen"],
 	)
 	
-    subject: fhirtypes.ReferenceType = Field(
-		None,
-		alias="subject",
-		title="The subject of the analysis event",
-		description=None,
-        # if property is element of this resource.
-        element_property=True,
-        # note: Listed Resource Type(s) should be allowed as Reference.
-		enum_reference_types=["Patient", "Group", "Device", "Location", "Organization", "Procedure", "Practitioner", "Medication", "Substance", "BiologicallyDerivedProduct", "NutritionProduct"],
-	)
-	
     title: fhirtypes.String = Field(
 		None,
 		alias="title",
@@ -447,7 +529,7 @@ class GenomicStudyAnalysis(backboneelement.BackboneElement):
         ``GenomicStudyAnalysis`` according specification,
         with preserving original sequence order.
         """
-        return ["id", "extension", "modifierExtension", "identifier", "methodType", "changeType", "genomeBuild", "instantiatesCanonical", "instantiatesUri", "title", "subject", "specimen", "date", "note", "protocolPerformed", "regionsStudied", "regionsCalled", "input", "output", "performer", "device"]
+        return ["id", "extension", "modifierExtension", "identifier", "methodType", "changeType", "genomeBuild", "instantiatesCanonical", "instantiatesUri", "title", "focus", "specimen", "date", "note", "protocolPerformed", "regionsStudied", "regionsCalled", "input", "output", "performer", "device"]
 
 
 

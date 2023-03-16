@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/ActivityDefinition
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 from pydantic.validators import bytes_validator  # noqa: F401
 from fhir.resources import fhirtypes  # noqa: F401
@@ -127,6 +127,7 @@ def impl_activitydefinition_3(inst):
     assert inst.code.coding[0].code == "1155608"
     assert inst.code.coding[0].display == "alteplase injectable product"
     assert inst.code.coding[0].system == "http://www.nlm.nih.gov/research/umls/rxnorm"
+    assert inst.description == "Alteplase Dosing for Stroke"
     assert inst.dosage[0].doseAndRate[0].doseQuantity.code == "mg/kg"
     assert inst.dosage[0].doseAndRate[0].doseQuantity.system == "http://unitsofmeasure.org"
     assert float(inst.dosage[0].doseAndRate[0].doseQuantity.value) == float(0.9)
@@ -160,9 +161,10 @@ def impl_activitydefinition_3(inst):
     assert inst.identifier[0].value == "urn:oid:2.16.840.1.113883.4.642.19.3"
     assert inst.intent == "order"
     assert inst.kind == "MedicationRequest"
-    assert inst.name == "Alteplase Dosing for Stroke"
+    assert inst.name == "AlteplaseDosingForStroke"
     assert inst.status == "draft"
     assert inst.text.status == "generated"
+    assert inst.title == "Alteplase Dosing for Stroke"
     assert inst.url == (
     "http://example.org/fhir/ActivityDefinition/example-"
     "alteplase-dosing"

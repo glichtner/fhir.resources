@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/ImagingStudy
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 import typing
 from pydantic import Field
@@ -104,17 +104,6 @@ class ImagingStudy(domainresource.DomainResource):
         element_property=True,
 	)
 	
-    interpreter: typing.List[fhirtypes.ReferenceType] = Field(
-		None,
-		alias="interpreter",
-		title="Who interpreted images",
-		description="Who read the study and interpreted the images or other content.",
-        # if property is element of this resource.
-        element_property=True,
-        # note: Listed Resource Type(s) should be allowed as Reference.
-		enum_reference_types=["Practitioner", "PractitionerRole"],
-	)
-	
     location: fhirtypes.ReferenceType = Field(
 		None,
 		alias="location",
@@ -190,15 +179,33 @@ class ImagingStudy(domainresource.DomainResource):
         title="Extension field for ``numberOfSeries``."
     )
 	
-    procedure: typing.List[fhirtypes.CodeableReferenceType] = Field(
+    partOf: typing.List[fhirtypes.ReferenceType] = Field(
 		None,
-		alias="procedure",
-		title="The performed procedure or code",
-		description="The procedure or code from which this ImagingStudy was part of.",
+		alias="partOf",
+		title="Part of referenced event",
+		description=(
+    "A larger event of which this particular ImagingStudy is a component or"
+    " step.  For example,  an ImagingStudy as part of a procedure."
+    ),
         # if property is element of this resource.
         element_property=True,
         # note: Listed Resource Type(s) should be allowed as Reference.
 		enum_reference_types=["Procedure"],
+	)
+	
+    procedure: typing.List[fhirtypes.CodeableReferenceType] = Field(
+		None,
+		alias="procedure",
+		title="The performed procedure or code",
+		description=(
+    "This field corresponds to the DICOM Procedure Code Sequence "
+    "(0008,1032). This is different from the FHIR Procedure resource that "
+    "may include the ImagingStudy."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+        # note: Listed Resource Type(s) should be allowed as Reference.
+		enum_reference_types=["PlanDefinition", "ActivityDefinition"],
 	)
 	
     reason: typing.List[fhirtypes.CodeableReferenceType] = Field(
@@ -288,7 +295,7 @@ class ImagingStudy(domainresource.DomainResource):
         ``ImagingStudy`` according specification,
         with preserving original sequence order.
         """
-        return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "identifier", "status", "modality", "subject", "encounter", "started", "basedOn", "referrer", "interpreter", "endpoint", "numberOfSeries", "numberOfInstances", "procedure", "location", "reason", "note", "description", "series"]
+        return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "identifier", "status", "modality", "subject", "encounter", "started", "basedOn", "partOf", "referrer", "endpoint", "numberOfSeries", "numberOfInstances", "procedure", "location", "reason", "note", "description", "series"]
 
 
     @root_validator(pre=True, allow_reuse=True)

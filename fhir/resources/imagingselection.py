@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/ImagingSelection
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 import typing
 from pydantic import Field
@@ -87,7 +87,7 @@ class ImagingSelection(domainresource.DomainResource):
         # if property is element of this resource.
         element_property=True,
         # note: Listed Resource Type(s) should be allowed as Reference.
-		enum_reference_types=["ImagingStudy"],
+		enum_reference_types=["ImagingStudy", "DocumentReference"],
 	)
 	
     endpoint: typing.List[fhirtypes.ReferenceType] = Field(
@@ -153,18 +153,6 @@ class ImagingSelection(domainresource.DomainResource):
 		alias="identifier",
 		title="Business Identifier for Imaging Selection",
 		description="A unique identifier assigned to this imaging selection.",
-        # if property is element of this resource.
-        element_property=True,
-	)
-	
-    imageRegion: typing.List[fhirtypes.ImagingSelectionImageRegionType] = Field(
-		None,
-		alias="imageRegion",
-		title="A specific 3D region in a DICOM frame of reference",
-		description=(
-    "Each imaging selection might includes a 3D image region, specified by "
-    "a region type and a set of 3D coordinates."
-    ),
         # if property is element of this resource.
         element_property=True,
 	)
@@ -297,7 +285,7 @@ class ImagingSelection(domainresource.DomainResource):
         ``ImagingSelection`` according specification,
         with preserving original sequence order.
         """
-        return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "identifier", "status", "subject", "issued", "performer", "basedOn", "category", "code", "studyUid", "derivedFrom", "endpoint", "seriesUid", "seriesNumber", "frameOfReferenceUid", "bodySite", "focus", "instance", "imageRegion"]
+        return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "identifier", "status", "subject", "issued", "performer", "basedOn", "category", "code", "studyUid", "derivedFrom", "endpoint", "seriesUid", "seriesNumber", "frameOfReferenceUid", "bodySite", "focus", "instance"]
 
 
     @root_validator(pre=True, allow_reuse=True)
@@ -363,125 +351,6 @@ class ImagingSelection(domainresource.DomainResource):
 
 from . import backboneelement
 
-class ImagingSelectionImageRegion(backboneelement.BackboneElement):
-    """Disclaimer: Any field name ends with ``__ext`` doesn't part of
-    Resource StructureDefinition, instead used to enable Extensibility feature
-    for FHIR Primitive Data Types.
-
-    A specific 3D region in a DICOM frame of reference.
-    Each imaging selection might includes a 3D image region, specified by a
-    region type and a set of 3D coordinates.
-    """
-    resource_type = Field("ImagingSelectionImageRegion", const=True)
-	
-    coordinate: typing.List[fhirtypes.Decimal] = Field(
-		None,
-		alias="coordinate",
-		title="Specifies the coordinates that define the image region",
-		description=(
-    "The coordinates describing the image region. Encoded as an ordered set"
-    " of (x,y,z) triplets (in mm and may be negative) that define a region "
-    "of interest in the patient-relative Reference Coordinate System "
-    "defined by ImagingSelection.frameOfReferenceUid element."
-    ),
-        # if property is element of this resource.
-        element_property=True,
-        element_required=True,
-	)
-    coordinate__ext: typing.List[typing.Union[fhirtypes.FHIRPrimitiveExtensionType, None]] = Field(
-        None,
-        alias="_coordinate",
-        title="Extension field for ``coordinate``."
-    )
-	
-    regionType: fhirtypes.Code = Field(
-		None,
-		alias="regionType",
-		title="point | multipoint | polyline | polygon | ellipse | ellipsoid",
-		description="Specifies the type of image region.",
-        # if property is element of this resource.
-        element_property=True,
-        element_required=True,
-        # note: Enum values can be used in validation,
-        # but use in your own responsibilities, read official FHIR documentation.
-		enum_values=["point", "multipoint", "polyline", "polygon", "ellipse", "ellipsoid"],
-	)
-    regionType__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
-        None,
-        alias="_regionType",
-        title="Extension field for ``regionType``."
-    )
-    @classmethod
-    def elements_sequence(cls):
-        """returning all elements names from
-        ``ImagingSelectionImageRegion`` according specification,
-        with preserving original sequence order.
-        """
-        return ["id", "extension", "modifierExtension", "regionType", "coordinate"]
-
-
-    @root_validator(pre=True, allow_reuse=True)
-    def validate_required_primitive_elements_2912(
-        cls, values: typing.Dict[str, typing.Any]
-    ) -> typing.Dict[str, typing.Any]:
-        """https://www.hl7.org/fhir/extensibility.html#Special-Case
-        In some cases, implementers might find that they do not have appropriate data for
-        an element with minimum cardinality = 1. In this case, the element must be present,
-        but unless the resource or a profile on it has made the actual value of the primitive
-        data type mandatory, it is possible to provide an extension that explains why
-        the primitive value is not present.
-        """
-        required_fields = [
-			("coordinate", "coordinate__ext"),
-			("regionType", "regionType__ext")]
-        _missing = object()
-
-        def _fallback():
-            return ""
-
-        errors: typing.List["ErrorWrapper"] = []
-        for name, ext in required_fields:
-            field = cls.__fields__[name]
-            ext_field = cls.__fields__[ext]
-            value = values.get(field.alias, _missing)
-            if value not in (_missing, None):
-                continue
-            ext_value = values.get(ext_field.alias, _missing)
-            missing_ext = True
-            if ext_value not in (_missing, None):
-                if isinstance(ext_value, dict):
-                    missing_ext = len(ext_value.get("extension", [])) == 0
-                elif (
-                    getattr(ext_value.__class__, "get_resource_type", _fallback)()
-                    == "FHIRPrimitiveExtension"
-                ):
-                    if ext_value.extension and len(ext_value.extension) > 0:
-                        missing_ext = False
-                else:
-                    validate_pass = True
-                    for validator in ext_field.type_.__get_validators__():
-                        try:
-                            ext_value = validator(v=ext_value)
-                        except ValidationError as exc:
-                            errors.append(ErrorWrapper(exc, loc=ext_field.alias))
-                            validate_pass = False
-                    if not validate_pass:
-                        continue
-                    if ext_value.extension and len(ext_value.extension) > 0:
-                        missing_ext = False
-            if missing_ext:
-                if value is _missing:
-                    errors.append(ErrorWrapper(MissingError(), loc=field.alias))
-                else:
-                    errors.append(
-                        ErrorWrapper(NoneIsNotAllowedError(), loc=field.alias)
-                    )
-        if len(errors) > 0:
-            raise ValidationError(errors, cls)  # type: ignore
-
-        return values
-
-
 class ImagingSelectionInstance(backboneelement.BackboneElement):
     """Disclaimer: Any field name ends with ``__ext`` doesn't part of
     Resource StructureDefinition, instead used to enable Extensibility feature
@@ -492,9 +361,9 @@ class ImagingSelectionInstance(backboneelement.BackboneElement):
     """
     resource_type = Field("ImagingSelectionInstance", const=True)
 	
-    imageRegion: typing.List[fhirtypes.ImagingSelectionInstanceImageRegionType] = Field(
+    imageRegion2D: typing.List[fhirtypes.ImagingSelectionInstanceImageRegion2DType] = Field(
 		None,
-		alias="imageRegion",
+		alias="imageRegion2D",
 		title="A specific 2D region in a DICOM image / frame",
 		description=(
     "Each imaging selection instance or frame list might includes an image "
@@ -502,6 +371,18 @@ class ImagingSelectionInstance(backboneelement.BackboneElement):
     "        If the parent imagingSelection.instance contains a subset "
     "element of type frame, the image region applies to all frames in the "
     "subset list."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+	)
+	
+    imageRegion3D: typing.List[fhirtypes.ImagingSelectionInstanceImageRegion3DType] = Field(
+		None,
+		alias="imageRegion3D",
+		title="A specific 3D region in a DICOM frame of reference",
+		description=(
+    "Each imaging selection might includes a 3D image region, specified by "
+    "a region type and a set of 3D coordinates."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -573,7 +454,7 @@ class ImagingSelectionInstance(backboneelement.BackboneElement):
         ``ImagingSelectionInstance`` according specification,
         with preserving original sequence order.
         """
-        return ["id", "extension", "modifierExtension", "uid", "number", "sopClass", "subset", "imageRegion"]
+        return ["id", "extension", "modifierExtension", "uid", "number", "sopClass", "subset", "imageRegion2D", "imageRegion3D"]
 
 
     @root_validator(pre=True, allow_reuse=True)
@@ -637,7 +518,7 @@ class ImagingSelectionInstance(backboneelement.BackboneElement):
         return values
 
 
-class ImagingSelectionInstanceImageRegion(backboneelement.BackboneElement):
+class ImagingSelectionInstanceImageRegion2D(backboneelement.BackboneElement):
     """Disclaimer: Any field name ends with ``__ext`` doesn't part of
     Resource StructureDefinition, instead used to enable Extensibility feature
     for FHIR Primitive Data Types.
@@ -648,7 +529,7 @@ class ImagingSelectionInstanceImageRegion(backboneelement.BackboneElement):
            If the parent imagingSelection.instance contains a subset element of
     type frame, the image region applies to all frames in the subset list.
     """
-    resource_type = Field("ImagingSelectionInstanceImageRegion", const=True)
+    resource_type = Field("ImagingSelectionInstanceImageRegion2D", const=True)
 	
     coordinate: typing.List[fhirtypes.Decimal] = Field(
 		None,
@@ -693,14 +574,133 @@ class ImagingSelectionInstanceImageRegion(backboneelement.BackboneElement):
     @classmethod
     def elements_sequence(cls):
         """returning all elements names from
-        ``ImagingSelectionInstanceImageRegion`` according specification,
+        ``ImagingSelectionInstanceImageRegion2D`` according specification,
         with preserving original sequence order.
         """
         return ["id", "extension", "modifierExtension", "regionType", "coordinate"]
 
 
     @root_validator(pre=True, allow_reuse=True)
-    def validate_required_primitive_elements_3733(
+    def validate_required_primitive_elements_3841(
+        cls, values: typing.Dict[str, typing.Any]
+    ) -> typing.Dict[str, typing.Any]:
+        """https://www.hl7.org/fhir/extensibility.html#Special-Case
+        In some cases, implementers might find that they do not have appropriate data for
+        an element with minimum cardinality = 1. In this case, the element must be present,
+        but unless the resource or a profile on it has made the actual value of the primitive
+        data type mandatory, it is possible to provide an extension that explains why
+        the primitive value is not present.
+        """
+        required_fields = [
+			("coordinate", "coordinate__ext"),
+			("regionType", "regionType__ext")]
+        _missing = object()
+
+        def _fallback():
+            return ""
+
+        errors: typing.List["ErrorWrapper"] = []
+        for name, ext in required_fields:
+            field = cls.__fields__[name]
+            ext_field = cls.__fields__[ext]
+            value = values.get(field.alias, _missing)
+            if value not in (_missing, None):
+                continue
+            ext_value = values.get(ext_field.alias, _missing)
+            missing_ext = True
+            if ext_value not in (_missing, None):
+                if isinstance(ext_value, dict):
+                    missing_ext = len(ext_value.get("extension", [])) == 0
+                elif (
+                    getattr(ext_value.__class__, "get_resource_type", _fallback)()
+                    == "FHIRPrimitiveExtension"
+                ):
+                    if ext_value.extension and len(ext_value.extension) > 0:
+                        missing_ext = False
+                else:
+                    validate_pass = True
+                    for validator in ext_field.type_.__get_validators__():
+                        try:
+                            ext_value = validator(v=ext_value)
+                        except ValidationError as exc:
+                            errors.append(ErrorWrapper(exc, loc=ext_field.alias))
+                            validate_pass = False
+                    if not validate_pass:
+                        continue
+                    if ext_value.extension and len(ext_value.extension) > 0:
+                        missing_ext = False
+            if missing_ext:
+                if value is _missing:
+                    errors.append(ErrorWrapper(MissingError(), loc=field.alias))
+                else:
+                    errors.append(
+                        ErrorWrapper(NoneIsNotAllowedError(), loc=field.alias)
+                    )
+        if len(errors) > 0:
+            raise ValidationError(errors, cls)  # type: ignore
+
+        return values
+
+
+class ImagingSelectionInstanceImageRegion3D(backboneelement.BackboneElement):
+    """Disclaimer: Any field name ends with ``__ext`` doesn't part of
+    Resource StructureDefinition, instead used to enable Extensibility feature
+    for FHIR Primitive Data Types.
+
+    A specific 3D region in a DICOM frame of reference.
+    Each imaging selection might includes a 3D image region, specified by a
+    region type and a set of 3D coordinates.
+    """
+    resource_type = Field("ImagingSelectionInstanceImageRegion3D", const=True)
+	
+    coordinate: typing.List[fhirtypes.Decimal] = Field(
+		None,
+		alias="coordinate",
+		title="Specifies the coordinates that define the image region",
+		description=(
+    "The coordinates describing the image region. Encoded as an ordered set"
+    " of (x,y,z) triplets (in mm and may be negative) that define a region "
+    "of interest in the patient-relative Reference Coordinate System "
+    "defined by ImagingSelection.frameOfReferenceUid element."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+        element_required=True,
+	)
+    coordinate__ext: typing.List[typing.Union[fhirtypes.FHIRPrimitiveExtensionType, None]] = Field(
+        None,
+        alias="_coordinate",
+        title="Extension field for ``coordinate``."
+    )
+	
+    regionType: fhirtypes.Code = Field(
+		None,
+		alias="regionType",
+		title="point | multipoint | polyline | polygon | ellipse | ellipsoid",
+		description="Specifies the type of image region.",
+        # if property is element of this resource.
+        element_property=True,
+        element_required=True,
+        # note: Enum values can be used in validation,
+        # but use in your own responsibilities, read official FHIR documentation.
+		enum_values=["point", "multipoint", "polyline", "polygon", "ellipse", "ellipsoid"],
+	)
+    regionType__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
+        None,
+        alias="_regionType",
+        title="Extension field for ``regionType``."
+    )
+    @classmethod
+    def elements_sequence(cls):
+        """returning all elements names from
+        ``ImagingSelectionInstanceImageRegion3D`` according specification,
+        with preserving original sequence order.
+        """
+        return ["id", "extension", "modifierExtension", "regionType", "coordinate"]
+
+
+    @root_validator(pre=True, allow_reuse=True)
+    def validate_required_primitive_elements_3842(
         cls, values: typing.Dict[str, typing.Any]
     ) -> typing.Dict[str, typing.Any]:
         """https://www.hl7.org/fhir/extensibility.html#Special-Case

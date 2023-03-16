@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/Endpoint
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 import typing
 from pydantic import Field
@@ -81,7 +81,7 @@ class Endpoint(domainresource.DomainResource):
     ),
 		description=(
     "The description of the endpoint and what it is for (typically used as "
-    "supplemental information in an endpoint directory describing it's "
+    "supplemental information in an endpoint directory describing its "
     "usage/purpose)."
     ),
         # if property is element of this resource.
@@ -99,7 +99,7 @@ class Endpoint(domainresource.DomainResource):
 		title="The type of environment(s) exposed at this endpoint",
 		description=(
     "The type of environment(s) exposed at this endpoint (dev, prod, test, "
-    "etc)."
+    "etc.)."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -163,39 +163,11 @@ class Endpoint(domainresource.DomainResource):
         title="Extension field for ``name``."
     )
 	
-    payloadMimeType: typing.List[fhirtypes.Code] = Field(
+    payload: typing.List[fhirtypes.EndpointPayloadType] = Field(
 		None,
-		alias="payloadMimeType",
-		title=(
-    "Mimetype to send. If not specified, the content could be anything "
-    "(including no payload, if the connectionType defined this)"
-    ),
-		description=(
-    "The mime type to send the payload in - e.g. application/fhir+xml, "
-    "application/fhir+json. If the mime type is not specified, then the "
-    "sender could send any content (including no content depending on the "
-    "connectionType)."
-    ),
-        # if property is element of this resource.
-        element_property=True,
-	)
-    payloadMimeType__ext: typing.List[typing.Union[fhirtypes.FHIRPrimitiveExtensionType, None]] = Field(
-        None,
-        alias="_payloadMimeType",
-        title="Extension field for ``payloadMimeType``."
-    )
-	
-    payloadType: typing.List[fhirtypes.CodeableConceptType] = Field(
-		None,
-		alias="payloadType",
-		title=(
-    "The type of content that may be used at this endpoint (e.g. XDS "
-    "Discharge summaries)"
-    ),
-		description=(
-    "The payload type describes the acceptable content that can be "
-    "communicated on the endpoint."
-    ),
+		alias="payload",
+		title="Set of payloads that are provided by this endpoint",
+		description="The set of payloads that are provided/available at this endpoint.",
         # if property is element of this resource.
         element_property=True,
 	)
@@ -235,7 +207,7 @@ class Endpoint(domainresource.DomainResource):
         ``Endpoint`` according specification,
         with preserving original sequence order.
         """
-        return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "identifier", "status", "connectionType", "name", "description", "environmentType", "managingOrganization", "contact", "period", "payloadType", "payloadMimeType", "address", "header"]
+        return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "identifier", "status", "connectionType", "name", "description", "environmentType", "managingOrganization", "contact", "period", "payload", "address", "header"]
 
 
     @root_validator(pre=True, allow_reuse=True)
@@ -298,3 +270,61 @@ class Endpoint(domainresource.DomainResource):
             raise ValidationError(errors, cls)  # type: ignore
 
         return values
+
+
+from . import backboneelement
+
+class EndpointPayload(backboneelement.BackboneElement):
+    """Disclaimer: Any field name ends with ``__ext`` doesn't part of
+    Resource StructureDefinition, instead used to enable Extensibility feature
+    for FHIR Primitive Data Types.
+
+    Set of payloads that are provided by this endpoint.
+    The set of payloads that are provided/available at this endpoint.
+    """
+    resource_type = Field("EndpointPayload", const=True)
+	
+    mimeType: typing.List[fhirtypes.Code] = Field(
+		None,
+		alias="mimeType",
+		title=(
+    "Mimetype to send. If not specified, the content could be anything "
+    "(including no payload, if the connectionType defined this)"
+    ),
+		description=(
+    "The mime type to send the payload in - e.g. application/fhir+xml, "
+    "application/fhir+json. If the mime type is not specified, then the "
+    "sender could send any content (including no content depending on the "
+    "connectionType)."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+	)
+    mimeType__ext: typing.List[typing.Union[fhirtypes.FHIRPrimitiveExtensionType, None]] = Field(
+        None,
+        alias="_mimeType",
+        title="Extension field for ``mimeType``."
+    )
+	
+    type: typing.List[fhirtypes.CodeableConceptType] = Field(
+		None,
+		alias="type",
+		title=(
+    "The type of content that may be used at this endpoint (e.g. XDS "
+    "Discharge summaries)"
+    ),
+		description=(
+    "The payload type describes the acceptable content that can be "
+    "communicated on the endpoint."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+	)
+    @classmethod
+    def elements_sequence(cls):
+        """returning all elements names from
+        ``EndpointPayload`` according specification,
+        with preserving original sequence order.
+        """
+        return ["id", "extension", "modifierExtension", "type", "mimeType"]
+

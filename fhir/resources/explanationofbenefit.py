@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/ExplanationOfBenefit
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 import typing
 from pydantic import Field
@@ -196,11 +196,8 @@ class ExplanationOfBenefit(domainresource.DomainResource):
     encounter: typing.List[fhirtypes.ReferenceType] = Field(
 		None,
 		alias="encounter",
-		title="Encounters related to this billed item",
-		description=(
-    "A billed item may include goods or services provided in multiple "
-    "encounters."
-    ),
+		title="Encounters associated with the listed treatments",
+		description="Healthcare encounters related to this claim.",
         # if property is element of this resource.
         element_property=True,
         # note: Listed Resource Type(s) should be allowed as Reference.
@@ -219,6 +216,15 @@ class ExplanationOfBenefit(domainresource.DomainResource):
         element_property=True,
         # note: Listed Resource Type(s) should be allowed as Reference.
 		enum_reference_types=["Practitioner", "PractitionerRole", "Patient", "RelatedPerson"],
+	)
+	
+    event: typing.List[fhirtypes.ExplanationOfBenefitEventType] = Field(
+		None,
+		alias="event",
+		title="Event information",
+		description="Information code for an event with a corresponding date or period.",
+        # if property is element of this resource.
+        element_property=True,
 	)
 	
     facility: fhirtypes.ReferenceType = Field(
@@ -602,6 +608,18 @@ class ExplanationOfBenefit(domainresource.DomainResource):
         element_property=True,
 	)
 	
+    traceNumber: typing.List[fhirtypes.IdentifierType] = Field(
+		None,
+		alias="traceNumber",
+		title="Number for tracking",
+		description=(
+    "Trace number for tracking purposes. May be defined at the jurisdiction"
+    " level or between trading partners."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+	)
+	
     type: fhirtypes.CodeableConceptType = Field(
 		...,
 		alias="type",
@@ -650,7 +668,7 @@ class ExplanationOfBenefit(domainresource.DomainResource):
         ``ExplanationOfBenefit`` according specification,
         with preserving original sequence order.
         """
-        return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "identifier", "status", "type", "subType", "use", "patient", "billablePeriod", "created", "enterer", "insurer", "provider", "priority", "fundsReserveRequested", "fundsReserve", "related", "prescription", "originalPrescription", "payee", "referral", "encounter", "facility", "claim", "claimResponse", "outcome", "decision", "disposition", "preAuthRef", "preAuthRefPeriod", "diagnosisRelatedGroup", "careTeam", "supportingInfo", "diagnosis", "procedure", "precedence", "insurance", "accident", "patientPaid", "item", "addItem", "adjudication", "total", "payment", "formCode", "form", "processNote", "benefitPeriod", "benefitBalance"]
+        return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "identifier", "traceNumber", "status", "type", "subType", "use", "patient", "billablePeriod", "created", "enterer", "insurer", "provider", "priority", "fundsReserveRequested", "fundsReserve", "related", "prescription", "originalPrescription", "event", "payee", "referral", "encounter", "facility", "claim", "claimResponse", "outcome", "decision", "disposition", "preAuthRef", "preAuthRefPeriod", "diagnosisRelatedGroup", "careTeam", "supportingInfo", "diagnosis", "procedure", "precedence", "insurance", "accident", "patientPaid", "item", "addItem", "adjudication", "total", "payment", "formCode", "form", "processNote", "benefitPeriod", "benefitBalance"]
 
 
     @root_validator(pre=True, allow_reuse=True)
@@ -865,18 +883,6 @@ class ExplanationOfBenefitAddItem(backboneelement.BackboneElement):
         element_property=True,
 	)
 	
-    decision: fhirtypes.CodeableConceptType = Field(
-		None,
-		alias="decision",
-		title="Result of the adjudication",
-		description=(
-    "The result of the claim, predetermination, or preauthorization "
-    "adjudication."
-    ),
-        # if property is element of this resource.
-        element_property=True,
-	)
-	
     detail: typing.List[fhirtypes.ExplanationOfBenefitAddItemDetailType] = Field(
 		None,
 		alias="detail",
@@ -991,8 +997,8 @@ class ExplanationOfBenefitAddItem(backboneelement.BackboneElement):
 		alias="net",
 		title="Total item cost",
 		description=(
-    "The quantity times the unit price for an additional service or product"
-    " or charge."
+    "The total amount claimed for the group (if a grouper) or the addItem. "
+    "Net = unit price * quantity * factor."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -1092,6 +1098,17 @@ class ExplanationOfBenefitAddItem(backboneelement.BackboneElement):
         element_property=True,
 	)
 	
+    request: typing.List[fhirtypes.ReferenceType] = Field(
+		None,
+		alias="request",
+		title="Request or Referral for Service",
+		description="Request or Referral for Goods or Service to be rendered.",
+        # if property is element of this resource.
+        element_property=True,
+        # note: Listed Resource Type(s) should be allowed as Reference.
+		enum_reference_types=["DeviceRequest", "MedicationRequest", "NutritionOrder", "ServiceRequest", "SupplyRequest", "VisionPrescription"],
+	)
+	
     revenue: fhirtypes.CodeableConceptType = Field(
 		None,
 		alias="revenue",
@@ -1099,6 +1116,18 @@ class ExplanationOfBenefitAddItem(backboneelement.BackboneElement):
 		description=(
     "The type of revenue or cost center providing the product and/or "
     "service."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+	)
+	
+    reviewOutcome: fhirtypes.ExplanationOfBenefitItemReviewOutcomeType = Field(
+		None,
+		alias="reviewOutcome",
+		title="Additem level adjudication results",
+		description=(
+    "The high-level results of the adjudication if adjudication has been "
+    "performed."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -1165,6 +1194,18 @@ class ExplanationOfBenefitAddItem(backboneelement.BackboneElement):
         element_property=True,
 	)
 	
+    traceNumber: typing.List[fhirtypes.IdentifierType] = Field(
+		None,
+		alias="traceNumber",
+		title="Number for tracking",
+		description=(
+    "Trace number for tracking purposes. May be defined at the jurisdiction"
+    " level or between trading partners."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+	)
+	
     unitPrice: fhirtypes.MoneyType = Field(
 		None,
 		alias="unitPrice",
@@ -1183,7 +1224,7 @@ class ExplanationOfBenefitAddItem(backboneelement.BackboneElement):
         ``ExplanationOfBenefitAddItem`` according specification,
         with preserving original sequence order.
         """
-        return ["id", "extension", "modifierExtension", "itemSequence", "detailSequence", "subDetailSequence", "provider", "revenue", "productOrService", "productOrServiceEnd", "modifier", "programCode", "servicedDate", "servicedPeriod", "locationCodeableConcept", "locationAddress", "locationReference", "patientPaid", "quantity", "unitPrice", "factor", "tax", "net", "bodySite", "noteNumber", "decision", "adjudication", "detail"]
+        return ["id", "extension", "modifierExtension", "itemSequence", "detailSequence", "subDetailSequence", "traceNumber", "provider", "revenue", "productOrService", "productOrServiceEnd", "request", "modifier", "programCode", "servicedDate", "servicedPeriod", "locationCodeableConcept", "locationAddress", "locationReference", "patientPaid", "quantity", "unitPrice", "factor", "tax", "net", "bodySite", "noteNumber", "reviewOutcome", "adjudication", "detail"]
 
 
     @root_validator(pre=True, allow_reuse=True)
@@ -1293,18 +1334,6 @@ class ExplanationOfBenefitAddItemDetail(backboneelement.BackboneElement):
         element_property=True,
 	)
 	
-    decision: fhirtypes.CodeableConceptType = Field(
-		None,
-		alias="decision",
-		title="Result of the adjudication",
-		description=(
-    "The result of the claim, predetermination, or preauthorization "
-    "adjudication."
-    ),
-        # if property is element of this resource.
-        element_property=True,
-	)
-	
     factor: fhirtypes.Decimal = Field(
 		None,
 		alias="factor",
@@ -1341,8 +1370,8 @@ class ExplanationOfBenefitAddItemDetail(backboneelement.BackboneElement):
 		alias="net",
 		title="Total item cost",
 		description=(
-    "The quantity times the unit price for an additional service or product"
-    " or charge."
+    "The total amount claimed for the group (if a grouper) or the "
+    "addItem.detail. Net = unit price * quantity * factor."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -1426,6 +1455,18 @@ class ExplanationOfBenefitAddItemDetail(backboneelement.BackboneElement):
 		description=(
     "The type of revenue or cost center providing the product and/or "
     "service."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+	)
+	
+    reviewOutcome: fhirtypes.ExplanationOfBenefitItemReviewOutcomeType = Field(
+		None,
+		alias="reviewOutcome",
+		title="Additem detail level adjudication results",
+		description=(
+    "The high-level results of the adjudication if adjudication has been "
+    "performed."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -1449,6 +1490,18 @@ class ExplanationOfBenefitAddItemDetail(backboneelement.BackboneElement):
         element_property=True,
 	)
 	
+    traceNumber: typing.List[fhirtypes.IdentifierType] = Field(
+		None,
+		alias="traceNumber",
+		title="Number for tracking",
+		description=(
+    "Trace number for tracking purposes. May be defined at the jurisdiction"
+    " level or between trading partners."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+	)
+	
     unitPrice: fhirtypes.MoneyType = Field(
 		None,
 		alias="unitPrice",
@@ -1467,7 +1520,7 @@ class ExplanationOfBenefitAddItemDetail(backboneelement.BackboneElement):
         ``ExplanationOfBenefitAddItemDetail`` according specification,
         with preserving original sequence order.
         """
-        return ["id", "extension", "modifierExtension", "revenue", "productOrService", "productOrServiceEnd", "modifier", "patientPaid", "quantity", "unitPrice", "factor", "tax", "net", "noteNumber", "decision", "adjudication", "subDetail"]
+        return ["id", "extension", "modifierExtension", "traceNumber", "revenue", "productOrService", "productOrServiceEnd", "modifier", "patientPaid", "quantity", "unitPrice", "factor", "tax", "net", "noteNumber", "reviewOutcome", "adjudication", "subDetail"]
 
 
 
@@ -1486,18 +1539,6 @@ class ExplanationOfBenefitAddItemDetailSubDetail(backboneelement.BackboneElement
 		alias="adjudication",
 		title="Added items adjudication",
 		description="The adjudication results.",
-        # if property is element of this resource.
-        element_property=True,
-	)
-	
-    decision: fhirtypes.CodeableConceptType = Field(
-		None,
-		alias="decision",
-		title="Result of the adjudication",
-		description=(
-    "The result of the claim, predetermination, or preauthorization "
-    "adjudication."
-    ),
         # if property is element of this resource.
         element_property=True,
 	)
@@ -1538,8 +1579,8 @@ class ExplanationOfBenefitAddItemDetailSubDetail(backboneelement.BackboneElement
 		alias="net",
 		title="Total item cost",
 		description=(
-    "The quantity times the unit price for an additional service or product"
-    " or charge."
+    "The total amount claimed for the addItem.detail.subDetail. Net = unit "
+    "price * quantity * factor."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -1628,11 +1669,35 @@ class ExplanationOfBenefitAddItemDetailSubDetail(backboneelement.BackboneElement
         element_property=True,
 	)
 	
+    reviewOutcome: fhirtypes.ExplanationOfBenefitItemReviewOutcomeType = Field(
+		None,
+		alias="reviewOutcome",
+		title="Additem subdetail level adjudication results",
+		description=(
+    "The high-level results of the adjudication if adjudication has been "
+    "performed."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+	)
+	
     tax: fhirtypes.MoneyType = Field(
 		None,
 		alias="tax",
 		title="Total tax",
 		description="The total of taxes applicable for this product or service.",
+        # if property is element of this resource.
+        element_property=True,
+	)
+	
+    traceNumber: typing.List[fhirtypes.IdentifierType] = Field(
+		None,
+		alias="traceNumber",
+		title="Number for tracking",
+		description=(
+    "Trace number for tracking purposes. May be defined at the jurisdiction"
+    " level or between trading partners."
+    ),
         # if property is element of this resource.
         element_property=True,
 	)
@@ -1655,7 +1720,7 @@ class ExplanationOfBenefitAddItemDetailSubDetail(backboneelement.BackboneElement
         ``ExplanationOfBenefitAddItemDetailSubDetail`` according specification,
         with preserving original sequence order.
         """
-        return ["id", "extension", "modifierExtension", "revenue", "productOrService", "productOrServiceEnd", "modifier", "patientPaid", "quantity", "unitPrice", "factor", "tax", "net", "noteNumber", "decision", "adjudication"]
+        return ["id", "extension", "modifierExtension", "traceNumber", "revenue", "productOrService", "productOrServiceEnd", "modifier", "patientPaid", "quantity", "unitPrice", "factor", "tax", "net", "noteNumber", "reviewOutcome", "adjudication"]
 
 
 
@@ -2259,6 +2324,110 @@ class ExplanationOfBenefitDiagnosis(backboneelement.BackboneElement):
         return values
 
 
+class ExplanationOfBenefitEvent(backboneelement.BackboneElement):
+    """Disclaimer: Any field name ends with ``__ext`` doesn't part of
+    Resource StructureDefinition, instead used to enable Extensibility feature
+    for FHIR Primitive Data Types.
+
+    Event information.
+    Information code for an event with a corresponding date or period.
+    """
+    resource_type = Field("ExplanationOfBenefitEvent", const=True)
+	
+    type: fhirtypes.CodeableConceptType = Field(
+		...,
+		alias="type",
+		title="Specific event",
+		description="A coded event such as when a service is expected or a card printed.",
+        # if property is element of this resource.
+        element_property=True,
+	)
+	
+    whenDateTime: fhirtypes.DateTime = Field(
+		None,
+		alias="whenDateTime",
+		title="Occurance date or period",
+		description=(
+    "A date or period in the past or future indicating when the event "
+    "occurred or is expectd to occur."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+        # Choice of Data Types. i.e when[x]
+		one_of_many="when",
+		one_of_many_required=True,
+	)
+    whenDateTime__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
+        None,
+        alias="_whenDateTime",
+        title="Extension field for ``whenDateTime``."
+    )
+	
+    whenPeriod: fhirtypes.PeriodType = Field(
+		None,
+		alias="whenPeriod",
+		title="Occurance date or period",
+		description=(
+    "A date or period in the past or future indicating when the event "
+    "occurred or is expectd to occur."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+        # Choice of Data Types. i.e when[x]
+		one_of_many="when",
+		one_of_many_required=True,
+	)
+    @classmethod
+    def elements_sequence(cls):
+        """returning all elements names from
+        ``ExplanationOfBenefitEvent`` according specification,
+        with preserving original sequence order.
+        """
+        return ["id", "extension", "modifierExtension", "type", "whenDateTime", "whenPeriod"]
+
+
+    @root_validator(pre=True, allow_reuse=True)
+    def validate_one_of_many_2736(
+        cls, values: typing.Dict[str, typing.Any]
+    ) -> typing.Dict[str, typing.Any]:
+        """https://www.hl7.org/fhir/formats.html#choice
+        A few elements have a choice of more than one data type for their content.
+        All such elements have a name that takes the form nnn[x].
+        The "nnn" part of the name is constant, and the "[x]" is replaced with
+        the title-cased name of the type that is actually used.
+        The table view shows each of these names explicitly.
+
+        Elements that have a choice of data type cannot repeat - they must have a
+        maximum cardinality of 1. When constructing an instance of an element with a
+        choice of types, the authoring system must create a single element with a
+        data type chosen from among the list of permitted data types.
+        """
+        one_of_many_fields = {
+			"when": [
+			    "whenDateTime",
+			    "whenPeriod"]}
+        for prefix, fields in one_of_many_fields.items():
+            assert cls.__fields__[fields[0]].field_info.extra["one_of_many"] == prefix
+            required = (
+                cls.__fields__[fields[0]].field_info.extra["one_of_many_required"]
+                is True
+            )
+            found = False
+            for field in fields:
+                if field in values and values[field] is not None:
+                    if found is True:
+                        raise ValueError(
+                            "Any of one field value is expected from "
+                            f"this list {fields}, but got multiple!"
+                        )
+                    else:
+                        found = True
+            if required is True and found is False:
+                raise ValueError(f"Expect any of field value from this list {fields}.")
+
+        return values
+
+
 class ExplanationOfBenefitInsurance(backboneelement.BackboneElement):
     """Disclaimer: Any field name ends with ``__ext`` doesn't part of
     Resource StructureDefinition, instead used to enable Extensibility feature
@@ -2450,18 +2619,6 @@ class ExplanationOfBenefitItem(backboneelement.BackboneElement):
         element_property=True,
 	)
 	
-    decision: fhirtypes.CodeableConceptType = Field(
-		None,
-		alias="decision",
-		title="Result of the adjudication",
-		description=(
-    "The result of the claim, predetermination, or preauthorization "
-    "adjudication."
-    ),
-        # if property is element of this resource.
-        element_property=True,
-	)
-	
     detail: typing.List[fhirtypes.ExplanationOfBenefitItemDetailType] = Field(
 		None,
 		alias="detail",
@@ -2488,11 +2645,8 @@ class ExplanationOfBenefitItem(backboneelement.BackboneElement):
     encounter: typing.List[fhirtypes.ReferenceType] = Field(
 		None,
 		alias="encounter",
-		title="Encounters related to this billed item",
-		description=(
-    "A billed item may include goods or services provided in multiple "
-    "encounters."
-    ),
+		title="Encounters associated with the listed treatments",
+		description="Healthcare encounters related to this claim.",
         # if property is element of this resource.
         element_property=True,
         # note: Listed Resource Type(s) should be allowed as Reference.
@@ -2590,8 +2744,8 @@ class ExplanationOfBenefitItem(backboneelement.BackboneElement):
 		alias="net",
 		title="Total item cost",
 		description=(
-    "The quantity times the unit price for an additional service or product"
-    " or charge."
+    "The total amount claimed for the group (if a grouper) or the line "
+    "item. Net = unit price * quantity * factor."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -2691,6 +2845,17 @@ class ExplanationOfBenefitItem(backboneelement.BackboneElement):
         element_property=True,
 	)
 	
+    request: typing.List[fhirtypes.ReferenceType] = Field(
+		None,
+		alias="request",
+		title="Request or Referral for Service",
+		description="Request or Referral for Goods or Service to be rendered.",
+        # if property is element of this resource.
+        element_property=True,
+        # note: Listed Resource Type(s) should be allowed as Reference.
+		enum_reference_types=["DeviceRequest", "MedicationRequest", "NutritionOrder", "ServiceRequest", "SupplyRequest", "VisionPrescription"],
+	)
+	
     revenue: fhirtypes.CodeableConceptType = Field(
 		None,
 		alias="revenue",
@@ -2698,6 +2863,18 @@ class ExplanationOfBenefitItem(backboneelement.BackboneElement):
 		description=(
     "The type of revenue or cost center providing the product and/or "
     "service."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+	)
+	
+    reviewOutcome: fhirtypes.ExplanationOfBenefitItemReviewOutcomeType = Field(
+		None,
+		alias="reviewOutcome",
+		title="Adjudication results",
+		description=(
+    "The high-level results of the adjudication if adjudication has been "
+    "performed."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -2762,6 +2939,18 @@ class ExplanationOfBenefitItem(backboneelement.BackboneElement):
         element_property=True,
 	)
 	
+    traceNumber: typing.List[fhirtypes.IdentifierType] = Field(
+		None,
+		alias="traceNumber",
+		title="Number for tracking",
+		description=(
+    "Trace number for tracking purposes. May be defined at the jurisdiction"
+    " level or between trading partners."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+	)
+	
     udi: typing.List[fhirtypes.ReferenceType] = Field(
 		None,
 		alias="udi",
@@ -2791,7 +2980,7 @@ class ExplanationOfBenefitItem(backboneelement.BackboneElement):
         ``ExplanationOfBenefitItem`` according specification,
         with preserving original sequence order.
         """
-        return ["id", "extension", "modifierExtension", "sequence", "careTeamSequence", "diagnosisSequence", "procedureSequence", "informationSequence", "revenue", "category", "productOrService", "productOrServiceEnd", "modifier", "programCode", "servicedDate", "servicedPeriod", "locationCodeableConcept", "locationAddress", "locationReference", "patientPaid", "quantity", "unitPrice", "factor", "tax", "net", "udi", "bodySite", "encounter", "noteNumber", "decision", "adjudication", "detail"]
+        return ["id", "extension", "modifierExtension", "sequence", "careTeamSequence", "diagnosisSequence", "procedureSequence", "informationSequence", "traceNumber", "revenue", "category", "productOrService", "productOrServiceEnd", "request", "modifier", "programCode", "servicedDate", "servicedPeriod", "locationCodeableConcept", "locationAddress", "locationReference", "patientPaid", "quantity", "unitPrice", "factor", "tax", "net", "udi", "bodySite", "encounter", "noteNumber", "reviewOutcome", "adjudication", "detail"]
 
 
     @root_validator(pre=True, allow_reuse=True)
@@ -2937,6 +3126,18 @@ class ExplanationOfBenefitItemAdjudication(backboneelement.BackboneElement):
         element_property=True,
 	)
 	
+    quantity: fhirtypes.QuantityType = Field(
+		None,
+		alias="quantity",
+		title="Non-monitary value",
+		description=(
+    "A non-monetary value associated with the category. Mutually exclusive "
+    "to the amount element above."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+	)
+	
     reason: fhirtypes.CodeableConceptType = Field(
 		None,
 		alias="reason",
@@ -2948,30 +3149,13 @@ class ExplanationOfBenefitItemAdjudication(backboneelement.BackboneElement):
         # if property is element of this resource.
         element_property=True,
 	)
-	
-    value: fhirtypes.Decimal = Field(
-		None,
-		alias="value",
-		title="Non-monitary value",
-		description=(
-    "A non-monetary value associated with the category. Mutually exclusive "
-    "to the amount element above."
-    ),
-        # if property is element of this resource.
-        element_property=True,
-	)
-    value__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
-        None,
-        alias="_value",
-        title="Extension field for ``value``."
-    )
     @classmethod
     def elements_sequence(cls):
         """returning all elements names from
         ``ExplanationOfBenefitItemAdjudication`` according specification,
         with preserving original sequence order.
         """
-        return ["id", "extension", "modifierExtension", "category", "reason", "amount", "value"]
+        return ["id", "extension", "modifierExtension", "category", "reason", "amount", "quantity"]
 
 
 
@@ -3048,18 +3232,6 @@ class ExplanationOfBenefitItemDetail(backboneelement.BackboneElement):
         element_property=True,
 	)
 	
-    decision: fhirtypes.CodeableConceptType = Field(
-		None,
-		alias="decision",
-		title="Result of the adjudication",
-		description=(
-    "The result of the claim, predetermination, or preauthorization "
-    "adjudication."
-    ),
-        # if property is element of this resource.
-        element_property=True,
-	)
-	
     factor: fhirtypes.Decimal = Field(
 		None,
 		alias="factor",
@@ -3096,8 +3268,8 @@ class ExplanationOfBenefitItemDetail(backboneelement.BackboneElement):
 		alias="net",
 		title="Total item cost",
 		description=(
-    "The quantity times the unit price for an additional service or product"
-    " or charge."
+    "The total amount claimed for the group (if a grouper) or the line "
+    "item.detail. Net = unit price * quantity * factor."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -3195,6 +3367,18 @@ class ExplanationOfBenefitItemDetail(backboneelement.BackboneElement):
         element_property=True,
 	)
 	
+    reviewOutcome: fhirtypes.ExplanationOfBenefitItemReviewOutcomeType = Field(
+		None,
+		alias="reviewOutcome",
+		title="Detail level adjudication results",
+		description=(
+    "The high-level results of the adjudication if adjudication has been "
+    "performed."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+	)
+	
     sequence: fhirtypes.PositiveInt = Field(
 		None,
 		alias="sequence",
@@ -3231,6 +3415,18 @@ class ExplanationOfBenefitItemDetail(backboneelement.BackboneElement):
         element_property=True,
 	)
 	
+    traceNumber: typing.List[fhirtypes.IdentifierType] = Field(
+		None,
+		alias="traceNumber",
+		title="Number for tracking",
+		description=(
+    "Trace number for tracking purposes. May be defined at the jurisdiction"
+    " level or between trading partners."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+	)
+	
     udi: typing.List[fhirtypes.ReferenceType] = Field(
 		None,
 		alias="udi",
@@ -3260,7 +3456,7 @@ class ExplanationOfBenefitItemDetail(backboneelement.BackboneElement):
         ``ExplanationOfBenefitItemDetail`` according specification,
         with preserving original sequence order.
         """
-        return ["id", "extension", "modifierExtension", "sequence", "revenue", "category", "productOrService", "productOrServiceEnd", "modifier", "programCode", "patientPaid", "quantity", "unitPrice", "factor", "tax", "net", "udi", "noteNumber", "decision", "adjudication", "subDetail"]
+        return ["id", "extension", "modifierExtension", "sequence", "traceNumber", "revenue", "category", "productOrService", "productOrServiceEnd", "modifier", "programCode", "patientPaid", "quantity", "unitPrice", "factor", "tax", "net", "udi", "noteNumber", "reviewOutcome", "adjudication", "subDetail"]
 
 
     @root_validator(pre=True, allow_reuse=True)
@@ -3355,18 +3551,6 @@ class ExplanationOfBenefitItemDetailSubDetail(backboneelement.BackboneElement):
         element_property=True,
 	)
 	
-    decision: fhirtypes.CodeableConceptType = Field(
-		None,
-		alias="decision",
-		title="Result of the adjudication",
-		description=(
-    "The result of the claim, predetermination, or preauthorization "
-    "adjudication."
-    ),
-        # if property is element of this resource.
-        element_property=True,
-	)
-	
     factor: fhirtypes.Decimal = Field(
 		None,
 		alias="factor",
@@ -3403,8 +3587,8 @@ class ExplanationOfBenefitItemDetailSubDetail(backboneelement.BackboneElement):
 		alias="net",
 		title="Total item cost",
 		description=(
-    "The quantity times the unit price for an additional service or product"
-    " or charge."
+    "The total amount claimed for the line item.detail.subDetail. Net = "
+    "unit price * quantity * factor."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -3502,6 +3686,18 @@ class ExplanationOfBenefitItemDetailSubDetail(backboneelement.BackboneElement):
         element_property=True,
 	)
 	
+    reviewOutcome: fhirtypes.ExplanationOfBenefitItemReviewOutcomeType = Field(
+		None,
+		alias="reviewOutcome",
+		title="Subdetail level adjudication results",
+		description=(
+    "The high-level results of the adjudication if adjudication has been "
+    "performed."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+	)
+	
     sequence: fhirtypes.PositiveInt = Field(
 		None,
 		alias="sequence",
@@ -3525,6 +3721,18 @@ class ExplanationOfBenefitItemDetailSubDetail(backboneelement.BackboneElement):
 		alias="tax",
 		title="Total tax",
 		description="The total of taxes applicable for this product or service.",
+        # if property is element of this resource.
+        element_property=True,
+	)
+	
+    traceNumber: typing.List[fhirtypes.IdentifierType] = Field(
+		None,
+		alias="traceNumber",
+		title="Number for tracking",
+		description=(
+    "Trace number for tracking purposes. May be defined at the jurisdiction"
+    " level or between trading partners."
+    ),
         # if property is element of this resource.
         element_property=True,
 	)
@@ -3558,7 +3766,7 @@ class ExplanationOfBenefitItemDetailSubDetail(backboneelement.BackboneElement):
         ``ExplanationOfBenefitItemDetailSubDetail`` according specification,
         with preserving original sequence order.
         """
-        return ["id", "extension", "modifierExtension", "sequence", "revenue", "category", "productOrService", "productOrServiceEnd", "modifier", "programCode", "patientPaid", "quantity", "unitPrice", "factor", "tax", "net", "udi", "noteNumber", "decision", "adjudication"]
+        return ["id", "extension", "modifierExtension", "sequence", "traceNumber", "revenue", "category", "productOrService", "productOrServiceEnd", "modifier", "programCode", "patientPaid", "quantity", "unitPrice", "factor", "tax", "net", "udi", "noteNumber", "reviewOutcome", "adjudication"]
 
 
     @root_validator(pre=True, allow_reuse=True)
@@ -3620,6 +3828,76 @@ class ExplanationOfBenefitItemDetailSubDetail(backboneelement.BackboneElement):
             raise ValidationError(errors, cls)  # type: ignore
 
         return values
+
+
+class ExplanationOfBenefitItemReviewOutcome(backboneelement.BackboneElement):
+    """Disclaimer: Any field name ends with ``__ext`` doesn't part of
+    Resource StructureDefinition, instead used to enable Extensibility feature
+    for FHIR Primitive Data Types.
+
+    Adjudication results.
+    The high-level results of the adjudication if adjudication has been
+    performed.
+    """
+    resource_type = Field("ExplanationOfBenefitItemReviewOutcome", const=True)
+	
+    decision: fhirtypes.CodeableConceptType = Field(
+		None,
+		alias="decision",
+		title="Result of the adjudication",
+		description=(
+    "The result of the claim, predetermination, or preauthorization "
+    "adjudication."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+	)
+	
+    preAuthPeriod: fhirtypes.PeriodType = Field(
+		None,
+		alias="preAuthPeriod",
+		title="Preauthorization reference effective period",
+		description="The time frame during which this authorization is effective.",
+        # if property is element of this resource.
+        element_property=True,
+	)
+	
+    preAuthRef: fhirtypes.String = Field(
+		None,
+		alias="preAuthRef",
+		title="Preauthorization reference",
+		description=(
+    "Reference from the Insurer which is used in later communications which"
+    " refers to this adjudication."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+	)
+    preAuthRef__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
+        None,
+        alias="_preAuthRef",
+        title="Extension field for ``preAuthRef``."
+    )
+	
+    reason: typing.List[fhirtypes.CodeableConceptType] = Field(
+		None,
+		alias="reason",
+		title="Reason for result of the adjudication",
+		description=(
+    "The reasons for the result of the claim, predetermination, or "
+    "preauthorization adjudication."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+	)
+    @classmethod
+    def elements_sequence(cls):
+        """returning all elements names from
+        ``ExplanationOfBenefitItemReviewOutcome`` according specification,
+        with preserving original sequence order.
+        """
+        return ["id", "extension", "modifierExtension", "decision", "reason", "preAuthRef", "preAuthPeriod"]
+
 
 
 class ExplanationOfBenefitPayee(backboneelement.BackboneElement):
@@ -4002,22 +4280,14 @@ class ExplanationOfBenefitProcessNote(backboneelement.BackboneElement):
         title="Extension field for ``text``."
     )
 	
-    type: fhirtypes.Code = Field(
+    type: fhirtypes.CodeableConceptType = Field(
 		None,
 		alias="type",
-		title="display | print | printoper",
+		title="Note purpose",
 		description="The business purpose of the note text.",
         # if property is element of this resource.
         element_property=True,
-        # note: Enum values can be used in validation,
-        # but use in your own responsibilities, read official FHIR documentation.
-		enum_values=["display", "print", "printoper"],
 	)
-    type__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
-        None,
-        alias="_type",
-        title="Extension field for ``type``."
-    )
     @classmethod
     def elements_sequence(cls):
         """returning all elements names from

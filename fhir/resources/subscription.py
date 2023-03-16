@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/Subscription
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 import typing
 from pydantic import Field
@@ -76,9 +76,13 @@ class Subscription(domainresource.DomainResource):
 		alias="contentType",
 		title="MIME type to send, or omit for no payload",
 		description=(
-    "The mime type to send the payload in - either application/fhir+xml, or"
-    " application/fhir+json. The MIME types \"text/plain\" and \"text/html\" "
-    "may also be used for Email subscriptions."
+    "The MIME type to send the payload in - e.g., `application/fhir+xml` or"
+    " `application/fhir+json`. Note that:  * clients may request "
+    "notifications in a specific FHIR version by using the [FHIR Version "
+    "Parameter](http.html#version-parameter) - e.g., "
+    "`application/fhir+json; fhirVersion=4.0`.  * additional MIME types can"
+    " be allowed by channels - e.g., `text/plain` and `text/html` are "
+    "defined by the Email channel."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -107,7 +111,7 @@ class Subscription(domainresource.DomainResource):
 		None,
 		alias="endpoint",
 		title="Where the channel points to",
-		description="The url that describes the actual end-point to send messages to.",
+		description="The url that describes the actual end-point to send notifications to.",
         # if property is element of this resource.
         element_property=True,
 	)
@@ -124,36 +128,21 @@ class Subscription(domainresource.DomainResource):
 		description=(
     "The filter properties to be applied to narrow the subscription topic "
     "stream.  When multiple filters are applied, evaluates to true if all "
-    "the conditions are met; otherwise it returns false.   (i.e., logical "
-    "AND)."
+    "the conditions applicable to that resource are met; otherwise it "
+    "returns false (i.e., logical AND)."
     ),
         # if property is element of this resource.
         element_property=True,
 	)
-	
-    header: typing.List[typing.Optional[fhirtypes.String]] = Field(
-		None,
-		alias="header",
-		title="Usage depends on the channel type",
-		description="Additional headers / information to send as part of the notification.",
-        # if property is element of this resource.
-        element_property=True,
-	)
-    header__ext: typing.List[typing.Union[fhirtypes.FHIRPrimitiveExtensionType, None]] = Field(
-        None,
-        alias="_header",
-        title="Extension field for ``header``."
-    )
 	
     heartbeatPeriod: fhirtypes.UnsignedInt = Field(
 		None,
 		alias="heartbeatPeriod",
 		title="Interval in seconds to send 'heartbeat' notification",
 		description=(
-    "If present,  a 'hearbeat\" notification (keepalive) is sent via this "
-    "channel with an the interval period equal to this elements integer "
-    "value in seconds.    If not present, a heartbeat notification is not "
-    "sent."
+    "If present, a 'heartbeat' notification (keep-alive) is sent via this "
+    "channel with an interval period equal to this elements integer value "
+    "in seconds.  If not present, a heartbeat notification is not sent."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -195,16 +184,11 @@ class Subscription(domainresource.DomainResource):
     maxCount: fhirtypes.PositiveInt = Field(
 		None,
 		alias="maxCount",
-		title=(
-    "Maximum number of triggering resources included in notification "
-    "bundles"
-    ),
+		title="Maximum number of events that can be combined in a single notification",
 		description=(
-    "If present, the maximum number of triggering resources that will be "
-    "included in a notification bundle (e.g., a server will not include "
-    "more than this number of trigger resources in a single notification)."
-    "  Note that this is not a strict limit on the number of entries in a "
-    "bundle, as dependent resources can be included."
+    "If present, the maximum number of events that will be included in a "
+    "notification bundle. Note that this is not a strict limit on the "
+    "number of entries in a bundle, as dependent resources can be included."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -228,6 +212,18 @@ class Subscription(domainresource.DomainResource):
         alias="_name",
         title="Extension field for ``name``."
     )
+	
+    parameter: typing.List[fhirtypes.SubscriptionParameterType] = Field(
+		None,
+		alias="parameter",
+		title="Channel type",
+		description=(
+    "Channel-dependent information to send as part of the notification "
+    "(e.g., HTTP Headers)."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+	)
 	
     reason: fhirtypes.String = Field(
 		None,
@@ -303,7 +299,7 @@ class Subscription(domainresource.DomainResource):
         ``Subscription`` according specification,
         with preserving original sequence order.
         """
-        return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "identifier", "name", "status", "topic", "contact", "end", "managingEntity", "reason", "filterBy", "channelType", "endpoint", "header", "heartbeatPeriod", "timeout", "contentType", "content", "maxCount"]
+        return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "identifier", "name", "status", "topic", "contact", "end", "managingEntity", "reason", "filterBy", "channelType", "endpoint", "parameter", "heartbeatPeriod", "timeout", "contentType", "content", "maxCount"]
 
 
     @root_validator(pre=True, allow_reuse=True)
@@ -378,9 +374,27 @@ class SubscriptionFilterBy(backboneelement.BackboneElement):
     Criteria for narrowing the subscription topic stream.
     The filter properties to be applied to narrow the subscription topic
     stream.  When multiple filters are applied, evaluates to true if all the
-    conditions are met; otherwise it returns false.   (i.e., logical AND).
+    conditions applicable to that resource are met; otherwise it returns false
+    (i.e., logical AND).
     """
     resource_type = Field("SubscriptionFilterBy", const=True)
+	
+    comparator: fhirtypes.Code = Field(
+		None,
+		alias="comparator",
+		title="eq | ne | gt | lt | ge | le | sa | eb | ap",
+		description="Comparator applied to this filter parameter.",
+        # if property is element of this resource.
+        element_property=True,
+        # note: Enum values can be used in validation,
+        # but use in your own responsibilities, read official FHIR documentation.
+		enum_values=["eq", "ne", "gt", "lt", "ge", "le", "sa", "eb", "ap"],
+	)
+    comparator__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
+        None,
+        alias="_comparator",
+        title="Extension field for ``comparator``."
+    )
 	
     filterParameter: fhirtypes.String = Field(
 		None,
@@ -388,7 +402,7 @@ class SubscriptionFilterBy(backboneelement.BackboneElement):
 		title="Filter label defined in SubscriptionTopic",
 		description=(
     "The filter as defined in the "
-    "`SubscriptionTopic.canfilterBy.filterParameter` element."
+    "`SubscriptionTopic.canFilterBy.filterParameter` element."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -404,19 +418,15 @@ class SubscriptionFilterBy(backboneelement.BackboneElement):
 		None,
 		alias="modifier",
 		title=(
-    "= | eq | ne | gt | lt | ge | le | sa | eb | ap | above | below | in | "
-    "not-in | of-type"
+    "missing | exact | contains | not | text | in | not-in | below | above "
+    "| type | identifier | of-type | code-text | text-advanced | iterate"
     ),
-		description=(
-    "Operator to apply when determining matches (Search Modifiers), from "
-    "the list of allowed modifiers for this filter in the relevant "
-    "SubscriptionTopic."
-    ),
+		description="Modifier applied to this filter parameter.",
         # if property is element of this resource.
         element_property=True,
         # note: Enum values can be used in validation,
         # but use in your own responsibilities, read official FHIR documentation.
-		enum_values=["=", "eq", "ne", "gt", "lt", "ge", "le", "sa", "eb", "ap", "above", "below", "in", "not-in", "of-type"],
+		enum_values=["missing", "exact", "contains", "not", "text", "in", "not-in", "below", "above", "type", "identifier", "of-type", "code-text", "text-advanced", "iterate"],
 	)
     modifier__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
         None,
@@ -428,15 +438,14 @@ class SubscriptionFilterBy(backboneelement.BackboneElement):
 		None,
 		alias="resourceType",
 		title=(
-    "Allowed Data type or Resource (reference to definition) for this "
-    "Subscription"
+    "Allowed Resource (reference to definition) for this Subscription "
+    "filter"
     ),
 		description=(
-    "If the element is a reference to another resource, this element "
-    "contains \"Reference\", and the targetProfile element defines what "
-    "resources can be referenced. The targetProfile may be a reference to "
-    "the general definition of a resource (e.g. "
-    "http://hl7.org/fhir/StructureDefinition/Patient)."
+    "A resource listed in the `SubscriptionTopic` this `Subscription` "
+    "references (`SubscriptionTopic.canFilterBy.resource`). This element "
+    "can be used to differentiate filters for topics that include more than"
+    " one resource type."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -453,7 +462,7 @@ class SubscriptionFilterBy(backboneelement.BackboneElement):
 		title="Literal value or resource path",
 		description=(
     "The literal value or resource path as is legal in search - for "
-    "example, \"Patient/123\" or \"le1950\"."
+    "example, `Patient/123` or `le1950`."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -470,7 +479,7 @@ class SubscriptionFilterBy(backboneelement.BackboneElement):
         ``SubscriptionFilterBy`` according specification,
         with preserving original sequence order.
         """
-        return ["id", "extension", "modifierExtension", "resourceType", "filterParameter", "modifier", "value"]
+        return ["id", "extension", "modifierExtension", "resourceType", "filterParameter", "comparator", "modifier", "value"]
 
 
     @root_validator(pre=True, allow_reuse=True)
@@ -486,6 +495,125 @@ class SubscriptionFilterBy(backboneelement.BackboneElement):
         """
         required_fields = [
 			("filterParameter", "filterParameter__ext"),
+			("value", "value__ext")]
+        _missing = object()
+
+        def _fallback():
+            return ""
+
+        errors: typing.List["ErrorWrapper"] = []
+        for name, ext in required_fields:
+            field = cls.__fields__[name]
+            ext_field = cls.__fields__[ext]
+            value = values.get(field.alias, _missing)
+            if value not in (_missing, None):
+                continue
+            ext_value = values.get(ext_field.alias, _missing)
+            missing_ext = True
+            if ext_value not in (_missing, None):
+                if isinstance(ext_value, dict):
+                    missing_ext = len(ext_value.get("extension", [])) == 0
+                elif (
+                    getattr(ext_value.__class__, "get_resource_type", _fallback)()
+                    == "FHIRPrimitiveExtension"
+                ):
+                    if ext_value.extension and len(ext_value.extension) > 0:
+                        missing_ext = False
+                else:
+                    validate_pass = True
+                    for validator in ext_field.type_.__get_validators__():
+                        try:
+                            ext_value = validator(v=ext_value)
+                        except ValidationError as exc:
+                            errors.append(ErrorWrapper(exc, loc=ext_field.alias))
+                            validate_pass = False
+                    if not validate_pass:
+                        continue
+                    if ext_value.extension and len(ext_value.extension) > 0:
+                        missing_ext = False
+            if missing_ext:
+                if value is _missing:
+                    errors.append(ErrorWrapper(MissingError(), loc=field.alias))
+                else:
+                    errors.append(
+                        ErrorWrapper(NoneIsNotAllowedError(), loc=field.alias)
+                    )
+        if len(errors) > 0:
+            raise ValidationError(errors, cls)  # type: ignore
+
+        return values
+
+
+class SubscriptionParameter(backboneelement.BackboneElement):
+    """Disclaimer: Any field name ends with ``__ext`` doesn't part of
+    Resource StructureDefinition, instead used to enable Extensibility feature
+    for FHIR Primitive Data Types.
+
+    Channel type.
+    Channel-dependent information to send as part of the notification (e.g.,
+    HTTP Headers).
+    """
+    resource_type = Field("SubscriptionParameter", const=True)
+	
+    name: fhirtypes.String = Field(
+		None,
+		alias="name",
+		title="Name (key) of the parameter",
+		description=(
+    "Parameter name for information passed to the channel for "
+    "notifications, for example in the case of a REST hook wanting to pass "
+    "through an authorization header, the name would be Authorization."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+        element_required=True,
+	)
+    name__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
+        None,
+        alias="_name",
+        title="Extension field for ``name``."
+    )
+	
+    value: fhirtypes.String = Field(
+		None,
+		alias="value",
+		title="Value of the parameter to use or pass through",
+		description=(
+    "Parameter value for information passed to the channel for "
+    "notifications, for example in the case of a REST hook wanting to pass "
+    "through an authorization header, the value would be `Bearer 0193...`."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+        element_required=True,
+	)
+    value__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
+        None,
+        alias="_value",
+        title="Extension field for ``value``."
+    )
+    @classmethod
+    def elements_sequence(cls):
+        """returning all elements names from
+        ``SubscriptionParameter`` according specification,
+        with preserving original sequence order.
+        """
+        return ["id", "extension", "modifierExtension", "name", "value"]
+
+
+    @root_validator(pre=True, allow_reuse=True)
+    def validate_required_primitive_elements_2411(
+        cls, values: typing.Dict[str, typing.Any]
+    ) -> typing.Dict[str, typing.Any]:
+        """https://www.hl7.org/fhir/extensibility.html#Special-Case
+        In some cases, implementers might find that they do not have appropriate data for
+        an element with minimum cardinality = 1. In this case, the element must be present,
+        but unless the resource or a profile on it has made the actual value of the primitive
+        data type mandatory, it is possible to provide an extension that explains why
+        the primitive value is not present.
+        """
+        required_fields = [
+			("name", "name__ext"),
 			("value", "value__ext")]
         _missing = object()
 

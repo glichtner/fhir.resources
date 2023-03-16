@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/Transport
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 import typing
 from pydantic import Field
@@ -90,7 +90,7 @@ class Transport(domainresource.DomainResource):
     currentLocation: fhirtypes.ReferenceType = Field(
 		...,
 		alias="currentLocation",
-		title="The current location",
+		title="The entity current location",
 		description="The current location for the entity to be transported.",
         # if property is element of this resource.
         element_property=True,
@@ -159,8 +159,13 @@ class Transport(domainresource.DomainResource):
 		alias="groupIdentifier",
 		title="Requisition or grouper id",
 		description=(
-    "An identifier that links together multiple transports and other "
-    "requests that were created in the same context."
+    "A shared identifier common to multiple independent Request instances "
+    "that were activated/authorized more or less simultaneously by a single"
+    " author.  The presence of the same identifier on each request ties "
+    "those requests together and may have business ramifications in terms "
+    "of reporting of results, billing, etc.  E.g. a requisition number "
+    "shared by a set of lab tests ordered together, or a prescription "
+    "number shared by all meds ordered at one time."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -343,7 +348,7 @@ class Transport(domainresource.DomainResource):
         # if property is element of this resource.
         element_property=True,
         # note: Listed Resource Type(s) should be allowed as Reference.
-		enum_reference_types=["Transport", "Contract"],
+		enum_reference_types=["Transport"],
 	)
 	
     performerType: typing.List[fhirtypes.CodeableConceptType] = Field(
@@ -375,21 +380,9 @@ class Transport(domainresource.DomainResource):
         title="Extension field for ``priority``."
     )
 	
-    reasonCode: fhirtypes.CodeableConceptType = Field(
+    reason: fhirtypes.CodeableReferenceType = Field(
 		None,
-		alias="reasonCode",
-		title="Why transport is needed",
-		description=(
-    "A description or code indicating why this transport needs to be "
-    "performed."
-    ),
-        # if property is element of this resource.
-        element_property=True,
-	)
-	
-    reasonReference: fhirtypes.ReferenceType = Field(
-		None,
-		alias="reasonReference",
+		alias="reason",
 		title="Why transport is needed",
 		description=(
     "A resource reference indicating why this transport needs to be "
@@ -489,7 +482,7 @@ class Transport(domainresource.DomainResource):
         ``Transport`` according specification,
         with preserving original sequence order.
         """
-        return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "identifier", "instantiatesCanonical", "instantiatesUri", "basedOn", "groupIdentifier", "partOf", "status", "statusReason", "intent", "priority", "code", "description", "focus", "for", "encounter", "completionTime", "authoredOn", "lastModified", "requester", "performerType", "owner", "location", "reasonCode", "reasonReference", "insurance", "note", "relevantHistory", "restriction", "input", "output", "requestedLocation", "currentLocation", "history"]
+        return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "identifier", "instantiatesCanonical", "instantiatesUri", "basedOn", "groupIdentifier", "partOf", "status", "statusReason", "intent", "priority", "code", "description", "focus", "for", "encounter", "completionTime", "authoredOn", "lastModified", "requester", "performerType", "owner", "location", "insurance", "note", "relevantHistory", "restriction", "input", "output", "requestedLocation", "currentLocation", "reason", "history"]
 
 
     @root_validator(pre=True, allow_reuse=True)

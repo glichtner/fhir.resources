@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/ImplementationGuide
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 import typing
 from pydantic import Field
@@ -85,11 +85,11 @@ class ImplementationGuide(domainresource.DomainResource):
 		alias="date",
 		title="Date last changed",
 		description=(
-    "The date  (and optionally time) when the implementation guide was "
-    "published. The date must change when the business version changes and "
-    "it must change if the status code changes. In addition, it should "
-    "change when the substantive content of the implementation guide "
-    "changes."
+    "The date  (and optionally time) when the implementation guide was last"
+    " significantly changed. The date must change when the business version"
+    " changes and it must change if the status code changes. In addition, "
+    "it should change when the substantive content of the implementation "
+    "guide changes."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -192,6 +192,22 @@ class ImplementationGuide(domainresource.DomainResource):
         element_property=True,
 	)
 	
+    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+		None,
+		alias="identifier",
+		title=(
+    "Additional identifier for the implementation guide (business "
+    "identifier)"
+    ),
+		description=(
+    "A formal identifier that is used to identify this implementation guide"
+    " when it is represented in other formats, or referenced in a "
+    "specification, model, design or an instance."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+	)
+	
     jurisdiction: typing.List[fhirtypes.CodeableConceptType] = Field(
 		None,
 		alias="jurisdiction",
@@ -287,6 +303,23 @@ class ImplementationGuide(domainresource.DomainResource):
         None,
         alias="_publisher",
         title="Extension field for ``publisher``."
+    )
+	
+    purpose: fhirtypes.Markdown = Field(
+		None,
+		alias="purpose",
+		title="Why this implementation guide is defined",
+		description=(
+    "Explanation of why this implementation guide is needed and why it has "
+    "been designed as it has."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+	)
+    purpose__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
+        None,
+        alias="_purpose",
+        title="Extension field for ``purpose``."
     )
 	
     status: fhirtypes.Code = Field(
@@ -431,7 +464,7 @@ class ImplementationGuide(domainresource.DomainResource):
         ``ImplementationGuide`` according specification,
         with preserving original sequence order.
         """
-        return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "url", "version", "versionAlgorithmString", "versionAlgorithmCoding", "name", "title", "status", "experimental", "date", "publisher", "contact", "description", "useContext", "jurisdiction", "copyright", "copyrightLabel", "packageId", "license", "fhirVersion", "dependsOn", "global", "definition", "manifest"]
+        return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "url", "identifier", "version", "versionAlgorithmString", "versionAlgorithmCoding", "name", "title", "status", "experimental", "date", "publisher", "contact", "description", "useContext", "jurisdiction", "purpose", "copyright", "copyrightLabel", "packageId", "license", "fhirVersion", "dependsOn", "global", "definition", "manifest"]
 
 
     @root_validator(pre=True, allow_reuse=True)

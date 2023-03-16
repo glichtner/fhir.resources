@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/ResearchStudy
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 import typing
 from pydantic import Field
@@ -62,9 +62,11 @@ class ResearchStudy(domainresource.DomainResource):
 		alias="comparisonGroup",
 		title="Defined path through the study for a subject",
 		description=(
-    "Describes an expected sequence of events for one of the participants "
-    "of a study.  E.g. Exposure to drug A, wash-out, exposure to drug B, "
-    "wash-out, follow-up."
+    "Describes an expected event or sequence of events for one of the "
+    "subjects of a study. E.g. for a living subject: exposure to drug A, "
+    "wash-out, exposure to drug B, wash-out, follow-up. E.g. for a "
+    "stability study: {store sample from lot A at 25 degrees for 1 month}, "
+    "{store sample from lot A at 40 degrees for 1 month}."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -90,10 +92,10 @@ class ResearchStudy(domainresource.DomainResource):
 		title="Date the resource last changed",
 		description=(
     "The date (and optionally time) when the ResearchStudy Resource was "
-    "published. The date must change when the business version changes and "
-    "it must change if the status code changes. In addition, it should "
-    "change when the substantive content of the ResearchStudy Resource "
-    "changes."
+    "last significantly changed. The date must change when the business "
+    "version changes and it must change if the status code changes. In "
+    "addition, it should change when the substantive content of the "
+    "ResearchStudy Resource changes."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -135,7 +137,7 @@ class ResearchStudy(domainresource.DomainResource):
         title="Extension field for ``descriptionSummary``."
     )
 	
-    focus: typing.List[fhirtypes.ResearchStudyFocusType] = Field(
+    focus: typing.List[fhirtypes.CodeableReferenceType] = Field(
 		None,
 		alias="focus",
 		title="Drugs, devices, etc. under study",
@@ -146,6 +148,8 @@ class ResearchStudy(domainresource.DomainResource):
     ),
         # if property is element of this resource.
         element_property=True,
+        # note: Listed Resource Type(s) should be allowed as Reference.
+		enum_reference_types=["Medication", "MedicinalProductDefinition", "SubstanceDefinition", "EvidenceVariable"],
 	)
 	
     identifier: typing.List[fhirtypes.IdentifierType] = Field(
@@ -220,8 +224,14 @@ class ResearchStudy(domainresource.DomainResource):
     outcomeMeasure: typing.List[fhirtypes.ResearchStudyOutcomeMeasureType] = Field(
 		None,
 		alias="outcomeMeasure",
-		title="An outcome or planned variable to measure during the study",
-		description=None,
+		title="A variable measured during the study",
+		description=(
+    "An \"outcome measure\", \"endpoint\", \"effect measure\" or \"measure of "
+    "effect\" is a specific measurement or observation used to quantify the "
+    "effect of experimental variables on the participants in a study, or "
+    "for observational studies, to describe patterns of diseases or traits "
+    "or associations with exposures, risk factors or treatment."
+    ),
         # if property is element of this resource.
         element_property=True,
 	)
@@ -329,8 +339,14 @@ class ResearchStudy(domainresource.DomainResource):
     relatedArtifact: typing.List[fhirtypes.RelatedArtifactType] = Field(
 		None,
 		alias="relatedArtifact",
-		title="References and dependencies",
-		description="Citations, references and other related documents.",
+		title="References, URLs, and attachments",
+		description=(
+    "Citations, references, URLs and other related documents.  When using "
+    "relatedArtifact to share URLs, the relatedArtifact.type will often be "
+    "set to one of \"documentation\" or \"supported-with\" and the URL value "
+    "will often be in relatedArtifact.document.url but another possible "
+    "location is relatedArtifact.resource when it is a canonical URL."
+    ),
         # if property is element of this resource.
         element_property=True,
 	)
@@ -437,18 +453,6 @@ class ResearchStudy(domainresource.DomainResource):
         title="Extension field for ``version``."
     )
 	
-    webLocation: typing.List[fhirtypes.ResearchStudyWebLocationType] = Field(
-		None,
-		alias="webLocation",
-		title="Archive location for the study",
-		description=(
-    "A general storage or archive location for the study.  This may contain"
-    " an assortment of content which is not specified in advance."
-    ),
-        # if property is element of this resource.
-        element_property=True,
-	)
-	
     whyStopped: fhirtypes.CodeableConceptType = Field(
 		None,
 		alias="whyStopped",
@@ -469,7 +473,7 @@ class ResearchStudy(domainresource.DomainResource):
         ``ResearchStudy`` according specification,
         with preserving original sequence order.
         """
-        return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "url", "identifier", "version", "name", "title", "label", "protocol", "partOf", "relatedArtifact", "date", "status", "primaryPurposeType", "phase", "studyDesign", "focus", "condition", "keyword", "region", "descriptionSummary", "description", "period", "site", "note", "classifier", "associatedParty", "progressStatus", "whyStopped", "recruitment", "comparisonGroup", "objective", "outcomeMeasure", "result", "webLocation"]
+        return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "url", "identifier", "version", "name", "title", "label", "protocol", "partOf", "relatedArtifact", "date", "status", "primaryPurposeType", "phase", "studyDesign", "focus", "condition", "keyword", "region", "descriptionSummary", "description", "period", "site", "note", "classifier", "associatedParty", "progressStatus", "whyStopped", "recruitment", "comparisonGroup", "objective", "outcomeMeasure", "result"]
 
 
     @root_validator(pre=True, allow_reuse=True)
@@ -621,9 +625,11 @@ class ResearchStudyComparisonGroup(backboneelement.BackboneElement):
     for FHIR Primitive Data Types.
 
     Defined path through the study for a subject.
-    Describes an expected sequence of events for one of the participants of a
-    study.  E.g. Exposure to drug A, wash-out, exposure to drug B, wash-out,
-    follow-up.
+    Describes an expected event or sequence of events for one of the subjects
+    of a study. E.g. for a living subject: exposure to drug A, wash-out,
+    exposure to drug B, wash-out, follow-up. E.g. for a stability study: {store
+    sample from lot A at 25 degrees for 1 month}, {store sample from lot A at
+    40 degrees for 1 month}.
     """
     resource_type = Field("ResearchStudyComparisonGroup", const=True)
 	
@@ -644,41 +650,6 @@ class ResearchStudyComparisonGroup(backboneelement.BackboneElement):
         title="Extension field for ``description``."
     )
 	
-    identifierIdentifier: fhirtypes.IdentifierType = Field(
-		None,
-		alias="identifierIdentifier",
-		title=(
-    "Allows the comparisonGroup for the study and the comparisonGroup for "
-    "the subject to be linked easily"
-    ),
-		description=None,
-        # if property is element of this resource.
-        element_property=True,
-        # Choice of Data Types. i.e identifier[x]
-		one_of_many="identifier",
-		one_of_many_required=False,
-	)
-	
-    identifierUri: fhirtypes.Uri = Field(
-		None,
-		alias="identifierUri",
-		title=(
-    "Allows the comparisonGroup for the study and the comparisonGroup for "
-    "the subject to be linked easily"
-    ),
-		description=None,
-        # if property is element of this resource.
-        element_property=True,
-        # Choice of Data Types. i.e identifier[x]
-		one_of_many="identifier",
-		one_of_many_required=False,
-	)
-    identifierUri__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
-        None,
-        alias="_identifierUri",
-        title="Extension field for ``identifierUri``."
-    )
-	
     intendedExposure: typing.List[fhirtypes.ReferenceType] = Field(
 		None,
 		alias="intendedExposure",
@@ -689,6 +660,23 @@ class ResearchStudyComparisonGroup(backboneelement.BackboneElement):
         # note: Listed Resource Type(s) should be allowed as Reference.
 		enum_reference_types=["EvidenceVariable"],
 	)
+	
+    linkId: fhirtypes.Id = Field(
+		None,
+		alias="linkId",
+		title=(
+    "Allows the comparisonGroup for the study and the comparisonGroup for "
+    "the subject to be linked easily"
+    ),
+		description=None,
+        # if property is element of this resource.
+        element_property=True,
+	)
+    linkId__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
+        None,
+        alias="_linkId",
+        title="Extension field for ``linkId``."
+    )
 	
     name: fhirtypes.String = Field(
 		None,
@@ -733,7 +721,7 @@ class ResearchStudyComparisonGroup(backboneelement.BackboneElement):
         ``ResearchStudyComparisonGroup`` according specification,
         with preserving original sequence order.
         """
-        return ["id", "extension", "modifierExtension", "identifierUri", "identifierIdentifier", "name", "type", "description", "intendedExposure", "observedGroup"]
+        return ["id", "extension", "modifierExtension", "linkId", "name", "type", "description", "intendedExposure", "observedGroup"]
 
 
     @root_validator(pre=True, allow_reuse=True)
@@ -795,109 +783,6 @@ class ResearchStudyComparisonGroup(backboneelement.BackboneElement):
             raise ValidationError(errors, cls)  # type: ignore
 
         return values
-
-    @root_validator(pre=True, allow_reuse=True)
-    def validate_one_of_many_3120(
-        cls, values: typing.Dict[str, typing.Any]
-    ) -> typing.Dict[str, typing.Any]:
-        """https://www.hl7.org/fhir/formats.html#choice
-        A few elements have a choice of more than one data type for their content.
-        All such elements have a name that takes the form nnn[x].
-        The "nnn" part of the name is constant, and the "[x]" is replaced with
-        the title-cased name of the type that is actually used.
-        The table view shows each of these names explicitly.
-
-        Elements that have a choice of data type cannot repeat - they must have a
-        maximum cardinality of 1. When constructing an instance of an element with a
-        choice of types, the authoring system must create a single element with a
-        data type chosen from among the list of permitted data types.
-        """
-        one_of_many_fields = {
-			"identifier": [
-			    "identifierIdentifier",
-			    "identifierUri"]}
-        for prefix, fields in one_of_many_fields.items():
-            assert cls.__fields__[fields[0]].field_info.extra["one_of_many"] == prefix
-            required = (
-                cls.__fields__[fields[0]].field_info.extra["one_of_many_required"]
-                is True
-            )
-            found = False
-            for field in fields:
-                if field in values and values[field] is not None:
-                    if found is True:
-                        raise ValueError(
-                            "Any of one field value is expected from "
-                            f"this list {fields}, but got multiple!"
-                        )
-                    else:
-                        found = True
-            if required is True and found is False:
-                raise ValueError(f"Expect any of field value from this list {fields}.")
-
-        return values
-
-
-class ResearchStudyFocus(backboneelement.BackboneElement):
-    """Disclaimer: Any field name ends with ``__ext`` doesn't part of
-    Resource StructureDefinition, instead used to enable Extensibility feature
-    for FHIR Primitive Data Types.
-
-    Drugs, devices, etc. under study.
-    The medication(s), food(s), therapy(ies), device(s) or other concerns or
-    interventions that the study is seeking to gain more information about.
-    """
-    resource_type = Field("ResearchStudyFocus", const=True)
-	
-    factor: fhirtypes.Markdown = Field(
-		None,
-		alias="factor",
-		title="An independent variable manipulated by the experimentalist",
-		description=(
-    "A factor corresponds to an independent variable manipulated by the "
-    "experimentalist with the intention to affect biological systems in a "
-    "way that can be measured by an assay."
-    ),
-        # if property is element of this resource.
-        element_property=True,
-	)
-    factor__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
-        None,
-        alias="_factor",
-        title="Extension field for ``factor``."
-    )
-	
-    focusType: typing.List[fhirtypes.CodeableConceptType] = Field(
-		None,
-		alias="focusType",
-		title="medication | device | intervention | factor",
-		description=(
-    "Indicates whether the focus is a medication, a device, a procedure, a "
-    "specific factor or some other intervention or characteristic."
-    ),
-        # if property is element of this resource.
-        element_property=True,
-	)
-	
-    productCode: fhirtypes.CodeableConceptType = Field(
-		None,
-		alias="productCode",
-		title="Identification of product under study",
-		description=(
-    "Identification of product under study.  This may be any combination of"
-    " code and/or name."
-    ),
-        # if property is element of this resource.
-        element_property=True,
-	)
-    @classmethod
-    def elements_sequence(cls):
-        """returning all elements names from
-        ``ResearchStudyFocus`` according specification,
-        with preserving original sequence order.
-        """
-        return ["id", "extension", "modifierExtension", "productCode", "focusType", "factor"]
-
 
 
 class ResearchStudyLabel(backboneelement.BackboneElement):
@@ -1011,7 +896,12 @@ class ResearchStudyOutcomeMeasure(backboneelement.BackboneElement):
     Resource StructureDefinition, instead used to enable Extensibility feature
     for FHIR Primitive Data Types.
 
-    An outcome or planned variable to measure during the study.
+    A variable measured during the study.
+    An "outcome measure", "endpoint", "effect measure" or "measure of effect"
+    is a specific measurement or observation used to quantify the effect of
+    experimental variables on the participants in a study, or for observational
+    studies, to describe patterns of diseases or traits or associations with
+    exposures, risk factors or treatment.
     """
     resource_type = Field("ResearchStudyOutcomeMeasure", const=True)
 	
@@ -1195,107 +1085,3 @@ class ResearchStudyRecruitment(backboneelement.BackboneElement):
         """
         return ["id", "extension", "modifierExtension", "targetNumber", "actualNumber", "eligibility", "actualGroup"]
 
-
-
-class ResearchStudyWebLocation(backboneelement.BackboneElement):
-    """Disclaimer: Any field name ends with ``__ext`` doesn't part of
-    Resource StructureDefinition, instead used to enable Extensibility feature
-    for FHIR Primitive Data Types.
-
-    Archive location for the study.
-    A general storage or archive location for the study.  This may contain an
-    assortment of content which is not specified in advance.
-    """
-    resource_type = Field("ResearchStudyWebLocation", const=True)
-	
-    classifier: fhirtypes.CodeableConceptType = Field(
-		None,
-		alias="classifier",
-		title="registry-page|recruitment-page|contact-page",
-		description="Describes the nature of the location being specified.",
-        # if property is element of this resource.
-        element_property=True,
-	)
-	
-    url: fhirtypes.Uri = Field(
-		None,
-		alias="url",
-		title="The location address",
-		description=None,
-        # if property is element of this resource.
-        element_property=True,
-        element_required=True,
-	)
-    url__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
-        None,
-        alias="_url",
-        title="Extension field for ``url``."
-    )
-    @classmethod
-    def elements_sequence(cls):
-        """returning all elements names from
-        ``ResearchStudyWebLocation`` according specification,
-        with preserving original sequence order.
-        """
-        return ["id", "extension", "modifierExtension", "classifier", "url"]
-
-
-    @root_validator(pre=True, allow_reuse=True)
-    def validate_required_primitive_elements_2653(
-        cls, values: typing.Dict[str, typing.Any]
-    ) -> typing.Dict[str, typing.Any]:
-        """https://www.hl7.org/fhir/extensibility.html#Special-Case
-        In some cases, implementers might find that they do not have appropriate data for
-        an element with minimum cardinality = 1. In this case, the element must be present,
-        but unless the resource or a profile on it has made the actual value of the primitive
-        data type mandatory, it is possible to provide an extension that explains why
-        the primitive value is not present.
-        """
-        required_fields = [
-			("url", "url__ext")]
-        _missing = object()
-
-        def _fallback():
-            return ""
-
-        errors: typing.List["ErrorWrapper"] = []
-        for name, ext in required_fields:
-            field = cls.__fields__[name]
-            ext_field = cls.__fields__[ext]
-            value = values.get(field.alias, _missing)
-            if value not in (_missing, None):
-                continue
-            ext_value = values.get(ext_field.alias, _missing)
-            missing_ext = True
-            if ext_value not in (_missing, None):
-                if isinstance(ext_value, dict):
-                    missing_ext = len(ext_value.get("extension", [])) == 0
-                elif (
-                    getattr(ext_value.__class__, "get_resource_type", _fallback)()
-                    == "FHIRPrimitiveExtension"
-                ):
-                    if ext_value.extension and len(ext_value.extension) > 0:
-                        missing_ext = False
-                else:
-                    validate_pass = True
-                    for validator in ext_field.type_.__get_validators__():
-                        try:
-                            ext_value = validator(v=ext_value)
-                        except ValidationError as exc:
-                            errors.append(ErrorWrapper(exc, loc=ext_field.alias))
-                            validate_pass = False
-                    if not validate_pass:
-                        continue
-                    if ext_value.extension and len(ext_value.extension) > 0:
-                        missing_ext = False
-            if missing_ext:
-                if value is _missing:
-                    errors.append(ErrorWrapper(MissingError(), loc=field.alias))
-                else:
-                    errors.append(
-                        ErrorWrapper(NoneIsNotAllowedError(), loc=field.alias)
-                    )
-        if len(errors) > 0:
-            raise ValidationError(errors, cls)  # type: ignore
-
-        return values

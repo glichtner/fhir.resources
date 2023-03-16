@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/SearchParameter
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 import typing
 from pydantic import Field
@@ -145,15 +145,53 @@ class SearchParameter(domainresource.DomainResource):
         element_property=True,
 	)
 	
+    copyright: fhirtypes.Markdown = Field(
+		None,
+		alias="copyright",
+		title="Use and/or publishing restrictions",
+		description=(
+    "A copyright statement relating to the search parameter and/or its "
+    "contents. Copyright statements are generally legal restrictions on the"
+    " use and publishing of the search parameter."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+	)
+    copyright__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
+        None,
+        alias="_copyright",
+        title="Extension field for ``copyright``."
+    )
+	
+    copyrightLabel: fhirtypes.String = Field(
+		None,
+		alias="copyrightLabel",
+		title="Copyright holder and year(s)",
+		description=(
+    "A short string (<50 characters), suitable for inclusion in a page "
+    "footer that identifies the copyright holder, effective period, and "
+    "optionally whether rights are resctricted. (e.g. 'All rights "
+    "reserved', 'Some rights reserved')."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+	)
+    copyrightLabel__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
+        None,
+        alias="_copyrightLabel",
+        title="Extension field for ``copyrightLabel``."
+    )
+	
     date: fhirtypes.DateTime = Field(
 		None,
 		alias="date",
 		title="Date last changed",
 		description=(
-    "The date  (and optionally time) when the search parameter was "
-    "published. The date must change when the business version changes and "
-    "it must change if the status code changes. In addition, it should "
-    "change when the substantive content of the search parameter changes."
+    "The date  (and optionally time) when the search parameter was last "
+    "significantly changed. The date must change when the business version "
+    "changes and it must change if the status code changes. In addition, it"
+    " should change when the substantive content of the search parameter "
+    "changes."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -235,6 +273,19 @@ class SearchParameter(domainresource.DomainResource):
         alias="_expression",
         title="Extension field for ``expression``."
     )
+	
+    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+		None,
+		alias="identifier",
+		title="Additional identifier for the search parameter (business identifier)",
+		description=(
+    "A formal identifier that is used to identify this search parameter "
+    "when it is represented in other formats, or referenced in a "
+    "specification, model, design or an instance."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+	)
 	
     jurisdiction: typing.List[fhirtypes.CodeableConceptType] = Field(
 		None,
@@ -552,7 +603,7 @@ class SearchParameter(domainresource.DomainResource):
         ``SearchParameter`` according specification,
         with preserving original sequence order.
         """
-        return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "url", "version", "versionAlgorithmString", "versionAlgorithmCoding", "name", "title", "derivedFrom", "status", "experimental", "date", "publisher", "contact", "description", "useContext", "jurisdiction", "purpose", "code", "base", "type", "expression", "processingMode", "constraint", "target", "multipleOr", "multipleAnd", "comparator", "modifier", "chain", "component"]
+        return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "url", "identifier", "version", "versionAlgorithmString", "versionAlgorithmCoding", "name", "title", "derivedFrom", "status", "experimental", "date", "publisher", "contact", "description", "useContext", "jurisdiction", "purpose", "copyright", "copyrightLabel", "code", "base", "type", "expression", "processingMode", "constraint", "target", "multipleOr", "multipleAnd", "comparator", "modifier", "chain", "component"]
 
 
     @root_validator(pre=True, allow_reuse=True)

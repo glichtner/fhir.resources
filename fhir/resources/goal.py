@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/Goal
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 import typing
 from pydantic import Field
@@ -57,13 +57,13 @@ class Goal(domainresource.DomainResource):
         # if property is element of this resource.
         element_property=True,
         # note: Listed Resource Type(s) should be allowed as Reference.
-		enum_reference_types=["Condition", "Observation", "MedicationUsage", "MedicationRequest", "NutritionOrder", "ServiceRequest", "RiskAssessment"],
+		enum_reference_types=["Condition", "Observation", "MedicationStatement", "MedicationRequest", "NutritionOrder", "ServiceRequest", "RiskAssessment", "Procedure"],
 	)
 	
     category: typing.List[fhirtypes.CodeableConceptType] = Field(
 		None,
 		alias="category",
-		title="E.g. Treatment, dietary, behavioral, etc.",
+		title="E.g. Treatment, dietary, behavioral, etc",
 		description="Indicates a category the goal falls within.",
         # if property is element of this resource.
         element_property=True,

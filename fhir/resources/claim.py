@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/Claim
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 import typing
 from pydantic import Field
@@ -100,11 +100,8 @@ class Claim(domainresource.DomainResource):
     encounter: typing.List[fhirtypes.ReferenceType] = Field(
 		None,
 		alias="encounter",
-		title="Encounters related to this billed item",
-		description=(
-    "The Encounters during which this Claim was created or to which the "
-    "creation of this record is tightly associated."
-    ),
+		title="Encounters associated with the listed treatments",
+		description="Healthcare encounters related to this claim.",
         # if property is element of this resource.
         element_property=True,
         # note: Listed Resource Type(s) should be allowed as Reference.
@@ -123,6 +120,15 @@ class Claim(domainresource.DomainResource):
         element_property=True,
         # note: Listed Resource Type(s) should be allowed as Reference.
 		enum_reference_types=["Practitioner", "PractitionerRole", "Patient", "RelatedPerson"],
+	)
+	
+    event: typing.List[fhirtypes.ClaimEventType] = Field(
+		None,
+		alias="event",
+		title="Event information",
+		description="Information code for an event with a corresponding date or period.",
+        # if property is element of this resource.
+        element_property=True,
 	)
 	
     facility: fhirtypes.ReferenceType = Field(
@@ -382,6 +388,18 @@ class Claim(domainresource.DomainResource):
         element_property=True,
 	)
 	
+    traceNumber: typing.List[fhirtypes.IdentifierType] = Field(
+		None,
+		alias="traceNumber",
+		title="Number for tracking",
+		description=(
+    "Trace number for tracking purposes. May be defined at the jurisdiction"
+    " level or between trading partners."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+	)
+	
     type: fhirtypes.CodeableConceptType = Field(
 		...,
 		alias="type",
@@ -430,7 +448,7 @@ class Claim(domainresource.DomainResource):
         ``Claim`` according specification,
         with preserving original sequence order.
         """
-        return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "identifier", "status", "type", "subType", "use", "patient", "billablePeriod", "created", "enterer", "insurer", "provider", "priority", "fundsReserve", "related", "prescription", "originalPrescription", "payee", "referral", "encounter", "facility", "diagnosisRelatedGroup", "careTeam", "supportingInfo", "diagnosis", "procedure", "insurance", "accident", "patientPaid", "item", "total"]
+        return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "identifier", "traceNumber", "status", "type", "subType", "use", "patient", "billablePeriod", "created", "enterer", "insurer", "provider", "priority", "fundsReserve", "related", "prescription", "originalPrescription", "payee", "referral", "encounter", "facility", "diagnosisRelatedGroup", "event", "careTeam", "supportingInfo", "diagnosis", "procedure", "insurance", "accident", "patientPaid", "item", "total"]
 
 
     @root_validator(pre=True, allow_reuse=True)
@@ -1010,6 +1028,110 @@ class ClaimDiagnosis(backboneelement.BackboneElement):
         return values
 
 
+class ClaimEvent(backboneelement.BackboneElement):
+    """Disclaimer: Any field name ends with ``__ext`` doesn't part of
+    Resource StructureDefinition, instead used to enable Extensibility feature
+    for FHIR Primitive Data Types.
+
+    Event information.
+    Information code for an event with a corresponding date or period.
+    """
+    resource_type = Field("ClaimEvent", const=True)
+	
+    type: fhirtypes.CodeableConceptType = Field(
+		...,
+		alias="type",
+		title="Specific event",
+		description="A coded event such as when a service is expected or a card printed.",
+        # if property is element of this resource.
+        element_property=True,
+	)
+	
+    whenDateTime: fhirtypes.DateTime = Field(
+		None,
+		alias="whenDateTime",
+		title="Occurance date or period",
+		description=(
+    "A date or period in the past or future indicating when the event "
+    "occurred or is expectd to occur."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+        # Choice of Data Types. i.e when[x]
+		one_of_many="when",
+		one_of_many_required=True,
+	)
+    whenDateTime__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
+        None,
+        alias="_whenDateTime",
+        title="Extension field for ``whenDateTime``."
+    )
+	
+    whenPeriod: fhirtypes.PeriodType = Field(
+		None,
+		alias="whenPeriod",
+		title="Occurance date or period",
+		description=(
+    "A date or period in the past or future indicating when the event "
+    "occurred or is expectd to occur."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+        # Choice of Data Types. i.e when[x]
+		one_of_many="when",
+		one_of_many_required=True,
+	)
+    @classmethod
+    def elements_sequence(cls):
+        """returning all elements names from
+        ``ClaimEvent`` according specification,
+        with preserving original sequence order.
+        """
+        return ["id", "extension", "modifierExtension", "type", "whenDateTime", "whenPeriod"]
+
+
+    @root_validator(pre=True, allow_reuse=True)
+    def validate_one_of_many_1183(
+        cls, values: typing.Dict[str, typing.Any]
+    ) -> typing.Dict[str, typing.Any]:
+        """https://www.hl7.org/fhir/formats.html#choice
+        A few elements have a choice of more than one data type for their content.
+        All such elements have a name that takes the form nnn[x].
+        The "nnn" part of the name is constant, and the "[x]" is replaced with
+        the title-cased name of the type that is actually used.
+        The table view shows each of these names explicitly.
+
+        Elements that have a choice of data type cannot repeat - they must have a
+        maximum cardinality of 1. When constructing an instance of an element with a
+        choice of types, the authoring system must create a single element with a
+        data type chosen from among the list of permitted data types.
+        """
+        one_of_many_fields = {
+			"when": [
+			    "whenDateTime",
+			    "whenPeriod"]}
+        for prefix, fields in one_of_many_fields.items():
+            assert cls.__fields__[fields[0]].field_info.extra["one_of_many"] == prefix
+            required = (
+                cls.__fields__[fields[0]].field_info.extra["one_of_many_required"]
+                is True
+            )
+            found = False
+            for field in fields:
+                if field in values and values[field] is not None:
+                    if found is True:
+                        raise ValueError(
+                            "Any of one field value is expected from "
+                            f"this list {fields}, but got multiple!"
+                        )
+                    else:
+                        found = True
+            if required is True and found is False:
+                raise ValueError(f"Expect any of field value from this list {fields}.")
+
+        return values
+
+
 class ClaimInsurance(backboneelement.BackboneElement):
     """Disclaimer: Any field name ends with ``__ext`` doesn't part of
     Resource StructureDefinition, instead used to enable Extensibility feature
@@ -1279,11 +1401,8 @@ class ClaimItem(backboneelement.BackboneElement):
     encounter: typing.List[fhirtypes.ReferenceType] = Field(
 		None,
 		alias="encounter",
-		title="Encounters related to this billed item",
-		description=(
-    "The Encounters during which this Claim was created or to which the "
-    "creation of this record is tightly associated."
-    ),
+		title="Encounters associated with the listed treatments",
+		description="Healthcare encounters related to this claim.",
         # if property is element of this resource.
         element_property=True,
         # note: Listed Resource Type(s) should be allowed as Reference.
@@ -1381,8 +1500,8 @@ class ClaimItem(backboneelement.BackboneElement):
 		alias="net",
 		title="Total item cost",
 		description=(
-    "The quantity times the unit price for an additional service or product"
-    " or charge."
+    "The total amount claimed for the group (if a grouper) or the line "
+    "item. Net = unit price * quantity * factor."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -1465,6 +1584,17 @@ class ClaimItem(backboneelement.BackboneElement):
         element_property=True,
 	)
 	
+    request: typing.List[fhirtypes.ReferenceType] = Field(
+		None,
+		alias="request",
+		title="Request or Referral for Service",
+		description="Request or Referral for Goods or Service to be rendered.",
+        # if property is element of this resource.
+        element_property=True,
+        # note: Listed Resource Type(s) should be allowed as Reference.
+		enum_reference_types=["DeviceRequest", "MedicationRequest", "NutritionOrder", "ServiceRequest", "SupplyRequest", "VisionPrescription"],
+	)
+	
     revenue: fhirtypes.CodeableConceptType = Field(
 		None,
 		alias="revenue",
@@ -1536,6 +1666,18 @@ class ClaimItem(backboneelement.BackboneElement):
         element_property=True,
 	)
 	
+    traceNumber: typing.List[fhirtypes.IdentifierType] = Field(
+		None,
+		alias="traceNumber",
+		title="Number for tracking",
+		description=(
+    "Trace number for tracking purposes. May be defined at the jurisdiction"
+    " level or between trading partners."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+	)
+	
     udi: typing.List[fhirtypes.ReferenceType] = Field(
 		None,
 		alias="udi",
@@ -1565,7 +1707,7 @@ class ClaimItem(backboneelement.BackboneElement):
         ``ClaimItem`` according specification,
         with preserving original sequence order.
         """
-        return ["id", "extension", "modifierExtension", "sequence", "careTeamSequence", "diagnosisSequence", "procedureSequence", "informationSequence", "revenue", "category", "productOrService", "productOrServiceEnd", "modifier", "programCode", "servicedDate", "servicedPeriod", "locationCodeableConcept", "locationAddress", "locationReference", "patientPaid", "quantity", "unitPrice", "factor", "tax", "net", "udi", "bodySite", "encounter", "detail"]
+        return ["id", "extension", "modifierExtension", "sequence", "traceNumber", "careTeamSequence", "diagnosisSequence", "procedureSequence", "informationSequence", "revenue", "category", "productOrService", "productOrServiceEnd", "request", "modifier", "programCode", "servicedDate", "servicedPeriod", "locationCodeableConcept", "locationAddress", "locationReference", "patientPaid", "quantity", "unitPrice", "factor", "tax", "net", "udi", "bodySite", "encounter", "detail"]
 
 
     @root_validator(pre=True, allow_reuse=True)
@@ -1775,8 +1917,8 @@ class ClaimItemDetail(backboneelement.BackboneElement):
 		alias="net",
 		title="Total item cost",
 		description=(
-    "The quantity times the unit price for an additional service or product"
-    " or charge."
+    "The total amount claimed for the group (if a grouper) or the line "
+    "item.detail. Net = unit price * quantity * factor."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -1893,6 +2035,18 @@ class ClaimItemDetail(backboneelement.BackboneElement):
         element_property=True,
 	)
 	
+    traceNumber: typing.List[fhirtypes.IdentifierType] = Field(
+		None,
+		alias="traceNumber",
+		title="Number for tracking",
+		description=(
+    "Trace number for tracking purposes. May be defined at the jurisdiction"
+    " level or between trading partners."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+	)
+	
     udi: typing.List[fhirtypes.ReferenceType] = Field(
 		None,
 		alias="udi",
@@ -1922,7 +2076,7 @@ class ClaimItemDetail(backboneelement.BackboneElement):
         ``ClaimItemDetail`` according specification,
         with preserving original sequence order.
         """
-        return ["id", "extension", "modifierExtension", "sequence", "revenue", "category", "productOrService", "productOrServiceEnd", "modifier", "programCode", "patientPaid", "quantity", "unitPrice", "factor", "tax", "net", "udi", "subDetail"]
+        return ["id", "extension", "modifierExtension", "sequence", "traceNumber", "revenue", "category", "productOrService", "productOrServiceEnd", "modifier", "programCode", "patientPaid", "quantity", "unitPrice", "factor", "tax", "net", "udi", "subDetail"]
 
 
     @root_validator(pre=True, allow_reuse=True)
@@ -2045,8 +2199,8 @@ class ClaimItemDetailSubDetail(backboneelement.BackboneElement):
 		alias="net",
 		title="Total item cost",
 		description=(
-    "The quantity times the unit price for an additional service or product"
-    " or charge."
+    "The total amount claimed for line item.detail.subDetail. Net = unit "
+    "price * quantity * factor."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -2151,6 +2305,18 @@ class ClaimItemDetailSubDetail(backboneelement.BackboneElement):
         element_property=True,
 	)
 	
+    traceNumber: typing.List[fhirtypes.IdentifierType] = Field(
+		None,
+		alias="traceNumber",
+		title="Number for tracking",
+		description=(
+    "Trace number for tracking purposes. May be defined at the jurisdiction"
+    " level or between trading partners."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+	)
+	
     udi: typing.List[fhirtypes.ReferenceType] = Field(
 		None,
 		alias="udi",
@@ -2180,7 +2346,7 @@ class ClaimItemDetailSubDetail(backboneelement.BackboneElement):
         ``ClaimItemDetailSubDetail`` according specification,
         with preserving original sequence order.
         """
-        return ["id", "extension", "modifierExtension", "sequence", "revenue", "category", "productOrService", "productOrServiceEnd", "modifier", "programCode", "patientPaid", "quantity", "unitPrice", "factor", "tax", "net", "udi"]
+        return ["id", "extension", "modifierExtension", "sequence", "traceNumber", "revenue", "category", "productOrService", "productOrServiceEnd", "modifier", "programCode", "patientPaid", "quantity", "unitPrice", "factor", "tax", "net", "udi"]
 
 
     @root_validator(pre=True, allow_reuse=True)

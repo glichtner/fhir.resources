@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/GraphDefinition
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 from pydantic.validators import bytes_validator  # noqa: F401
 from fhir.resources import fhirtypes  # noqa: F401
@@ -20,23 +20,36 @@ def impl_graphdefinition_1(inst):
     "document using the $document operation"
     )
     assert inst.id == "example"
-    assert inst.link[0].description == "Link to List"
+    assert inst.link[0].compartment[0].code == "Patient"
+    assert inst.link[0].compartment[0].rule == "identical"
+    assert inst.link[0].compartment[0].use == "requires"
+    assert inst.link[0].description == "Link from Composition.section to list"
     assert inst.link[0].path == "Composition.section.entry"
-    assert inst.link[0].target[0].compartment[0].code == "Patient"
-    assert inst.link[0].target[0].compartment[0].rule == "identical"
-    assert inst.link[0].target[0].compartment[0].use == "requirement"
-    assert inst.link[0].target[0].link[0].description == "Include any list entries"
-    assert inst.link[0].target[0].link[0].path == "List.entry.item"
-    assert inst.link[0].target[0].link[0].target[0].compartment[0].code == "Patient"
-    assert inst.link[0].target[0].link[0].target[0].compartment[0].rule == "identical"
-    assert inst.link[0].target[0].link[0].target[0].compartment[0].use == "requirement"
-    assert inst.link[0].target[0].link[0].target[0].type == "Resource"
-    assert inst.link[0].target[0].type == "List"
-    assert inst.name == "Document Generation Template"
+    assert inst.link[0].sourceId == "comp1"
+    assert inst.link[0].targetId == "list1"
+    assert inst.link[1].compartment[0].code == "Patient"
+    assert inst.link[1].compartment[0].rule == "identical"
+    assert inst.link[1].compartment[0].use == "requires"
+    assert inst.link[1].description == "Include any list entries"
+    assert inst.link[1].path == "List.entry.item"
+    assert inst.link[1].sourceId == "list1"
+    assert inst.link[1].targetId == "resN"
+    assert inst.name == "DocumentGenerationTemplate"
+    assert inst.node[0].description == "The base composition"
+    assert inst.node[0].nodeId == "comp1"
+    assert inst.node[0].profile == "http://hl7.org/fhir/StructureDefinition/clinicaldocument"
+    assert inst.node[0].type == "Composition"
+    assert inst.node[1].description == "A list resource that a section entry reference points to"
+    assert inst.node[1].nodeId == "list1"
+    assert inst.node[1].type == "List"
+    assert inst.node[2].description == "Generic resource that's the target of a list reference"
+    assert inst.node[2].nodeId == "resN"
+    assert inst.node[2].type == "Resource"
     assert inst.publisher == "FHIR Project"
-    assert inst.start == "Composition"
+    assert inst.start == "comp1"
     assert inst.status == "draft"
     assert inst.text.status == "generated"
+    assert inst.title == "Document Generation Template"
     assert inst.url == "http://h7.org/fhir/GraphDefinition/example"
 
 

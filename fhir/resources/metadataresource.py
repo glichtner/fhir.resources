@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/MetadataResource
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 import typing
 from pydantic import Field
@@ -83,8 +83,9 @@ class MetadataResource(domainresource.DomainResource):
 		alias="endorser",
 		title="Who endorsed the {{title}}",
 		description=(
-    "An individual or organization responsible for officially endorsing the"
-    " {{title}} for use in some setting."
+    "An individual or organization asserted by the publisher to be "
+    "responsible for officially endorsing the {{title}} for use in some "
+    "setting."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -93,7 +94,7 @@ class MetadataResource(domainresource.DomainResource):
     lastReviewDate: fhirtypes.Date = Field(
 		None,
 		alias="lastReviewDate",
-		title="When the {{title}} was last reviewed",
+		title="When the {{title}} was last reviewed by the publisher",
 		description=(
     "The date on which the resource content was last reviewed. Review "
     "happens periodically after approval but does not change the original "
@@ -111,7 +112,7 @@ class MetadataResource(domainresource.DomainResource):
     relatedArtifact: typing.List[fhirtypes.RelatedArtifactType] = Field(
 		None,
 		alias="relatedArtifact",
-		title="Additional documentation, citations, etc.",
+		title="Additional documentation, citations, etc",
 		description=(
     "Related artifacts such as additional documentation, justification, "
     "dependencies, bibliographic references, and predecessor and successor "
@@ -126,8 +127,8 @@ class MetadataResource(domainresource.DomainResource):
 		alias="reviewer",
 		title="Who reviewed the {{title}}",
 		description=(
-    "An individual or organization primarily responsible for review of some"
-    " aspect of the {{title}}."
+    "An individual or organization asserted by the publisher to be "
+    "primarily responsible for review of some aspect of the {{title}}."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -136,7 +137,7 @@ class MetadataResource(domainresource.DomainResource):
     topic: typing.List[fhirtypes.CodeableConceptType] = Field(
 		None,
 		alias="topic",
-		title="E.g. Education, Treatment, Assessment, etc.",
+		title="E.g. Education, Treatment, Assessment, etc",
 		description=(
     "Descriptive topics related to the content of the {{title}}. Topics "
     "provide a high-level categorization as well as keywords for the "

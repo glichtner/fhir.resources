@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/MessageDefinition
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 import typing
 from pydantic import Field
@@ -109,15 +109,35 @@ class MessageDefinition(domainresource.DomainResource):
         title="Extension field for ``copyright``."
     )
 	
+    copyrightLabel: fhirtypes.String = Field(
+		None,
+		alias="copyrightLabel",
+		title="Copyright holder and year(s)",
+		description=(
+    "A short string (<50 characters), suitable for inclusion in a page "
+    "footer that identifies the copyright holder, effective period, and "
+    "optionally whether rights are resctricted. (e.g. 'All rights "
+    "reserved', 'Some rights reserved')."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+	)
+    copyrightLabel__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
+        None,
+        alias="_copyrightLabel",
+        title="Extension field for ``copyrightLabel``."
+    )
+	
     date: fhirtypes.DateTime = Field(
 		None,
 		alias="date",
 		title="Date last changed",
 		description=(
-    "The date  (and optionally time) when the message definition was "
-    "published. The date must change when the business version changes and "
-    "it must change if the status code changes. In addition, it should "
-    "change when the substantive content of the message definition changes."
+    "The date  (and optionally time) when the message definition was last "
+    "significantly changed. The date must change when the business version "
+    "changes and it must change if the status code changes. In addition, it"
+    " should change when the substantive content of the message definition "
+    "changes."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -211,10 +231,10 @@ class MessageDefinition(domainresource.DomainResource):
 		alias="graph",
 		title="Canonical reference to a GraphDefinition",
 		description=(
-    "Canonical reference to a GraphDefinition. If a URL is provided, it is "
-    "the canonical reference to a [GraphDefinition](graphdefinition.html) "
-    "that it controls what resources are to be added to the bundle when "
-    "building the document. The GraphDefinition can also specify profiles "
+    "Graph is Canonical reference to a GraphDefinition. If a URL is "
+    "provided, it is the canonical reference to a GraphDefinition that it "
+    "controls what additional resources are to be added to the Bundle when "
+    "building the message. The GraphDefinition can also specify profiles "
     "that apply to the various resources."
     ),
         # if property is element of this resource.
@@ -231,7 +251,7 @@ class MessageDefinition(domainresource.DomainResource):
     identifier: typing.List[fhirtypes.IdentifierType] = Field(
 		None,
 		alias="identifier",
-		title="Primary key for the message definition on a given server",
+		title="Business Identifier for a given MessageDefinition",
 		description=(
     "A formal identifier that is used to identify this message definition "
     "when it is represented in other formats, or referenced in a "
@@ -398,7 +418,7 @@ class MessageDefinition(domainresource.DomainResource):
     url: fhirtypes.Uri = Field(
 		None,
 		alias="url",
-		title="Business Identifier for a given MessageDefinition",
+		title="The cannonical URL for a given MessageDefinition",
 		description=(
     "The business identifier that is used to reference the "
     "MessageDefinition and *is* expected to be consistent from server to "
@@ -449,13 +469,48 @@ class MessageDefinition(domainresource.DomainResource):
         alias="_version",
         title="Extension field for ``version``."
     )
+	
+    versionAlgorithmCoding: fhirtypes.CodingType = Field(
+		None,
+		alias="versionAlgorithmCoding",
+		title="How to compare versions",
+		description=(
+    "Indicates the mechanism used to compare versions to determine which is"
+    " more current."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+        # Choice of Data Types. i.e versionAlgorithm[x]
+		one_of_many="versionAlgorithm",
+		one_of_many_required=False,
+	)
+	
+    versionAlgorithmString: fhirtypes.String = Field(
+		None,
+		alias="versionAlgorithmString",
+		title="How to compare versions",
+		description=(
+    "Indicates the mechanism used to compare versions to determine which is"
+    " more current."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+        # Choice of Data Types. i.e versionAlgorithm[x]
+		one_of_many="versionAlgorithm",
+		one_of_many_required=False,
+	)
+    versionAlgorithmString__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
+        None,
+        alias="_versionAlgorithmString",
+        title="Extension field for ``versionAlgorithmString``."
+    )
     @classmethod
     def elements_sequence(cls):
         """returning all elements names from
         ``MessageDefinition`` according specification,
         with preserving original sequence order.
         """
-        return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "url", "identifier", "version", "name", "title", "replaces", "status", "experimental", "date", "publisher", "contact", "description", "useContext", "jurisdiction", "purpose", "copyright", "base", "parent", "eventCoding", "eventUri", "category", "focus", "responseRequired", "allowedResponse", "graph"]
+        return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "url", "identifier", "version", "versionAlgorithmString", "versionAlgorithmCoding", "name", "title", "replaces", "status", "experimental", "date", "publisher", "contact", "description", "useContext", "jurisdiction", "purpose", "copyright", "copyrightLabel", "base", "parent", "eventCoding", "eventUri", "category", "focus", "responseRequired", "allowedResponse", "graph"]
 
 
     @root_validator(pre=True, allow_reuse=True)
@@ -538,7 +593,10 @@ class MessageDefinition(domainresource.DomainResource):
         one_of_many_fields = {
 			"event": [
 			    "eventCoding",
-			    "eventUri"]}
+			    "eventUri"],
+			"versionAlgorithm": [
+			    "versionAlgorithmCoding",
+			    "versionAlgorithmString"]}
         for prefix, fields in one_of_many_fields.items():
             assert cls.__fields__[fields[0]].field_info.extra["one_of_many"] == prefix
             required = (

@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/ClaimResponse
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 from pydantic.validators import bytes_validator  # noqa: F401
 from fhir.resources import fhirtypes  # noqa: F401
@@ -19,7 +19,7 @@ def impl_claimresponse_1(inst):
     assert float(inst.addItem[0].adjudication[1].amount.value) == float(10.0)
     assert inst.addItem[0].adjudication[1].category.coding[0].code == "copay"
     assert inst.addItem[0].adjudication[2].category.coding[0].code == "eligpercent"
-    assert float(inst.addItem[0].adjudication[2].value) == float(80.0)
+    assert float(inst.addItem[0].adjudication[2].quantity.value) == float(80.0)
     assert inst.addItem[0].adjudication[3].amount.currency == "USD"
     assert float(inst.addItem[0].adjudication[3].amount.value) == float(72.0)
     assert inst.addItem[0].adjudication[3].category.coding[0].code == "benefit"
@@ -39,7 +39,7 @@ def impl_claimresponse_1(inst):
     assert float(inst.addItem[1].adjudication[0].amount.value) == float(35.57)
     assert inst.addItem[1].adjudication[0].category.coding[0].code == "eligible"
     assert inst.addItem[1].adjudication[1].category.coding[0].code == "eligpercent"
-    assert float(inst.addItem[1].adjudication[1].value) == float(80.0)
+    assert float(inst.addItem[1].adjudication[1].quantity.value) == float(80.0)
     assert inst.addItem[1].adjudication[2].amount.currency == "USD"
     assert float(inst.addItem[1].adjudication[2].amount.value) == float(28.47)
     assert inst.addItem[1].adjudication[2].category.coding[0].code == "benefit"
@@ -53,7 +53,7 @@ def impl_claimresponse_1(inst):
     assert float(inst.addItem[2].adjudication[0].amount.value) == float(350.0)
     assert inst.addItem[2].adjudication[0].category.coding[0].code == "eligible"
     assert inst.addItem[2].adjudication[1].category.coding[0].code == "eligpercent"
-    assert float(inst.addItem[2].adjudication[1].value) == float(80.0)
+    assert float(inst.addItem[2].adjudication[1].quantity.value) == float(80.0)
     assert inst.addItem[2].adjudication[2].amount.currency == "USD"
     assert float(inst.addItem[2].adjudication[2].amount.value) == float(270.0)
     assert inst.addItem[2].adjudication[2].category.coding[0].code == "benefit"
@@ -85,7 +85,7 @@ def impl_claimresponse_1(inst):
     assert float(inst.item[1].adjudication[0].amount.value) == float(105.0)
     assert inst.item[1].adjudication[0].category.coding[0].code == "eligible"
     assert inst.item[1].adjudication[1].category.coding[0].code == "eligpercent"
-    assert float(inst.item[1].adjudication[1].value) == float(80.0)
+    assert float(inst.item[1].adjudication[1].quantity.value) == float(80.0)
     assert inst.item[1].adjudication[2].amount.currency == "USD"
     assert float(inst.item[1].adjudication[2].amount.value) == float(84.0)
     assert inst.item[1].adjudication[2].category.coding[0].code == "benefit"
@@ -94,7 +94,7 @@ def impl_claimresponse_1(inst):
     assert float(inst.item[2].adjudication[0].amount.value) == float(750.0)
     assert inst.item[2].adjudication[0].category.coding[0].code == "eligible"
     assert inst.item[2].adjudication[1].category.coding[0].code == "eligpercent"
-    assert float(inst.item[2].adjudication[1].value) == float(80.0)
+    assert float(inst.item[2].adjudication[1].quantity.value) == float(80.0)
     assert inst.item[2].adjudication[2].amount.currency == "USD"
     assert float(inst.item[2].adjudication[2].amount.value) == float(600.0)
     assert inst.item[2].adjudication[2].category.coding[0].code == "benefit"
@@ -102,7 +102,7 @@ def impl_claimresponse_1(inst):
     assert float(inst.item[2].detail[0].adjudication[0].amount.value) == float(750.0)
     assert inst.item[2].detail[0].adjudication[0].category.coding[0].code == "eligible"
     assert inst.item[2].detail[0].adjudication[1].category.coding[0].code == "eligpercent"
-    assert float(inst.item[2].detail[0].adjudication[1].value) == float(80.0)
+    assert float(inst.item[2].detail[0].adjudication[1].quantity.value) == float(80.0)
     assert inst.item[2].detail[0].adjudication[2].amount.currency == "USD"
     assert float(inst.item[2].detail[0].adjudication[2].amount.value) == float(600.0)
     assert inst.item[2].detail[0].adjudication[2].category.coding[0].code == "benefit"
@@ -133,7 +133,8 @@ def impl_claimresponse_1(inst):
     assert inst.processNote[0].language.coding[0].system == "urn:ietf:bcp:47"
     assert inst.processNote[0].number == 101
     assert inst.processNote[0].text == "Package codes are not permitted. Codes replaced by Insurer."
-    assert inst.processNote[0].type == "print"
+    assert inst.processNote[0].type.coding[0].code == "print"
+    assert inst.processNote[0].type.coding[0].system == "http://hl7.org/fhir/note-type"
     assert inst.request.identifier.system == "http://happyvalley.com/claim"
     assert inst.request.identifier.value == "12346"
     assert inst.requestor.reference == "Organization/1"
@@ -191,7 +192,7 @@ def impl_claimresponse_2(inst):
     assert float(inst.item[0].adjudication[1].amount.value) == float(20.0)
     assert inst.item[0].adjudication[1].category.coding[0].code == "copay"
     assert inst.item[0].adjudication[2].category.coding[0].code == "eligpercent"
-    assert float(inst.item[0].adjudication[2].value) == float(80.0)
+    assert float(inst.item[0].adjudication[2].quantity.value) == float(80.0)
     assert inst.item[0].adjudication[3].amount.currency == "USD"
     assert float(inst.item[0].adjudication[3].amount.value) == float(172.32)
     assert inst.item[0].adjudication[3].category.coding[0].code == "benefit"
@@ -202,7 +203,7 @@ def impl_claimresponse_2(inst):
     assert float(inst.item[0].detail[0].adjudication[1].amount.value) == float(20.0)
     assert inst.item[0].detail[0].adjudication[1].category.coding[0].code == "copay"
     assert inst.item[0].detail[0].adjudication[2].category.coding[0].code == "eligpercent"
-    assert float(inst.item[0].detail[0].adjudication[2].value) == float(80.0)
+    assert float(inst.item[0].detail[0].adjudication[2].quantity.value) == float(80.0)
     assert inst.item[0].detail[0].adjudication[3].amount.currency == "USD"
     assert float(inst.item[0].detail[0].adjudication[3].amount.value) == float(80.0)
     assert inst.item[0].detail[0].adjudication[3].category.coding[0].code == "benefit"
@@ -212,7 +213,7 @@ def impl_claimresponse_2(inst):
     assert float(inst.item[0].detail[1].adjudication[0].amount.value) == float(110.0)
     assert inst.item[0].detail[1].adjudication[0].category.coding[0].code == "eligible"
     assert inst.item[0].detail[1].adjudication[1].category.coding[0].code == "eligpercent"
-    assert float(inst.item[0].detail[1].adjudication[1].value) == float(80.0)
+    assert float(inst.item[0].detail[1].adjudication[1].quantity.value) == float(80.0)
     assert inst.item[0].detail[1].adjudication[2].amount.currency == "USD"
     assert float(inst.item[0].detail[1].adjudication[2].amount.value) == float(88.0)
     assert inst.item[0].detail[1].adjudication[2].category.coding[0].code == "benefit"
@@ -222,7 +223,7 @@ def impl_claimresponse_2(inst):
     assert float(inst.item[0].detail[1].subDetail[0].adjudication[0].amount.value) == float(60.0)
     assert inst.item[0].detail[1].subDetail[0].adjudication[0].category.coding[0].code == "eligible"
     assert inst.item[0].detail[1].subDetail[0].adjudication[1].category.coding[0].code == "eligpercent"
-    assert float(inst.item[0].detail[1].subDetail[0].adjudication[1].value) == float(80.0)
+    assert float(inst.item[0].detail[1].subDetail[0].adjudication[1].quantity.value) == float(80.0)
     assert inst.item[0].detail[1].subDetail[0].adjudication[2].amount.currency == "USD"
     assert float(inst.item[0].detail[1].subDetail[0].adjudication[2].amount.value) == float(48.0)
     assert inst.item[0].detail[1].subDetail[0].adjudication[2].category.coding[0].code == "benefit"
@@ -232,7 +233,7 @@ def impl_claimresponse_2(inst):
     assert float(inst.item[0].detail[1].subDetail[1].adjudication[0].amount.value) == float(30.0)
     assert inst.item[0].detail[1].subDetail[1].adjudication[0].category.coding[0].code == "eligible"
     assert inst.item[0].detail[1].subDetail[1].adjudication[1].category.coding[0].code == "eligpercent"
-    assert float(inst.item[0].detail[1].subDetail[1].adjudication[1].value) == float(80.0)
+    assert float(inst.item[0].detail[1].subDetail[1].adjudication[1].quantity.value) == float(80.0)
     assert inst.item[0].detail[1].subDetail[1].adjudication[2].amount.currency == "USD"
     assert float(inst.item[0].detail[1].subDetail[1].adjudication[2].amount.value) == float(24.0)
     assert inst.item[0].detail[1].subDetail[1].adjudication[2].category.coding[0].code == "benefit"
@@ -241,7 +242,7 @@ def impl_claimresponse_2(inst):
     assert float(inst.item[0].detail[1].subDetail[2].adjudication[0].amount.value) == float(10.0)
     assert inst.item[0].detail[1].subDetail[2].adjudication[0].category.coding[0].code == "eligible"
     assert inst.item[0].detail[1].subDetail[2].adjudication[1].category.coding[0].code == "eligpercent"
-    assert float(inst.item[0].detail[1].subDetail[2].adjudication[1].value) == float(80.0)
+    assert float(inst.item[0].detail[1].subDetail[2].adjudication[1].quantity.value) == float(80.0)
     assert inst.item[0].detail[1].subDetail[2].adjudication[2].amount.currency == "USD"
     assert float(inst.item[0].detail[1].subDetail[2].adjudication[2].amount.value) == float(8.0)
     assert inst.item[0].detail[1].subDetail[2].adjudication[2].category.coding[0].code == "benefit"
@@ -251,7 +252,7 @@ def impl_claimresponse_2(inst):
     assert float(inst.item[0].detail[2].adjudication[0].amount.value) == float(200.0)
     assert inst.item[0].detail[2].adjudication[0].category.coding[0].code == "eligible"
     assert inst.item[0].detail[2].adjudication[1].category.coding[0].code == "eligpercent"
-    assert float(inst.item[0].detail[2].adjudication[1].value) == float(80.0)
+    assert float(inst.item[0].detail[2].adjudication[1].quantity.value) == float(80.0)
     assert inst.item[0].detail[2].adjudication[2].amount.currency == "USD"
     assert float(inst.item[0].detail[2].adjudication[2].amount.value) == float(14.0)
     assert inst.item[0].detail[2].adjudication[2].category.coding[0].code == "benefit"
@@ -284,7 +285,8 @@ def impl_claimresponse_2(inst):
     assert inst.processNote[0].language.coding[0].system == "urn:ietf:bcp:47"
     assert inst.processNote[0].number == 1
     assert inst.processNote[0].text == "After hours surcharge declined"
-    assert inst.processNote[0].type == "display"
+    assert inst.processNote[0].type.coding[0].code == "display"
+    assert inst.processNote[0].type.coding[0].system == "http://hl7.org/fhir/note-type"
     assert inst.request.identifier.system == "http://happysight.com/claim"
     assert inst.request.identifier.value == "6612346"
     assert inst.requestor.reference == "Organization/1"
@@ -351,7 +353,8 @@ def impl_claimresponse_3(inst):
     assert inst.processNote[0].language.coding[0].system == "urn:ietf:bcp:47"
     assert inst.processNote[0].number == 1
     assert inst.processNote[0].text == "Invalid claim"
-    assert inst.processNote[0].type == "display"
+    assert inst.processNote[0].type.coding[0].code == "display"
+    assert inst.processNote[0].type.coding[0].system == "http://hl7.org/fhir/note-type"
     assert inst.request.reference == "Claim/100156"
     assert inst.requestor.reference == "Practitioner/1"
     assert inst.status == "active"
@@ -396,7 +399,7 @@ def impl_claimresponse_4(inst):
     assert float(inst.addItem[0].adjudication[1].amount.value) == float(10.0)
     assert inst.addItem[0].adjudication[1].category.coding[0].code == "copay"
     assert inst.addItem[0].adjudication[2].category.coding[0].code == "eligpercent"
-    assert float(inst.addItem[0].adjudication[2].value) == float(100.0)
+    assert float(inst.addItem[0].adjudication[2].quantity.value) == float(100.0)
     assert inst.addItem[0].adjudication[3].amount.currency == "USD"
     assert float(inst.addItem[0].adjudication[3].amount.value) == float(240.0)
     assert inst.addItem[0].adjudication[3].category.coding[0].code == "benefit"
@@ -413,7 +416,7 @@ def impl_claimresponse_4(inst):
     assert float(inst.addItem[1].adjudication[0].amount.value) == float(800.0)
     assert inst.addItem[1].adjudication[0].category.coding[0].code == "eligible"
     assert inst.addItem[1].adjudication[1].category.coding[0].code == "eligpercent"
-    assert float(inst.addItem[1].adjudication[1].value) == float(100.0)
+    assert float(inst.addItem[1].adjudication[1].quantity.value) == float(100.0)
     assert inst.addItem[1].adjudication[2].amount.currency == "USD"
     assert float(inst.addItem[1].adjudication[2].amount.value) == float(800.0)
     assert inst.addItem[1].adjudication[2].category.coding[0].code == "benefit"
@@ -451,7 +454,8 @@ def impl_claimresponse_4(inst):
     "Please submit a Pre-Authorization request if a more "
     "extensive examination or urgent services are required."
     )
-    assert inst.processNote[0].type == "print"
+    assert inst.processNote[0].type.coding[0].code == "print"
+    assert inst.processNote[0].type.coding[0].system == "http://hl7.org/fhir/note-type"
     assert inst.requestor.reference == "Organization/1"
     assert inst.status == "active"
     assert inst.text.div == (
@@ -508,7 +512,7 @@ def impl_claimresponse_5(inst):
     assert float(inst.item[0].adjudication[1].amount.value) == float(10.0)
     assert inst.item[0].adjudication[1].category.coding[0].code == "copay"
     assert inst.item[0].adjudication[2].category.coding[0].code == "eligpercent"
-    assert float(inst.item[0].adjudication[2].value) == float(80.0)
+    assert float(inst.item[0].adjudication[2].quantity.value) == float(80.0)
     assert inst.item[0].adjudication[3].amount.currency == "USD"
     assert float(inst.item[0].adjudication[3].amount.value) == float(90.47)
     assert inst.item[0].adjudication[3].category.coding[0].code == "benefit"

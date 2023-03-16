@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/FamilyMemberHistory
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 import typing
 from pydantic import Field
@@ -350,6 +350,21 @@ class FamilyMemberHistory(domainresource.DomainResource):
         element_property=True,
 	)
 	
+    participant: typing.List[fhirtypes.FamilyMemberHistoryParticipantType] = Field(
+		None,
+		alias="participant",
+		title=(
+    "Who or what participated in the activities related to the family "
+    "member history and how they were involved"
+    ),
+		description=(
+    "Indicates who or what participated in the activities related to the "
+    "family member history and how they were involved."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+	)
+	
     patient: fhirtypes.ReferenceType = Field(
 		...,
 		alias="patient",
@@ -437,7 +452,7 @@ class FamilyMemberHistory(domainresource.DomainResource):
         ``FamilyMemberHistory`` according specification,
         with preserving original sequence order.
         """
-        return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "identifier", "instantiatesCanonical", "instantiatesUri", "status", "dataAbsentReason", "patient", "date", "name", "relationship", "sex", "bornPeriod", "bornDate", "bornString", "ageAge", "ageRange", "ageString", "estimatedAge", "deceasedBoolean", "deceasedAge", "deceasedRange", "deceasedDate", "deceasedString", "reason", "note", "condition", "procedure"]
+        return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "identifier", "instantiatesCanonical", "instantiatesUri", "status", "dataAbsentReason", "patient", "date", "participant", "name", "relationship", "sex", "bornPeriod", "bornDate", "bornString", "ageAge", "ageRange", "ageString", "estimatedAge", "deceasedBoolean", "deceasedAge", "deceasedRange", "deceasedDate", "deceasedString", "reason", "note", "condition", "procedure"]
 
 
     @root_validator(pre=True, allow_reuse=True)
@@ -683,7 +698,7 @@ class FamilyMemberHistoryCondition(backboneelement.BackboneElement):
     outcome: fhirtypes.CodeableConceptType = Field(
 		None,
 		alias="outcome",
-		title="deceased | permanent disability | etc.",
+		title="deceased | permanent disability | etc",
 		description=(
     "Indicates what happened following the condition.  If the condition "
     "resulted in death, deceased date is captured on the relation."
@@ -742,6 +757,56 @@ class FamilyMemberHistoryCondition(backboneelement.BackboneElement):
                 raise ValueError(f"Expect any of field value from this list {fields}.")
 
         return values
+
+
+class FamilyMemberHistoryParticipant(backboneelement.BackboneElement):
+    """Disclaimer: Any field name ends with ``__ext`` doesn't part of
+    Resource StructureDefinition, instead used to enable Extensibility feature
+    for FHIR Primitive Data Types.
+
+    Who or what participated in the activities related to the family member
+    history and how they were involved.
+    Indicates who or what participated in the activities related to the family
+    member history and how they were involved.
+    """
+    resource_type = Field("FamilyMemberHistoryParticipant", const=True)
+	
+    actor: fhirtypes.ReferenceType = Field(
+		...,
+		alias="actor",
+		title=(
+    "Who or what participated in the activities related to the family "
+    "member history"
+    ),
+		description=(
+    "Indicates who or what participated in the activities related to the "
+    "family member history."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+        # note: Listed Resource Type(s) should be allowed as Reference.
+		enum_reference_types=["Practitioner", "PractitionerRole", "Patient", "RelatedPerson", "Device", "Organization", "CareTeam"],
+	)
+	
+    function: fhirtypes.CodeableConceptType = Field(
+		None,
+		alias="function",
+		title="Type of involvement",
+		description=(
+    "Distinguishes the type of involvement of the actor in the activities "
+    "related to the family member history."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+	)
+    @classmethod
+    def elements_sequence(cls):
+        """returning all elements names from
+        ``FamilyMemberHistoryParticipant`` according specification,
+        with preserving original sequence order.
+        """
+        return ["id", "extension", "modifierExtension", "function", "actor"]
+
 
 
 class FamilyMemberHistoryProcedure(backboneelement.BackboneElement):

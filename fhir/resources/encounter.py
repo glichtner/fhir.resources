@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/Encounter
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 import typing
 from pydantic import Field
@@ -56,7 +56,12 @@ class Encounter(domainresource.DomainResource):
 		None,
 		alias="admission",
 		title="Details about the admission to a healthcare service",
-		description=None,
+		description=(
+    "Details about the stay during which a healthcare service is provided."
+    "  This does not describe the event of admitting the patient, but "
+    "rather any information that is relevant from the time of admittance "
+    "until the time of discharge."
+    ),
         # if property is element of this resource.
         element_property=True,
 	)
@@ -102,28 +107,13 @@ class Encounter(domainresource.DomainResource):
 		enum_reference_types=["CareTeam"],
 	)
 	
-    classHistory: typing.List[fhirtypes.EncounterClassHistoryType] = Field(
-		None,
-		alias="classHistory",
-		title="List of past encounter classes",
-		description=(
-    "The class history permits the tracking of the encounters transitions "
-    "without needing to go  through the resource history.  This would be "
-    "used for a case where an admission starts of as an emergency "
-    "encounter, then transitions into an inpatient scenario. Doing this and"
-    " not restarting a new encounter ensures that any lab/diagnostic "
-    "results can more easily follow the patient and not require re-"
-    "processing and not get lost or cancelled during a kind of discharge "
-    "from emergency to inpatient."
-    ),
-        # if property is element of this resource.
-        element_property=True,
-	)
-	
     class_fhir: typing.List[fhirtypes.CodeableConceptType] = Field(
 		None,
 		alias="class",
-		title="Classification of patient encounter",
+		title=(
+    "Classification of patient encounter context - e.g. Inpatient, "
+    "outpatient"
+    ),
 		description=(
     "Concepts representing classification of patient encounter such as "
     "ambulatory (outpatient), inpatient, emergency, home health or others "
@@ -137,6 +127,15 @@ class Encounter(domainresource.DomainResource):
 		None,
 		alias="diagnosis",
 		title="The list of diagnosis relevant to this encounter",
+		description=None,
+        # if property is element of this resource.
+        element_property=True,
+	)
+	
+    dietPreference: typing.List[fhirtypes.CodeableConceptType] = Field(
+		None,
+		alias="dietPreference",
+		title="Diet preferences reported by the patient",
 		description=None,
         # if property is element of this resource.
         element_property=True,
@@ -253,19 +252,16 @@ class Encounter(domainresource.DomainResource):
         element_property=True,
 	)
 	
-    reason: typing.List[fhirtypes.CodeableReferenceType] = Field(
+    reason: typing.List[fhirtypes.EncounterReasonType] = Field(
 		None,
 		alias="reason",
-		title="Reason the encounter takes place (core or reference)",
-		description=(
-    "Reason the encounter takes place, expressed as a code or a reference "
-    "to another resource. For admissions, this can be used for a coded "
-    "admission diagnosis."
+		title=(
+    "The list of medical reasons that are expected to be addressed during "
+    "the episode of care"
     ),
+		description=None,
         # if property is element of this resource.
         element_property=True,
-        # note: Listed Resource Type(s) should be allowed as Reference.
-		enum_reference_types=["Condition", "DiagnosticReport", "ImmunizationRecommendation", "Observation", "Procedure"],
 	)
 	
     serviceProvider: fhirtypes.ReferenceType = Field(
@@ -277,8 +273,8 @@ class Encounter(domainresource.DomainResource):
     "services. This MAY be the same as the organization on the Patient "
     "record, however it could be different, such as if the actor performing"
     " the services was from an external organization (which may be billed "
-    "seperately) for an external consultation.  Refer to the example bundle"
-    " showing an abbreviated set of Encounters for a colonoscopy."
+    "seperately) for an external consultation.  Refer to the colonoscopy "
+    "example on the Encounter examples tab."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -300,39 +296,53 @@ class Encounter(domainresource.DomainResource):
 		enum_reference_types=["HealthcareService"],
 	)
 	
+    specialArrangement: typing.List[fhirtypes.CodeableConceptType] = Field(
+		None,
+		alias="specialArrangement",
+		title="Wheelchair, translator, stretcher, etc",
+		description=(
+    "Any special requests that have been made for this encounter, such as "
+    "the provision of specific equipment or other things."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+	)
+	
+    specialCourtesy: typing.List[fhirtypes.CodeableConceptType] = Field(
+		None,
+		alias="specialCourtesy",
+		title="Special courtesies (VIP, board member)",
+		description=(
+    "Special courtesies that may be provided to the patient during the "
+    "encounter (VIP, board member, professional courtesy)."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+	)
+	
     status: fhirtypes.Code = Field(
 		None,
 		alias="status",
 		title=(
-    "planned | in-progress | onhold | discharged | completed | cancelled | "
-    "discontinued | entered-in-error | unknown"
+    "planned | in-progress | on-hold | discharged | completed | cancelled |"
+    " discontinued | entered-in-error | unknown"
     ),
-		description=None,
+		description=(
+    "The current state of the encounter (not the state of the patient "
+    "within the encounter - that is subjectState)."
+    ),
         # if property is element of this resource.
         element_property=True,
         element_required=True,
         # note: Enum values can be used in validation,
         # but use in your own responsibilities, read official FHIR documentation.
-		enum_values=["planned", "in-progress", "onhold", "discharged", "completed", "cancelled", "discontinued", "entered-in-error", "unknown"],
+		enum_values=["planned", "in-progress", "on-hold", "discharged", "completed", "cancelled", "discontinued", "entered-in-error", "unknown"],
 	)
     status__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
         None,
         alias="_status",
         title="Extension field for ``status``."
     )
-	
-    statusHistory: typing.List[fhirtypes.EncounterStatusHistoryType] = Field(
-		None,
-		alias="statusHistory",
-		title="List of past encounter statuses",
-		description=(
-    "The status history permits the encounter resource to contain the "
-    "status history without needing to read through the historical versions"
-    " of the resource, or even have the server store them."
-    ),
-        # if property is element of this resource.
-        element_property=True,
-	)
 	
     subject: fhirtypes.ReferenceType = Field(
 		None,
@@ -365,7 +375,10 @@ class Encounter(domainresource.DomainResource):
     type: typing.List[fhirtypes.CodeableConceptType] = Field(
 		None,
 		alias="type",
-		title="Specific type of encounter",
+		title=(
+    "Specific type of encounter (e.g. e-mail consultation, surgical day-"
+    "care, ...)"
+    ),
 		description=(
     "Specific type of encounter (e.g. e-mail consultation, surgical day-"
     "care, skilled nursing, rehabilitation)."
@@ -388,7 +401,7 @@ class Encounter(domainresource.DomainResource):
         ``Encounter`` according specification,
         with preserving original sequence order.
         """
-        return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "identifier", "status", "statusHistory", "class", "classHistory", "priority", "type", "serviceType", "subject", "subjectStatus", "episodeOfCare", "basedOn", "careTeam", "partOf", "serviceProvider", "participant", "appointment", "virtualService", "actualPeriod", "plannedStartDate", "plannedEndDate", "length", "reason", "diagnosis", "account", "admission", "location"]
+        return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "identifier", "status", "class", "priority", "type", "serviceType", "subject", "subjectStatus", "episodeOfCare", "basedOn", "careTeam", "partOf", "serviceProvider", "participant", "appointment", "virtualService", "actualPeriod", "plannedStartDate", "plannedEndDate", "length", "reason", "diagnosis", "account", "dietPreference", "specialArrangement", "specialCourtesy", "admission", "location"]
 
 
     @root_validator(pre=True, allow_reuse=True)
@@ -460,6 +473,11 @@ class EncounterAdmission(backboneelement.BackboneElement):
     for FHIR Primitive Data Types.
 
     Details about the admission to a healthcare service.
+    Details about the stay during which a healthcare service is provided.
+    
+    This does not describe the event of admitting the patient, but rather any
+    information that is relevant from the time of admittance until the time of
+    discharge.
     """
     resource_type = Field("EncounterAdmission", const=True)
 	
@@ -481,15 +499,6 @@ class EncounterAdmission(backboneelement.BackboneElement):
         element_property=True,
         # note: Listed Resource Type(s) should be allowed as Reference.
 		enum_reference_types=["Location", "Organization"],
-	)
-	
-    dietPreference: typing.List[fhirtypes.CodeableConceptType] = Field(
-		None,
-		alias="dietPreference",
-		title="Diet preferences reported by the patient",
-		description=None,
-        # if property is element of this resource.
-        element_property=True,
 	)
 	
     dischargeDisposition: fhirtypes.CodeableConceptType = Field(
@@ -524,32 +533,12 @@ class EncounterAdmission(backboneelement.BackboneElement):
     reAdmission: fhirtypes.CodeableConceptType = Field(
 		None,
 		alias="reAdmission",
-		title=(
-    "The type of re-admission that has occurred (if any). If the value is "
-    "absent, then this is not identified as a readmission"
-    ),
-		description="Whether this admission is a readmission and why if known.",
-        # if property is element of this resource.
-        element_property=True,
-	)
-	
-    specialArrangement: typing.List[fhirtypes.CodeableConceptType] = Field(
-		None,
-		alias="specialArrangement",
-		title="Wheelchair, translator, stretcher, etc.",
+		title="Indicates that the patient is being re-admitted",
 		description=(
-    "Any special requests that have been made for this admission encounter,"
-    " such as the provision of specific equipment or other things."
+    "Indicates that this encounter is directly related to a prior "
+    "admission, often because the conditions addressed in the prior "
+    "admission were not fully addressed."
     ),
-        # if property is element of this resource.
-        element_property=True,
-	)
-	
-    specialCourtesy: typing.List[fhirtypes.CodeableConceptType] = Field(
-		None,
-		alias="specialCourtesy",
-		title="Special courtesies (VIP, board member)",
-		description=None,
         # if property is element of this resource.
         element_property=True,
 	)
@@ -559,50 +548,7 @@ class EncounterAdmission(backboneelement.BackboneElement):
         ``EncounterAdmission`` according specification,
         with preserving original sequence order.
         """
-        return ["id", "extension", "modifierExtension", "preAdmissionIdentifier", "origin", "admitSource", "reAdmission", "dietPreference", "specialCourtesy", "specialArrangement", "destination", "dischargeDisposition"]
-
-
-
-class EncounterClassHistory(backboneelement.BackboneElement):
-    """Disclaimer: Any field name ends with ``__ext`` doesn't part of
-    Resource StructureDefinition, instead used to enable Extensibility feature
-    for FHIR Primitive Data Types.
-
-    List of past encounter classes.
-    The class history permits the tracking of the encounters transitions
-    without needing to go  through the resource history.  This would be used
-    for a case where an admission starts of as an emergency encounter, then
-    transitions into an inpatient scenario. Doing this and not restarting a new
-    encounter ensures that any lab/diagnostic results can more easily follow
-    the patient and not require re-processing and not get lost or cancelled
-    during a kind of discharge from emergency to inpatient.
-    """
-    resource_type = Field("EncounterClassHistory", const=True)
-	
-    class_fhir: fhirtypes.CodingType = Field(
-		...,
-		alias="class",
-		title="inpatient | outpatient | ambulatory | emergency +",
-		description=None,
-        # if property is element of this resource.
-        element_property=True,
-	)
-	
-    period: fhirtypes.PeriodType = Field(
-		...,
-		alias="period",
-		title="The time that the episode was in the specified class",
-		description=None,
-        # if property is element of this resource.
-        element_property=True,
-	)
-    @classmethod
-    def elements_sequence(cls):
-        """returning all elements names from
-        ``EncounterClassHistory`` according specification,
-        with preserving original sequence order.
-        """
-        return ["id", "extension", "modifierExtension", "class", "period"]
+        return ["id", "extension", "modifierExtension", "preAdmissionIdentifier", "origin", "admitSource", "reAdmission", "destination", "dischargeDisposition"]
 
 
 
@@ -615,37 +561,22 @@ class EncounterDiagnosis(backboneelement.BackboneElement):
     """
     resource_type = Field("EncounterDiagnosis", const=True)
 	
-    condition: fhirtypes.ReferenceType = Field(
-		...,
+    condition: typing.List[fhirtypes.CodeableReferenceType] = Field(
+		None,
 		alias="condition",
-		title="The diagnosis or procedure relevant to the encounter",
+		title="The diagnosis relevant to the encounter",
 		description=(
-    "Reason the encounter takes place, as specified using information from "
-    "another resource. For admissions, this is the admission diagnosis. The"
-    " indication will typically be a Condition (with other resources "
-    "referenced in the evidence.detail), or a Procedure."
+    "The coded diagnosis or a reference to a Condition (with other "
+    "resources referenced in the evidence.detail), the use property will "
+    "indicate the purpose of this specific diagnosis."
     ),
         # if property is element of this resource.
         element_property=True,
         # note: Listed Resource Type(s) should be allowed as Reference.
-		enum_reference_types=["Condition", "Procedure"],
+		enum_reference_types=["Condition"],
 	)
 	
-    rank: fhirtypes.PositiveInt = Field(
-		None,
-		alias="rank",
-		title="Ranking of the diagnosis (for each role type)",
-		description=None,
-        # if property is element of this resource.
-        element_property=True,
-	)
-    rank__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
-        None,
-        alias="_rank",
-        title="Extension field for ``rank``."
-    )
-	
-    use: fhirtypes.CodeableConceptType = Field(
+    use: typing.List[fhirtypes.CodeableConceptType] = Field(
 		None,
 		alias="use",
 		title=(
@@ -662,7 +593,7 @@ class EncounterDiagnosis(backboneelement.BackboneElement):
         ``EncounterDiagnosis`` according specification,
         with preserving original sequence order.
         """
-        return ["id", "extension", "modifierExtension", "condition", "use", "rank"]
+        return ["id", "extension", "modifierExtension", "condition", "use"]
 
 
 
@@ -799,112 +730,47 @@ class EncounterParticipant(backboneelement.BackboneElement):
 
 
 
-class EncounterStatusHistory(backboneelement.BackboneElement):
+class EncounterReason(backboneelement.BackboneElement):
     """Disclaimer: Any field name ends with ``__ext`` doesn't part of
     Resource StructureDefinition, instead used to enable Extensibility feature
     for FHIR Primitive Data Types.
 
-    List of past encounter statuses.
-    The status history permits the encounter resource to contain the status
-    history without needing to read through the historical versions of the
-    resource, or even have the server store them.
+    The list of medical reasons that are expected to be addressed during the
+    episode of care.
     """
-    resource_type = Field("EncounterStatusHistory", const=True)
+    resource_type = Field("EncounterReason", const=True)
 	
-    period: fhirtypes.PeriodType = Field(
-		...,
-		alias="period",
-		title="The time that the episode was in the specified status",
-		description=None,
-        # if property is element of this resource.
-        element_property=True,
-	)
-	
-    status: fhirtypes.Code = Field(
+    use: typing.List[fhirtypes.CodeableConceptType] = Field(
 		None,
-		alias="status",
-		title=(
-    "planned | in-progress | onhold | discharged | completed | cancelled | "
-    "discontinued | entered-in-error | unknown"
+		alias="use",
+		title="What the reason value should be used for/as",
+		description=(
+    "What the reason value should be used as e.g. Chief Complaint, Health "
+    "Concern, Health Maintenance (including screening)."
     ),
-		description=None,
         # if property is element of this resource.
         element_property=True,
-        element_required=True,
-        # note: Enum values can be used in validation,
-        # but use in your own responsibilities, read official FHIR documentation.
-		enum_values=["planned", "in-progress", "onhold", "discharged", "completed", "cancelled", "discontinued", "entered-in-error", "unknown"],
 	)
-    status__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
-        None,
-        alias="_status",
-        title="Extension field for ``status``."
-    )
+	
+    value: typing.List[fhirtypes.CodeableReferenceType] = Field(
+		None,
+		alias="value",
+		title="Reason the encounter takes place (core or reference)",
+		description=(
+    "Reason the encounter takes place, expressed as a code or a reference "
+    "to another resource. For admissions, this can be used for a coded "
+    "admission diagnosis."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+        # note: Listed Resource Type(s) should be allowed as Reference.
+		enum_reference_types=["Condition", "DiagnosticReport", "Observation", "ImmunizationRecommendation", "Procedure"],
+	)
     @classmethod
     def elements_sequence(cls):
         """returning all elements names from
-        ``EncounterStatusHistory`` according specification,
+        ``EncounterReason`` according specification,
         with preserving original sequence order.
         """
-        return ["id", "extension", "modifierExtension", "status", "period"]
+        return ["id", "extension", "modifierExtension", "use", "value"]
 
-
-    @root_validator(pre=True, allow_reuse=True)
-    def validate_required_primitive_elements_2535(
-        cls, values: typing.Dict[str, typing.Any]
-    ) -> typing.Dict[str, typing.Any]:
-        """https://www.hl7.org/fhir/extensibility.html#Special-Case
-        In some cases, implementers might find that they do not have appropriate data for
-        an element with minimum cardinality = 1. In this case, the element must be present,
-        but unless the resource or a profile on it has made the actual value of the primitive
-        data type mandatory, it is possible to provide an extension that explains why
-        the primitive value is not present.
-        """
-        required_fields = [
-			("status", "status__ext")]
-        _missing = object()
-
-        def _fallback():
-            return ""
-
-        errors: typing.List["ErrorWrapper"] = []
-        for name, ext in required_fields:
-            field = cls.__fields__[name]
-            ext_field = cls.__fields__[ext]
-            value = values.get(field.alias, _missing)
-            if value not in (_missing, None):
-                continue
-            ext_value = values.get(ext_field.alias, _missing)
-            missing_ext = True
-            if ext_value not in (_missing, None):
-                if isinstance(ext_value, dict):
-                    missing_ext = len(ext_value.get("extension", [])) == 0
-                elif (
-                    getattr(ext_value.__class__, "get_resource_type", _fallback)()
-                    == "FHIRPrimitiveExtension"
-                ):
-                    if ext_value.extension and len(ext_value.extension) > 0:
-                        missing_ext = False
-                else:
-                    validate_pass = True
-                    for validator in ext_field.type_.__get_validators__():
-                        try:
-                            ext_value = validator(v=ext_value)
-                        except ValidationError as exc:
-                            errors.append(ErrorWrapper(exc, loc=ext_field.alias))
-                            validate_pass = False
-                    if not validate_pass:
-                        continue
-                    if ext_value.extension and len(ext_value.extension) > 0:
-                        missing_ext = False
-            if missing_ext:
-                if value is _missing:
-                    errors.append(ErrorWrapper(MissingError(), loc=field.alias))
-                else:
-                    errors.append(
-                        ErrorWrapper(NoneIsNotAllowedError(), loc=field.alias)
-                    )
-        if len(errors) > 0:
-            raise ValidationError(errors, cls)  # type: ignore
-
-        return values

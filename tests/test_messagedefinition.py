@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/MessageDefinition
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 from pydantic.validators import bytes_validator  # noqa: F401
 from fhir.resources import fhirtypes  # noqa: F401
@@ -40,7 +40,7 @@ def impl_messagedefinition_1(inst):
     assert inst.jurisdiction[0].coding[0].code == "US"
     assert inst.jurisdiction[0].coding[0].display == "United States of America (the)"
     assert inst.jurisdiction[0].coding[0].system == "urn:iso:std:iso:3166"
-    assert inst.name == "PATIENT-LINK-NOTIFICATION"
+    assert inst.name == "PATIENTLINKNOTIFICATION"
     assert inst.publisher == "Health Level Seven, Int'l"
     assert inst.purpose == (
     "Notifies recipient systems that two patients have been "
@@ -107,7 +107,7 @@ def impl_messagedefinition_2(inst):
     assert inst.jurisdiction[0].coding[0].code == "US"
     assert inst.jurisdiction[0].coding[0].display == "United States of America (the)"
     assert inst.jurisdiction[0].coding[0].system == "urn:iso:std:iso:3166"
-    assert inst.name == "PATIENT-LINK-RESPONSE"
+    assert inst.name == "PATIENTLINKRESPONSE"
     assert inst.publisher == "Health Level Seven, Int'l"
     assert inst.purpose == (
     "Optional response message that may provide additional "
@@ -155,6 +155,7 @@ def impl_messagedefinition_3(inst):
     assert inst.contact[0].telecom[0].system == "url"
     assert inst.contact[0].telecom[0].value == "http://hl7.org"
     assert inst.date == fhirtypes.DateTime.validate("2016-11-09")
+    assert inst.description == "Message definition base example"
     assert inst.eventCoding.code == "admin-notify"
     assert inst.eventCoding.system == "http://example.org/fhir/message-events"
     assert inst.experimental is True

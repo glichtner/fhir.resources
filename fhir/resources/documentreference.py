@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/DocumentReference
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 import typing
 from pydantic import Field
@@ -70,7 +70,18 @@ class DocumentReference(domainresource.DomainResource):
         # if property is element of this resource.
         element_property=True,
         # note: Listed Resource Type(s) should be allowed as Reference.
-		enum_reference_types=["Appointment", "AppointmentResponse", "CarePlan", "Claim", "CommunicationRequest", "Contract", "CoverageEligibilityRequest", "DeviceRequest", "EnrollmentRequest", "EpisodeOfCare", "ImmunizationRecommendation", "MedicationRequest", "NutritionOrder", "RequestOrchestration", "ServiceRequest", "SupplyRequest", "VisionPrescription"],
+		enum_reference_types=["Appointment", "AppointmentResponse", "CarePlan", "Claim", "CommunicationRequest", "Contract", "CoverageEligibilityRequest", "DeviceRequest", "EnrollmentRequest", "ImmunizationRecommendation", "MedicationRequest", "NutritionOrder", "RequestOrchestration", "ServiceRequest", "SupplyRequest", "VisionPrescription"],
+	)
+	
+    bodySite: typing.List[fhirtypes.CodeableReferenceType] = Field(
+		None,
+		alias="bodySite",
+		title="Body part included",
+		description="The anatomic structures included in the document.",
+        # if property is element of this resource.
+        element_property=True,
+        # note: Listed Resource Type(s) should be allowed as Reference.
+		enum_reference_types=["BodyStructure"],
 	)
 	
     category: typing.List[fhirtypes.CodeableConceptType] = Field(
@@ -211,6 +222,18 @@ class DocumentReference(domainresource.DomainResource):
         element_property=True,
 	)
 	
+    modality: typing.List[fhirtypes.CodeableConceptType] = Field(
+		None,
+		alias="modality",
+		title="Imaging modality used",
+		description=(
+    "Imaging modality used. This may include both acquisition and non-"
+    "acquisition modalities."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+	)
+	
     period: fhirtypes.PeriodType = Field(
 		None,
 		alias="period",
@@ -317,13 +340,30 @@ class DocumentReference(domainresource.DomainResource):
         # if property is element of this resource.
         element_property=True,
 	)
+	
+    version: fhirtypes.String = Field(
+		None,
+		alias="version",
+		title=(
+    "An explicitly assigned identifer of a variation of the content in the "
+    "DocumentReference"
+    ),
+		description=None,
+        # if property is element of this resource.
+        element_property=True,
+	)
+    version__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
+        None,
+        alias="_version",
+        title="Extension field for ``version``."
+    )
     @classmethod
     def elements_sequence(cls):
         """returning all elements names from
         ``DocumentReference`` according specification,
         with preserving original sequence order.
         """
-        return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "identifier", "basedOn", "status", "docStatus", "type", "category", "subject", "context", "event", "facilityType", "practiceSetting", "period", "date", "author", "attester", "custodian", "relatesTo", "description", "securityLabel", "content"]
+        return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "identifier", "version", "basedOn", "status", "docStatus", "modality", "type", "category", "subject", "context", "event", "bodySite", "facilityType", "practiceSetting", "period", "date", "author", "attester", "custodian", "relatesTo", "description", "securityLabel", "content"]
 
 
     @root_validator(pre=True, allow_reuse=True)

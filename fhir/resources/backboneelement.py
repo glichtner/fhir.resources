@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/BackboneElement
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 import typing
 from pydantic import Field
@@ -34,8 +34,8 @@ class BackboneElement(element.Element):
     "understanding of the element in which it is contained and/or the "
     "understanding of the containing element's descendants. Usually "
     "modifier elements provide negation or qualification. To make the use "
-    "of extensions safe and manageable, there is a strict set of governance"
-    " applied to the definition and use of extensions. Though any "
+    "of extensions safe and managable, there is a strict set of governance "
+    "applied to the definition and use of extensions. Though any "
     "implementer can define an extension, there is a set of requirements "
     "that SHALL be met as part of the definition of the extension. "
     "Applications processing a resource are required to check for modifier "

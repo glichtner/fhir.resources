@@ -6,7 +6,7 @@ from typing import Any, Dict, Union
 from fhir.resources.core.fhirabstractmodel import FHIRAbstractModel
 from .fhirtypesvalidators import get_fhir_model_class
 
-__fhir_version__ = "5.0.0-ballot"
+__fhir_version__ = "5.0.0-draft-final"
 
 
 def construct_fhir_element(

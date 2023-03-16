@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/CompartmentDefinition
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 import typing
 from pydantic import Field
@@ -32,14 +32,17 @@ class CompartmentDefinition(domainresource.DomainResource):
     code: fhirtypes.Code = Field(
 		None,
 		alias="code",
-		title="Patient | Encounter | RelatedPerson | Practitioner | Device",
+		title=(
+    "Patient | Encounter | RelatedPerson | Practitioner | Device | "
+    "EpisodeOfCare"
+    ),
 		description="Which compartment this definition describes.",
         # if property is element of this resource.
         element_property=True,
         element_required=True,
         # note: Enum values can be used in validation,
         # but use in your own responsibilities, read official FHIR documentation.
-		enum_values=["Patient", "Encounter", "RelatedPerson", "Practitioner", "Device"],
+		enum_values=["Patient", "Encounter", "RelatedPerson", "Practitioner", "Device", "EpisodeOfCare"],
 	)
     code__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
         None,
@@ -65,10 +68,10 @@ class CompartmentDefinition(domainresource.DomainResource):
 		title="Date last changed",
 		description=(
     "The date  (and optionally time) when the compartment definition was "
-    "published. The date must change when the business version changes and "
-    "it must change if the status code changes. In addition, it should "
-    "change when the substantive content of the compartment definition "
-    "changes."
+    "last significantly changed. The date must change when the business "
+    "version changes and it must change if the status code changes. In "
+    "addition, it should change when the substantive content of the "
+    "compartment definition changes."
     ),
         # if property is element of this resource.
         element_property=True,

@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/SubstanceDefinition
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 import typing
 from pydantic import Field
@@ -27,6 +27,15 @@ class SubstanceDefinition(domainresource.DomainResource):
     is used for prescribing.
     """
     resource_type = Field("SubstanceDefinition", const=True)
+	
+    characterization: typing.List[fhirtypes.SubstanceDefinitionCharacterizationType] = Field(
+		None,
+		alias="characterization",
+		title="General specifications for this substance",
+		description=None,
+        # if property is element of this resource.
+        element_property=True,
+	)
 	
     classification: typing.List[fhirtypes.CodeableConceptType] = Field(
 		None,
@@ -140,10 +149,11 @@ class SubstanceDefinition(domainresource.DomainResource):
     molecularWeight: typing.List[fhirtypes.SubstanceDefinitionMolecularWeightType] = Field(
 		None,
 		alias="molecularWeight",
-		title="The molecular weight or weight range",
+		title="The average mass of a molecule of a compound",
 		description=(
-    "The molecular weight or weight range (for proteins, polymers or "
-    "nucleic acids)."
+    "The average mass of a molecule of a compound compared to 1/12 the mass"
+    " of carbon 12 and calculated as the sum of the atomic weights of the "
+    "constituent atoms."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -295,11 +305,83 @@ class SubstanceDefinition(domainresource.DomainResource):
         ``SubstanceDefinition`` according specification,
         with preserving original sequence order.
         """
-        return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "identifier", "version", "status", "classification", "domain", "grade", "description", "informationSource", "note", "manufacturer", "supplier", "moiety", "property", "referenceInformation", "molecularWeight", "structure", "code", "name", "relationship", "nucleicAcid", "polymer", "protein", "sourceMaterial"]
+        return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "identifier", "version", "status", "classification", "domain", "grade", "description", "informationSource", "note", "manufacturer", "supplier", "moiety", "characterization", "property", "referenceInformation", "molecularWeight", "structure", "code", "name", "relationship", "nucleicAcid", "polymer", "protein", "sourceMaterial"]
 
 
 
 from . import backboneelement
+
+class SubstanceDefinitionCharacterization(backboneelement.BackboneElement):
+    """Disclaimer: Any field name ends with ``__ext`` doesn't part of
+    Resource StructureDefinition, instead used to enable Extensibility feature
+    for FHIR Primitive Data Types.
+
+    General specifications for this substance.
+    """
+    resource_type = Field("SubstanceDefinitionCharacterization", const=True)
+	
+    description: fhirtypes.Markdown = Field(
+		None,
+		alias="description",
+		title=(
+    "The description or justification in support of the interpretation of "
+    "the data file"
+    ),
+		description=None,
+        # if property is element of this resource.
+        element_property=True,
+	)
+    description__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
+        None,
+        alias="_description",
+        title="Extension field for ``description``."
+    )
+	
+    file: typing.List[fhirtypes.AttachmentType] = Field(
+		None,
+		alias="file",
+		title=(
+    "The data produced by the analytical instrument or a pictorial "
+    "representation of that data. Examples: a JCAMP, JDX, or ADX file, or a"
+    " chromatogram or spectrum analysis"
+    ),
+		description=None,
+        # if property is element of this resource.
+        element_property=True,
+	)
+	
+    form: fhirtypes.CodeableConceptType = Field(
+		None,
+		alias="form",
+		title=(
+    "Describes the nature of the chemical entity and explains, for "
+    "instance, whether this is a base or a salt form"
+    ),
+		description=None,
+        # if property is element of this resource.
+        element_property=True,
+	)
+	
+    technique: fhirtypes.CodeableConceptType = Field(
+		None,
+		alias="technique",
+		title="The method used to find the characterization e.g. HPLC",
+		description=(
+    "The method used to elucidate the characterization of the drug "
+    "substance. Example: HPLC."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+	)
+    @classmethod
+    def elements_sequence(cls):
+        """returning all elements names from
+        ``SubstanceDefinitionCharacterization`` according specification,
+        with preserving original sequence order.
+        """
+        return ["id", "extension", "modifierExtension", "technique", "form", "description", "file"]
+
+
 
 class SubstanceDefinitionCode(backboneelement.BackboneElement):
     """Disclaimer: Any field name ends with ``__ext`` doesn't part of
@@ -548,9 +630,10 @@ class SubstanceDefinitionMolecularWeight(backboneelement.BackboneElement):
     Resource StructureDefinition, instead used to enable Extensibility feature
     for FHIR Primitive Data Types.
 
-    The molecular weight or weight range.
-    The molecular weight or weight range (for proteins, polymers or nucleic
-    acids).
+    The average mass of a molecule of a compound.
+    The average mass of a molecule of a compound compared to 1/12 the mass of
+    carbon 12 and calculated as the sum of the atomic weights of the
+    constituent atoms.
     """
     resource_type = Field("SubstanceDefinitionMolecularWeight", const=True)
 	
@@ -1316,8 +1399,11 @@ class SubstanceDefinitionStructure(backboneelement.BackboneElement):
     molecularFormula: fhirtypes.String = Field(
 		None,
 		alias="molecularFormula",
-		title="Molecular formula (e.g. using the Hill system)",
-		description="Molecular formula of this substance, typically using the Hill system.",
+		title=(
+    "An expression which states the number and type of atoms present in a "
+    "molecule of a substance"
+    ),
+		description=None,
         # if property is element of this resource.
         element_property=True,
 	)
@@ -1368,7 +1454,7 @@ class SubstanceDefinitionStructure(backboneelement.BackboneElement):
     representation: typing.List[fhirtypes.SubstanceDefinitionStructureRepresentationType] = Field(
 		None,
 		alias="representation",
-		title="A depiction of the structure or characterization of the substance",
+		title="A depiction of the structure of the substance",
 		description=None,
         # if property is element of this resource.
         element_property=True,
@@ -1399,9 +1485,8 @@ class SubstanceDefinitionStructure(backboneelement.BackboneElement):
 		alias="technique",
 		title="The method used to find the structure e.g. X-ray, NMR",
 		description=(
-    "The method used to elucidate the structure or characterization of the "
-    "drug substance. Examples: X-ray, HPLC, NMR, Peptide mapping, Ligand "
-    "binding assay."
+    "The method used to elucidate the structure of the drug substance. "
+    "Examples: X-ray, NMR, Peptide mapping, Ligand binding assay."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -1421,7 +1506,7 @@ class SubstanceDefinitionStructureRepresentation(backboneelement.BackboneElement
     Resource StructureDefinition, instead used to enable Extensibility feature
     for FHIR Primitive Data Types.
 
-    A depiction of the structure or characterization of the substance.
+    A depiction of the structure of the substance.
     """
     resource_type = Field("SubstanceDefinitionStructureRepresentation", const=True)
 	
@@ -1433,9 +1518,8 @@ class SubstanceDefinitionStructureRepresentation(backboneelement.BackboneElement
     "graphic or AnIML file"
     ),
 		description=(
-    "An attached file with the structural representation or "
-    "characterization e.g. a molecular structure graphic of the substance, "
-    "a JCAMP or AnIML file."
+    "An attached file with the structural representation e.g. a molecular "
+    "structure graphic of the substance, a JCAMP or AnIML file."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -1462,10 +1546,7 @@ class SubstanceDefinitionStructureRepresentation(backboneelement.BackboneElement
     representation: fhirtypes.String = Field(
 		None,
 		alias="representation",
-		title=(
-    "The structural representation or characterization as a text string in "
-    "a standard format"
-    ),
+		title="The structural representation as a text string in a standard format",
 		description=None,
         # if property is element of this resource.
         element_property=True,

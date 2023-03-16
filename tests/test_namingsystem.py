@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/NamingSystem
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 from pydantic.validators import bytes_validator  # noqa: F401
 from fhir.resources import fhirtypes  # noqa: F401
@@ -101,11 +101,12 @@ def impl_namingsystem_2(inst):
     assert inst.jurisdiction[0].coding[0].code == "AU"
     assert inst.jurisdiction[0].coding[0].system == "urn:iso:std:iso:3166"
     assert inst.kind == "identifier"
-    assert inst.name == "Austalian Healthcare Identifier - Individual"
+    assert inst.name == "AustalianHealthcareIdentifierIndividual"
     assert inst.publisher == "HL7 Australia on behalf of NEHTA"
     assert inst.responsible == "HI Service Operator / NEHTA"
     assert inst.status == "active"
     assert inst.text.status == "generated"
+    assert inst.title == "Austalian Healthcare Identifier - Individual"
     assert inst.type.coding[0].code == "NI"
     assert inst.type.coding[0].display == "National unique individual identifier"
     assert inst.type.coding[0].system == "http://terminology.hl7.org/CodeSystem/v2-0203"
@@ -229,11 +230,12 @@ def impl_namingsystem_4(inst):
     assert inst.identifier[0].system == "urn:ietf:rfc:3986"
     assert inst.identifier[0].value == "urn:oid:2.16.840.1.113883.4.642.22.1"
     assert inst.kind == "codesystem"
-    assert inst.name == "SNOMED CT"
+    assert inst.name == "SNOMEDCT"
     assert inst.publisher == "HL7 International on behalf of IHTSDO"
     assert inst.responsible == "IHTSDO & affiliates"
     assert inst.status == "active"
     assert inst.text.status == "generated"
+    assert inst.title == "SNOMED CT"
     assert inst.uniqueId[0].type == "oid"
     assert inst.uniqueId[0].value == "2.16.840.1.113883.6.96"
     assert inst.uniqueId[1].preferred is True

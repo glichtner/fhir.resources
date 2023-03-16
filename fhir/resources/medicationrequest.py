@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/MedicationRequest
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 import typing
 from pydantic import Field
@@ -53,11 +53,11 @@ class MedicationRequest(domainresource.DomainResource):
     basedOn: typing.List[fhirtypes.ReferenceType] = Field(
 		None,
 		alias="basedOn",
-		title="What request fulfills",
-		description=(
+		title=(
     "A plan or request that is fulfilled in whole or in part by this "
-    "medication request."
+    "medication request"
     ),
+		description=None,
         # if property is element of this resource.
         element_property=True,
         # note: Listed Resource Type(s) should be allowed as Reference.
@@ -69,9 +69,10 @@ class MedicationRequest(domainresource.DomainResource):
 		alias="category",
 		title="Grouping or category of medication request",
 		description=(
-    "Indicates the grouping or category of medication request (for example,"
-    " drug classification like ATC, where meds would be administered, legal"
-    " category of the medication.)."
+    "An arbitrary categorization or grouping of the medication request.  It"
+    " could be used for indicating where meds are intended to be "
+    "administered, eg. in an inpatient setting or in a patient's home, or a"
+    " legal category of the medication."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -89,7 +90,7 @@ class MedicationRequest(domainresource.DomainResource):
         element_property=True,
 	)
 	
-    device: fhirtypes.CodeableReferenceType = Field(
+    device: typing.List[fhirtypes.CodeableReferenceType] = Field(
 		None,
 		alias="device",
 		title="Intended type of device for the administration",
@@ -143,11 +144,28 @@ class MedicationRequest(domainresource.DomainResource):
         title="Extension field for ``doNotPerform``."
     )
 	
-    dose: fhirtypes.MedicationRequestDoseType = Field(
+    dosageInstruction: typing.List[fhirtypes.DosageType] = Field(
 		None,
-		alias="dose",
-		title="How the medication should be taken",
-		description="Indicates how the medication is to be used by the patient.",
+		alias="dosageInstruction",
+		title="Specific instructions for how the medication should be taken",
+		description=(
+    "Specific instructions for how the medication is to be used by the "
+    "patient."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+	)
+	
+    effectiveDosePeriod: fhirtypes.PeriodType = Field(
+		None,
+		alias="effectiveDosePeriod",
+		title="Period over which the medication is to be taken",
+		description=(
+    "The period over which the medication is to be taken.  Where there are "
+    "multiple dosageInstruction lines (for example, tapering doses), this "
+    "is the earliest date and the latest end date of the "
+    "dosageInstructions."
+    ),
         # if property is element of this resource.
         element_property=True,
 	)
@@ -187,9 +205,13 @@ class MedicationRequest(domainresource.DomainResource):
 		alias="groupIdentifier",
 		title="Composite request this is part of",
 		description=(
-    "A shared identifier common to all requests that were authorized more "
-    "or less simultaneously by a single author, representing the identifier"
-    " of the requisition or prescription."
+    "A shared identifier common to multiple independent Request instances "
+    "that were activated/authorized more or less simultaneously by a single"
+    " author.  The presence of the same identifier on each request ties "
+    "those requests together and may have business ramifications in terms "
+    "of reporting of results, billing, etc.  E.g. a requisition number "
+    "shared by a set of lab tests ordered together, or a prescription "
+    "number shared by all meds ordered at one time."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -326,11 +348,11 @@ class MedicationRequest(domainresource.DomainResource):
     priorPrescription: fhirtypes.ReferenceType = Field(
 		None,
 		alias="priorPrescription",
-		title="An order/prescription that is being replaced",
-		description=(
-    "A link to a resource representing an earlier order related order or "
-    "prescription."
+		title=(
+    "Reference to an order/prescription that is being replaced by this "
+    "MedicationRequest"
     ),
+		description=None,
         # if property is element of this resource.
         element_property=True,
         # note: Listed Resource Type(s) should be allowed as Reference.
@@ -384,6 +406,25 @@ class MedicationRequest(domainresource.DomainResource):
         # note: Listed Resource Type(s) should be allowed as Reference.
 		enum_reference_types=["Practitioner", "PractitionerRole"],
 	)
+	
+    renderedDosageInstruction: fhirtypes.Markdown = Field(
+		None,
+		alias="renderedDosageInstruction",
+		title="Full representation of the dosage instructions",
+		description=(
+    "The full representation of the dose of the medication included in all "
+    "dosage instructions.  To be used when multiple dosage instructions are"
+    " included to represent complex dosing such as increasing or tapering "
+    "doses."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+	)
+    renderedDosageInstruction__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
+        None,
+        alias="_renderedDosageInstruction",
+        title="Extension field for ``renderedDosageInstruction``."
+    )
 	
     reported: bool = Field(
 		None,
@@ -467,11 +508,8 @@ class MedicationRequest(domainresource.DomainResource):
     subject: fhirtypes.ReferenceType = Field(
 		...,
 		alias="subject",
-		title="Who or group medication request is for",
-		description=(
-    "A link to a resource representing the person or set of individuals to "
-    "whom the medication will be given."
-    ),
+		title="Individual or group for whom the medication has been requested",
+		description="The individual or group for whom the medication has been requested.",
         # if property is element of this resource.
         element_property=True,
         # note: Listed Resource Type(s) should be allowed as Reference.
@@ -499,7 +537,7 @@ class MedicationRequest(domainresource.DomainResource):
 		description=(
     "Information to support fulfilling (i.e. dispensing or administering) "
     "of the medication, for example, patient height and weight, a "
-    "MedicationUsage for the patient)."
+    "MedicationStatement for the patient)."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -512,7 +550,7 @@ class MedicationRequest(domainresource.DomainResource):
         ``MedicationRequest`` according specification,
         with preserving original sequence order.
         """
-        return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "identifier", "basedOn", "priorPrescription", "groupIdentifier", "status", "statusReason", "statusChanged", "intent", "category", "priority", "doNotPerform", "medication", "subject", "informationSource", "encounter", "supportingInformation", "authoredOn", "requester", "reported", "performerType", "performer", "device", "recorder", "reason", "courseOfTherapyType", "insurance", "note", "dose", "dispenseRequest", "substitution", "eventHistory"]
+        return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "identifier", "basedOn", "priorPrescription", "groupIdentifier", "status", "statusReason", "statusChanged", "intent", "category", "priority", "doNotPerform", "medication", "subject", "informationSource", "encounter", "supportingInformation", "authoredOn", "requester", "reported", "performerType", "performer", "device", "recorder", "reason", "courseOfTherapyType", "insurance", "note", "renderedDosageInstruction", "effectiveDosePeriod", "dosageInstruction", "dispenseRequest", "substitution", "eventHistory"]
 
 
     @root_validator(pre=True, allow_reuse=True)
@@ -756,70 +794,6 @@ class MedicationRequestDispenseRequestInitialFill(backboneelement.BackboneElemen
         with preserving original sequence order.
         """
         return ["id", "extension", "modifierExtension", "quantity", "duration"]
-
-
-
-class MedicationRequestDose(backboneelement.BackboneElement):
-    """Disclaimer: Any field name ends with ``__ext`` doesn't part of
-    Resource StructureDefinition, instead used to enable Extensibility feature
-    for FHIR Primitive Data Types.
-
-    How the medication should be taken.
-    Indicates how the medication is to be used by the patient.
-    """
-    resource_type = Field("MedicationRequestDose", const=True)
-	
-    dosageInstruction: typing.List[fhirtypes.DosageType] = Field(
-		None,
-		alias="dosageInstruction",
-		title="Specific instructions for how the medication should be taken",
-		description=(
-    "Specific instructions for how the medication is to be used by the "
-    "patient."
-    ),
-        # if property is element of this resource.
-        element_property=True,
-	)
-	
-    effectiveDosePeriod: fhirtypes.PeriodType = Field(
-		None,
-		alias="effectiveDosePeriod",
-		title="Period over which the medication is to be taken",
-		description=(
-    "The period over which the medication is to be taken.  Where there are "
-    "multiple dosageInstruction lines (for example, tapering doses), this "
-    "is the earliest date and the latest end date of the "
-    "dosageInstructions."
-    ),
-        # if property is element of this resource.
-        element_property=True,
-	)
-	
-    renderedDosageInstruction: fhirtypes.String = Field(
-		None,
-		alias="renderedDosageInstruction",
-		title="Full representation of the dosage instructions",
-		description=(
-    "The full representation of the dose of the medication included in all "
-    "dosage instructions.  To be used when multiple dosage instructions are"
-    " included to represent complex dosing such as increasing or tapering "
-    "doses."
-    ),
-        # if property is element of this resource.
-        element_property=True,
-	)
-    renderedDosageInstruction__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
-        None,
-        alias="_renderedDosageInstruction",
-        title="Extension field for ``renderedDosageInstruction``."
-    )
-    @classmethod
-    def elements_sequence(cls):
-        """returning all elements names from
-        ``MedicationRequestDose`` according specification,
-        with preserving original sequence order.
-        """
-        return ["id", "extension", "modifierExtension", "renderedDosageInstruction", "effectiveDosePeriod", "dosageInstruction"]
 
 
 

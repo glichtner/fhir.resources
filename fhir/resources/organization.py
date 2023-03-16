@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/Organization
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 import typing
 from pydantic import Field
@@ -70,7 +70,7 @@ class Organization(domainresource.DomainResource):
         element_property=True,
 	)
 	
-    description: fhirtypes.String = Field(
+    description: fhirtypes.Markdown = Field(
 		None,
 		alias="description",
 		title=(
@@ -147,7 +147,7 @@ class Organization(domainresource.DomainResource):
 		alias="qualification",
 		title=(
     "Qualifications, certifications, accreditations, licenses, training, "
-    "etc pertaining to the provision of care"
+    "etc. pertaining to the provision of care"
     ),
 		description=(
     "The official certifications, accreditations, training, designations "
@@ -185,7 +185,7 @@ class OrganizationQualification(backboneelement.BackboneElement):
     Resource StructureDefinition, instead used to enable Extensibility feature
     for FHIR Primitive Data Types.
 
-    Qualifications, certifications, accreditations, licenses, training, etc
+    Qualifications, certifications, accreditations, licenses, training, etc.
     pertaining to the provision of care.
     The official certifications, accreditations, training, designations and
     licenses that authorize and/or otherwise endorse the provision of care by

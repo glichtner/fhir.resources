@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/GuidanceResponse
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 import typing
 from pydantic import Field
@@ -59,7 +59,7 @@ class GuidanceResponse(domainresource.DomainResource):
 		enum_reference_types=["Encounter"],
 	)
 	
-    evaluationMessage: typing.List[fhirtypes.ReferenceType] = Field(
+    evaluationMessage: fhirtypes.ReferenceType = Field(
 		None,
 		alias="evaluationMessage",
 		title="Messages resulting from the evaluation of the artifact or artifacts",
@@ -227,7 +227,7 @@ class GuidanceResponse(domainresource.DomainResource):
         element_property=True,
 	)
 	
-    result: fhirtypes.ReferenceType = Field(
+    result: typing.List[fhirtypes.ReferenceType] = Field(
 		None,
 		alias="result",
 		title="Proposed actions, if any",
@@ -235,7 +235,7 @@ class GuidanceResponse(domainresource.DomainResource):
         # if property is element of this resource.
         element_property=True,
         # note: Listed Resource Type(s) should be allowed as Reference.
-		enum_reference_types=["CarePlan", "RequestOrchestration"],
+		enum_reference_types=["Appointment", "AppointmentResponse", "CarePlan", "Claim", "CommunicationRequest", "Contract", "CoverageEligibilityRequest", "DeviceRequest", "EnrollmentRequest", "ImmunizationRecommendation", "MedicationRequest", "NutritionOrder", "RequestOrchestration", "ServiceRequest", "SupplyRequest", "Task", "VisionPrescription"],
 	)
 	
     status: fhirtypes.Code = Field(

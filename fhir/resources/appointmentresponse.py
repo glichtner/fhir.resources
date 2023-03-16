@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/AppointmentResponse
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 import typing
 from pydantic import Field
@@ -53,7 +53,7 @@ class AppointmentResponse(domainresource.DomainResource):
 		enum_reference_types=["Appointment"],
 	)
 	
-    comment: fhirtypes.String = Field(
+    comment: fhirtypes.Markdown = Field(
 		None,
 		alias="comment",
 		title="Additional comments",
@@ -121,7 +121,7 @@ class AppointmentResponse(domainresource.DomainResource):
     participantStatus: fhirtypes.Code = Field(
 		None,
 		alias="participantStatus",
-		title="accepted | declined | tentative | needs-action",
+		title="accepted | declined | tentative | needs-action | entered-in-error",
 		description=(
     "Participation status of the participant. When the status is declined "
     "or tentative if the start/end times are different to the appointment, "
@@ -134,7 +134,7 @@ class AppointmentResponse(domainresource.DomainResource):
         element_required=True,
         # note: Enum values can be used in validation,
         # but use in your own responsibilities, read official FHIR documentation.
-		enum_values=["accepted", "declined", "tentative", "needs-action"],
+		enum_values=["accepted", "declined", "tentative", "needs-action", "entered-in-error"],
 	)
     participantStatus__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
         None,

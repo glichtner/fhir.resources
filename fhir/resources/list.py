@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/List
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 import typing
 from pydantic import Field
@@ -168,18 +168,18 @@ class List(domainresource.DomainResource):
         title="Extension field for ``status``."
     )
 	
-    subject: fhirtypes.ReferenceType = Field(
+    subject: typing.List[fhirtypes.ReferenceType] = Field(
 		None,
 		alias="subject",
-		title="If all resources have the same subject",
+		title="If all resources have the same subject(s)",
 		description=(
-    "The common subject (or patient) of the resources that are in the list "
-    "if there is one."
+    "The common subject(s) (or patient(s)) of the resources that are in the"
+    " list if there is one (or a set of subjects)."
     ),
         # if property is element of this resource.
         element_property=True,
         # note: Listed Resource Type(s) should be allowed as Reference.
-		enum_reference_types=["Patient", "Group", "Device", "Location", "Organization", "Practitioner"],
+		enum_reference_types=["Resource"],
 	)
 	
     title: fhirtypes.String = Field(

@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/EvidenceVariable
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 import typing
 from pydantic import Field
@@ -127,15 +127,35 @@ class EvidenceVariable(domainresource.DomainResource):
         title="Extension field for ``copyright``."
     )
 	
+    copyrightLabel: fhirtypes.String = Field(
+		None,
+		alias="copyrightLabel",
+		title="Copyright holder and year(s)",
+		description=(
+    "A short string (<50 characters), suitable for inclusion in a page "
+    "footer that identifies the copyright holder, effective period, and "
+    "optionally whether rights are resctricted. (e.g. 'All rights "
+    "reserved', 'Some rights reserved')."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+	)
+    copyrightLabel__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
+        None,
+        alias="_copyrightLabel",
+        title="Extension field for ``copyrightLabel``."
+    )
+	
     date: fhirtypes.DateTime = Field(
 		None,
 		alias="date",
 		title="Date last changed",
 		description=(
-    "The date  (and optionally time) when the evidence variable was "
-    "published. The date must change when the business version changes and "
-    "it must change if the status code changes. In addition, it should "
-    "change when the substantive content of the evidence variable changes."
+    "The date  (and optionally time) when the evidence variable was last "
+    "significantly changed. The date must change when the business version "
+    "changes and it must change if the status code changes. In addition, it"
+    " should change when the substantive content of the evidence variable "
+    "changes."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -192,8 +212,9 @@ class EvidenceVariable(domainresource.DomainResource):
 		alias="endorser",
 		title="Who endorsed the content",
 		description=(
-    "An individual or organization responsible for officially endorsing the"
-    " content for use in some setting."
+    "An individual or organization asserted by the publisher to be "
+    "responsible for officially endorsing the content for use in some "
+    "setting."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -250,7 +271,7 @@ class EvidenceVariable(domainresource.DomainResource):
     lastReviewDate: fhirtypes.Date = Field(
 		None,
 		alias="lastReviewDate",
-		title="When the resource was last reviewed",
+		title="When the resource was last reviewed by the publisher",
 		description=(
     "The date on which the resource content was last reviewed. Review "
     "happens periodically after approval but does not change the original "
@@ -312,10 +333,27 @@ class EvidenceVariable(domainresource.DomainResource):
         title="Extension field for ``publisher``."
     )
 	
+    purpose: fhirtypes.Markdown = Field(
+		None,
+		alias="purpose",
+		title="Why this EvidenceVariable is defined",
+		description=(
+    "Explanation of why this EvidenceVariable is needed and why it has been"
+    " designed as it has."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+	)
+    purpose__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
+        None,
+        alias="_purpose",
+        title="Extension field for ``purpose``."
+    )
+	
     relatedArtifact: typing.List[fhirtypes.RelatedArtifactType] = Field(
 		None,
 		alias="relatedArtifact",
-		title="Additional documentation, citations, etc.",
+		title="Additional documentation, citations, etc",
 		description=(
     "Related artifacts such as additional documentation, justification, or "
     "bibliographic references."
@@ -329,8 +367,8 @@ class EvidenceVariable(domainresource.DomainResource):
 		alias="reviewer",
 		title="Who reviewed the content",
 		description=(
-    "An individual or organization primarily responsible for review of some"
-    " aspect of the content."
+    "An individual or organization asserted by the publisher to be "
+    "primarily responsible for review of some aspect of the content."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -372,23 +410,6 @@ class EvidenceVariable(domainresource.DomainResource):
         None,
         alias="_status",
         title="Extension field for ``status``."
-    )
-	
-    subtitle: fhirtypes.String = Field(
-		None,
-		alias="subtitle",
-		title="Subordinate title of the EvidenceVariable",
-		description=(
-    "An explanatory or alternate title for the EvidenceVariable giving "
-    "additional information about its content."
-    ),
-        # if property is element of this resource.
-        element_property=True,
-	)
-    subtitle__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
-        None,
-        alias="_subtitle",
-        title="Extension field for ``subtitle``."
     )
 	
     title: fhirtypes.String = Field(
@@ -471,13 +492,48 @@ class EvidenceVariable(domainresource.DomainResource):
         alias="_version",
         title="Extension field for ``version``."
     )
+	
+    versionAlgorithmCoding: fhirtypes.CodingType = Field(
+		None,
+		alias="versionAlgorithmCoding",
+		title="How to compare versions",
+		description=(
+    "Indicates the mechanism used to compare versions to determine which is"
+    " more current."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+        # Choice of Data Types. i.e versionAlgorithm[x]
+		one_of_many="versionAlgorithm",
+		one_of_many_required=False,
+	)
+	
+    versionAlgorithmString: fhirtypes.String = Field(
+		None,
+		alias="versionAlgorithmString",
+		title="How to compare versions",
+		description=(
+    "Indicates the mechanism used to compare versions to determine which is"
+    " more current."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+        # Choice of Data Types. i.e versionAlgorithm[x]
+		one_of_many="versionAlgorithm",
+		one_of_many_required=False,
+	)
+    versionAlgorithmString__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
+        None,
+        alias="_versionAlgorithmString",
+        title="Extension field for ``versionAlgorithmString``."
+    )
     @classmethod
     def elements_sequence(cls):
         """returning all elements names from
         ``EvidenceVariable`` according specification,
         with preserving original sequence order.
         """
-        return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "url", "identifier", "version", "name", "title", "shortTitle", "subtitle", "status", "experimental", "date", "publisher", "contact", "description", "note", "useContext", "copyright", "approvalDate", "lastReviewDate", "effectivePeriod", "author", "editor", "reviewer", "endorser", "relatedArtifact", "actual", "characteristic", "handling", "category"]
+        return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "url", "identifier", "version", "versionAlgorithmString", "versionAlgorithmCoding", "name", "title", "shortTitle", "status", "experimental", "date", "publisher", "contact", "description", "note", "useContext", "purpose", "copyright", "copyrightLabel", "approvalDate", "lastReviewDate", "effectivePeriod", "author", "editor", "reviewer", "endorser", "relatedArtifact", "actual", "characteristic", "handling", "category"]
 
 
     @root_validator(pre=True, allow_reuse=True)
@@ -537,6 +593,47 @@ class EvidenceVariable(domainresource.DomainResource):
                     )
         if len(errors) > 0:
             raise ValidationError(errors, cls)  # type: ignore
+
+        return values
+
+    @root_validator(pre=True, allow_reuse=True)
+    def validate_one_of_many_1779(
+        cls, values: typing.Dict[str, typing.Any]
+    ) -> typing.Dict[str, typing.Any]:
+        """https://www.hl7.org/fhir/formats.html#choice
+        A few elements have a choice of more than one data type for their content.
+        All such elements have a name that takes the form nnn[x].
+        The "nnn" part of the name is constant, and the "[x]" is replaced with
+        the title-cased name of the type that is actually used.
+        The table view shows each of these names explicitly.
+
+        Elements that have a choice of data type cannot repeat - they must have a
+        maximum cardinality of 1. When constructing an instance of an element with a
+        choice of types, the authoring system must create a single element with a
+        data type chosen from among the list of permitted data types.
+        """
+        one_of_many_fields = {
+			"versionAlgorithm": [
+			    "versionAlgorithmCoding",
+			    "versionAlgorithmString"]}
+        for prefix, fields in one_of_many_fields.items():
+            assert cls.__fields__[fields[0]].field_info.extra["one_of_many"] == prefix
+            required = (
+                cls.__fields__[fields[0]].field_info.extra["one_of_many_required"]
+                is True
+            )
+            found = False
+            for field in fields:
+                if field in values and values[field] is not None:
+                    if found is True:
+                        raise ValueError(
+                            "Any of one field value is expected from "
+                            f"this list {fields}, but got multiple!"
+                        )
+                    else:
+                        found = True
+            if required is True and found is False:
+                raise ValueError(f"Expect any of field value from this list {fields}.")
 
         return values
 
@@ -720,8 +817,8 @@ class EvidenceVariableCharacteristic(backboneelement.BackboneElement):
 		None,
 		alias="definitionExpression",
 		title=(
-    "Defines the characteristic (without using type and value) by a "
-    "Expression"
+    "Defines the characteristic (without using type and value) by an "
+    "expression"
     ),
 		description="Defines the characteristic using Expression.",
         # if property is element of this resource.
@@ -731,7 +828,7 @@ class EvidenceVariableCharacteristic(backboneelement.BackboneElement):
     definitionId: fhirtypes.Id = Field(
 		None,
 		alias="definitionId",
-		title="Defines the characteristic (without using type and value) by a id",
+		title="Defines the characteristic (without using type and value) by an id",
 		description="Defines the characteristic using id.",
         # if property is element of this resource.
         element_property=True,
@@ -756,7 +853,7 @@ class EvidenceVariableCharacteristic(backboneelement.BackboneElement):
 		enum_reference_types=["EvidenceVariable", "Group", "Evidence"],
 	)
 	
-    description: fhirtypes.String = Field(
+    description: fhirtypes.Markdown = Field(
 		None,
 		alias="description",
 		title="Natural language description of the characteristic",
@@ -772,6 +869,30 @@ class EvidenceVariableCharacteristic(backboneelement.BackboneElement):
         alias="_description",
         title="Extension field for ``description``."
     )
+	
+    durationQuantity: fhirtypes.QuantityType = Field(
+		None,
+		alias="durationQuantity",
+		title="Length of time in which the characteristic is met",
+		description=None,
+        # if property is element of this resource.
+        element_property=True,
+        # Choice of Data Types. i.e duration[x]
+		one_of_many="duration",
+		one_of_many_required=False,
+	)
+	
+    durationRange: fhirtypes.RangeType = Field(
+		None,
+		alias="durationRange",
+		title="Length of time in which the characteristic is met",
+		description=None,
+        # if property is element of this resource.
+        element_property=True,
+        # Choice of Data Types. i.e duration[x]
+		one_of_many="duration",
+		one_of_many_required=False,
+	)
 	
     exclude: bool = Field(
 		None,
@@ -793,6 +914,30 @@ class EvidenceVariableCharacteristic(backboneelement.BackboneElement):
         alias="_exclude",
         title="Extension field for ``exclude``."
     )
+	
+    instancesQuantity: fhirtypes.QuantityType = Field(
+		None,
+		alias="instancesQuantity",
+		title="Number of occurrences meeting the characteristic",
+		description=None,
+        # if property is element of this resource.
+        element_property=True,
+        # Choice of Data Types. i.e instances[x]
+		one_of_many="instances",
+		one_of_many_required=False,
+	)
+	
+    instancesRange: fhirtypes.RangeType = Field(
+		None,
+		alias="instancesRange",
+		title="Number of occurrences meeting the characteristic",
+		description=None,
+        # if property is element of this resource.
+        element_property=True,
+        # Choice of Data Types. i.e instances[x]
+		one_of_many="instances",
+		one_of_many_required=False,
+	)
 	
     linkId: fhirtypes.Id = Field(
 		None,
@@ -823,7 +968,7 @@ class EvidenceVariableCharacteristic(backboneelement.BackboneElement):
     timeFromEvent: typing.List[fhirtypes.EvidenceVariableCharacteristicTimeFromEventType] = Field(
 		None,
 		alias="timeFromEvent",
-		title="Observation time from study specified event",
+		title="Timing in which the characteristic is determined",
 		description=None,
         # if property is element of this resource.
         element_property=True,
@@ -834,8 +979,52 @@ class EvidenceVariableCharacteristic(backboneelement.BackboneElement):
         ``EvidenceVariableCharacteristic`` according specification,
         with preserving original sequence order.
         """
-        return ["id", "extension", "modifierExtension", "linkId", "description", "note", "exclude", "definitionReference", "definitionCanonical", "definitionCodeableConcept", "definitionExpression", "definitionId", "definitionByTypeAndValue", "definitionByCombination", "timeFromEvent"]
+        return ["id", "extension", "modifierExtension", "linkId", "description", "note", "exclude", "definitionReference", "definitionCanonical", "definitionCodeableConcept", "definitionExpression", "definitionId", "definitionByTypeAndValue", "definitionByCombination", "instancesQuantity", "instancesRange", "durationQuantity", "durationRange", "timeFromEvent"]
 
+
+    @root_validator(pre=True, allow_reuse=True)
+    def validate_one_of_many_3226(
+        cls, values: typing.Dict[str, typing.Any]
+    ) -> typing.Dict[str, typing.Any]:
+        """https://www.hl7.org/fhir/formats.html#choice
+        A few elements have a choice of more than one data type for their content.
+        All such elements have a name that takes the form nnn[x].
+        The "nnn" part of the name is constant, and the "[x]" is replaced with
+        the title-cased name of the type that is actually used.
+        The table view shows each of these names explicitly.
+
+        Elements that have a choice of data type cannot repeat - they must have a
+        maximum cardinality of 1. When constructing an instance of an element with a
+        choice of types, the authoring system must create a single element with a
+        data type chosen from among the list of permitted data types.
+        """
+        one_of_many_fields = {
+			"duration": [
+			    "durationQuantity",
+			    "durationRange"],
+			"instances": [
+			    "instancesQuantity",
+			    "instancesRange"]}
+        for prefix, fields in one_of_many_fields.items():
+            assert cls.__fields__[fields[0]].field_info.extra["one_of_many"] == prefix
+            required = (
+                cls.__fields__[fields[0]].field_info.extra["one_of_many_required"]
+                is True
+            )
+            found = False
+            for field in fields:
+                if field in values and values[field] is not None:
+                    if found is True:
+                        raise ValueError(
+                            "Any of one field value is expected from "
+                            f"this list {fields}, but got multiple!"
+                        )
+                    else:
+                        found = True
+            if required is True and found is False:
+                raise ValueError(f"Expect any of field value from this list {fields}.")
+
+        return values
 
 
 class EvidenceVariableCharacteristicDefinitionByCombination(backboneelement.BackboneElement):
@@ -997,10 +1186,10 @@ class EvidenceVariableCharacteristicDefinitionByTypeAndValue(backboneelement.Bac
     offset: fhirtypes.CodeableConceptType = Field(
 		None,
 		alias="offset",
-		title="Reference point for valueQuantity",
+		title="Reference point for valueQuantity or valueRange",
 		description=(
-    "Defines the reference point for comparison when valueQuantity is not "
-    "compared to zero."
+    "Defines the reference point for comparison when valueQuantity or "
+    "valueRange is not compared to zero."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -1156,11 +1345,11 @@ class EvidenceVariableCharacteristicTimeFromEvent(backboneelement.BackboneElemen
     Resource StructureDefinition, instead used to enable Extensibility feature
     for FHIR Primitive Data Types.
 
-    Observation time from study specified event.
+    Timing in which the characteristic is determined.
     """
     resource_type = Field("EvidenceVariableCharacteristicTimeFromEvent", const=True)
 	
-    description: fhirtypes.String = Field(
+    description: fhirtypes.Markdown = Field(
 		None,
 		alias="description",
 		title="Human readable description",
@@ -1248,8 +1437,8 @@ class EvidenceVariableCharacteristicTimeFromEvent(backboneelement.BackboneElemen
 		None,
 		alias="quantity",
 		title=(
-    "Used to express the observation at a defined amount of time after the "
-    "study start"
+    "Used to express the observation at a defined amount of time before or "
+    "after the event"
     ),
 		description=None,
         # if property is element of this resource.
@@ -1259,7 +1448,10 @@ class EvidenceVariableCharacteristicTimeFromEvent(backboneelement.BackboneElemen
     range: fhirtypes.RangeType = Field(
 		None,
 		alias="range",
-		title="Used to express the observation within a period after the study start",
+		title=(
+    "Used to express the observation within a period before and/or after "
+    "the event"
+    ),
 		description=None,
         # if property is element of this resource.
         element_property=True,

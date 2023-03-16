@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/SampledData
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 import typing
 from pydantic import Field
@@ -29,15 +29,31 @@ class SampledData(datatype.DataType):
     """
     resource_type = Field("SampledData", const=True)
 	
+    codeMap: fhirtypes.Canonical = Field(
+		None,
+		alias="codeMap",
+		title="Defines the codes used in the data",
+		description="Reference to ConceptMap that defines the codes used in the data.",
+        # if property is element of this resource.
+        element_property=True,
+        # note: Listed Resource Type(s) should be allowed as Reference.
+		enum_reference_types=["ConceptMap"],
+	)
+    codeMap__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
+        None,
+        alias="_codeMap",
+        title="Extension field for ``codeMap``."
+    )
+	
     data: fhirtypes.String = Field(
 		None,
 		alias="data",
-		title="Decimal values with spaces, or \"E\" | \"U\" | \"L\"",
+		title="Decimal values with spaces, or \"E\" | \"U\" | \"L\", or another code",
 		description=(
-    "A series of data points which are decimal values separated by a single"
-    " space (character u20). The special values \"E\" (error), \"L\" (below "
-    "detection limit) and \"U\" (above detection limit) can also be used in "
-    "place of a decimal value."
+    "A series of data points which are decimal values or codes separated by"
+    " a single space (character u20). The special codes \"E\" (error), \"L\" "
+    "(below detection limit) and \"U\" (above detection limit) are also "
+    "defined for used in place of decimal values."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -89,12 +105,11 @@ class SampledData(datatype.DataType):
 		alias="interval",
 		title="Number of intervalUnits between samples",
 		description=(
-    "Amount of intervalUnits between samples, eg. milliseconds for time-"
+    "Amount of intervalUnits between samples, e.g. milliseconds for time-"
     "based sampling."
     ),
         # if property is element of this resource.
         element_property=True,
-        element_required=True,
 	)
     interval__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
         None,
@@ -135,6 +150,26 @@ class SampledData(datatype.DataType):
         title="Extension field for ``lowerLimit``."
     )
 	
+    offsets: fhirtypes.String = Field(
+		None,
+		alias="offsets",
+		title="Offsets, typically in time, at which data values were taken",
+		description=(
+    "A series of data points which are decimal values separated by a single"
+    " space (character u20).  The units in which the offsets are expressed "
+    "are found in intervalUnit.  The absolute point at which the "
+    "measurements begin SHALL be conveyed outside the scope of this "
+    "datatype, e.g. Observation.effectiveDateTime for a timing offset."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+	)
+    offsets__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
+        None,
+        alias="_offsets",
+        title="Extension field for ``offsets``."
+    )
+	
     origin: fhirtypes.QuantityType = Field(
 		...,
 		alias="origin",
@@ -170,7 +205,7 @@ class SampledData(datatype.DataType):
         ``SampledData`` according specification,
         with preserving original sequence order.
         """
-        return ["id", "extension", "origin", "interval", "intervalUnit", "factor", "lowerLimit", "upperLimit", "dimensions", "data"]
+        return ["id", "extension", "origin", "interval", "intervalUnit", "factor", "lowerLimit", "upperLimit", "dimensions", "codeMap", "offsets", "data"]
 
 
     @root_validator(pre=True, allow_reuse=True)
@@ -186,7 +221,6 @@ class SampledData(datatype.DataType):
         """
         required_fields = [
 			("dimensions", "dimensions__ext"),
-			("interval", "interval__ext"),
 			("intervalUnit", "intervalUnit__ext")]
         _missing = object()
 

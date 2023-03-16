@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/PractitionerRole
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 import typing
 from pydantic import Field
@@ -28,7 +28,11 @@ class PractitionerRole(domainresource.DomainResource):
 		None,
 		alias="active",
 		title="Whether this practitioner role record is in active use",
-		description=None,
+		description=(
+    " Whether this practitioner role record is in active use. Some systems "
+    "may use this property to mark non-active practitioners, such as those "
+    "that are not currently employed."
+    ),
         # if property is element of this resource.
         element_property=True,
 	)
@@ -53,6 +57,15 @@ class PractitionerRole(domainresource.DomainResource):
         element_property=True,
 	)
 	
+    characteristic: typing.List[fhirtypes.CodeableConceptType] = Field(
+		None,
+		alias="characteristic",
+		title="Collection of characteristics (attributes)",
+		description=None,
+        # if property is element of this resource.
+        element_property=True,
+	)
+	
     code: typing.List[fhirtypes.CodeableConceptType] = Field(
 		None,
 		alias="code",
@@ -60,6 +73,23 @@ class PractitionerRole(domainresource.DomainResource):
 		description=(
     "Roles which this practitioner is authorized to perform for the "
     "organization."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+	)
+	
+    communication: typing.List[fhirtypes.CodeableConceptType] = Field(
+		None,
+		alias="communication",
+		title=(
+    "A language the practitioner (in this role) can use in patient "
+    "communication"
+    ),
+		description=(
+    "A language the practitioner can use in patient communication. The "
+    "practitioner may know several languages (listed in "
+    "practitioner.communication), however these are the languages that "
+    "could be advertised in a directory for a patient to search."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -81,11 +111,12 @@ class PractitionerRole(domainresource.DomainResource):
     endpoint: typing.List[fhirtypes.ReferenceType] = Field(
 		None,
 		alias="endpoint",
-		title=(
-    "Technical endpoints providing access to services operated for the "
-    "practitioner with this role"
+		title="Endpoints for interacting with the practitioner in this role",
+		description=(
+    " Technical endpoints providing access to services operated for the "
+    "practitioner with this role. Commonly used for locating scheduling "
+    "services, or identifying where to send referrals electronically."
     ),
-		description=None,
         # if property is element of this resource.
         element_property=True,
         # note: Listed Resource Type(s) should be allowed as Reference.
@@ -95,11 +126,11 @@ class PractitionerRole(domainresource.DomainResource):
     healthcareService: typing.List[fhirtypes.ReferenceType] = Field(
 		None,
 		alias="healthcareService",
-		title=(
+		title="Healthcare services provided for this role's Organization/Location(s)",
+		description=(
     "The list of healthcare services that this worker provides for this "
-    "role's Organization/Location(s)"
+    "role's Organization/Location(s)."
     ),
-		description=None,
         # if property is element of this resource.
         element_property=True,
         # note: Listed Resource Type(s) should be allowed as Reference.
@@ -109,8 +140,8 @@ class PractitionerRole(domainresource.DomainResource):
     identifier: typing.List[fhirtypes.IdentifierType] = Field(
 		None,
 		alias="identifier",
-		title="Business Identifiers that are specific to a role/location",
-		description=None,
+		title="Identifiers for a role/location",
+		description="Business Identifiers that are specific to a role/location.",
         # if property is element of this resource.
         element_property=True,
 	)
@@ -118,8 +149,8 @@ class PractitionerRole(domainresource.DomainResource):
     location: typing.List[fhirtypes.ReferenceType] = Field(
 		None,
 		alias="location",
-		title="The location(s) at which this practitioner provides care",
-		description=None,
+		title="Location(s) where the practitioner provides care",
+		description="The location(s) at which this practitioner provides care.",
         # if property is element of this resource.
         element_property=True,
         # note: Listed Resource Type(s) should be allowed as Reference.
@@ -155,11 +186,11 @@ class PractitionerRole(domainresource.DomainResource):
     practitioner: fhirtypes.ReferenceType = Field(
 		None,
 		alias="practitioner",
-		title=(
+		title="Practitioner that provides services for the organization",
+		description=(
     "Practitioner that is able to provide the defined services for the "
-    "organization"
+    "organization."
     ),
-		description=None,
         # if property is element of this resource.
         element_property=True,
         # note: Listed Resource Type(s) should be allowed as Reference.
@@ -183,5 +214,5 @@ class PractitionerRole(domainresource.DomainResource):
         ``PractitionerRole`` according specification,
         with preserving original sequence order.
         """
-        return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "identifier", "active", "period", "practitioner", "organization", "code", "specialty", "location", "healthcareService", "contact", "availability", "endpoint"]
+        return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "identifier", "active", "period", "practitioner", "organization", "code", "specialty", "location", "healthcareService", "contact", "characteristic", "communication", "availability", "endpoint"]
 

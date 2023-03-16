@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/StructureMap
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 import typing
 from pydantic import Field
@@ -27,6 +27,15 @@ class StructureMap(domainresource.DomainResource):
     data.
     """
     resource_type = Field("StructureMap", const=True)
+	
+    const: typing.List[fhirtypes.StructureMapConstType] = Field(
+		None,
+		alias="const",
+		title="Definition of the constant value used in the map rules",
+		description="Definition of a constant value used in the map rules.",
+        # if property is element of this resource.
+        element_property=True,
+	)
 	
     contact: typing.List[fhirtypes.ContactDetailType] = Field(
 		None,
@@ -82,10 +91,11 @@ class StructureMap(domainresource.DomainResource):
 		alias="date",
 		title="Date last changed",
 		description=(
-    "The date  (and optionally time) when the structure map was published. "
-    "The date must change when the business version changes and it must "
-    "change if the status code changes. In addition, it should change when "
-    "the substantive content of the structure map changes."
+    "The date  (and optionally time) when the structure map was last "
+    "significantly changed. The date must change when the business version "
+    "changes and it must change if the status code changes. In addition, it"
+    " should change when the substantive content of the structure map "
+    "changes."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -136,7 +146,7 @@ class StructureMap(domainresource.DomainResource):
 		alias="group",
 		title="Named sections for reader convenience",
 		description=(
-    "Organizes the mapping into manageable chunks for human review/ease of "
+    "Organizes the mapping into managable chunks for human review/ease of "
     "maintenance."
     ),
         # if property is element of this resource.
@@ -388,7 +398,7 @@ class StructureMap(domainresource.DomainResource):
         ``StructureMap`` according specification,
         with preserving original sequence order.
         """
-        return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "url", "identifier", "version", "versionAlgorithmString", "versionAlgorithmCoding", "name", "title", "status", "experimental", "date", "publisher", "contact", "description", "useContext", "jurisdiction", "purpose", "copyright", "copyrightLabel", "structure", "import", "group"]
+        return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "url", "identifier", "version", "versionAlgorithmString", "versionAlgorithmCoding", "name", "title", "status", "experimental", "date", "publisher", "contact", "description", "useContext", "jurisdiction", "purpose", "copyright", "copyrightLabel", "structure", "import", "const", "group"]
 
 
     @root_validator(pre=True, allow_reuse=True)
@@ -497,13 +507,60 @@ class StructureMap(domainresource.DomainResource):
 
 from . import backboneelement
 
+class StructureMapConst(backboneelement.BackboneElement):
+    """Disclaimer: Any field name ends with ``__ext`` doesn't part of
+    Resource StructureDefinition, instead used to enable Extensibility feature
+    for FHIR Primitive Data Types.
+
+    Definition of the constant value used in the map rules.
+    Definition of a constant value used in the map rules.
+    """
+    resource_type = Field("StructureMapConst", const=True)
+	
+    name: fhirtypes.Id = Field(
+		None,
+		alias="name",
+		title="Constant name",
+		description="Other maps used by this map (canonical URLs).",
+        # if property is element of this resource.
+        element_property=True,
+	)
+    name__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
+        None,
+        alias="_name",
+        title="Extension field for ``name``."
+    )
+	
+    value: fhirtypes.String = Field(
+		None,
+		alias="value",
+		title="FHIRPath exression - value of the constant",
+		description="A FHIRPath expression that is the value of this variable.",
+        # if property is element of this resource.
+        element_property=True,
+	)
+    value__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
+        None,
+        alias="_value",
+        title="Extension field for ``value``."
+    )
+    @classmethod
+    def elements_sequence(cls):
+        """returning all elements names from
+        ``StructureMapConst`` according specification,
+        with preserving original sequence order.
+        """
+        return ["id", "extension", "modifierExtension", "name", "value"]
+
+
+
 class StructureMapGroup(backboneelement.BackboneElement):
     """Disclaimer: Any field name ends with ``__ext`` doesn't part of
     Resource StructureDefinition, instead used to enable Extensibility feature
     for FHIR Primitive Data Types.
 
     Named sections for reader convenience.
-    Organizes the mapping into manageable chunks for human review/ease of
+    Organizes the mapping into managable chunks for human review/ease of
     maintenance.
     """
     resource_type = Field("StructureMapGroup", const=True)
@@ -1251,7 +1308,7 @@ class StructureMapGroupRuleTarget(backboneelement.BackboneElement):
     """
     resource_type = Field("StructureMapGroupRuleTarget", const=True)
 	
-    context: fhirtypes.Id = Field(
+    context: fhirtypes.String = Field(
 		None,
 		alias="context",
 		title="Variable this rule applies to",
@@ -1282,13 +1339,13 @@ class StructureMapGroupRuleTarget(backboneelement.BackboneElement):
     listMode: typing.List[fhirtypes.Code] = Field(
 		None,
 		alias="listMode",
-		title="first | share | last | collate",
+		title="first | share | last | single",
 		description="If field is a list, how to manage the list.",
         # if property is element of this resource.
         element_property=True,
         # note: Enum values can be used in validation,
         # but use in your own responsibilities, read official FHIR documentation.
-		enum_values=["first", "share", "last", "collate"],
+		enum_values=["first", "share", "last", "single"],
 	)
     listMode__ext: typing.List[typing.Union[fhirtypes.FHIRPrimitiveExtensionType, None]] = Field(
         None,

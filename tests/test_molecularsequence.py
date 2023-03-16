@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/MolecularSequence
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 from pydantic.validators import bytes_validator  # noqa: F401
 from fhir.resources import fhirtypes  # noqa: F401
@@ -237,6 +237,51 @@ def test_molecularsequence_5(base_settings):
 
 
 def impl_molecularsequence_6(inst):
+    assert inst.focus[0].reference == "Patient/infant-mom"
+    assert inst.id == "molecularsequence-focus-example"
+    assert inst.meta.tag[0].code == "HTEST"
+    assert inst.meta.tag[0].display == "test health data"
+    assert inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
+    assert inst.relative[0].coordinateSystem.coding[0].code == "LA30100-4"
+    assert inst.relative[0].coordinateSystem.coding[0].display == "0-based interval counting"
+    assert inst.relative[0].coordinateSystem.coding[0].system == "http://loinc.org"
+    assert inst.relative[0].edit[0].end == 87642522
+    assert inst.relative[0].edit[0].replacedSequence == "A"
+    assert inst.relative[0].edit[0].replacementSequence == "T"
+    assert inst.relative[0].edit[0].start == 87627621
+    assert inst.relative[0].startingSequence.sequenceCodeableConcept.coding[0].code == "NC_000007.14"
+    assert inst.relative[0].startingSequence.sequenceCodeableConcept.coding[0].system == "http://www.ncbi.nlm.nih.gov/nuccore/"
+    assert inst.relative[0].startingSequence.sequenceCodeableConcept.text == "NC_000007.14"
+    assert inst.relative[0].startingSequence.windowEnd == 87627635
+    assert inst.relative[0].startingSequence.windowStart == 87627610
+    assert inst.subject.reference == "Patient/infant"
+    assert inst.text.status == "generated"
+    assert inst.type == "dna"
+
+
+def test_molecularsequence_6(base_settings):
+    """No. 6 tests collection for MolecularSequence.
+    Test File: molecularsequence-focus-example.json
+    """
+    filename = (
+        base_settings["unittest_data_dir"] / "molecularsequence-focus-example.json"
+    )
+    inst = molecularsequence.MolecularSequence.parse_file(
+        filename, content_type="application/json", encoding="utf-8"
+    )
+    assert "MolecularSequence" == inst.resource_type
+
+    impl_molecularsequence_6(inst)
+
+    # testing reverse by generating data from itself and create again.
+    data = inst.dict()
+    assert "MolecularSequence" == data["resourceType"]
+
+    inst2 = molecularsequence.MolecularSequence(**data)
+    impl_molecularsequence_6(inst2)
+
+
+def impl_molecularsequence_7(inst):
     assert inst.id == "sequence-example-fusion"
     assert inst.meta.tag[0].code == "HTEST"
     assert inst.meta.tag[0].display == "test health data"
@@ -265,8 +310,8 @@ def impl_molecularsequence_6(inst):
     assert inst.type == "rna"
 
 
-def test_molecularsequence_6(base_settings):
-    """No. 6 tests collection for MolecularSequence.
+def test_molecularsequence_7(base_settings):
+    """No. 7 tests collection for MolecularSequence.
     Test File: sequence-example-fusion.json
     """
     filename = (
@@ -277,17 +322,17 @@ def test_molecularsequence_6(base_settings):
     )
     assert "MolecularSequence" == inst.resource_type
 
-    impl_molecularsequence_6(inst)
+    impl_molecularsequence_7(inst)
 
     # testing reverse by generating data from itself and create again.
     data = inst.dict()
     assert "MolecularSequence" == data["resourceType"]
 
     inst2 = molecularsequence.MolecularSequence(**data)
-    impl_molecularsequence_6(inst2)
+    impl_molecularsequence_7(inst2)
 
 
-def impl_molecularsequence_7(inst):
+def impl_molecularsequence_8(inst):
     assert inst.id == "example-pgx-2"
     assert inst.meta.tag[0].code == "HTEST"
     assert inst.meta.tag[0].display == "test health data"
@@ -310,8 +355,8 @@ def impl_molecularsequence_7(inst):
     assert inst.type == "dna"
 
 
-def test_molecularsequence_7(base_settings):
-    """No. 7 tests collection for MolecularSequence.
+def test_molecularsequence_8(base_settings):
+    """No. 8 tests collection for MolecularSequence.
     Test File: sequence-example-pgx-2.json
     """
     filename = (
@@ -322,17 +367,17 @@ def test_molecularsequence_7(base_settings):
     )
     assert "MolecularSequence" == inst.resource_type
 
-    impl_molecularsequence_7(inst)
+    impl_molecularsequence_8(inst)
 
     # testing reverse by generating data from itself and create again.
     data = inst.dict()
     assert "MolecularSequence" == data["resourceType"]
 
     inst2 = molecularsequence.MolecularSequence(**data)
-    impl_molecularsequence_7(inst2)
+    impl_molecularsequence_8(inst2)
 
 
-def impl_molecularsequence_8(inst):
+def impl_molecularsequence_9(inst):
     assert inst.id == "seq-ordinal"
     assert inst.meta.tag[0].code == "HTEST"
     assert inst.meta.tag[0].display == "test health data"
@@ -361,8 +406,8 @@ def impl_molecularsequence_8(inst):
     assert inst.type == "rna"
 
 
-def test_molecularsequence_8(base_settings):
-    """No. 8 tests collection for MolecularSequence.
+def test_molecularsequence_9(base_settings):
+    """No. 9 tests collection for MolecularSequence.
     Test File: sequence-example-ordinal.json
     """
     filename = (
@@ -373,17 +418,17 @@ def test_molecularsequence_8(base_settings):
     )
     assert "MolecularSequence" == inst.resource_type
 
-    impl_molecularsequence_8(inst)
+    impl_molecularsequence_9(inst)
 
     # testing reverse by generating data from itself and create again.
     data = inst.dict()
     assert "MolecularSequence" == data["resourceType"]
 
     inst2 = molecularsequence.MolecularSequence(**data)
-    impl_molecularsequence_8(inst2)
+    impl_molecularsequence_9(inst2)
 
 
-def impl_molecularsequence_9(inst):
+def impl_molecularsequence_10(inst):
     assert inst.id == "coord-1-base"
     assert inst.meta.tag[0].code == "HTEST"
     assert inst.meta.tag[0].display == "test health data"
@@ -411,57 +456,12 @@ def impl_molecularsequence_9(inst):
     assert inst.type == "dna"
 
 
-def test_molecularsequence_9(base_settings):
-    """No. 9 tests collection for MolecularSequence.
+def test_molecularsequence_10(base_settings):
+    """No. 10 tests collection for MolecularSequence.
     Test File: coord-1base-example.json
     """
     filename = (
         base_settings["unittest_data_dir"] / "coord-1base-example.json"
-    )
-    inst = molecularsequence.MolecularSequence.parse_file(
-        filename, content_type="application/json", encoding="utf-8"
-    )
-    assert "MolecularSequence" == inst.resource_type
-
-    impl_molecularsequence_9(inst)
-
-    # testing reverse by generating data from itself and create again.
-    data = inst.dict()
-    assert "MolecularSequence" == data["resourceType"]
-
-    inst2 = molecularsequence.MolecularSequence(**data)
-    impl_molecularsequence_9(inst2)
-
-
-def impl_molecularsequence_10(inst):
-    assert inst.id == "example-pgx-1"
-    assert inst.meta.tag[0].code == "HTEST"
-    assert inst.meta.tag[0].display == "test health data"
-    assert inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
-    assert inst.relative[0].coordinateSystem.coding[0].code == "LA30100-4"
-    assert inst.relative[0].coordinateSystem.coding[0].display == "0-based interval counting"
-    assert inst.relative[0].coordinateSystem.coding[0].system == "http://loinc.org"
-    assert inst.relative[0].edit[0].end == 55227977
-    assert inst.relative[0].edit[0].replacedSequence == "T"
-    assert inst.relative[0].edit[0].replacementSequence == "G"
-    assert inst.relative[0].edit[0].start == 55227976
-    assert inst.relative[0].startingSequence.orientation == "sense"
-    assert inst.relative[0].startingSequence.sequenceCodeableConcept.coding[0].code == "NG_007726.3"
-    assert inst.relative[0].startingSequence.sequenceCodeableConcept.coding[0].system == "http://www.ncbi.nlm.nih.gov/nuccore"
-    assert inst.relative[0].startingSequence.strand == "watson"
-    assert inst.relative[0].startingSequence.windowEnd == 55227980
-    assert inst.relative[0].startingSequence.windowStart == 55227970
-    assert inst.subject.reference == "Patient/example"
-    assert inst.text.status == "generated"
-    assert inst.type == "dna"
-
-
-def test_molecularsequence_10(base_settings):
-    """No. 10 tests collection for MolecularSequence.
-    Test File: sequence-example-pgx-1.json
-    """
-    filename = (
-        base_settings["unittest_data_dir"] / "sequence-example-pgx-1.json"
     )
     inst = molecularsequence.MolecularSequence.parse_file(
         filename, content_type="application/json", encoding="utf-8"

@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/Procedure
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 from pydantic.validators import bytes_validator  # noqa: F401
 from fhir.resources import fhirtypes  # noqa: F401
@@ -157,7 +157,7 @@ def impl_procedure_4(inst):
     assert inst.code.coding[0].display == "Colonoscopy (procedure)"
     assert inst.code.coding[0].system == "http://snomed.info/sct"
     assert inst.code.text == "Colonoscopy"
-    assert inst.complicationDetail[0].display == "Perforated intestine condition"
+    assert inst.complication[0].reference.display == "Perforated intestine condition"
     assert inst.id == "colonoscopy"
     assert inst.identifier[0].value == "12345"
     assert inst.location.display == "Burgers University Medical Center, South Wing, second floor"
@@ -429,10 +429,10 @@ def impl_procedure_9(inst):
     assert inst.code.coding[0].display == "Biopsy of soft tissue of forearm (Procedure)"
     assert inst.code.coding[0].system == "http://snomed.info/sct"
     assert inst.code.text == "Biopsy of suspected melanoma L) arm"
-    assert inst.complication[0].coding[0].code == "67750007"
-    assert inst.complication[0].coding[0].display == "Ineffective airway clearance (finding)"
-    assert inst.complication[0].coding[0].system == "http://snomed.info/sct"
-    assert inst.complication[0].text == "Ineffective airway clearance"
+    assert inst.complication[0].concept.coding[0].code == "67750007"
+    assert inst.complication[0].concept.coding[0].display == "Ineffective airway clearance (finding)"
+    assert inst.complication[0].concept.coding[0].system == "http://snomed.info/sct"
+    assert inst.complication[0].concept.text == "Ineffective airway clearance"
     assert inst.followUp[0].text == "Review in clinic"
     assert inst.id == "biopsy"
     assert inst.meta.tag[0].code == "HTEST"
@@ -497,8 +497,8 @@ def impl_procedure_10(inst):
     assert inst.meta.tag[0].code == "HTEST"
     assert inst.meta.tag[0].display == "test health data"
     assert inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
-    assert inst.performer[0].actor.display == "Carla Espinosa"
-    assert inst.performer[0].actor.reference == "Practitioner/f204"
+    assert inst.performer[0].actor.display == "Maternity CareTeam"
+    assert inst.performer[0].actor.reference == "CareTeam/example"
     assert inst.performer[0].onBehalfOf.display == "University Medical Hospital"
     assert inst.performer[0].onBehalfOf.reference == "Organization/f001"
     assert inst.reason[0].reference.display == "Blood Pressure"

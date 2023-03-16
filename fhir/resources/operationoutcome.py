@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/OperationOutcome
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 import typing
 from pydantic import Field
@@ -153,7 +153,7 @@ class OperationOutcomeIssue(backboneelement.BackboneElement):
     severity: fhirtypes.Code = Field(
 		None,
 		alias="severity",
-		title="fatal | error | warning | information",
+		title="fatal | error | warning | information | success",
 		description=(
     "Indicates whether the issue indicates a variation from successful "
     "processing."
@@ -163,7 +163,7 @@ class OperationOutcomeIssue(backboneelement.BackboneElement):
         element_required=True,
         # note: Enum values can be used in validation,
         # but use in your own responsibilities, read official FHIR documentation.
-		enum_values=["fatal", "error", "warning", "information"],
+		enum_values=["fatal", "error", "warning", "information", "success"],
 	)
     severity__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
         None,

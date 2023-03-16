@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/InventoryReport
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 import typing
 from pydantic import Field
@@ -51,8 +51,8 @@ class InventoryReport(domainresource.DomainResource):
     identifier: typing.List[fhirtypes.IdentifierType] = Field(
 		None,
 		alias="identifier",
-		title="Identifiers for the report",
-		description="Identifiers for the InventoryReport.",
+		title="Business identifier for the report",
+		description="Business identifier for the InventoryReport.",
         # if property is element of this resource.
         element_property=True,
 	)
@@ -66,7 +66,7 @@ class InventoryReport(domainresource.DomainResource):
         element_property=True,
 	)
 	
-    note: fhirtypes.AnnotationType = Field(
+    note: typing.List[fhirtypes.AnnotationType] = Field(
 		None,
 		alias="note",
 		title="A note associated with the InventoryReport",
@@ -89,12 +89,9 @@ class InventoryReport(domainresource.DomainResource):
 		alias="operationTypeReason",
 		title=(
     "The reason for this count - regular count, ad-hoc count, new arrivals,"
-    " etc."
+    " etc"
     ),
-		description=(
-    "The reason for this count - regular count, ad-hoc count, new arrivals,"
-    " etc."
-    ),
+		description=None,
         # if property is element of this resource.
         element_property=True,
 	)
@@ -251,20 +248,20 @@ class InventoryReportInventoryListing(backboneelement.BackboneElement):
         title="Extension field for ``countingDateTime``."
     )
 	
-    itemStatus: fhirtypes.CodeableConceptType = Field(
+    item: typing.List[fhirtypes.InventoryReportInventoryListingItemType] = Field(
 		None,
-		alias="itemStatus",
-		title="The status of the items",
+		alias="item",
+		title="The item or items in this listing",
 		description=None,
         # if property is element of this resource.
         element_property=True,
 	)
 	
-    items: typing.List[fhirtypes.InventoryReportInventoryListingItemsType] = Field(
+    itemStatus: fhirtypes.CodeableConceptType = Field(
 		None,
-		alias="items",
-		title="The item or items in this listing",
-		description=None,
+		alias="itemStatus",
+		title="The status of the items that are being reported",
+		description="The status of the items.",
         # if property is element of this resource.
         element_property=True,
 	)
@@ -285,41 +282,31 @@ class InventoryReportInventoryListing(backboneelement.BackboneElement):
         ``InventoryReportInventoryListing`` according specification,
         with preserving original sequence order.
         """
-        return ["id", "extension", "modifierExtension", "location", "itemStatus", "countingDateTime", "items"]
+        return ["id", "extension", "modifierExtension", "location", "itemStatus", "countingDateTime", "item"]
 
 
 
-class InventoryReportInventoryListingItems(backboneelement.BackboneElement):
+class InventoryReportInventoryListingItem(backboneelement.BackboneElement):
     """Disclaimer: Any field name ends with ``__ext`` doesn't part of
     Resource StructureDefinition, instead used to enable Extensibility feature
     for FHIR Primitive Data Types.
 
     The item or items in this listing.
     """
-    resource_type = Field("InventoryReportInventoryListingItems", const=True)
+    resource_type = Field("InventoryReportInventoryListingItem", const=True)
 	
     category: fhirtypes.CodeableConceptType = Field(
 		None,
 		alias="category",
-		title="The category of the item or items",
-		description=None,
+		title="The inventory category or classification of the items being reported",
+		description=(
+    "The inventory category or classification of the items being reported. "
+    "This is meant not for defining the product, but for inventory "
+    "categories e.g. 'pending recount' or 'damaged'."
+    ),
         # if property is element of this resource.
         element_property=True,
 	)
-	
-    expiry: fhirtypes.DateTime = Field(
-		None,
-		alias="expiry",
-		title="The expiry date of the item or items",
-		description=None,
-        # if property is element of this resource.
-        element_property=True,
-	)
-    expiry__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
-        None,
-        alias="_expiry",
-        title="Extension field for ``expiry``."
-    )
 	
     item: fhirtypes.CodeableReferenceType = Field(
 		...,
@@ -329,64 +316,22 @@ class InventoryReportInventoryListingItems(backboneelement.BackboneElement):
         # if property is element of this resource.
         element_property=True,
         # note: Listed Resource Type(s) should be allowed as Reference.
-		enum_reference_types=["Device", "Medication"],
+		enum_reference_types=["Medication", "Device", "Medication", "NutritionProduct", "InventoryItem", "BiologicallyDerivedProduct", "InventoryItem"],
 	)
-	
-    lot: fhirtypes.String = Field(
-		None,
-		alias="lot",
-		title="The lot number of the item or items",
-		description=None,
-        # if property is element of this resource.
-        element_property=True,
-	)
-    lot__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
-        None,
-        alias="_lot",
-        title="Extension field for ``lot``."
-    )
-	
-    manufacturingDate: fhirtypes.DateTime = Field(
-		None,
-		alias="manufacturingDate",
-		title="The manufacturingDate of the item or items",
-		description=None,
-        # if property is element of this resource.
-        element_property=True,
-	)
-    manufacturingDate__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
-        None,
-        alias="_manufacturingDate",
-        title="Extension field for ``manufacturingDate``."
-    )
 	
     quantity: fhirtypes.QuantityType = Field(
 		...,
 		alias="quantity",
-		title="The quantity of the item or items",
+		title="The quantity of the item or items being reported",
 		description=None,
         # if property is element of this resource.
         element_property=True,
 	)
-	
-    serial: fhirtypes.String = Field(
-		None,
-		alias="serial",
-		title="The serial number of the item",
-		description=None,
-        # if property is element of this resource.
-        element_property=True,
-	)
-    serial__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
-        None,
-        alias="_serial",
-        title="Extension field for ``serial``."
-    )
     @classmethod
     def elements_sequence(cls):
         """returning all elements names from
-        ``InventoryReportInventoryListingItems`` according specification,
+        ``InventoryReportInventoryListingItem`` according specification,
         with preserving original sequence order.
         """
-        return ["id", "extension", "modifierExtension", "category", "quantity", "item", "lot", "serial", "expiry", "manufacturingDate"]
+        return ["id", "extension", "modifierExtension", "category", "quantity", "item"]
 

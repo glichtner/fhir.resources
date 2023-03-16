@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/Specimen
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 from pydantic.validators import bytes_validator  # noqa: F401
 from fhir.resources import fhirtypes  # noqa: F401
@@ -24,7 +24,7 @@ def impl_specimen_1(inst):
     assert inst.collection.quantity.unit == "mL"
     assert float(inst.collection.quantity.value) == float(6)
     assert inst.container[0].device.reference == (
-    "Specimen/specimen-device-container-example-green-gel-"
+    "Device/device-example-specimen-container-green-gel-"
     "vacutainer"
     )
     assert inst.container[0].specimenQuantity.unit == "mL"
@@ -167,10 +167,7 @@ def impl_specimen_4(inst):
     assert inst.collection.collectedDateTime == fhirtypes.DateTime.validate("2017-11-14")
     assert inst.collection.collector.display == "James Herriot, FRCVS"
     assert inst.combined == "pooled"
-    assert inst.container[0].device.reference == (
-    "Specimen/specimen-device-container-example-red-top-"
-    "vacutainer"
-    )
+    assert inst.container[0].device.reference == "Device/device-example-specimen-container-red-top-vacutainer"
     assert inst.id == "pooled-serum"
     assert inst.meta.tag[0].code == "HTEST"
     assert inst.meta.tag[0].display == "test health data"
@@ -350,7 +347,10 @@ def impl_specimen_8(inst):
     assert inst.accessionIdentifier.value == "20150816-00124"
     assert inst.collection.collectedDateTime == fhirtypes.DateTime.validate("2015-08-16T06:40:17Z")
     assert inst.collection.collector.reference == "Practitioner/f202"
-    assert inst.container[0].device.reference == "Specimen/specimen-device-container-example-sst-vacutainer"
+    assert inst.container[0].device.reference == (
+    "Device/device-example-specimen-container-example-sst-"
+    "vacutainer"
+    )
     assert inst.id == "sst"
     assert inst.meta.tag[0].code == "HTEST"
     assert inst.meta.tag[0].display == "test health data"
@@ -406,7 +406,7 @@ def impl_specimen_9(inst):
     assert inst.subject.reference == "Patient/genomicPatient"
     assert inst.text.status == "generated"
     assert inst.type.coding[0].code == "122610009"
-    assert inst.type.coding[0].display == "Specimen from lung obtained by biopsy (specimen) "
+    assert inst.type.coding[0].display == "Specimen from lung obtained by biopsy (specimen)"
     assert inst.type.coding[0].system == "http://snomed.info/sct"
 
 

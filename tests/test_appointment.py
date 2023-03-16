@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/Appointment
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 from pydantic.validators import bytes_validator  # noqa: F401
 from fhir.resources import fhirtypes  # noqa: F401
@@ -12,18 +12,18 @@ from fhir.resources import appointment
 
 
 def impl_appointment_1(inst):
-    assert inst.appointmentType.coding[0].code == "WALKIN"
-    assert inst.appointmentType.coding[0].display == "A previously unscheduled walk-in visit"
+    assert inst.appointmentType.coding[0].code == "FOLLOWUP"
+    assert inst.appointmentType.coding[0].display == "A follow up visit from a previous appointment"
     assert inst.appointmentType.coding[0].system == "http://terminology.hl7.org/CodeSystem/v2-0276"
-    assert inst.description == "Discussion about Peter Chalmers MRI results"
+    assert inst.description == "Discussion about Peter Chalmers ultrasound results"
     assert inst.end == fhirtypes.Instant.validate("2013-12-09T11:00:00Z")
     assert inst.id == "2docs"
     assert inst.meta.tag[0].code == "HTEST"
     assert inst.meta.tag[0].display == "test health data"
     assert inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
     assert inst.note[0].text == (
-    "Clarify the results of the MRI to ensure context of test was"
-    " correct"
+    "Clarify the results of the ultrasound to ensure context of "
+    "test was correct"
     )
     assert inst.participant[0].actor.display == "Dr Adam Careful"
     assert inst.participant[0].actor.reference == "Practitioner/example"
@@ -47,8 +47,9 @@ def impl_appointment_1(inst):
     assert inst.subject.reference == "Patient/example"
     assert inst.supportingInformation[0].reference == "DiagnosticReport/ultrasound"
     assert inst.text.div == (
-    "<div xmlns=\"http://www.w3.org/1999/xhtml\">Brian MRI "
-    "results discussion</div>"
+    "<div xmlns=\"http://www.w3.org/1999/xhtml\">Discussion of "
+    "Peter's ultrasound results to plan ongoing treatment "
+    "options</div>"
     )
     assert inst.text.status == "generated"
 

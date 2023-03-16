@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/TestScript
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 import typing
 from pydantic import Field
@@ -83,10 +83,11 @@ class TestScript(domainresource.DomainResource):
 		alias="date",
 		title="Date last changed",
 		description=(
-    "The date  (and optionally time) when the test script was published. "
-    "The date must change when the business version changes and it must "
-    "change if the status code changes. In addition, it should change when "
-    "the substantive content of the test script changes."
+    "The date  (and optionally time) when the test script was last "
+    "significantly changed. The date must change when the business version "
+    "changes and it must change if the status code changes. In addition, it"
+    " should change when the substantive content of the test script "
+    "changes."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -233,7 +234,7 @@ class TestScript(domainresource.DomainResource):
         element_property=True,
 	)
 	
-    profile: typing.List[fhirtypes.ReferenceType] = Field(
+    profile: typing.List[fhirtypes.Canonical] = Field(
 		None,
 		alias="profile",
 		title="Reference of the validation profile",
@@ -241,8 +242,13 @@ class TestScript(domainresource.DomainResource):
         # if property is element of this resource.
         element_property=True,
         # note: Listed Resource Type(s) should be allowed as Reference.
-		enum_reference_types=["Resource"],
+		enum_reference_types=["StructureDefinition"],
 	)
+    profile__ext: typing.List[typing.Union[fhirtypes.FHIRPrimitiveExtensionType, None]] = Field(
+        None,
+        alias="_profile",
+        title="Extension field for ``profile``."
+    )
 	
     publisher: fhirtypes.String = Field(
 		None,
@@ -619,13 +625,30 @@ class TestScriptDestination(backboneelement.BackboneElement):
         # if property is element of this resource.
         element_property=True,
 	)
+	
+    url: fhirtypes.Url = Field(
+		None,
+		alias="url",
+		title="The url path of the destination server",
+		description=(
+    "The explicit url path of the destination server used in this test "
+    "script."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+	)
+    url__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
+        None,
+        alias="_url",
+        title="Extension field for ``url``."
+    )
     @classmethod
     def elements_sequence(cls):
         """returning all elements names from
         ``TestScriptDestination`` according specification,
         with preserving original sequence order.
         """
-        return ["id", "extension", "modifierExtension", "index", "profile"]
+        return ["id", "extension", "modifierExtension", "index", "profile", "url"]
 
 
     @root_validator(pre=True, allow_reuse=True)
@@ -1219,13 +1242,27 @@ class TestScriptOrigin(backboneelement.BackboneElement):
         # if property is element of this resource.
         element_property=True,
 	)
+	
+    url: fhirtypes.Url = Field(
+		None,
+		alias="url",
+		title="The url path of the origin server",
+		description="The explicit url path of the origin server used in this test script.",
+        # if property is element of this resource.
+        element_property=True,
+	)
+    url__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
+        None,
+        alias="_url",
+        title="Extension field for ``url``."
+    )
     @classmethod
     def elements_sequence(cls):
         """returning all elements names from
         ``TestScriptOrigin`` according specification,
         with preserving original sequence order.
         """
-        return ["id", "extension", "modifierExtension", "index", "profile"]
+        return ["id", "extension", "modifierExtension", "index", "profile", "url"]
 
 
     @root_validator(pre=True, allow_reuse=True)
@@ -1502,9 +1539,10 @@ class TestScriptSetupActionAssert(backboneelement.BackboneElement):
 		alias="compareToSourceExpression",
 		title="The FHIRPath expression to evaluate against the source fixture",
 		description=(
-    "The FHIRPath expression to evaluate against the source fixture. When "
-    "compareToSourceId is defined, either compareToSourceExpression or "
-    "compareToSourcePath must be defined, but not both."
+    "The FHIRPath expression for a specific value to evaluate against the "
+    "source fixture. When compareToSourceId is defined, either "
+    "compareToSourceExpression or compareToSourcePath must be defined, but "
+    "not both."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -1565,6 +1603,23 @@ class TestScriptSetupActionAssert(backboneelement.BackboneElement):
         None,
         alias="_contentType",
         title="Extension field for ``contentType``."
+    )
+	
+    defaultManualCompletion: fhirtypes.Code = Field(
+		None,
+		alias="defaultManualCompletion",
+		title="fail | pass | skip | stop",
+		description="The default manual completion outcome applied to this assertion.",
+        # if property is element of this resource.
+        element_property=True,
+        # note: Enum values can be used in validation,
+        # but use in your own responsibilities, read official FHIR documentation.
+		enum_values=["fail", "pass", "skip", "stop"],
+	)
+    defaultManualCompletion__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
+        None,
+        alias="_defaultManualCompletion",
+        title="Extension field for ``defaultManualCompletion``."
     )
 	
     description: fhirtypes.String = Field(
@@ -1651,7 +1706,7 @@ class TestScriptSetupActionAssert(backboneelement.BackboneElement):
 		alias="minimumId",
 		title="Fixture Id of minimum content resource",
 		description=(
-    "The ID of a fixture.  Asserts that the response contains at a minimum "
+    "The ID of a fixture. Asserts that the response contains at a minimum "
     "the fixture specified by minimumId."
     ),
         # if property is element of this resource.
@@ -1685,17 +1740,14 @@ class TestScriptSetupActionAssert(backboneelement.BackboneElement):
 		alias="operator",
 		title=(
     "equals | notEquals | in | notIn | greaterThan | lessThan | empty | "
-    "notEmpty | contains | notContains | eval"
+    "notEmpty | contains | notContains | eval | manualEval"
     ),
-		description=(
-    "The operator type defines the conditional behavior of the assert. If "
-    "not defined, the default is equals."
-    ),
+		description="The operator type defines the conditional behavior of the assert.",
         # if property is element of this resource.
         element_property=True,
         # note: Enum values can be used in validation,
         # but use in your own responsibilities, read official FHIR documentation.
-		enum_values=["equals", "notEquals", "in", "notIn", "greaterThan", "lessThan", "empty", "notEmpty", "contains", "notContains", "eval"],
+		enum_values=["equals", "notEquals", "in", "notIn", "greaterThan", "lessThan", "empty", "notEmpty", "contains", "notContains", "eval", "manualEval"],
 	)
     operator__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
         None,
@@ -1754,14 +1806,23 @@ class TestScriptSetupActionAssert(backboneelement.BackboneElement):
         title="Extension field for ``requestURL``."
     )
 	
+    requirement: typing.List[fhirtypes.TestScriptSetupActionAssertRequirementType] = Field(
+		None,
+		alias="requirement",
+		title="Links or references to the testing requirements",
+		description=(
+    "Links or references providing traceability to the testing requirements"
+    " for this assert."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+	)
+	
     resource: fhirtypes.Uri = Field(
 		None,
 		alias="resource",
 		title="Resource type",
-		description=(
-    "The type of the resource.  See "
-    "http://build.fhir.org/resourcelist.html."
-    ),
+		description="The type of the resource.  See the [resource list](resourcelist.html).",
         # if property is element of this resource.
         element_property=True,
 	)
@@ -1775,16 +1836,25 @@ class TestScriptSetupActionAssert(backboneelement.BackboneElement):
 		None,
 		alias="response",
 		title=(
-    "okay | created | noContent | notModified | bad | forbidden | notFound "
-    "| methodNotAllowed | conflict | gone | preconditionFailed | "
-    "unprocessable"
+    "continue | switchingProtocols | okay | created | accepted | "
+    "nonAuthoritativeInformation | noContent | resetContent | "
+    "partialContent | multipleChoices | movedPermanently | found | seeOther"
+    " | notModified | useProxy | temporaryRedirect | permanentRedirect | "
+    "badRequest | unauthorized | paymentRequired | forbidden | notFound | "
+    "methodNotAllowed | notAcceptable | proxyAuthenticationRequired | "
+    "requestTimeout | conflict | gone | lengthRequired | preconditionFailed"
+    " | contentTooLarge | uriTooLong | unsupportedMediaType | "
+    "rangeNotSatisfiable | expectationFailed | misdirectedRequest | "
+    "unprocessableContent | upgradeRequired | internalServerError | "
+    "notImplemented | badGateway | serviceUnavailable | gatewayTimeout | "
+    "httpVersionNotSupported"
     ),
 		description=None,
         # if property is element of this resource.
         element_property=True,
         # note: Enum values can be used in validation,
         # but use in your own responsibilities, read official FHIR documentation.
-		enum_values=["okay", "created", "noContent", "notModified", "bad", "forbidden", "notFound", "methodNotAllowed", "conflict", "gone", "preconditionFailed", "unprocessable"],
+		enum_values=["continue", "switchingProtocols", "okay", "created", "accepted", "nonAuthoritativeInformation", "noContent", "resetContent", "partialContent", "multipleChoices", "movedPermanently", "found", "seeOther", "notModified", "useProxy", "temporaryRedirect", "permanentRedirect", "badRequest", "unauthorized", "paymentRequired", "forbidden", "notFound", "methodNotAllowed", "notAcceptable", "proxyAuthenticationRequired", "requestTimeout", "conflict", "gone", "lengthRequired", "preconditionFailed", "contentTooLarge", "uriTooLong", "unsupportedMediaType", "rangeNotSatisfiable", "expectationFailed", "misdirectedRequest", "unprocessableContent", "upgradeRequired", "internalServerError", "notImplemented", "badGateway", "serviceUnavailable", "gatewayTimeout", "httpVersionNotSupported"],
 	)
     response__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
         None,
@@ -1892,7 +1962,7 @@ class TestScriptSetupActionAssert(backboneelement.BackboneElement):
         ``TestScriptSetupActionAssert`` according specification,
         with preserving original sequence order.
         """
-        return ["id", "extension", "modifierExtension", "label", "description", "direction", "compareToSourceId", "compareToSourceExpression", "compareToSourcePath", "contentType", "expression", "headerField", "minimumId", "navigationLinks", "operator", "path", "requestMethod", "requestURL", "resource", "response", "responseCode", "sourceId", "stopTestOnFail", "validateProfileId", "value", "warningOnly"]
+        return ["id", "extension", "modifierExtension", "label", "description", "direction", "compareToSourceId", "compareToSourceExpression", "compareToSourcePath", "contentType", "defaultManualCompletion", "expression", "headerField", "minimumId", "navigationLinks", "operator", "path", "requestMethod", "requestURL", "resource", "response", "responseCode", "sourceId", "stopTestOnFail", "validateProfileId", "value", "warningOnly", "requirement"]
 
 
     @root_validator(pre=True, allow_reuse=True)
@@ -1957,6 +2027,109 @@ class TestScriptSetupActionAssert(backboneelement.BackboneElement):
         return values
 
 
+class TestScriptSetupActionAssertRequirement(backboneelement.BackboneElement):
+    """Disclaimer: Any field name ends with ``__ext`` doesn't part of
+    Resource StructureDefinition, instead used to enable Extensibility feature
+    for FHIR Primitive Data Types.
+
+    Links or references to the testing requirements.
+    Links or references providing traceability to the testing requirements for
+    this assert.
+    """
+    resource_type = Field("TestScriptSetupActionAssertRequirement", const=True)
+	
+    linkCanonical: fhirtypes.Canonical = Field(
+		None,
+		alias="linkCanonical",
+		title="Link or reference to the testing requirement",
+		description=(
+    "Link or reference providing traceability to the testing requirement "
+    "for this test."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+        # Choice of Data Types. i.e link[x]
+		one_of_many="link",
+		one_of_many_required=False,
+        # note: Listed Resource Type(s) should be allowed as Reference.
+		enum_reference_types=["Requirements"],
+	)
+    linkCanonical__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
+        None,
+        alias="_linkCanonical",
+        title="Extension field for ``linkCanonical``."
+    )
+	
+    linkUri: fhirtypes.Uri = Field(
+		None,
+		alias="linkUri",
+		title="Link or reference to the testing requirement",
+		description=(
+    "Link or reference providing traceability to the testing requirement "
+    "for this test."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+        # Choice of Data Types. i.e link[x]
+		one_of_many="link",
+		one_of_many_required=False,
+	)
+    linkUri__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
+        None,
+        alias="_linkUri",
+        title="Extension field for ``linkUri``."
+    )
+    @classmethod
+    def elements_sequence(cls):
+        """returning all elements names from
+        ``TestScriptSetupActionAssertRequirement`` according specification,
+        with preserving original sequence order.
+        """
+        return ["id", "extension", "modifierExtension", "linkUri", "linkCanonical"]
+
+
+    @root_validator(pre=True, allow_reuse=True)
+    def validate_one_of_many_4175(
+        cls, values: typing.Dict[str, typing.Any]
+    ) -> typing.Dict[str, typing.Any]:
+        """https://www.hl7.org/fhir/formats.html#choice
+        A few elements have a choice of more than one data type for their content.
+        All such elements have a name that takes the form nnn[x].
+        The "nnn" part of the name is constant, and the "[x]" is replaced with
+        the title-cased name of the type that is actually used.
+        The table view shows each of these names explicitly.
+
+        Elements that have a choice of data type cannot repeat - they must have a
+        maximum cardinality of 1. When constructing an instance of an element with a
+        choice of types, the authoring system must create a single element with a
+        data type chosen from among the list of permitted data types.
+        """
+        one_of_many_fields = {
+			"link": [
+			    "linkCanonical",
+			    "linkUri"]}
+        for prefix, fields in one_of_many_fields.items():
+            assert cls.__fields__[fields[0]].field_info.extra["one_of_many"] == prefix
+            required = (
+                cls.__fields__[fields[0]].field_info.extra["one_of_many_required"]
+                is True
+            )
+            found = False
+            for field in fields:
+                if field in values and values[field] is not None:
+                    if found is True:
+                        raise ValueError(
+                            "Any of one field value is expected from "
+                            f"this list {fields}, but got multiple!"
+                        )
+                    else:
+                        found = True
+            if required is True and found is False:
+                raise ValueError(f"Expect any of field value from this list {fields}.")
+
+        return values
+
+
 class TestScriptSetupActionOperation(backboneelement.BackboneElement):
     """Disclaimer: Any field name ends with ``__ext`` doesn't part of
     Resource StructureDefinition, instead used to enable Extensibility feature
@@ -1970,7 +2143,7 @@ class TestScriptSetupActionOperation(backboneelement.BackboneElement):
     accept: fhirtypes.Code = Field(
 		None,
 		alias="accept",
-		title="Mime type to accept in the payload of the response, with charset etc.",
+		title="Mime type to accept in the payload of the response, with charset etc",
 		description="The mime-type to use for RESTful operation in the 'Accept' header.",
         # if property is element of this resource.
         element_property=True,
@@ -1984,7 +2157,7 @@ class TestScriptSetupActionOperation(backboneelement.BackboneElement):
     contentType: fhirtypes.Code = Field(
 		None,
 		alias="contentType",
-		title="Mime type of the request payload contents, with charset etc.",
+		title="Mime type of the request payload contents, with charset etc",
 		description=(
     "The mime-type to use for RESTful operation in the 'Content-Type' "
     "header."
@@ -2148,9 +2321,9 @@ class TestScriptSetupActionOperation(backboneelement.BackboneElement):
 		alias="resource",
 		title="Resource type",
 		description=(
-    "The type of the FHIR resource. See "
-    "http://build.fhir.org/resourcelist.html. Data type of uri is needed "
-    "when non-HL7 artifacts are identified."
+    "The type of the FHIR resource. See the [resource "
+    "list](resourcelist.html). Data type of uri is needed when non-HL7 "
+    "artifacts are identified."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -2613,9 +2786,9 @@ class TestScriptVariable(backboneelement.BackboneElement):
 		alias="expression",
 		title="The FHIRPath expression against the fixture body",
 		description=(
-    "The FHIRPath expression to evaluate against the fixture body. When "
-    "variables are defined, only one of either expression, headerField or "
-    "path must be specified."
+    "The FHIRPath expression for a specific value to evaluate against the "
+    "fixture body. When variables are defined, only one of either "
+    "expression, headerField or path must be specified."
     ),
         # if property is element of this resource.
         element_property=True,

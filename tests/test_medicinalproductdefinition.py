@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/MedicinalProductDefinition
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 from pydantic.validators import bytes_validator  # noqa: F401
 from fhir.resources import fhirtypes  # noqa: F401
@@ -306,8 +306,8 @@ def impl_medicinalproductdefinition_8(inst):
     assert inst.name[0].usage[0].country.coding[0].system == "http://ema.europa.eu/example/countryCode"
     assert inst.name[0].usage[0].jurisdiction.coding[0].code == "EU"
     assert inst.name[0].usage[0].jurisdiction.coding[0].system == "http://ema.europa.eu/example/jurisdictionCode"
-    assert inst.name[0].usage[0].language.coding[0].code == "EN"
-    assert inst.name[0].usage[0].language.coding[0].system == "http://ema.europa.eu/example/languageCode"
+    assert inst.name[0].usage[0].language.coding[0].code == "en"
+    assert inst.name[0].usage[0].language.coding[0].system == "urn:ietf:bcp:47"
     assert inst.operation[0].effectiveDate.start == fhirtypes.DateTime.validate("2013-03-15")
     assert inst.operation[0].type.concept.coding[0].code == "Batchrelease"
     assert inst.operation[0].type.concept.coding[0].system == "http://ema.europa.eu/example/manufacturingOperationType"

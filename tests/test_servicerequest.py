@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/ServiceRequest
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 from pydantic.validators import bytes_validator  # noqa: F401
 from fhir.resources import fhirtypes  # noqa: F401
@@ -115,16 +115,6 @@ def impl_servicerequest_3(inst):
     assert inst.meta.tag[0].code == "HTEST"
     assert inst.meta.tag[0].display == "test health data"
     assert inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
-    assert inst.orderDetail[0].coding[0].code == "243144002"
-    assert inst.orderDetail[0].coding[0].display == "Patient triggered inspiratory assistance (procedure)"
-    assert inst.orderDetail[0].coding[0].system == "http://snomed.info/sct"
-    assert inst.orderDetail[0].text == "IPPB"
-    assert inst.orderDetail[1].text == (
-    " Initial Settings : Sens: -1 cm H20 Pressure 15 cm H2O "
-    "moderate flow:  Monitor VS every 15 minutes x 4 at the start"
-    " of mechanical ventilation, then routine for unit OR every 5"
-    " hr"
-    )
     assert inst.performer[0].display == "Dr Cecil Surgeon"
     assert inst.performer[0].reference == "Practitioner/example"
     assert inst.reason[0].concept.text == "chronic obstructive lung disease (COLD)"

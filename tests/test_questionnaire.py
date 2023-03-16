@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/Questionnaire
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 from pydantic.validators import bytes_validator  # noqa: F401
 from fhir.resources import fhirtypes  # noqa: F401
@@ -13,7 +13,7 @@ from fhir.resources import questionnaire
 
 def impl_questionnaire_1(inst):
     assert inst.contained[0].id == "vs2"
-    assert inst.date == fhirtypes.DateTime.validate("2022-09-10T04:52:37+10:00")
+    assert inst.date == fhirtypes.DateTime.validate("2023-03-01T23:03:57+11:00")
     assert inst.experimental is False
     assert inst.id == "qgen-NutritionProduct1"
     assert inst.identifier[0].system == "urn:ietf:rfc:3986"
@@ -127,7 +127,7 @@ def impl_questionnaire_1(inst):
     assert inst.item[0].item[4].item[0].extension[0].valueCodeableConcept.coding[0].system == "http://hl7.org/fhir/questionnaire-item-control"
     assert inst.item[0].item[4].item[0].linkId == "NutritionProduct.language-flyover"
     assert inst.item[0].item[4].item[0].type == "display"
-    assert inst.item[0].item[4].item[1].answerConstraint == "optionsOnly"
+    assert inst.item[0].item[4].item[1].answerConstraint == "optionsOrType"
     assert inst.item[0].item[4].item[1].linkId == "NutritionProduct.language.value"
     assert inst.item[0].item[4].item[1].repeats is False
     assert inst.item[0].item[4].item[1].required is False
@@ -251,7 +251,7 @@ def impl_questionnaire_1(inst):
     assert inst.publisher == "Health Level Seven International (Orders and Observations)"
     assert inst.status == "draft"
     assert inst.url == "http://hl7.org/fhir/Questionnaire/qgen-NutritionProduct1"
-    assert inst.version == "5.0.0-ballot"
+    assert inst.version == "5.0.0-draft-final"
 
 
 def test_questionnaire_1(base_settings):
@@ -278,7 +278,7 @@ def test_questionnaire_1(base_settings):
 
 def impl_questionnaire_2(inst):
     assert inst.contained[0].id == "vs2"
-    assert inst.date == fhirtypes.DateTime.validate("2022-09-10T04:52:37+10:00")
+    assert inst.date == fhirtypes.DateTime.validate("2023-03-01T23:03:57+11:00")
     assert inst.experimental is False
     assert inst.id == "qgen-OperationDefinition1"
     assert inst.identifier[0].system == "urn:ietf:rfc:3986"
@@ -396,7 +396,7 @@ def impl_questionnaire_2(inst):
     assert inst.item[0].item[4].item[0].extension[0].valueCodeableConcept.coding[0].system == "http://hl7.org/fhir/questionnaire-item-control"
     assert inst.item[0].item[4].item[0].linkId == "OperationDefinition.language-flyover"
     assert inst.item[0].item[4].item[0].type == "display"
-    assert inst.item[0].item[4].item[1].answerConstraint == "optionsOnly"
+    assert inst.item[0].item[4].item[1].answerConstraint == "optionsOrType"
     assert inst.item[0].item[4].item[1].linkId == "OperationDefinition.language.value"
     assert inst.item[0].item[4].item[1].repeats is False
     assert inst.item[0].item[4].item[1].required is False
@@ -506,7 +506,7 @@ def impl_questionnaire_2(inst):
     assert inst.publisher == "Health Level Seven International (FHIR Infrastructure)"
     assert inst.status == "active"
     assert inst.url == "http://hl7.org/fhir/Questionnaire/qgen-OperationDefinition1"
-    assert inst.version == "5.0.0-ballot"
+    assert inst.version == "5.0.0-draft-final"
 
 
 def test_questionnaire_2(base_settings):
@@ -532,11 +532,16 @@ def test_questionnaire_2(base_settings):
 
 
 def impl_questionnaire_3(inst):
-    assert inst.date == fhirtypes.DateTime.validate("2022-09-10T04:52:37+10:00")
+    assert inst.date == fhirtypes.DateTime.validate("2023-03-01T23:03:57+11:00")
     assert inst.experimental is False
     assert inst.id == "qgen-DeviceMetric1"
     assert inst.identifier[0].system == "urn:ietf:rfc:3986"
     assert inst.item[0].item[0].linkId == "DeviceMetric-display"
+    assert inst.item[0].item[0].text == (
+    "The DeviceMetric resource is derived from the ISO/IEEE "
+    "11073-10201 Domain Information Model standard, but is more "
+    "widely applicable."
+    )
     assert inst.item[0].item[0].type == "display"
     assert inst.item[0].item[1].extension[0].url == (
     "http://hl7.org/fhir/StructureDefinition/questionnaire-"
@@ -548,7 +553,7 @@ def impl_questionnaire_3(inst):
     assert inst.item[0].item[1].linkId == "DeviceMetric-flyover"
     assert inst.item[0].item[1].text == (
     "Describes a measurement, calculation or setting capability "
-    "of a medical device."
+    "of a device."
     )
     assert inst.item[0].item[1].type == "display"
     assert inst.item[0].item[2].extension[0].url == (
@@ -651,7 +656,7 @@ def impl_questionnaire_3(inst):
     assert inst.item[0].item[5].item[0].extension[0].valueCodeableConcept.coding[0].system == "http://hl7.org/fhir/questionnaire-item-control"
     assert inst.item[0].item[5].item[0].linkId == "DeviceMetric.language-flyover"
     assert inst.item[0].item[5].item[0].type == "display"
-    assert inst.item[0].item[5].item[1].answerConstraint == "optionsOnly"
+    assert inst.item[0].item[5].item[1].answerConstraint == "optionsOrType"
     assert inst.item[0].item[5].item[1].linkId == "DeviceMetric.language.value"
     assert inst.item[0].item[5].item[1].repeats is False
     assert inst.item[0].item[5].item[1].required is False
@@ -733,7 +738,7 @@ def impl_questionnaire_3(inst):
     assert inst.publisher == "Health Level Seven International (Health Care Devices)"
     assert inst.status == "draft"
     assert inst.url == "http://hl7.org/fhir/Questionnaire/qgen-DeviceMetric1"
-    assert inst.version == "5.0.0-ballot"
+    assert inst.version == "5.0.0-draft-final"
 
 
 def test_questionnaire_3(base_settings):
@@ -761,7 +766,7 @@ def test_questionnaire_3(base_settings):
 def impl_questionnaire_4(inst):
     assert inst.contained[0].id == "vs2"
     assert inst.contained[1].id == "vs3"
-    assert inst.date == fhirtypes.DateTime.validate("2022-09-10T04:52:37+10:00")
+    assert inst.date == fhirtypes.DateTime.validate("2023-03-01T23:03:57+11:00")
     assert inst.experimental is False
     assert inst.id == "qgen-RegulatedAuthorization1"
     assert inst.identifier[0].system == "urn:ietf:rfc:3986"
@@ -874,7 +879,7 @@ def impl_questionnaire_4(inst):
     assert inst.item[0].item[4].item[0].extension[0].valueCodeableConcept.coding[0].system == "http://hl7.org/fhir/questionnaire-item-control"
     assert inst.item[0].item[4].item[0].linkId == "RegulatedAuthorization.language-flyover"
     assert inst.item[0].item[4].item[0].type == "display"
-    assert inst.item[0].item[4].item[1].answerConstraint == "optionsOnly"
+    assert inst.item[0].item[4].item[1].answerConstraint == "optionsOrType"
     assert inst.item[0].item[4].item[1].linkId == "RegulatedAuthorization.language.value"
     assert inst.item[0].item[4].item[1].repeats is False
     assert inst.item[0].item[4].item[1].required is False
@@ -1004,7 +1009,7 @@ def impl_questionnaire_4(inst):
     "http://hl7.org/fhir/Questionnaire/qgen-"
     "RegulatedAuthorization1"
     )
-    assert inst.version == "5.0.0-ballot"
+    assert inst.version == "5.0.0-draft-final"
 
 
 def test_questionnaire_4(base_settings):
@@ -1156,7 +1161,7 @@ def impl_questionnaire_5(inst):
     assert inst.item[0].item[5].item[0].extension[0].valueCodeableConcept.coding[0].system == "http://hl7.org/fhir/questionnaire-item-control"
     assert inst.item[0].item[5].item[0].linkId == "Group.language-flyover"
     assert inst.item[0].item[5].item[0].type == "display"
-    assert inst.item[0].item[5].item[1].answerConstraint == "optionsOnly"
+    assert inst.item[0].item[5].item[1].answerConstraint == "optionsOrType"
     assert inst.item[0].item[5].item[1].linkId == "Group.language.value"
     assert inst.item[0].item[5].item[1].repeats is False
     assert inst.item[0].item[5].item[1].required is False
@@ -1235,7 +1240,7 @@ def impl_questionnaire_5(inst):
     assert inst.publisher == "HL7"
     assert inst.status == "draft"
     assert inst.url == "http://hl7.org/fhir/Questionnaire/qgen-actualgroup1"
-    assert inst.version == "5.0.0-ballot"
+    assert inst.version == "5.0.0-draft-final"
 
 
 def test_questionnaire_5(base_settings):
@@ -1268,6 +1273,7 @@ def impl_questionnaire_6(inst):
     assert inst.contained[4].id == "vs6"
     assert inst.contained[5].id == "vs7"
     assert inst.contained[6].id == "vs8"
+    assert inst.contained[7].id == "vs9"
     assert inst.date == fhirtypes.DateTime.validate("2020-12-28T16:55:11+11:00")
     assert inst.experimental is False
     assert inst.id == "qgen-shareableplandefinition1"
@@ -1391,7 +1397,7 @@ def impl_questionnaire_6(inst):
     assert inst.item[0].item[4].item[0].extension[0].valueCodeableConcept.coding[0].system == "http://hl7.org/fhir/questionnaire-item-control"
     assert inst.item[0].item[4].item[0].linkId == "PlanDefinition.language-flyover"
     assert inst.item[0].item[4].item[0].type == "display"
-    assert inst.item[0].item[4].item[1].answerConstraint == "optionsOnly"
+    assert inst.item[0].item[4].item[1].answerConstraint == "optionsOrType"
     assert inst.item[0].item[4].item[1].linkId == "PlanDefinition.language.value"
     assert inst.item[0].item[4].item[1].repeats is False
     assert inst.item[0].item[4].item[1].required is False
@@ -1442,11 +1448,12 @@ def impl_questionnaire_6(inst):
     assert inst.item[0].item[7].item[0].extension[0].valueCodeableConcept.coding[0].display == "Fly-over"
     assert inst.item[0].item[7].item[0].extension[0].valueCodeableConcept.coding[0].system == "http://hl7.org/fhir/questionnaire-item-control"
     assert inst.item[0].item[7].item[0].linkId == "PlanDefinition.extension-flyover"
+    assert inst.item[0].item[7].item[0].text == "An Extension"
     assert inst.item[0].item[7].item[0].type == "display"
     assert inst.item[0].item[7].linkId == "PlanDefinition.extension"
     assert inst.item[0].item[7].repeats is True
     assert inst.item[0].item[7].required is False
-    assert inst.item[0].item[7].text == "Additional content defined by implementations"
+    assert inst.item[0].item[7].text == "Extension"
     assert inst.item[0].item[7].type == "group"
     assert inst.item[0].item[8].item[0].extension[0].url == (
     "http://hl7.org/fhir/StructureDefinition/questionnaire-"
@@ -1512,7 +1519,7 @@ def impl_questionnaire_6(inst):
     "http://hl7.org/fhir/Questionnaire/qgen-"
     "shareableplandefinition1"
     )
-    assert inst.version == "5.0.0-ballot"
+    assert inst.version == "5.0.0-draft-final"
 
 
 def test_questionnaire_6(base_settings):
@@ -1539,7 +1546,7 @@ def test_questionnaire_6(base_settings):
 
 def impl_questionnaire_7(inst):
     assert inst.contained[0].id == "vs2"
-    assert inst.date == fhirtypes.DateTime.validate("2022-09-10T04:52:37+10:00")
+    assert inst.date == fhirtypes.DateTime.validate("2023-03-01T23:03:57+11:00")
     assert inst.experimental is False
     assert inst.id == "qgen-AllergyIntolerance1"
     assert inst.identifier[0].system == "urn:ietf:rfc:3986"
@@ -1659,7 +1666,7 @@ def impl_questionnaire_7(inst):
     assert inst.item[0].item[5].item[0].extension[0].valueCodeableConcept.coding[0].system == "http://hl7.org/fhir/questionnaire-item-control"
     assert inst.item[0].item[5].item[0].linkId == "AllergyIntolerance.language-flyover"
     assert inst.item[0].item[5].item[0].type == "display"
-    assert inst.item[0].item[5].item[1].answerConstraint == "optionsOnly"
+    assert inst.item[0].item[5].item[1].answerConstraint == "optionsOrType"
     assert inst.item[0].item[5].item[1].linkId == "AllergyIntolerance.language.value"
     assert inst.item[0].item[5].item[1].repeats is False
     assert inst.item[0].item[5].item[1].required is False
@@ -1741,7 +1748,7 @@ def impl_questionnaire_7(inst):
     assert inst.publisher == "Health Level Seven International (Patient Care)"
     assert inst.status == "draft"
     assert inst.url == "http://hl7.org/fhir/Questionnaire/qgen-AllergyIntolerance1"
-    assert inst.version == "5.0.0-ballot"
+    assert inst.version == "5.0.0-draft-final"
 
 
 def test_questionnaire_7(base_settings):
@@ -1770,6 +1777,7 @@ def impl_questionnaire_8(inst):
     assert inst.contained[0].id == "vs2"
     assert inst.contained[1].id == "vs3"
     assert inst.contained[2].id == "vs4"
+    assert inst.contained[3].id == "vs5"
     assert inst.date == fhirtypes.DateTime.validate("2018-08-11T00:00:00+10:00")
     assert inst.experimental is False
     assert inst.id == "qgen-bodytemp1"
@@ -1890,7 +1898,7 @@ def impl_questionnaire_8(inst):
     assert inst.item[0].item[5].item[0].extension[0].valueCodeableConcept.coding[0].system == "http://hl7.org/fhir/questionnaire-item-control"
     assert inst.item[0].item[5].item[0].linkId == "Observation.language-flyover"
     assert inst.item[0].item[5].item[0].type == "display"
-    assert inst.item[0].item[5].item[1].answerConstraint == "optionsOnly"
+    assert inst.item[0].item[5].item[1].answerConstraint == "optionsOrType"
     assert inst.item[0].item[5].item[1].linkId == "Observation.language.value"
     assert inst.item[0].item[5].item[1].repeats is False
     assert inst.item[0].item[5].item[1].required is False
@@ -1972,7 +1980,7 @@ def impl_questionnaire_8(inst):
     )
     assert inst.status == "draft"
     assert inst.url == "http://hl7.org/fhir/Questionnaire/qgen-bodytemp1"
-    assert inst.version == "5.0.0-ballot"
+    assert inst.version == "5.0.0-draft-final"
 
 
 def test_questionnaire_8(base_settings):
@@ -1999,277 +2007,7 @@ def test_questionnaire_8(base_settings):
 
 def impl_questionnaire_9(inst):
     assert inst.contained[0].id == "vs2"
-    assert inst.contained[1].id == "vs3"
-    assert inst.contained[2].id == "vs4"
-    assert inst.date == fhirtypes.DateTime.validate("2021-02-15T00:00:00+10:00")
-    assert inst.experimental is False
-    assert inst.id == "qs1"
-    assert inst.identifier[0].system == "urn:ietf:rfc:3986"
-    assert inst.item[0].extension[0].url == (
-    "http://hl7.org/fhir/StructureDefinition/questionnaire-"
-    "minOccurs"
-    )
-    assert inst.item[0].extension[0].valueInteger == 1
-    assert inst.item[0].extension[1].url == (
-    "http://hl7.org/fhir/StructureDefinition/questionnaire-"
-    "maxOccurs"
-    )
-    assert inst.item[0].extension[1].valueInteger == 1
-    assert inst.item[0].item[0].extension[0].url == (
-    "http://hl7.org/fhir/StructureDefinition/questionnaire-"
-    "itemControl"
-    )
-    assert inst.item[0].item[0].extension[0].valueCodeableConcept.coding[0].code == "flyover"
-    assert inst.item[0].item[0].extension[0].valueCodeableConcept.coding[0].display == "Fly-over"
-    assert inst.item[0].item[0].extension[0].valueCodeableConcept.coding[0].system == "http://hl7.org/fhir/questionnaire-item-control"
-    assert inst.item[0].item[0].linkId == "ValueSet-flyover"
-    assert inst.item[0].item[0].type == "display"
-    assert inst.item[0].item[1].extension[0].url == (
-    "http://hl7.org/fhir/StructureDefinition/questionnaire-"
-    "maxOccurs"
-    )
-    assert inst.item[0].item[1].extension[0].valueInteger == 1
-    assert inst.item[0].item[1].extension[1].url == (
-    "http://hl7.org/fhir/StructureDefinition/questionnaire-"
-    "fhirType"
-    )
-    assert inst.item[0].item[1].extension[1].valueString == "string"
-    assert inst.item[0].item[1].item[0].extension[0].url == (
-    "http://hl7.org/fhir/StructureDefinition/questionnaire-"
-    "itemControl"
-    )
-    assert inst.item[0].item[1].item[0].extension[0].valueCodeableConcept.coding[0].code == "flyover"
-    assert inst.item[0].item[1].item[0].extension[0].valueCodeableConcept.coding[0].display == "Fly-over"
-    assert inst.item[0].item[1].item[0].extension[0].valueCodeableConcept.coding[0].system == "http://hl7.org/fhir/questionnaire-item-control"
-    assert inst.item[0].item[1].item[0].linkId == "ValueSet.id-flyover"
-    assert inst.item[0].item[1].item[0].type == "display"
-    assert inst.item[0].item[1].item[1].linkId == "ValueSet.id.value"
-    assert inst.item[0].item[1].item[1].repeats is False
-    assert inst.item[0].item[1].item[1].required is False
-    assert inst.item[0].item[1].item[1].text == "Logical id of this artifact"
-    assert inst.item[0].item[1].item[1].type == "string"
-    assert inst.item[0].item[1].linkId == "ValueSet.id"
-    assert inst.item[0].item[1].repeats is True
-    assert inst.item[0].item[1].required is False
-    assert inst.item[0].item[1].type == "group"
-    assert inst.item[0].item[2].extension[0].url == (
-    "http://hl7.org/fhir/StructureDefinition/questionnaire-"
-    "maxOccurs"
-    )
-    assert inst.item[0].item[2].extension[0].valueInteger == 1
-    assert inst.item[0].item[2].item[0].extension[0].url == (
-    "http://hl7.org/fhir/StructureDefinition/questionnaire-"
-    "itemControl"
-    )
-    assert inst.item[0].item[2].item[0].extension[0].valueCodeableConcept.coding[0].code == "flyover"
-    assert inst.item[0].item[2].item[0].extension[0].valueCodeableConcept.coding[0].display == "Fly-over"
-    assert inst.item[0].item[2].item[0].extension[0].valueCodeableConcept.coding[0].system == "http://hl7.org/fhir/questionnaire-item-control"
-    assert inst.item[0].item[2].item[0].linkId == "ValueSet.meta-flyover"
-    assert inst.item[0].item[2].item[0].text == (
-    "The metadata about the resource. This is content that is "
-    "maintained by the infrastructure. Changes to the content "
-    "might not always be associated with version changes to the "
-    "resource."
-    )
-    assert inst.item[0].item[2].item[0].type == "display"
-    assert inst.item[0].item[2].linkId == "ValueSet.meta"
-    assert inst.item[0].item[2].repeats is True
-    assert inst.item[0].item[2].required is False
-    assert inst.item[0].item[2].text == "Metadata about the resource"
-    assert inst.item[0].item[2].type == "group"
-    assert inst.item[0].item[3].extension[0].url == (
-    "http://hl7.org/fhir/StructureDefinition/questionnaire-"
-    "maxOccurs"
-    )
-    assert inst.item[0].item[3].extension[0].valueInteger == 1
-    assert inst.item[0].item[3].extension[1].url == (
-    "http://hl7.org/fhir/StructureDefinition/questionnaire-"
-    "fhirType"
-    )
-    assert inst.item[0].item[3].extension[1].valueString == "uri"
-    assert inst.item[0].item[3].item[0].extension[0].url == (
-    "http://hl7.org/fhir/StructureDefinition/questionnaire-"
-    "itemControl"
-    )
-    assert inst.item[0].item[3].item[0].extension[0].valueCodeableConcept.coding[0].code == "flyover"
-    assert inst.item[0].item[3].item[0].extension[0].valueCodeableConcept.coding[0].display == "Fly-over"
-    assert inst.item[0].item[3].item[0].extension[0].valueCodeableConcept.coding[0].system == "http://hl7.org/fhir/questionnaire-item-control"
-    assert inst.item[0].item[3].item[0].linkId == "ValueSet.implicitRules-flyover"
-    assert inst.item[0].item[3].item[0].type == "display"
-    assert inst.item[0].item[3].item[1].linkId == "ValueSet.implicitRules.value"
-    assert inst.item[0].item[3].item[1].repeats is False
-    assert inst.item[0].item[3].item[1].required is False
-    assert inst.item[0].item[3].item[1].text == "A set of rules under which this content was created"
-    assert inst.item[0].item[3].item[1].type == "string"
-    assert inst.item[0].item[3].linkId == "ValueSet.implicitRules"
-    assert inst.item[0].item[3].repeats is True
-    assert inst.item[0].item[3].required is False
-    assert inst.item[0].item[3].type == "group"
-    assert inst.item[0].item[4].extension[0].url == (
-    "http://hl7.org/fhir/StructureDefinition/questionnaire-"
-    "maxOccurs"
-    )
-    assert inst.item[0].item[4].extension[0].valueInteger == 1
-    assert inst.item[0].item[4].extension[1].url == (
-    "http://hl7.org/fhir/StructureDefinition/questionnaire-"
-    "fhirType"
-    )
-    assert inst.item[0].item[4].extension[1].valueString == "code"
-    assert inst.item[0].item[4].item[0].extension[0].url == (
-    "http://hl7.org/fhir/StructureDefinition/questionnaire-"
-    "itemControl"
-    )
-    assert inst.item[0].item[4].item[0].extension[0].valueCodeableConcept.coding[0].code == "flyover"
-    assert inst.item[0].item[4].item[0].extension[0].valueCodeableConcept.coding[0].display == "Fly-over"
-    assert inst.item[0].item[4].item[0].extension[0].valueCodeableConcept.coding[0].system == "http://hl7.org/fhir/questionnaire-item-control"
-    assert inst.item[0].item[4].item[0].linkId == "ValueSet.language-flyover"
-    assert inst.item[0].item[4].item[0].type == "display"
-    assert inst.item[0].item[4].item[1].answerConstraint == "optionsOnly"
-    assert inst.item[0].item[4].item[1].linkId == "ValueSet.language.value"
-    assert inst.item[0].item[4].item[1].repeats is False
-    assert inst.item[0].item[4].item[1].required is False
-    assert inst.item[0].item[4].item[1].text == "language"
-    assert inst.item[0].item[4].item[1].type == "coding"
-    assert inst.item[0].item[4].linkId == "ValueSet.language"
-    assert inst.item[0].item[4].repeats is True
-    assert inst.item[0].item[4].required is False
-    assert inst.item[0].item[4].type == "group"
-    assert inst.item[0].item[5].extension[0].url == (
-    "http://hl7.org/fhir/StructureDefinition/questionnaire-"
-    "maxOccurs"
-    )
-    assert inst.item[0].item[5].extension[0].valueInteger == 1
-    assert inst.item[0].item[5].item[0].extension[0].url == (
-    "http://hl7.org/fhir/StructureDefinition/questionnaire-"
-    "itemControl"
-    )
-    assert inst.item[0].item[5].item[0].extension[0].valueCodeableConcept.coding[0].code == "flyover"
-    assert inst.item[0].item[5].item[0].extension[0].valueCodeableConcept.coding[0].display == "Fly-over"
-    assert inst.item[0].item[5].item[0].extension[0].valueCodeableConcept.coding[0].system == "http://hl7.org/fhir/questionnaire-item-control"
-    assert inst.item[0].item[5].item[0].linkId == "ValueSet.text-flyover"
-    assert inst.item[0].item[5].item[0].type == "display"
-    assert inst.item[0].item[5].linkId == "ValueSet.text"
-    assert inst.item[0].item[5].repeats is True
-    assert inst.item[0].item[5].required is False
-    assert inst.item[0].item[5].text == "Text summary of the resource, for human interpretation"
-    assert inst.item[0].item[5].type == "group"
-    assert inst.item[0].item[6].item[0].extension[0].url == (
-    "http://hl7.org/fhir/StructureDefinition/questionnaire-"
-    "itemControl"
-    )
-    assert inst.item[0].item[6].item[0].extension[0].valueCodeableConcept.coding[0].code == "flyover"
-    assert inst.item[0].item[6].item[0].extension[0].valueCodeableConcept.coding[0].display == "Fly-over"
-    assert inst.item[0].item[6].item[0].extension[0].valueCodeableConcept.coding[0].system == "http://hl7.org/fhir/questionnaire-item-control"
-    assert inst.item[0].item[6].item[0].linkId == "ValueSet.contained-flyover"
-    assert inst.item[0].item[6].item[0].type == "display"
-    assert inst.item[0].item[6].linkId == "ValueSet.contained"
-    assert inst.item[0].item[6].repeats is True
-    assert inst.item[0].item[6].required is False
-    assert inst.item[0].item[6].text == "Contained, inline Resources"
-    assert inst.item[0].item[6].type == "group"
-    assert inst.item[0].item[7].item[0].extension[0].url == (
-    "http://hl7.org/fhir/StructureDefinition/questionnaire-"
-    "itemControl"
-    )
-    assert inst.item[0].item[7].item[0].extension[0].valueCodeableConcept.coding[0].code == "flyover"
-    assert inst.item[0].item[7].item[0].extension[0].valueCodeableConcept.coding[0].display == "Fly-over"
-    assert inst.item[0].item[7].item[0].extension[0].valueCodeableConcept.coding[0].system == "http://hl7.org/fhir/questionnaire-item-control"
-    assert inst.item[0].item[7].item[0].linkId == "ValueSet.extension-flyover"
-    assert inst.item[0].item[7].item[0].text == "An Extension"
-    assert inst.item[0].item[7].item[0].type == "display"
-    assert inst.item[0].item[7].linkId == "ValueSet.extension"
-    assert inst.item[0].item[7].repeats is True
-    assert inst.item[0].item[7].required is False
-    assert inst.item[0].item[7].text == "Extension"
-    assert inst.item[0].item[7].type == "group"
-    assert inst.item[0].item[8].item[0].extension[0].url == (
-    "http://hl7.org/fhir/StructureDefinition/questionnaire-"
-    "itemControl"
-    )
-    assert inst.item[0].item[8].item[0].extension[0].valueCodeableConcept.coding[0].code == "flyover"
-    assert inst.item[0].item[8].item[0].extension[0].valueCodeableConcept.coding[0].display == "Fly-over"
-    assert inst.item[0].item[8].item[0].extension[0].valueCodeableConcept.coding[0].system == "http://hl7.org/fhir/questionnaire-item-control"
-    assert inst.item[0].item[8].item[0].linkId == "ValueSet.modifierExtension-flyover"
-    assert inst.item[0].item[8].item[0].type == "display"
-    assert inst.item[0].item[8].linkId == "ValueSet.modifierExtension"
-    assert inst.item[0].item[8].repeats is True
-    assert inst.item[0].item[8].required is False
-    assert inst.item[0].item[8].text == "Extensions that cannot be ignored"
-    assert inst.item[0].item[8].type == "group"
-    assert inst.item[0].item[9].extension[0].url == (
-    "http://hl7.org/fhir/StructureDefinition/questionnaire-"
-    "minOccurs"
-    )
-    assert inst.item[0].item[9].extension[0].valueInteger == 1
-    assert inst.item[0].item[9].extension[1].url == (
-    "http://hl7.org/fhir/StructureDefinition/questionnaire-"
-    "maxOccurs"
-    )
-    assert inst.item[0].item[9].extension[1].valueInteger == 1
-    assert inst.item[0].item[9].extension[2].url == (
-    "http://hl7.org/fhir/StructureDefinition/questionnaire-"
-    "fhirType"
-    )
-    assert inst.item[0].item[9].extension[2].valueString == "uri"
-    assert inst.item[0].item[9].item[0].extension[0].url == (
-    "http://hl7.org/fhir/StructureDefinition/questionnaire-"
-    "itemControl"
-    )
-    assert inst.item[0].item[9].item[0].extension[0].valueCodeableConcept.coding[0].code == "flyover"
-    assert inst.item[0].item[9].item[0].extension[0].valueCodeableConcept.coding[0].display == "Fly-over"
-    assert inst.item[0].item[9].item[0].extension[0].valueCodeableConcept.coding[0].system == "http://hl7.org/fhir/questionnaire-item-control"
-    assert inst.item[0].item[9].item[0].linkId == "ValueSet.url-flyover"
-    assert inst.item[0].item[9].item[0].type == "display"
-    assert inst.item[0].item[9].item[1].linkId == "ValueSet.url.value"
-    assert inst.item[0].item[9].item[1].repeats is False
-    assert inst.item[0].item[9].item[1].required is False
-    assert inst.item[0].item[9].item[1].text == (
-    "Canonical identifier for this value set, represented as a "
-    "URI (globally unique)"
-    )
-    assert inst.item[0].item[9].item[1].type == "string"
-    assert inst.item[0].item[9].linkId == "ValueSet.url"
-    assert inst.item[0].item[9].repeats is True
-    assert inst.item[0].item[9].required is True
-    assert inst.item[0].item[9].type == "group"
-    assert inst.item[0].linkId == "ValueSet"
-    assert inst.item[0].repeats is False
-    assert inst.item[0].required is True
-    assert inst.item[0].text == "A set of codes drawn from one or more code systems"
-    assert inst.item[0].type == "group"
-    assert inst.meta.tag[0].code == "HTEST"
-    assert inst.meta.tag[0].display == "test health data"
-    assert inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
-    assert inst.publisher == "HL7"
-    assert inst.status == "draft"
-    assert inst.version == "5.0.0-cibuild"
-
-
-def test_questionnaire_9(base_settings):
-    """No. 9 tests collection for Questionnaire.
-    Test File: vsd-alignedvalueset-questionnaire.json
-    """
-    filename = (
-        base_settings["unittest_data_dir"] / "vsd-alignedvalueset-questionnaire.json"
-    )
-    inst = questionnaire.Questionnaire.parse_file(
-        filename, content_type="application/json", encoding="utf-8"
-    )
-    assert "Questionnaire" == inst.resource_type
-
-    impl_questionnaire_9(inst)
-
-    # testing reverse by generating data from itself and create again.
-    data = inst.dict()
-    assert "Questionnaire" == data["resourceType"]
-
-    inst2 = questionnaire.Questionnaire(**data)
-    impl_questionnaire_9(inst2)
-
-
-def impl_questionnaire_10(inst):
-    assert inst.contained[0].id == "vs2"
-    assert inst.date == fhirtypes.DateTime.validate("2022-09-10T04:52:37+10:00")
+    assert inst.date == fhirtypes.DateTime.validate("2023-03-01T23:03:57+11:00")
     assert inst.experimental is False
     assert inst.id == "qgen-DocumentReference1"
     assert inst.identifier[0].system == "urn:ietf:rfc:3986"
@@ -2388,7 +2126,7 @@ def impl_questionnaire_10(inst):
     assert inst.item[0].item[5].item[0].extension[0].valueCodeableConcept.coding[0].system == "http://hl7.org/fhir/questionnaire-item-control"
     assert inst.item[0].item[5].item[0].linkId == "DocumentReference.language-flyover"
     assert inst.item[0].item[5].item[0].type == "display"
-    assert inst.item[0].item[5].item[1].answerConstraint == "optionsOnly"
+    assert inst.item[0].item[5].item[1].answerConstraint == "optionsOrType"
     assert inst.item[0].item[5].item[1].linkId == "DocumentReference.language.value"
     assert inst.item[0].item[5].item[1].repeats is False
     assert inst.item[0].item[5].item[1].required is False
@@ -2467,15 +2205,283 @@ def impl_questionnaire_10(inst):
     assert inst.publisher == "Health Level Seven International (Orders and Observations)"
     assert inst.status == "draft"
     assert inst.url == "http://hl7.org/fhir/Questionnaire/qgen-DocumentReference1"
-    assert inst.version == "5.0.0-ballot"
+    assert inst.version == "5.0.0-draft-final"
 
 
-def test_questionnaire_10(base_settings):
-    """No. 10 tests collection for Questionnaire.
+def test_questionnaire_9(base_settings):
+    """No. 9 tests collection for Questionnaire.
     Test File: documentreference-questionnaire.json
     """
     filename = (
         base_settings["unittest_data_dir"] / "documentreference-questionnaire.json"
+    )
+    inst = questionnaire.Questionnaire.parse_file(
+        filename, content_type="application/json", encoding="utf-8"
+    )
+    assert "Questionnaire" == inst.resource_type
+
+    impl_questionnaire_9(inst)
+
+    # testing reverse by generating data from itself and create again.
+    data = inst.dict()
+    assert "Questionnaire" == data["resourceType"]
+
+    inst2 = questionnaire.Questionnaire(**data)
+    impl_questionnaire_9(inst2)
+
+
+def impl_questionnaire_10(inst):
+    assert inst.date == fhirtypes.DateTime.validate("2023-03-01T23:03:57+11:00")
+    assert inst.experimental is False
+    assert inst.id == "qgen-SubstancePolymer1"
+    assert inst.identifier[0].system == "urn:ietf:rfc:3986"
+    assert inst.item[0].item[0].extension[0].url == (
+    "http://hl7.org/fhir/StructureDefinition/questionnaire-"
+    "itemControl"
+    )
+    assert inst.item[0].item[0].extension[0].valueCodeableConcept.coding[0].code == "flyover"
+    assert inst.item[0].item[0].extension[0].valueCodeableConcept.coding[0].display == "Fly-over"
+    assert inst.item[0].item[0].extension[0].valueCodeableConcept.coding[0].system == "http://hl7.org/fhir/questionnaire-item-control"
+    assert inst.item[0].item[0].linkId == "SubstancePolymer-flyover"
+    assert inst.item[0].item[0].text == "Properties of a substance specific to it being a polymer."
+    assert inst.item[0].item[0].type == "display"
+    assert inst.item[0].item[1].extension[0].url == (
+    "http://hl7.org/fhir/StructureDefinition/questionnaire-"
+    "maxOccurs"
+    )
+    assert inst.item[0].item[1].extension[0].valueInteger == 1
+    assert inst.item[0].item[1].extension[1].url == (
+    "http://hl7.org/fhir/StructureDefinition/questionnaire-"
+    "fhirType"
+    )
+    assert inst.item[0].item[1].extension[1].valueString == "string"
+    assert inst.item[0].item[1].item[0].extension[0].url == (
+    "http://hl7.org/fhir/StructureDefinition/questionnaire-"
+    "itemControl"
+    )
+    assert inst.item[0].item[1].item[0].extension[0].valueCodeableConcept.coding[0].code == "flyover"
+    assert inst.item[0].item[1].item[0].extension[0].valueCodeableConcept.coding[0].display == "Fly-over"
+    assert inst.item[0].item[1].item[0].extension[0].valueCodeableConcept.coding[0].system == "http://hl7.org/fhir/questionnaire-item-control"
+    assert inst.item[0].item[1].item[0].linkId == "SubstancePolymer.id-flyover"
+    assert inst.item[0].item[1].item[0].type == "display"
+    assert inst.item[0].item[1].item[1].linkId == "SubstancePolymer.id.value"
+    assert inst.item[0].item[1].item[1].repeats is False
+    assert inst.item[0].item[1].item[1].required is False
+    assert inst.item[0].item[1].item[1].text == "Logical id of this artifact"
+    assert inst.item[0].item[1].item[1].type == "string"
+    assert inst.item[0].item[1].linkId == "SubstancePolymer.id"
+    assert inst.item[0].item[1].repeats is True
+    assert inst.item[0].item[1].required is False
+    assert inst.item[0].item[1].type == "group"
+    assert inst.item[0].item[2].extension[0].url == (
+    "http://hl7.org/fhir/StructureDefinition/questionnaire-"
+    "maxOccurs"
+    )
+    assert inst.item[0].item[2].extension[0].valueInteger == 1
+    assert inst.item[0].item[2].item[0].extension[0].url == (
+    "http://hl7.org/fhir/StructureDefinition/questionnaire-"
+    "itemControl"
+    )
+    assert inst.item[0].item[2].item[0].extension[0].valueCodeableConcept.coding[0].code == "flyover"
+    assert inst.item[0].item[2].item[0].extension[0].valueCodeableConcept.coding[0].display == "Fly-over"
+    assert inst.item[0].item[2].item[0].extension[0].valueCodeableConcept.coding[0].system == "http://hl7.org/fhir/questionnaire-item-control"
+    assert inst.item[0].item[2].item[0].linkId == "SubstancePolymer.meta-flyover"
+    assert inst.item[0].item[2].item[0].text == (
+    "The metadata about the resource. This is content that is "
+    "maintained by the infrastructure. Changes to the content "
+    "might not always be associated with version changes to the "
+    "resource."
+    )
+    assert inst.item[0].item[2].item[0].type == "display"
+    assert inst.item[0].item[2].linkId == "SubstancePolymer.meta"
+    assert inst.item[0].item[2].repeats is True
+    assert inst.item[0].item[2].required is False
+    assert inst.item[0].item[2].text == "Metadata about the resource"
+    assert inst.item[0].item[2].type == "group"
+    assert inst.item[0].item[3].extension[0].url == (
+    "http://hl7.org/fhir/StructureDefinition/questionnaire-"
+    "maxOccurs"
+    )
+    assert inst.item[0].item[3].extension[0].valueInteger == 1
+    assert inst.item[0].item[3].extension[1].url == (
+    "http://hl7.org/fhir/StructureDefinition/questionnaire-"
+    "fhirType"
+    )
+    assert inst.item[0].item[3].extension[1].valueString == "uri"
+    assert inst.item[0].item[3].item[0].extension[0].url == (
+    "http://hl7.org/fhir/StructureDefinition/questionnaire-"
+    "itemControl"
+    )
+    assert inst.item[0].item[3].item[0].extension[0].valueCodeableConcept.coding[0].code == "flyover"
+    assert inst.item[0].item[3].item[0].extension[0].valueCodeableConcept.coding[0].display == "Fly-over"
+    assert inst.item[0].item[3].item[0].extension[0].valueCodeableConcept.coding[0].system == "http://hl7.org/fhir/questionnaire-item-control"
+    assert inst.item[0].item[3].item[0].linkId == "SubstancePolymer.implicitRules-flyover"
+    assert inst.item[0].item[3].item[0].type == "display"
+    assert inst.item[0].item[3].item[1].linkId == "SubstancePolymer.implicitRules.value"
+    assert inst.item[0].item[3].item[1].repeats is False
+    assert inst.item[0].item[3].item[1].required is False
+    assert inst.item[0].item[3].item[1].text == "A set of rules under which this content was created"
+    assert inst.item[0].item[3].item[1].type == "string"
+    assert inst.item[0].item[3].linkId == "SubstancePolymer.implicitRules"
+    assert inst.item[0].item[3].repeats is True
+    assert inst.item[0].item[3].required is False
+    assert inst.item[0].item[3].type == "group"
+    assert inst.item[0].item[4].extension[0].url == (
+    "http://hl7.org/fhir/StructureDefinition/questionnaire-"
+    "maxOccurs"
+    )
+    assert inst.item[0].item[4].extension[0].valueInteger == 1
+    assert inst.item[0].item[4].extension[1].url == (
+    "http://hl7.org/fhir/StructureDefinition/questionnaire-"
+    "fhirType"
+    )
+    assert inst.item[0].item[4].extension[1].valueString == "code"
+    assert inst.item[0].item[4].item[0].extension[0].url == (
+    "http://hl7.org/fhir/StructureDefinition/questionnaire-"
+    "itemControl"
+    )
+    assert inst.item[0].item[4].item[0].extension[0].valueCodeableConcept.coding[0].code == "flyover"
+    assert inst.item[0].item[4].item[0].extension[0].valueCodeableConcept.coding[0].display == "Fly-over"
+    assert inst.item[0].item[4].item[0].extension[0].valueCodeableConcept.coding[0].system == "http://hl7.org/fhir/questionnaire-item-control"
+    assert inst.item[0].item[4].item[0].linkId == "SubstancePolymer.language-flyover"
+    assert inst.item[0].item[4].item[0].type == "display"
+    assert inst.item[0].item[4].item[1].answerConstraint == "optionsOrType"
+    assert inst.item[0].item[4].item[1].linkId == "SubstancePolymer.language.value"
+    assert inst.item[0].item[4].item[1].repeats is False
+    assert inst.item[0].item[4].item[1].required is False
+    assert inst.item[0].item[4].item[1].text == "language"
+    assert inst.item[0].item[4].item[1].type == "coding"
+    assert inst.item[0].item[4].linkId == "SubstancePolymer.language"
+    assert inst.item[0].item[4].repeats is True
+    assert inst.item[0].item[4].required is False
+    assert inst.item[0].item[4].type == "group"
+    assert inst.item[0].item[5].extension[0].url == (
+    "http://hl7.org/fhir/StructureDefinition/questionnaire-"
+    "maxOccurs"
+    )
+    assert inst.item[0].item[5].extension[0].valueInteger == 1
+    assert inst.item[0].item[5].item[0].extension[0].url == (
+    "http://hl7.org/fhir/StructureDefinition/questionnaire-"
+    "itemControl"
+    )
+    assert inst.item[0].item[5].item[0].extension[0].valueCodeableConcept.coding[0].code == "flyover"
+    assert inst.item[0].item[5].item[0].extension[0].valueCodeableConcept.coding[0].display == "Fly-over"
+    assert inst.item[0].item[5].item[0].extension[0].valueCodeableConcept.coding[0].system == "http://hl7.org/fhir/questionnaire-item-control"
+    assert inst.item[0].item[5].item[0].linkId == "SubstancePolymer.text-flyover"
+    assert inst.item[0].item[5].item[0].type == "display"
+    assert inst.item[0].item[5].linkId == "SubstancePolymer.text"
+    assert inst.item[0].item[5].repeats is True
+    assert inst.item[0].item[5].required is False
+    assert inst.item[0].item[5].text == "Text summary of the resource, for human interpretation"
+    assert inst.item[0].item[5].type == "group"
+    assert inst.item[0].item[6].item[0].extension[0].url == (
+    "http://hl7.org/fhir/StructureDefinition/questionnaire-"
+    "itemControl"
+    )
+    assert inst.item[0].item[6].item[0].extension[0].valueCodeableConcept.coding[0].code == "flyover"
+    assert inst.item[0].item[6].item[0].extension[0].valueCodeableConcept.coding[0].display == "Fly-over"
+    assert inst.item[0].item[6].item[0].extension[0].valueCodeableConcept.coding[0].system == "http://hl7.org/fhir/questionnaire-item-control"
+    assert inst.item[0].item[6].item[0].linkId == "SubstancePolymer.contained-flyover"
+    assert inst.item[0].item[6].item[0].type == "display"
+    assert inst.item[0].item[6].linkId == "SubstancePolymer.contained"
+    assert inst.item[0].item[6].repeats is True
+    assert inst.item[0].item[6].required is False
+    assert inst.item[0].item[6].text == "Contained, inline Resources"
+    assert inst.item[0].item[6].type == "group"
+    assert inst.item[0].item[7].item[0].extension[0].url == (
+    "http://hl7.org/fhir/StructureDefinition/questionnaire-"
+    "itemControl"
+    )
+    assert inst.item[0].item[7].item[0].extension[0].valueCodeableConcept.coding[0].code == "flyover"
+    assert inst.item[0].item[7].item[0].extension[0].valueCodeableConcept.coding[0].display == "Fly-over"
+    assert inst.item[0].item[7].item[0].extension[0].valueCodeableConcept.coding[0].system == "http://hl7.org/fhir/questionnaire-item-control"
+    assert inst.item[0].item[7].item[0].linkId == "SubstancePolymer.extension-flyover"
+    assert inst.item[0].item[7].item[0].type == "display"
+    assert inst.item[0].item[7].linkId == "SubstancePolymer.extension"
+    assert inst.item[0].item[7].repeats is True
+    assert inst.item[0].item[7].required is False
+    assert inst.item[0].item[7].text == "Additional content defined by implementations"
+    assert inst.item[0].item[7].type == "group"
+    assert inst.item[0].item[8].item[0].extension[0].url == (
+    "http://hl7.org/fhir/StructureDefinition/questionnaire-"
+    "itemControl"
+    )
+    assert inst.item[0].item[8].item[0].extension[0].valueCodeableConcept.coding[0].code == "flyover"
+    assert inst.item[0].item[8].item[0].extension[0].valueCodeableConcept.coding[0].display == "Fly-over"
+    assert inst.item[0].item[8].item[0].extension[0].valueCodeableConcept.coding[0].system == "http://hl7.org/fhir/questionnaire-item-control"
+    assert inst.item[0].item[8].item[0].linkId == "SubstancePolymer.modifierExtension-flyover"
+    assert inst.item[0].item[8].item[0].type == "display"
+    assert inst.item[0].item[8].linkId == "SubstancePolymer.modifierExtension"
+    assert inst.item[0].item[8].repeats is True
+    assert inst.item[0].item[8].required is False
+    assert inst.item[0].item[8].text == "Extensions that cannot be ignored"
+    assert inst.item[0].item[8].type == "group"
+    assert inst.item[0].item[9].extension[0].url == (
+    "http://hl7.org/fhir/StructureDefinition/questionnaire-"
+    "maxOccurs"
+    )
+    assert inst.item[0].item[9].extension[0].valueInteger == 1
+    assert inst.item[0].item[9].extension[1].url == (
+    "http://hl7.org/fhir/StructureDefinition/questionnaire-"
+    "fhirType"
+    )
+    assert inst.item[0].item[9].extension[1].valueString == "Identifier"
+    assert inst.item[0].item[9].item[0].extension[0].url == (
+    "http://hl7.org/fhir/StructureDefinition/questionnaire-"
+    "itemControl"
+    )
+    assert inst.item[0].item[9].item[0].extension[0].valueCodeableConcept.coding[0].code == "flyover"
+    assert inst.item[0].item[9].item[0].extension[0].valueCodeableConcept.coding[0].display == "Fly-over"
+    assert inst.item[0].item[9].item[0].extension[0].valueCodeableConcept.coding[0].system == "http://hl7.org/fhir/questionnaire-item-control"
+    assert inst.item[0].item[9].item[0].linkId == "SubstancePolymer.identifier-flyover"
+    assert inst.item[0].item[9].item[0].text == (
+    "A business idenfier for this polymer, but typically this is "
+    "handled by a SubstanceDefinition identifier."
+    )
+    assert inst.item[0].item[9].item[0].type == "display"
+    assert inst.item[0].item[9].item[1].linkId == "SubstancePolymer.identifier.label"
+    assert inst.item[0].item[9].item[1].repeats is False
+    assert inst.item[0].item[9].item[1].required is False
+    assert inst.item[0].item[9].item[1].text == "label:"
+    assert inst.item[0].item[9].item[1].type == "string"
+    assert inst.item[0].item[9].item[2].linkId == "SubstancePolymer.identifier.system"
+    assert inst.item[0].item[9].item[2].repeats is False
+    assert inst.item[0].item[9].item[2].required is False
+    assert inst.item[0].item[9].item[2].text == "system:"
+    assert inst.item[0].item[9].item[2].type == "string"
+    assert inst.item[0].item[9].item[3].linkId == "SubstancePolymer.identifier.value"
+    assert inst.item[0].item[9].item[3].repeats is False
+    assert inst.item[0].item[9].item[3].required is False
+    assert inst.item[0].item[9].item[3].text == "value:"
+    assert inst.item[0].item[9].item[3].type == "string"
+    assert inst.item[0].item[9].linkId == "SubstancePolymer.identifier"
+    assert inst.item[0].item[9].repeats is True
+    assert inst.item[0].item[9].required is False
+    assert inst.item[0].item[9].text == (
+    "A business idenfier for this polymer, but typically this is "
+    "handled by a SubstanceDefinition identifier"
+    )
+    assert inst.item[0].item[9].type == "group"
+    assert inst.item[0].linkId == "SubstancePolymer"
+    assert inst.item[0].repeats is True
+    assert inst.item[0].required is False
+    assert inst.item[0].text == "Properties of a substance specific to it being a polymer"
+    assert inst.item[0].type == "group"
+    assert inst.publisher == (
+    "Health Level Seven International (Biomedical Research and "
+    "Regulation)"
+    )
+    assert inst.status == "draft"
+    assert inst.url == "http://hl7.org/fhir/Questionnaire/qgen-SubstancePolymer1"
+    assert inst.version == "5.0.0-draft-final"
+
+
+def test_questionnaire_10(base_settings):
+    """No. 10 tests collection for Questionnaire.
+    Test File: substancepolymer-questionnaire.json
+    """
+    filename = (
+        base_settings["unittest_data_dir"] / "substancepolymer-questionnaire.json"
     )
     inst = questionnaire.Questionnaire.parse_file(
         filename, content_type="application/json", encoding="utf-8"

@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/DetectedIssue
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 from pydantic.validators import bytes_validator  # noqa: F401
 from fhir.resources import fhirtypes  # noqa: F401
@@ -91,7 +91,7 @@ def impl_detectedissue_3(inst):
     assert inst.id == "ddi"
     assert inst.identifiedDateTime == fhirtypes.DateTime.validate("2014-01-05")
     assert inst.implicated[0].display == "500 mg Acetaminophen tablet 1/day, PRN since 2010"
-    assert inst.implicated[0].reference == "MedicationUsage/example001"
+    assert inst.implicated[0].reference == "MedicationStatement/example001"
     assert inst.implicated[1].display == "Warfarin 1 MG TAB prescribed Jan. 15, 2015"
     assert inst.implicated[1].reference == "MedicationRequest/medrx0331"
     assert inst.meta.tag[0].code == "HTEST"

@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/SubstanceDefinition
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 from pydantic.validators import bytes_validator  # noqa: F401
 from fhir.resources import fhirtypes  # noqa: F401
@@ -26,33 +26,33 @@ def impl_substancedefinition_1(inst):
     assert inst.meta.tag[0].code == "HTEST"
     assert inst.meta.tag[0].display == "test health data"
     assert inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
-    assert inst.name[0].language[0].coding[0].code == "100000072147"
+    assert inst.name[0].language[0].coding[0].code == "en"
     assert inst.name[0].language[0].coding[0].display == "English"
-    assert inst.name[0].language[0].coding[0].system == "http://example.europa.eu/fhir/Language"
+    assert inst.name[0].language[0].coding[0].system == "urn:ietf:bcp:47"
     assert inst.name[0].name == "PARACETAMOL"
     assert inst.name[0].preferred is True
     assert inst.name[0].status.coding[0].code == "200000005004"
     assert inst.name[0].status.coding[0].display == "Current"
     assert inst.name[0].status.coding[0].system == "http://example.europa.eu/fhir/Status"
-    assert inst.name[1].language[0].coding[0].code == "100000072181"
-    assert inst.name[1].language[0].coding[0].display == "Greek, Modern (1453-)"
-    assert inst.name[1].language[0].coding[0].system == "http://example.europa.eu/fhir/Language"
+    assert inst.name[1].language[0].coding[0].code == "el"
+    assert inst.name[1].language[0].coding[0].display == "Greek"
+    assert inst.name[1].language[0].coding[0].system == "urn:ietf:bcp:47"
     assert inst.name[1].name == "ΠΑΡΑΚΕΤΑΜΌΛΗ"
     assert inst.name[1].preferred is False
     assert inst.name[1].status.coding[0].code == "200000005004"
     assert inst.name[1].status.coding[0].display == "Current"
     assert inst.name[1].status.coding[0].system == "http://example.europa.eu/fhir/Status"
-    assert inst.name[2].language[0].coding[0].code == "100000072142"
+    assert inst.name[2].language[0].coding[0].code == "bg"
     assert inst.name[2].language[0].coding[0].display == "Bulgarian"
-    assert inst.name[2].language[0].coding[0].system == "http://example.europa.eu/fhir/Language"
+    assert inst.name[2].language[0].coding[0].system == "urn:ietf:bcp:47"
     assert inst.name[2].name == "ПАРАЦЕТАМОЛ"
     assert inst.name[2].preferred is False
     assert inst.name[2].status.coding[0].code == "200000005004"
     assert inst.name[2].status.coding[0].display == "Current"
     assert inst.name[2].status.coding[0].system == "http://example.europa.eu/fhir/Status"
-    assert inst.name[3].language[0].coding[0].code == "100000072147"
+    assert inst.name[3].language[0].coding[0].code == "en"
     assert inst.name[3].language[0].coding[0].display == "English"
-    assert inst.name[3].language[0].coding[0].system == "http://example.europa.eu/fhir/Language"
+    assert inst.name[3].language[0].coding[0].system == "urn:ietf:bcp:47"
     assert inst.name[3].name == "ACETAMINOPHEN"
     assert inst.name[3].preferred is False
     assert inst.name[3].status.coding[0].code == "200000005004"

@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/Patient
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 from pydantic.validators import bytes_validator  # noqa: F401
 from fhir.resources import fhirtypes  # noqa: F401
@@ -195,28 +195,24 @@ def impl_patient_4(inst):
     assert inst.extension[2].extension[0].valueCodeableConcept.coding[0].code == "male"
     assert inst.extension[2].extension[0].valueCodeableConcept.coding[0].display == "Male"
     assert inst.extension[2].extension[0].valueCodeableConcept.coding[0].system == "http://hl7.org/fhir/administrative-gender"
-    assert inst.extension[2].extension[1].url == "internationalEquivalent"
-    assert inst.extension[2].extension[1].valueCodeableConcept.coding[0].code == "M"
-    assert inst.extension[2].extension[1].valueCodeableConcept.coding[0].display == "Male"
-    assert inst.extension[2].extension[1].valueCodeableConcept.coding[0].system == "http://terminology.hl7.org/CodeSystem/icaosex"
-    assert inst.extension[2].extension[2].url == "type"
-    assert inst.extension[2].extension[2].valueCodeableConcept.coding[0].code == "76689-9"
-    assert inst.extension[2].extension[2].valueCodeableConcept.coding[0].display == "Sex Assigned At Birth"
-    assert inst.extension[2].extension[2].valueCodeableConcept.coding[0].system == "http://loinc.org"
-    assert inst.extension[2].extension[3].url == "effectivePeriod"
-    assert inst.extension[2].extension[3].valuePeriod.start == fhirtypes.DateTime.validate("1974-12-25")
-    assert inst.extension[2].extension[4].url == "acquisitionDate"
-    assert inst.extension[2].extension[4].valueDateTime == fhirtypes.DateTime.validate("2005-12-06")
-    assert inst.extension[2].extension[5].url == "sourceDocument"
-    assert inst.extension[2].extension[5].valueCodeableReference.reference.reference == "DocumentReference/1"
-    assert inst.extension[2].extension[6].url == "sourceField"
-    assert inst.extension[2].extension[6].valueString == "SEX"
-    assert inst.extension[2].extension[7].url == "jurisdiction"
-    assert inst.extension[2].extension[7].valueCodeableConcept.coding[0].code == "OH"
-    assert inst.extension[2].extension[7].valueCodeableConcept.coding[0].display == "Ohio"
-    assert inst.extension[2].extension[7].valueCodeableConcept.coding[0].system == "https://www.usps.com/"
-    assert inst.extension[2].extension[8].url == "comment"
-    assert inst.extension[2].extension[8].valueString == (
+    assert inst.extension[2].extension[1].url == "type"
+    assert inst.extension[2].extension[1].valueCodeableConcept.coding[0].code == "76689-9"
+    assert inst.extension[2].extension[1].valueCodeableConcept.coding[0].display == "Sex Assigned At Birth"
+    assert inst.extension[2].extension[1].valueCodeableConcept.coding[0].system == "http://loinc.org"
+    assert inst.extension[2].extension[2].url == "effectivePeriod"
+    assert inst.extension[2].extension[2].valuePeriod.start == fhirtypes.DateTime.validate("1974-12-25")
+    assert inst.extension[2].extension[3].url == "acquisitionDate"
+    assert inst.extension[2].extension[3].valueDateTime == fhirtypes.DateTime.validate("2005-12-06")
+    assert inst.extension[2].extension[4].url == "sourceDocument"
+    assert inst.extension[2].extension[4].valueCodeableReference.reference.reference == "DocumentReference/1"
+    assert inst.extension[2].extension[5].url == "sourceField"
+    assert inst.extension[2].extension[5].valueString == "SEX"
+    assert inst.extension[2].extension[6].url == "jurisdiction"
+    assert inst.extension[2].extension[6].valueCodeableConcept.coding[0].code == "OH"
+    assert inst.extension[2].extension[6].valueCodeableConcept.coding[0].display == "Ohio"
+    assert inst.extension[2].extension[6].valueCodeableConcept.coding[0].system == "https://www.usps.com/"
+    assert inst.extension[2].extension[7].url == "comment"
+    assert inst.extension[2].extension[7].valueString == (
     "Patient transitioned from male to female in 2001, but their "
     "birth certificate still indicates male."
     )
@@ -228,31 +224,27 @@ def impl_patient_4(inst):
     assert inst.extension[3].extension[0].valueCodeableConcept.coding[0].code == "male"
     assert inst.extension[3].extension[0].valueCodeableConcept.coding[0].display == "Male"
     assert inst.extension[3].extension[0].valueCodeableConcept.coding[0].system == "http://hl7.org/fhir/administrative-gender"
-    assert inst.extension[3].extension[1].url == "internationalEquivalent"
-    assert inst.extension[3].extension[1].valueCodeableConcept.coding[0].code == "M"
-    assert inst.extension[3].extension[1].valueCodeableConcept.coding[0].display == "Male"
-    assert inst.extension[3].extension[1].valueCodeableConcept.coding[0].system == "http://terminology.hl7.org/CodeSystem/icaosex"
-    assert inst.extension[3].extension[2].url == "type"
-    assert inst.extension[3].extension[2].valueCodeableConcept.coding[0].code == "insurance-card"
-    assert inst.extension[3].extension[2].valueCodeableConcept.coding[0].display == "Insurance Card"
-    assert inst.extension[3].extension[2].valueCodeableConcept.coding[0].system == "http://local-code-system.org/recorded-sex-or-gender-type"
-    assert inst.extension[3].extension[3].url == "effectivePeriod"
-    assert inst.extension[3].extension[3].valuePeriod.start == fhirtypes.DateTime.validate("2021-05-25")
-    assert inst.extension[3].extension[4].url == "acquisitionDate"
-    assert inst.extension[3].extension[4].valueDateTime == fhirtypes.DateTime.validate("2021-06-06")
-    assert inst.extension[3].extension[5].url == "sourceDocument"
-    assert inst.extension[3].extension[5].valueCodeableReference.reference.reference == "DocumentReference/2"
-    assert inst.extension[3].extension[6].url == "sourceField"
-    assert inst.extension[3].extension[6].valueString == "SEX"
-    assert inst.extension[3].extension[7].url == "jurisdiction"
-    assert inst.extension[3].extension[7].valueCodeableConcept.coding[0].code == "ICCA-P"
-    assert inst.extension[3].extension[7].valueCodeableConcept.coding[0].display == "Indigo Crucifix Cobalt Aegis Payer"
-    assert inst.extension[3].extension[7].valueCodeableConcept.coding[0].system == (
+    assert inst.extension[3].extension[1].url == "type"
+    assert inst.extension[3].extension[1].valueCodeableConcept.coding[0].code == "insurance-card"
+    assert inst.extension[3].extension[1].valueCodeableConcept.coding[0].display == "Insurance Card"
+    assert inst.extension[3].extension[1].valueCodeableConcept.coding[0].system == "http://local-code-system.org/recorded-sex-or-gender-type"
+    assert inst.extension[3].extension[2].url == "effectivePeriod"
+    assert inst.extension[3].extension[2].valuePeriod.start == fhirtypes.DateTime.validate("2021-05-25")
+    assert inst.extension[3].extension[3].url == "acquisitionDate"
+    assert inst.extension[3].extension[3].valueDateTime == fhirtypes.DateTime.validate("2021-06-06")
+    assert inst.extension[3].extension[4].url == "sourceDocument"
+    assert inst.extension[3].extension[4].valueCodeableReference.reference.reference == "DocumentReference/2"
+    assert inst.extension[3].extension[5].url == "sourceField"
+    assert inst.extension[3].extension[5].valueString == "SEX"
+    assert inst.extension[3].extension[6].url == "jurisdiction"
+    assert inst.extension[3].extension[6].valueCodeableConcept.coding[0].code == "ICCA-P"
+    assert inst.extension[3].extension[6].valueCodeableConcept.coding[0].display == "Indigo Crucifix Cobalt Aegis Payer"
+    assert inst.extension[3].extension[6].valueCodeableConcept.coding[0].system == (
     "http://local-code-system.org/recorded-sex-or-gender-"
     "jurisdiction"
     )
-    assert inst.extension[3].extension[8].url == "comment"
-    assert inst.extension[3].extension[8].valueString == (
+    assert inst.extension[3].extension[7].url == "comment"
+    assert inst.extension[3].extension[7].valueString == (
     "Patient transitioned from male to female in 2001, but their "
     "insurance card still indicates male."
     )
@@ -264,29 +256,25 @@ def impl_patient_4(inst):
     assert inst.extension[4].extension[0].valueCodeableConcept.coding[0].code == "M"
     assert inst.extension[4].extension[0].valueCodeableConcept.coding[0].display == "Male"
     assert inst.extension[4].extension[0].valueCodeableConcept.coding[0].system == "http://ohio.example.gov/drivers-license-sex"
-    assert inst.extension[4].extension[1].url == "internationalEquivalent"
-    assert inst.extension[4].extension[1].valueCodeableConcept.coding[0].code == "M"
-    assert inst.extension[4].extension[1].valueCodeableConcept.coding[0].display == "Male"
-    assert inst.extension[4].extension[1].valueCodeableConcept.coding[0].system == "http://terminology.hl7.org/CodeSystem/icaosex"
-    assert inst.extension[4].extension[2].url == "type"
-    assert inst.extension[4].extension[2].valueCodeableConcept.coding[0].code == "drivers-license"
-    assert inst.extension[4].extension[2].valueCodeableConcept.coding[0].display == "Driver's License"
-    assert inst.extension[4].extension[2].valueCodeableConcept.coding[0].system == (
+    assert inst.extension[4].extension[1].url == "type"
+    assert inst.extension[4].extension[1].valueCodeableConcept.coding[0].code == "drivers-license"
+    assert inst.extension[4].extension[1].valueCodeableConcept.coding[0].display == "Driver's License"
+    assert inst.extension[4].extension[1].valueCodeableConcept.coding[0].system == (
     "http://jurisdiction-specific.example.com/document-type-code-"
     "system"
     )
-    assert inst.extension[4].extension[3].url == "effectivePeriod"
-    assert inst.extension[4].extension[3].valuePeriod.start == fhirtypes.DateTime.validate("1974-12-25")
-    assert inst.extension[4].extension[4].url == "acquisitionDate"
-    assert inst.extension[4].extension[4].valueDateTime == fhirtypes.DateTime.validate("2005-12-06")
-    assert inst.extension[4].extension[5].url == "sourceDocument"
-    assert inst.extension[4].extension[5].valueCodeableReference.reference.reference == "DocumentReference/1"
-    assert inst.extension[4].extension[6].url == "jurisdiction"
-    assert inst.extension[4].extension[6].valueCodeableConcept.coding[0].code == "OH"
-    assert inst.extension[4].extension[6].valueCodeableConcept.coding[0].display == "Ohio"
-    assert inst.extension[4].extension[6].valueCodeableConcept.coding[0].system == "https://www.usps.com/"
-    assert inst.extension[4].extension[7].url == "comment"
-    assert inst.extension[4].extension[7].valueString == (
+    assert inst.extension[4].extension[2].url == "effectivePeriod"
+    assert inst.extension[4].extension[2].valuePeriod.start == fhirtypes.DateTime.validate("1974-12-25")
+    assert inst.extension[4].extension[3].url == "acquisitionDate"
+    assert inst.extension[4].extension[3].valueDateTime == fhirtypes.DateTime.validate("2005-12-06")
+    assert inst.extension[4].extension[4].url == "sourceDocument"
+    assert inst.extension[4].extension[4].valueCodeableReference.reference.reference == "DocumentReference/1"
+    assert inst.extension[4].extension[5].url == "jurisdiction"
+    assert inst.extension[4].extension[5].valueCodeableConcept.coding[0].code == "OH"
+    assert inst.extension[4].extension[5].valueCodeableConcept.coding[0].display == "Ohio"
+    assert inst.extension[4].extension[5].valueCodeableConcept.coding[0].system == "https://www.usps.com/"
+    assert inst.extension[4].extension[6].url == "comment"
+    assert inst.extension[4].extension[6].valueString == (
     "Patient transitioned from male to female in 2001, but their "
     "driver's license still indicates male."
     )
@@ -296,8 +284,11 @@ def impl_patient_4(inst):
     )
     assert inst.extension[5].extension[0].url == "value"
     assert inst.extension[5].extension[0].valueCodeableConcept.coding[0].code == "specified"
-    assert inst.extension[5].extension[0].valueCodeableConcept.coding[0].display == "Specified sex for clinical use"
-    assert inst.extension[5].extension[0].valueCodeableConcept.coding[0].system == "http://terminology.hl7.org/CodeSystem/sex-for-clinical-use"
+    assert inst.extension[5].extension[0].valueCodeableConcept.coding[0].display == "Apply specified setting or reference range"
+    assert inst.extension[5].extension[0].valueCodeableConcept.coding[0].system == (
+    "http://terminology.hl7.org/CodeSystem/sex-parameter-for-"
+    "clinical-use"
+    )
     assert inst.extension[5].extension[1].url == "period"
     assert inst.extension[5].extension[1].valuePeriod.start == fhirtypes.DateTime.validate("2002-07-13")
     assert inst.extension[5].extension[2].url == "comment"
@@ -305,10 +296,10 @@ def impl_patient_4(inst):
     assert inst.extension[5].extension[3].url == "supportingInfo"
     assert inst.extension[5].extension[3].valueCodeableReference.reference.reference == "Observation/1"
     assert inst.extension[5].extension[4].url == "supportingInfo"
-    assert inst.extension[5].extension[4].valueCodeableReference.reference.reference == "MedicationUsage/2"
+    assert inst.extension[5].extension[4].valueCodeableReference.reference.reference == "MedicationStatement/2"
     assert inst.extension[5].url == (
     "http://hl7.org/fhir/StructureDefinition/patient-"
-    "sexForClinicalUse"
+    "sexParameterForClinicalUse"
     )
     assert inst.gender == "male"
     assert inst.id == "patient-example-sex-and-gender"

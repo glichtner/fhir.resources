@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/CanonicalResource
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 import typing
 from pydantic import Field
@@ -83,10 +83,10 @@ class CanonicalResource(domainresource.DomainResource):
 		alias="date",
 		title="Date last changed",
 		description=(
-    "The date  (and optionally time) when the {{title}} was published. The "
-    "date must change when the business version changes and it must change "
-    "if the status code changes. In addition, it should change when the "
-    "substantive content of the {{title}} changes."
+    "The date  (and optionally time) when the {{title}} was last "
+    "significantly changed. The date must change when the business version "
+    "changes and it must change if the status code changes. In addition, it"
+    " should change when the substantive content of the {{title}} changes."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -121,7 +121,7 @@ class CanonicalResource(domainresource.DomainResource):
 		description=(
     "A Boolean value to indicate that this {{title}} is authored for "
     "testing purposes (or education/evaluation/marketing) and is not "
-    "intended to be used for genuine usage."
+    "intended for genuine usage."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -163,7 +163,7 @@ class CanonicalResource(domainresource.DomainResource):
 		title="Name for this {{title}} (computer friendly)",
 		description=(
     "A natural language name identifying the {{title}}. This name should be"
-    " usable as an identifier for the module by machine processing "
+    " usable as an identifier for the resource by machine processing "
     "applications such as code generation."
     ),
         # if property is element of this resource.
@@ -213,10 +213,7 @@ class CanonicalResource(domainresource.DomainResource):
 		None,
 		alias="status",
 		title="draft | active | retired | unknown",
-		description=(
-    "The status of this {{title}}. Enables tracking the life-cycle of the "
-    "content."
-    ),
+		description="The current state of this {{title}}. ",
         # if property is element of this resource.
         element_property=True,
         element_required=True,
@@ -278,7 +275,7 @@ class CanonicalResource(domainresource.DomainResource):
     "contexts that are listed. These contexts may be general categories "
     "(gender, age, ...) or may be references to specific programs "
     "(insurance plans, studies, ...) and may be used to assist with "
-    "indexing and searching for appropriate {{title}} instances."
+    "indexing and searching for appropriate {{title}}s."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -295,7 +292,8 @@ class CanonicalResource(domainresource.DomainResource):
     "expected to be globally unique. For example, it might be a timestamp "
     "(e.g. yyyymmdd) if a managed version is not available. There is also "
     "no expectation that versions can be placed in a lexicographical "
-    "sequence."
+    "sequence without additional knowledge.  (See the versionAlgorithm "
+    "element.)"
     ),
         # if property is element of this resource.
         element_property=True,

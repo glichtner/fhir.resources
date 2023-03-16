@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/CommunicationRequest
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 import typing
 from pydantic import Field
@@ -123,9 +123,13 @@ class CommunicationRequest(domainresource.DomainResource):
 		alias="groupIdentifier",
 		title="Composite request this is part of",
 		description=(
-    "A shared identifier common to all requests that were authorized more "
-    "or less simultaneously by a single author, representing the identifier"
-    " of the requisition, prescription or similar form."
+    "A shared identifier common to multiple independent Request instances "
+    "that were activated/authorized more or less simultaneously by a single"
+    " author.  The presence of the same identifier on each request ties "
+    "those requests together and may have business ramifications in terms "
+    "of reporting of results, billing, etc.  E.g. a requisition number "
+    "shared by a set of lab tests ordered together, or a prescription "
+    "number shared by all meds ordered at one time."
     ),
         # if property is element of this resource.
         element_property=True,

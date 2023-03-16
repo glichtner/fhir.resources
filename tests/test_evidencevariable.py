@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/EvidenceVariable
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 from pydantic.validators import bytes_validator  # noqa: F401
 from fhir.resources import fhirtypes  # noqa: F401
@@ -34,11 +34,13 @@ def impl_evidencevariable_1(inst):
     assert float(inst.characteristic[0].definitionByCombination.characteristic[1].timeFromEvent[0].quantity.value) == float(90)
     assert inst.characteristic[0].definitionByCombination.code == "any-of"
     assert inst.characteristic[0].description == "Dead or functionally dependent at 90 days"
+    assert inst.description == "Dead or functionally dependent at 90 days"
     assert inst.handling == "dichotomous"
     assert inst.id == "example-dead-or-dependent-90day"
     assert inst.meta.tag[0].code == "HTEST"
     assert inst.meta.tag[0].display == "test health data"
     assert inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
+    assert inst.name == "DeadOrFunctionallyDependentAt90Days"
     assert inst.status == "draft"
     assert inst.text.status == "generated"
     assert inst.title == "Dead or functionally dependent at 90 days"
@@ -73,10 +75,12 @@ def impl_evidencevariable_2(inst):
     assert inst.characteristic[0].definitionCodeableConcept.coding[0].system == "http://www.nlm.nih.gov/research/umls/rxnorm"
     assert inst.characteristic[0].description == "no alteplase"
     assert inst.characteristic[0].exclude is True
+    assert inst.description == "no alteplase"
     assert inst.id == "example-no-alteplase"
     assert inst.meta.tag[0].code == "HTEST"
     assert inst.meta.tag[0].display == "test health data"
     assert inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
+    assert inst.name == "NoAlteplase"
     assert inst.status == "draft"
     assert inst.text.status == "generated"
     assert inst.title == "no alteplase"
@@ -120,11 +124,13 @@ def impl_evidencevariable_3(inst):
     assert inst.characteristic[0].timeFromEvent[0].quantity.system == "http://unitsofmeasure.org"
     assert inst.characteristic[0].timeFromEvent[0].quantity.unit == "day"
     assert float(inst.characteristic[0].timeFromEvent[0].quantity.value) == float(90)
+    assert inst.description == "Modified Rankin Scale score 3-6 at 90 days after treatment"
     assert inst.handling == "dichotomous"
     assert inst.id == "example-mRS3-6-at-90days"
     assert inst.meta.tag[0].code == "HTEST"
     assert inst.meta.tag[0].display == "test health data"
     assert inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
+    assert inst.name == "ModifiedRankinScaleScore36At90DaysAfterTreatment"
     assert inst.status == "draft"
     assert inst.text.status == "generated"
     assert inst.title == "Modified Rankin Scale score 3-6 at 90 days after treatment"
@@ -183,11 +189,13 @@ def impl_evidencevariable_4(inst):
     assert inst.characteristic[1].timeFromEvent[0].range.low.system == "http://unitsofmeasure.org"
     assert inst.characteristic[1].timeFromEvent[0].range.low.unit == "day"
     assert float(inst.characteristic[1].timeFromEvent[0].range.low.value) == float(0)
+    assert inst.description == "Fatal Intracranial Hemorrhage Within Seven Days"
     assert inst.handling == "dichotomous"
     assert inst.id == "example-fatal-ICH-in-7-days"
     assert inst.meta.tag[0].code == "HTEST"
     assert inst.meta.tag[0].display == "test health data"
     assert inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
+    assert inst.name == "FatalIntracranialHemorrhageWithinSevenDays"
     assert inst.note[0].text == "Death must be due to intracranial hemorrhage"
     assert inst.status == "draft"
     assert inst.text.status == "generated"
@@ -244,6 +252,10 @@ def impl_evidencevariable_5(inst):
     "Stroke Thrombolysis Trialists’ Collaborators Group "
     "collection used for individual patient data meta-analysis"
     )
+    assert inst.description == (
+    "Stroke Thrombolysis Trialists’ Collaborators Group "
+    "collection used for individual patient data meta-analysis"
+    )
     assert inst.id == (
     "example-Stroke-Thrombolysis-Trialists-2014-2016-IPD-MA-"
     "Cohort"
@@ -251,7 +263,7 @@ def impl_evidencevariable_5(inst):
     assert inst.meta.tag[0].code == "HTEST"
     assert inst.meta.tag[0].display == "test health data"
     assert inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
-    assert inst.name == "Stroke Thrombolysis Trialists’ 2014-2016 IPD-MA Cohort"
+    assert inst.name == "StrokeThrombolysisTrialists20142016IPDMACohort"
     assert inst.relatedArtifact[0].document.url == "https://doi.org/10.1016/S0140-6736(14)60584-5"
     assert inst.relatedArtifact[0].label == "Emberson 2014"
     assert inst.relatedArtifact[0].type == "citation"
@@ -305,11 +317,13 @@ def impl_evidencevariable_6(inst):
     assert inst.characteristic[0].timeFromEvent[0].quantity.system == "http://unitsofmeasure.org"
     assert inst.characteristic[0].timeFromEvent[0].quantity.unit == "day"
     assert float(inst.characteristic[0].timeFromEvent[0].quantity.value) == float(90)
+    assert inst.description == "Modified Rankin Scale score 0-2 at 90 days after treatment"
     assert inst.handling == "dichotomous"
     assert inst.id == "example-mRS0-2-at-90days"
     assert inst.meta.tag[0].code == "HTEST"
     assert inst.meta.tag[0].display == "test health data"
     assert inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
+    assert inst.name == "ModifiedRankinScaleScore02At90DaysAfterTreatment"
     assert inst.status == "draft"
     assert inst.text.status == "generated"
     assert inst.title == "Modified Rankin Scale score 0-2 at 90 days after treatment"
@@ -356,12 +370,13 @@ def impl_evidencevariable_7(inst):
     "'Wardlaw 2014 Analysis 1.16.3 Evidence set' is a grouping of"
     " six Evidence results used in a meta-analysis."
     )
+    assert inst.description == "Wardlaw 2014  Analysis 1.16.3  Evidence set"
     assert inst.handling == "dichotomous"
     assert inst.id == "example-Wardlaw2014Analysis1.16.3EvidenceSet"
     assert inst.meta.tag[0].code == "HTEST"
     assert inst.meta.tag[0].display == "test health data"
     assert inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
-    assert inst.name == "Wardlaw 2014 Analysis 1.16.3 Evidence set"
+    assert inst.name == "Wardlaw2014Analysis1163EvidenceSet"
     assert inst.note[0].text == (
     "Short names for Evidence sources are detailed in 'References"
     " to studies included in this review'"
@@ -377,7 +392,7 @@ def impl_evidencevariable_7(inst):
     assert inst.relatedArtifact[0].type == "citation"
     assert inst.status == "draft"
     assert inst.text.status == "generated"
-    assert inst.title == "Wardlaw 2014 Analysis 1.16.3 Evidence set"
+    assert inst.title == "Wardlaw 2014  Analysis 1.16.3  Evidence set"
 
 
 def test_evidencevariable_7(base_settings):
@@ -616,6 +631,10 @@ def impl_evidencevariable_8(inst):
     assert inst.meta.tag[0].code == "HTEST"
     assert inst.meta.tag[0].display == "test health data"
     assert inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
+    assert inst.name == (
+    "StudyEligibilityCriteriaEligibilityCriteriaForBariatricSurge"
+    "ryRandomizedTrialDiabetesSurgeryStudy"
+    )
     assert inst.publisher == "Computable Publishing LLC"
     assert inst.status == "active"
     assert inst.text.status == "generated"
@@ -657,10 +676,12 @@ def impl_evidencevariable_9(inst):
     "IV alteplase 0.9 mg/kg (maximum 90 mg) as 10% of dose over 1"
     " minute and 90% over 1 hour"
     )
+    assert inst.description == "Alteplase for Stroke"
     assert inst.id == "example-alteplase-for-stroke"
     assert inst.meta.tag[0].code == "HTEST"
     assert inst.meta.tag[0].display == "test health data"
     assert inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
+    assert inst.name == "AlteplaseForStroke"
     assert inst.status == "draft"
     assert inst.text.status == "generated"
     assert inst.title == "Alteplase for Stroke"
@@ -694,10 +715,12 @@ def impl_evidencevariable_10(inst):
     assert inst.characteristic[0].definitionCodeableConcept.coding[0].display == "Placebo given (situation)"
     assert inst.characteristic[0].definitionCodeableConcept.coding[0].system == "http://snomed.info/sct"
     assert inst.characteristic[0].description == "placebo"
+    assert inst.description == "placebo"
     assert inst.id == "example-placebo"
     assert inst.meta.tag[0].code == "HTEST"
     assert inst.meta.tag[0].display == "test health data"
     assert inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
+    assert inst.name == "Placebo"
     assert inst.status == "draft"
     assert inst.text.status == "generated"
     assert inst.title == "placebo"

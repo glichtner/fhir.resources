@@ -1,6 +1,6 @@
-=========================================
-FHIR® Resources (Release R5 5.0.0-ballot)
-=========================================
+==============================================
+FHIR® Resources (Release R5 5.0.0-draft-final)
+==============================================
 
 .. image:: https://www.hl7.org/fhir/assets/images/fhir-logo-www.png
         :target: https://www.hl7.org/implement/standards/product_brief.cfm?product_id=449
@@ -17,12 +17,12 @@ data validation, faster in performance and optionally ``orjson`` support has bee
 
 Package Origin
 --------------
-Forked from https://github.com/nazrulworld/fhir.resources, recreated to only include FHIR Release R5 5.0.0-ballot resources.
+Forked from https://github.com/nazrulworld/fhir.resources, recreated to only include FHIR Release R5 5.0.0-draft-final resources.
 
 FHIR® Version Info
 ------------------
 
-FHIR® (Release R5, version 5.0.0-ballot) - https://hl7.org/fhir/2022Sep/
+FHIR® (Release R5, version 5.0.0-draft-final) - https://hl7.org/fhir/5.0.0-draft-final/
 
 Installation
 ------------
@@ -36,13 +36,14 @@ Install from github:
 
 FHIR class creation
 -------------------
-The classes in this package were created using the fhir-parser_ package, cloned from https://github.com/nazrulworld/fhir-parser. To create the classes yourself, clone fhir-parser_ and run generate.py:
+The classes in this package were created using the fhir-parser_ package, cloned from https://github.com/glichtner/fhir-parser.git. To create the classes yourself, clone fhir-parser_ and run generate.py:
 
 .. code-block:: shell
 
     $ git clone https://github.com/glichtner/fhir-parser.git
     $ cd fhir-parser
-    $ ./generate.py
+    $ ./generate.py --fhir-release 5.0.0-draft-final
+    $ mv generated/* <path-to-fhir.resources>
 
 
 Usages

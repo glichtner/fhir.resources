@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/GraphDefinition
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 import typing
 from pydantic import Field
@@ -42,15 +42,53 @@ class GraphDefinition(domainresource.DomainResource):
         element_property=True,
 	)
 	
+    copyright: fhirtypes.Markdown = Field(
+		None,
+		alias="copyright",
+		title="Use and/or publishing restrictions",
+		description=(
+    "A copyright statement relating to the graph definition and/or its "
+    "contents. Copyright statements are generally legal restrictions on the"
+    " use and publishing of the graph definition."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+	)
+    copyright__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
+        None,
+        alias="_copyright",
+        title="Extension field for ``copyright``."
+    )
+	
+    copyrightLabel: fhirtypes.String = Field(
+		None,
+		alias="copyrightLabel",
+		title="Copyright holder and year(s)",
+		description=(
+    "A short string (<50 characters), suitable for inclusion in a page "
+    "footer that identifies the copyright holder, effective period, and "
+    "optionally whether rights are resctricted. (e.g. 'All rights "
+    "reserved', 'Some rights reserved')."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+	)
+    copyrightLabel__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
+        None,
+        alias="_copyrightLabel",
+        title="Extension field for ``copyrightLabel``."
+    )
+	
     date: fhirtypes.DateTime = Field(
 		None,
 		alias="date",
 		title="Date last changed",
 		description=(
-    "The date  (and optionally time) when the graph definition was "
-    "published. The date must change when the business version changes and "
-    "it must change if the status code changes. In addition, it should "
-    "change when the substantive content of the graph definition changes."
+    "The date  (and optionally time) when the graph definition was last "
+    "significantly changed. The date must change when the business version "
+    "changes and it must change if the status code changes. In addition, it"
+    " should change when the substantive content of the graph definition "
+    "changes."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -96,6 +134,19 @@ class GraphDefinition(domainresource.DomainResource):
         title="Extension field for ``experimental``."
     )
 	
+    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+		None,
+		alias="identifier",
+		title="Additional identifier for the GraphDefinition (business identifier)",
+		description=(
+    "A formal identifier that is used to identify this GraphDefinition when"
+    " it is represented in other formats, or referenced in a specification,"
+    " model, design or an instance."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+	)
+	
     jurisdiction: typing.List[fhirtypes.CodeableConceptType] = Field(
 		None,
 		alias="jurisdiction",
@@ -136,21 +187,14 @@ class GraphDefinition(domainresource.DomainResource):
         title="Extension field for ``name``."
     )
 	
-    profile: fhirtypes.Canonical = Field(
+    node: typing.List[fhirtypes.GraphDefinitionNodeType] = Field(
 		None,
-		alias="profile",
-		title="Profile on base resource",
-		description="The profile that describes the use of the base resource.",
+		alias="node",
+		title="Potential target for the link",
+		description=None,
         # if property is element of this resource.
         element_property=True,
-        # note: Listed Resource Type(s) should be allowed as Reference.
-		enum_reference_types=["StructureDefinition"],
 	)
-    profile__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
-        None,
-        alias="_profile",
-        title="Extension field for ``profile``."
-    )
 	
     publisher: fhirtypes.String = Field(
 		None,
@@ -186,14 +230,16 @@ class GraphDefinition(domainresource.DomainResource):
         title="Extension field for ``purpose``."
     )
 	
-    start: fhirtypes.Code = Field(
+    start: fhirtypes.Id = Field(
 		None,
 		alias="start",
-		title="Type of resource at which the graph starts",
-		description="The type of FHIR resource at which instances of this graph start.",
+		title="Starting Node",
+		description=(
+    "The Node at which instances of this graph start. If there is no "
+    "nominated start, the graph can start at any of the nodes."
+    ),
         # if property is element of this resource.
         element_property=True,
-        element_required=True,
 	)
     start__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
         None,
@@ -341,7 +387,7 @@ class GraphDefinition(domainresource.DomainResource):
         ``GraphDefinition`` according specification,
         with preserving original sequence order.
         """
-        return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "url", "version", "versionAlgorithmString", "versionAlgorithmCoding", "name", "title", "status", "experimental", "date", "publisher", "contact", "description", "useContext", "jurisdiction", "purpose", "start", "profile", "link"]
+        return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "url", "identifier", "version", "versionAlgorithmString", "versionAlgorithmCoding", "name", "title", "status", "experimental", "date", "publisher", "contact", "description", "useContext", "jurisdiction", "purpose", "copyright", "copyrightLabel", "start", "node", "link"]
 
 
     @root_validator(pre=True, allow_reuse=True)
@@ -357,7 +403,6 @@ class GraphDefinition(domainresource.DomainResource):
         """
         required_fields = [
 			("name", "name__ext"),
-			("start", "start__ext"),
 			("status", "status__ext")]
         _missing = object()
 
@@ -459,6 +504,15 @@ class GraphDefinitionLink(backboneelement.BackboneElement):
     """
     resource_type = Field("GraphDefinitionLink", const=True)
 	
+    compartment: typing.List[fhirtypes.GraphDefinitionLinkCompartmentType] = Field(
+		None,
+		alias="compartment",
+		title="Compartment Consistency Rules",
+		description=None,
+        # if property is element of this resource.
+        element_property=True,
+	)
+	
     description: fhirtypes.String = Field(
 		None,
 		alias="description",
@@ -504,6 +558,20 @@ class GraphDefinitionLink(backboneelement.BackboneElement):
         title="Extension field for ``min``."
     )
 	
+    params: fhirtypes.String = Field(
+		None,
+		alias="params",
+		title="Criteria for reverse lookup",
+		description="A set of parameters to look up.",
+        # if property is element of this resource.
+        element_property=True,
+	)
+    params__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
+        None,
+        alias="_params",
+        title="Extension field for ``params``."
+    )
+	
     path: fhirtypes.String = Field(
 		None,
 		alias="path",
@@ -535,106 +603,46 @@ class GraphDefinitionLink(backboneelement.BackboneElement):
         title="Extension field for ``sliceName``."
     )
 	
-    target: typing.List[fhirtypes.GraphDefinitionLinkTargetType] = Field(
+    sourceId: fhirtypes.Id = Field(
 		None,
-		alias="target",
-		title="Potential target for the link",
-		description=None,
+		alias="sourceId",
+		title="Source Node for this link",
+		description="The source node for this link.",
         # if property is element of this resource.
         element_property=True,
+        element_required=True,
 	)
+    sourceId__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
+        None,
+        alias="_sourceId",
+        title="Extension field for ``sourceId``."
+    )
+	
+    targetId: fhirtypes.Id = Field(
+		None,
+		alias="targetId",
+		title="Target Node for this link",
+		description="The target node for this link.",
+        # if property is element of this resource.
+        element_property=True,
+        element_required=True,
+	)
+    targetId__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
+        None,
+        alias="_targetId",
+        title="Extension field for ``targetId``."
+    )
     @classmethod
     def elements_sequence(cls):
         """returning all elements names from
         ``GraphDefinitionLink`` according specification,
         with preserving original sequence order.
         """
-        return ["id", "extension", "modifierExtension", "path", "sliceName", "min", "max", "description", "target"]
-
-
-
-class GraphDefinitionLinkTarget(backboneelement.BackboneElement):
-    """Disclaimer: Any field name ends with ``__ext`` doesn't part of
-    Resource StructureDefinition, instead used to enable Extensibility feature
-    for FHIR Primitive Data Types.
-
-    Potential target for the link.
-    """
-    resource_type = Field("GraphDefinitionLinkTarget", const=True)
-	
-    compartment: typing.List[fhirtypes.GraphDefinitionLinkTargetCompartmentType] = Field(
-		None,
-		alias="compartment",
-		title="Compartment Consistency Rules",
-		description=None,
-        # if property is element of this resource.
-        element_property=True,
-	)
-	
-    link: typing.List[fhirtypes.GraphDefinitionLinkType] = Field(
-		None,
-		alias="link",
-		title="Additional links from target resource",
-		description=None,
-        # if property is element of this resource.
-        element_property=True,
-	)
-	
-    params: fhirtypes.String = Field(
-		None,
-		alias="params",
-		title="Criteria for reverse lookup",
-		description="A set of parameters to look up.",
-        # if property is element of this resource.
-        element_property=True,
-	)
-    params__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
-        None,
-        alias="_params",
-        title="Extension field for ``params``."
-    )
-	
-    profile: fhirtypes.Canonical = Field(
-		None,
-		alias="profile",
-		title="Profile for the target resource",
-		description=None,
-        # if property is element of this resource.
-        element_property=True,
-        # note: Listed Resource Type(s) should be allowed as Reference.
-		enum_reference_types=["StructureDefinition"],
-	)
-    profile__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
-        None,
-        alias="_profile",
-        title="Extension field for ``profile``."
-    )
-	
-    type: fhirtypes.Code = Field(
-		None,
-		alias="type",
-		title="Type of resource this link refers to",
-		description=None,
-        # if property is element of this resource.
-        element_property=True,
-        element_required=True,
-	)
-    type__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
-        None,
-        alias="_type",
-        title="Extension field for ``type``."
-    )
-    @classmethod
-    def elements_sequence(cls):
-        """returning all elements names from
-        ``GraphDefinitionLinkTarget`` according specification,
-        with preserving original sequence order.
-        """
-        return ["id", "extension", "modifierExtension", "type", "params", "profile", "compartment", "link"]
+        return ["id", "extension", "modifierExtension", "description", "min", "max", "sourceId", "path", "sliceName", "targetId", "params", "compartment"]
 
 
     @root_validator(pre=True, allow_reuse=True)
-    def validate_required_primitive_elements_2731(
+    def validate_required_primitive_elements_2107(
         cls, values: typing.Dict[str, typing.Any]
     ) -> typing.Dict[str, typing.Any]:
         """https://www.hl7.org/fhir/extensibility.html#Special-Case
@@ -645,7 +653,8 @@ class GraphDefinitionLinkTarget(backboneelement.BackboneElement):
         the primitive value is not present.
         """
         required_fields = [
-			("type", "type__ext")]
+			("sourceId", "sourceId__ext"),
+			("targetId", "targetId__ext")]
         _missing = object()
 
         def _fallback():
@@ -694,26 +703,29 @@ class GraphDefinitionLinkTarget(backboneelement.BackboneElement):
         return values
 
 
-class GraphDefinitionLinkTargetCompartment(backboneelement.BackboneElement):
+class GraphDefinitionLinkCompartment(backboneelement.BackboneElement):
     """Disclaimer: Any field name ends with ``__ext`` doesn't part of
     Resource StructureDefinition, instead used to enable Extensibility feature
     for FHIR Primitive Data Types.
 
     Compartment Consistency Rules.
     """
-    resource_type = Field("GraphDefinitionLinkTargetCompartment", const=True)
+    resource_type = Field("GraphDefinitionLinkCompartment", const=True)
 	
     code: fhirtypes.Code = Field(
 		None,
 		alias="code",
-		title="Patient | Encounter | RelatedPerson | Practitioner | Device",
+		title=(
+    "Patient | Encounter | RelatedPerson | Practitioner | Device | "
+    "EpisodeOfCare"
+    ),
 		description="Identifies the compartment.",
         # if property is element of this resource.
         element_property=True,
         element_required=True,
         # note: Enum values can be used in validation,
         # but use in your own responsibilities, read official FHIR documentation.
-		enum_values=["Patient", "Encounter", "RelatedPerson", "Practitioner", "Device"],
+		enum_values=["Patient", "Encounter", "RelatedPerson", "Practitioner", "Device", "EpisodeOfCare"],
 	)
     code__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
         None,
@@ -770,7 +782,7 @@ class GraphDefinitionLinkTargetCompartment(backboneelement.BackboneElement):
     use: fhirtypes.Code = Field(
 		None,
 		alias="use",
-		title="condition | requirement",
+		title="where | requires",
 		description=(
     "Defines how the compartment rule is used - whether it it is used to "
     "test whether resources are subject to the rule, or whether it is a "
@@ -781,7 +793,7 @@ class GraphDefinitionLinkTargetCompartment(backboneelement.BackboneElement):
         element_required=True,
         # note: Enum values can be used in validation,
         # but use in your own responsibilities, read official FHIR documentation.
-		enum_values=["condition", "requirement"],
+		enum_values=["where", "requires"],
 	)
     use__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
         None,
@@ -791,14 +803,14 @@ class GraphDefinitionLinkTargetCompartment(backboneelement.BackboneElement):
     @classmethod
     def elements_sequence(cls):
         """returning all elements names from
-        ``GraphDefinitionLinkTargetCompartment`` according specification,
+        ``GraphDefinitionLinkCompartment`` according specification,
         with preserving original sequence order.
         """
-        return ["id", "extension", "modifierExtension", "use", "code", "rule", "expression", "description"]
+        return ["id", "extension", "modifierExtension", "use", "rule", "code", "expression", "description"]
 
 
     @root_validator(pre=True, allow_reuse=True)
-    def validate_required_primitive_elements_3893(
+    def validate_required_primitive_elements_3278(
         cls, values: typing.Dict[str, typing.Any]
     ) -> typing.Dict[str, typing.Any]:
         """https://www.hl7.org/fhir/extensibility.html#Special-Case
@@ -812,6 +824,148 @@ class GraphDefinitionLinkTargetCompartment(backboneelement.BackboneElement):
 			("code", "code__ext"),
 			("rule", "rule__ext"),
 			("use", "use__ext")]
+        _missing = object()
+
+        def _fallback():
+            return ""
+
+        errors: typing.List["ErrorWrapper"] = []
+        for name, ext in required_fields:
+            field = cls.__fields__[name]
+            ext_field = cls.__fields__[ext]
+            value = values.get(field.alias, _missing)
+            if value not in (_missing, None):
+                continue
+            ext_value = values.get(ext_field.alias, _missing)
+            missing_ext = True
+            if ext_value not in (_missing, None):
+                if isinstance(ext_value, dict):
+                    missing_ext = len(ext_value.get("extension", [])) == 0
+                elif (
+                    getattr(ext_value.__class__, "get_resource_type", _fallback)()
+                    == "FHIRPrimitiveExtension"
+                ):
+                    if ext_value.extension and len(ext_value.extension) > 0:
+                        missing_ext = False
+                else:
+                    validate_pass = True
+                    for validator in ext_field.type_.__get_validators__():
+                        try:
+                            ext_value = validator(v=ext_value)
+                        except ValidationError as exc:
+                            errors.append(ErrorWrapper(exc, loc=ext_field.alias))
+                            validate_pass = False
+                    if not validate_pass:
+                        continue
+                    if ext_value.extension and len(ext_value.extension) > 0:
+                        missing_ext = False
+            if missing_ext:
+                if value is _missing:
+                    errors.append(ErrorWrapper(MissingError(), loc=field.alias))
+                else:
+                    errors.append(
+                        ErrorWrapper(NoneIsNotAllowedError(), loc=field.alias)
+                    )
+        if len(errors) > 0:
+            raise ValidationError(errors, cls)  # type: ignore
+
+        return values
+
+
+class GraphDefinitionNode(backboneelement.BackboneElement):
+    """Disclaimer: Any field name ends with ``__ext`` doesn't part of
+    Resource StructureDefinition, instead used to enable Extensibility feature
+    for FHIR Primitive Data Types.
+
+    Potential target for the link.
+    """
+    resource_type = Field("GraphDefinitionNode", const=True)
+	
+    description: fhirtypes.String = Field(
+		None,
+		alias="description",
+		title="Why this node is specified",
+		description=(
+    "Information about why this node is of interest in this graph "
+    "definition."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+	)
+    description__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
+        None,
+        alias="_description",
+        title="Extension field for ``description``."
+    )
+	
+    nodeId: fhirtypes.Id = Field(
+		None,
+		alias="nodeId",
+		title="Internal ID - target for link references",
+		description="Internal ID of node - target for link references.",
+        # if property is element of this resource.
+        element_property=True,
+        element_required=True,
+	)
+    nodeId__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
+        None,
+        alias="_nodeId",
+        title="Extension field for ``nodeId``."
+    )
+	
+    profile: fhirtypes.Canonical = Field(
+		None,
+		alias="profile",
+		title="Profile for the target resource",
+		description=None,
+        # if property is element of this resource.
+        element_property=True,
+        # note: Listed Resource Type(s) should be allowed as Reference.
+		enum_reference_types=["StructureDefinition"],
+	)
+    profile__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
+        None,
+        alias="_profile",
+        title="Extension field for ``profile``."
+    )
+	
+    type: fhirtypes.Code = Field(
+		None,
+		alias="type",
+		title="Type of resource this link refers to",
+		description=None,
+        # if property is element of this resource.
+        element_property=True,
+        element_required=True,
+	)
+    type__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
+        None,
+        alias="_type",
+        title="Extension field for ``type``."
+    )
+    @classmethod
+    def elements_sequence(cls):
+        """returning all elements names from
+        ``GraphDefinitionNode`` according specification,
+        with preserving original sequence order.
+        """
+        return ["id", "extension", "modifierExtension", "nodeId", "description", "type", "profile"]
+
+
+    @root_validator(pre=True, allow_reuse=True)
+    def validate_required_primitive_elements_2093(
+        cls, values: typing.Dict[str, typing.Any]
+    ) -> typing.Dict[str, typing.Any]:
+        """https://www.hl7.org/fhir/extensibility.html#Special-Case
+        In some cases, implementers might find that they do not have appropriate data for
+        an element with minimum cardinality = 1. In this case, the element must be present,
+        but unless the resource or a profile on it has made the actual value of the primitive
+        data type mandatory, it is possible to provide an extension that explains why
+        the primitive value is not present.
+        """
+        required_fields = [
+			("nodeId", "nodeId__ext"),
+			("type", "type__ext")]
         _missing = object()
 
         def _fallback():

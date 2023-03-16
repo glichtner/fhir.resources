@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/ElementDefinition
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 import typing
 from pydantic import Field
@@ -51,7 +51,7 @@ class ElementDefinition(backbonetype.BackboneType):
     "Information about the base definition of the element, provided to make"
     " it unnecessary for tools to trace the deviation of the element "
     "through the derived and related profiles. When the element definition "
-    "is not the original definition of an element - i.g. either in a "
+    "is not the original definition of an element - e.g. either in a "
     "constraint on another type, or for elements from a super type in a "
     "snap shot - then the information in provided in the element definition"
     " may be different to the base definition. On the original definition "
@@ -2179,7 +2179,9 @@ class ElementDefinition(backbonetype.BackboneType):
     "qualification codes. The effect of this is that the element cannot be "
     "ignored by systems: they SHALL either recognize the element and "
     "process it, and/or a pre-determination has been made that it is not "
-    "relevant to their particular system."
+    "relevant to their particular system. When used on the root element in "
+    "an extension definition, this indicates whether or not the extension "
+    "is a modifier extension."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -2280,7 +2282,9 @@ class ElementDefinition(backbonetype.BackboneType):
     "present in conformant instances and which is expected to be supported "
     "by conformant consumers that support the element. ```maxLength``` "
     "SHOULD only be used on primitive data types that have a string "
-    "representation (see [Datatype characteristics](extension-"
+    "representation (see "
+    "[http://hl7.org/fhir/StructureDefinition/structuredefinition-type-"
+    "characteristics](http://hl7.org/fhir/extensions/StructureDefinition-"
     "structuredefinition-type-characteristics.html))."
     ),
         # if property is element of this resource.
@@ -2733,16 +2737,37 @@ class ElementDefinition(backbonetype.BackboneType):
         title="Extension field for ``minValueUnsignedInt``."
     )
 	
+    mustHaveValue: bool = Field(
+		None,
+		alias="mustHaveValue",
+		title=(
+    "For primitives, that a value must be present - not replaced by an "
+    "extension"
+    ),
+		description=(
+    "Specifies for a primitive data type that the value of the data type "
+    "cannot be replaced by an extension."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+	)
+    mustHaveValue__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
+        None,
+        alias="_mustHaveValue",
+        title="Extension field for ``mustHaveValue``."
+    )
+	
     mustSupport: bool = Field(
 		None,
 		alias="mustSupport",
-		title="If the element must be supported",
+		title="If the element must be supported (discouraged - see obligations)",
 		description=(
     "If true, implementations that produce or consume resources SHALL "
-    "provide \"support\" for the element in some meaningful way.  If false, "
-    "the element may be ignored and not supported. If false, whether to "
-    "populate or use the data element in any way is at the discretion of "
-    "the implementation."
+    "provide \"support\" for the element in some meaningful way. Note that "
+    "this is being phased out and replaced by obligations (see below).  If "
+    "false, the element may be ignored and not supported. If false, whether"
+    " to populate or use the data element in any way is at the discretion "
+    "of the implementation."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -4801,13 +4826,32 @@ class ElementDefinition(backbonetype.BackboneType):
         # if property is element of this resource.
         element_property=True,
 	)
+	
+    valueAlternatives: typing.List[fhirtypes.Canonical] = Field(
+		None,
+		alias="valueAlternatives",
+		title="Extensions that are allowed to replace a primitive value",
+		description=(
+    "Specifies a list of extensions that can appear in place of a primitive"
+    " value."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+        # note: Listed Resource Type(s) should be allowed as Reference.
+		enum_reference_types=["StructureDefinition"],
+	)
+    valueAlternatives__ext: typing.List[typing.Union[fhirtypes.FHIRPrimitiveExtensionType, None]] = Field(
+        None,
+        alias="_valueAlternatives",
+        title="Extension field for ``valueAlternatives``."
+    )
     @classmethod
     def elements_sequence(cls):
         """returning all elements names from
         ``ElementDefinition`` according specification,
         with preserving original sequence order.
         """
-        return ["id", "extension", "modifierExtension", "path", "representation", "sliceName", "sliceIsConstraining", "label", "code", "slicing", "short", "definition", "comment", "requirements", "alias", "min", "max", "base", "contentReference", "type", "defaultValueBase64Binary", "defaultValueBoolean", "defaultValueCanonical", "defaultValueCode", "defaultValueDate", "defaultValueDateTime", "defaultValueDecimal", "defaultValueId", "defaultValueInstant", "defaultValueInteger", "defaultValueInteger64", "defaultValueMarkdown", "defaultValueOid", "defaultValuePositiveInt", "defaultValueString", "defaultValueTime", "defaultValueUnsignedInt", "defaultValueUri", "defaultValueUrl", "defaultValueUuid", "defaultValueAddress", "defaultValueAge", "defaultValueAnnotation", "defaultValueAttachment", "defaultValueCodeableConcept", "defaultValueCodeableReference", "defaultValueCoding", "defaultValueContactPoint", "defaultValueCount", "defaultValueDistance", "defaultValueDuration", "defaultValueHumanName", "defaultValueIdentifier", "defaultValueMoney", "defaultValuePeriod", "defaultValueQuantity", "defaultValueRange", "defaultValueRatio", "defaultValueRatioRange", "defaultValueReference", "defaultValueSampledData", "defaultValueSignature", "defaultValueTiming", "defaultValueContactDetail", "defaultValueDataRequirement", "defaultValueExpression", "defaultValueParameterDefinition", "defaultValueRelatedArtifact", "defaultValueTriggerDefinition", "defaultValueUsageContext", "defaultValueAvailability", "defaultValueExtendedContactDetail", "defaultValueDosage", "defaultValueMeta", "meaningWhenMissing", "orderMeaning", "fixedBase64Binary", "fixedBoolean", "fixedCanonical", "fixedCode", "fixedDate", "fixedDateTime", "fixedDecimal", "fixedId", "fixedInstant", "fixedInteger", "fixedInteger64", "fixedMarkdown", "fixedOid", "fixedPositiveInt", "fixedString", "fixedTime", "fixedUnsignedInt", "fixedUri", "fixedUrl", "fixedUuid", "fixedAddress", "fixedAge", "fixedAnnotation", "fixedAttachment", "fixedCodeableConcept", "fixedCodeableReference", "fixedCoding", "fixedContactPoint", "fixedCount", "fixedDistance", "fixedDuration", "fixedHumanName", "fixedIdentifier", "fixedMoney", "fixedPeriod", "fixedQuantity", "fixedRange", "fixedRatio", "fixedRatioRange", "fixedReference", "fixedSampledData", "fixedSignature", "fixedTiming", "fixedContactDetail", "fixedDataRequirement", "fixedExpression", "fixedParameterDefinition", "fixedRelatedArtifact", "fixedTriggerDefinition", "fixedUsageContext", "fixedAvailability", "fixedExtendedContactDetail", "fixedDosage", "fixedMeta", "patternBase64Binary", "patternBoolean", "patternCanonical", "patternCode", "patternDate", "patternDateTime", "patternDecimal", "patternId", "patternInstant", "patternInteger", "patternInteger64", "patternMarkdown", "patternOid", "patternPositiveInt", "patternString", "patternTime", "patternUnsignedInt", "patternUri", "patternUrl", "patternUuid", "patternAddress", "patternAge", "patternAnnotation", "patternAttachment", "patternCodeableConcept", "patternCodeableReference", "patternCoding", "patternContactPoint", "patternCount", "patternDistance", "patternDuration", "patternHumanName", "patternIdentifier", "patternMoney", "patternPeriod", "patternQuantity", "patternRange", "patternRatio", "patternRatioRange", "patternReference", "patternSampledData", "patternSignature", "patternTiming", "patternContactDetail", "patternDataRequirement", "patternExpression", "patternParameterDefinition", "patternRelatedArtifact", "patternTriggerDefinition", "patternUsageContext", "patternAvailability", "patternExtendedContactDetail", "patternDosage", "patternMeta", "example", "minValueDate", "minValueDateTime", "minValueInstant", "minValueTime", "minValueDecimal", "minValueInteger", "minValueInteger64", "minValuePositiveInt", "minValueUnsignedInt", "minValueQuantity", "maxValueDate", "maxValueDateTime", "maxValueInstant", "maxValueTime", "maxValueDecimal", "maxValueInteger", "maxValueInteger64", "maxValuePositiveInt", "maxValueUnsignedInt", "maxValueQuantity", "maxLength", "condition", "constraint", "mustSupport", "isModifier", "isModifierReason", "isSummary", "binding", "mapping"]
+        return ["id", "extension", "modifierExtension", "path", "representation", "sliceName", "sliceIsConstraining", "label", "code", "slicing", "short", "definition", "comment", "requirements", "alias", "min", "max", "base", "contentReference", "type", "defaultValueBase64Binary", "defaultValueBoolean", "defaultValueCanonical", "defaultValueCode", "defaultValueDate", "defaultValueDateTime", "defaultValueDecimal", "defaultValueId", "defaultValueInstant", "defaultValueInteger", "defaultValueInteger64", "defaultValueMarkdown", "defaultValueOid", "defaultValuePositiveInt", "defaultValueString", "defaultValueTime", "defaultValueUnsignedInt", "defaultValueUri", "defaultValueUrl", "defaultValueUuid", "defaultValueAddress", "defaultValueAge", "defaultValueAnnotation", "defaultValueAttachment", "defaultValueCodeableConcept", "defaultValueCodeableReference", "defaultValueCoding", "defaultValueContactPoint", "defaultValueCount", "defaultValueDistance", "defaultValueDuration", "defaultValueHumanName", "defaultValueIdentifier", "defaultValueMoney", "defaultValuePeriod", "defaultValueQuantity", "defaultValueRange", "defaultValueRatio", "defaultValueRatioRange", "defaultValueReference", "defaultValueSampledData", "defaultValueSignature", "defaultValueTiming", "defaultValueContactDetail", "defaultValueDataRequirement", "defaultValueExpression", "defaultValueParameterDefinition", "defaultValueRelatedArtifact", "defaultValueTriggerDefinition", "defaultValueUsageContext", "defaultValueAvailability", "defaultValueExtendedContactDetail", "defaultValueDosage", "defaultValueMeta", "meaningWhenMissing", "orderMeaning", "fixedBase64Binary", "fixedBoolean", "fixedCanonical", "fixedCode", "fixedDate", "fixedDateTime", "fixedDecimal", "fixedId", "fixedInstant", "fixedInteger", "fixedInteger64", "fixedMarkdown", "fixedOid", "fixedPositiveInt", "fixedString", "fixedTime", "fixedUnsignedInt", "fixedUri", "fixedUrl", "fixedUuid", "fixedAddress", "fixedAge", "fixedAnnotation", "fixedAttachment", "fixedCodeableConcept", "fixedCodeableReference", "fixedCoding", "fixedContactPoint", "fixedCount", "fixedDistance", "fixedDuration", "fixedHumanName", "fixedIdentifier", "fixedMoney", "fixedPeriod", "fixedQuantity", "fixedRange", "fixedRatio", "fixedRatioRange", "fixedReference", "fixedSampledData", "fixedSignature", "fixedTiming", "fixedContactDetail", "fixedDataRequirement", "fixedExpression", "fixedParameterDefinition", "fixedRelatedArtifact", "fixedTriggerDefinition", "fixedUsageContext", "fixedAvailability", "fixedExtendedContactDetail", "fixedDosage", "fixedMeta", "patternBase64Binary", "patternBoolean", "patternCanonical", "patternCode", "patternDate", "patternDateTime", "patternDecimal", "patternId", "patternInstant", "patternInteger", "patternInteger64", "patternMarkdown", "patternOid", "patternPositiveInt", "patternString", "patternTime", "patternUnsignedInt", "patternUri", "patternUrl", "patternUuid", "patternAddress", "patternAge", "patternAnnotation", "patternAttachment", "patternCodeableConcept", "patternCodeableReference", "patternCoding", "patternContactPoint", "patternCount", "patternDistance", "patternDuration", "patternHumanName", "patternIdentifier", "patternMoney", "patternPeriod", "patternQuantity", "patternRange", "patternRatio", "patternRatioRange", "patternReference", "patternSampledData", "patternSignature", "patternTiming", "patternContactDetail", "patternDataRequirement", "patternExpression", "patternParameterDefinition", "patternRelatedArtifact", "patternTriggerDefinition", "patternUsageContext", "patternAvailability", "patternExtendedContactDetail", "patternDosage", "patternMeta", "example", "minValueDate", "minValueDateTime", "minValueInstant", "minValueTime", "minValueDecimal", "minValueInteger", "minValueInteger64", "minValuePositiveInt", "minValueUnsignedInt", "minValueQuantity", "maxValueDate", "maxValueDateTime", "maxValueInstant", "maxValueTime", "maxValueDecimal", "maxValueInteger", "maxValueInteger64", "maxValuePositiveInt", "maxValueUnsignedInt", "maxValueQuantity", "maxLength", "condition", "constraint", "mustHaveValue", "valueAlternatives", "mustSupport", "isModifier", "isModifierReason", "isSummary", "binding", "mapping"]
 
 
     @root_validator(pre=True, allow_reuse=True)
@@ -5107,7 +5151,7 @@ class ElementDefinitionBase(element.Element):
     Information about the base definition of the element, provided to make it
     unnecessary for tools to trace the deviation of the element through the
     derived and related profiles. When the element definition is not the
-    original definition of an element - i.g. either in a constraint on another
+    original definition of an element - e.g. either in a constraint on another
     type, or for elements from a super type in a snap shot - then the
     information in provided in the element definition may be different to the
     base definition. On the original definition of the element, it will be
@@ -5248,6 +5292,19 @@ class ElementDefinitionBinding(element.Element):
     """
     resource_type = Field("ElementDefinitionBinding", const=True)
 	
+    additional: typing.List[fhirtypes.ElementDefinitionBindingAdditionalType] = Field(
+		None,
+		alias="additional",
+		title="Additional Bindings - more rules about the binding",
+		description=(
+    "Additional bindings that help applications implementing this element. "
+    "Additional bindings do not replace the main binding but provide more "
+    "information and/or context."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+	)
+	
     description: fhirtypes.Markdown = Field(
 		None,
 		alias="description",
@@ -5308,7 +5365,7 @@ class ElementDefinitionBinding(element.Element):
         ``ElementDefinitionBinding`` according specification,
         with preserving original sequence order.
         """
-        return ["id", "extension", "strength", "description", "valueSet"]
+        return ["id", "extension", "strength", "description", "valueSet", "additional"]
 
 
     @root_validator(pre=True, allow_reuse=True)
@@ -5324,6 +5381,189 @@ class ElementDefinitionBinding(element.Element):
         """
         required_fields = [
 			("strength", "strength__ext")]
+        _missing = object()
+
+        def _fallback():
+            return ""
+
+        errors: typing.List["ErrorWrapper"] = []
+        for name, ext in required_fields:
+            field = cls.__fields__[name]
+            ext_field = cls.__fields__[ext]
+            value = values.get(field.alias, _missing)
+            if value not in (_missing, None):
+                continue
+            ext_value = values.get(ext_field.alias, _missing)
+            missing_ext = True
+            if ext_value not in (_missing, None):
+                if isinstance(ext_value, dict):
+                    missing_ext = len(ext_value.get("extension", [])) == 0
+                elif (
+                    getattr(ext_value.__class__, "get_resource_type", _fallback)()
+                    == "FHIRPrimitiveExtension"
+                ):
+                    if ext_value.extension and len(ext_value.extension) > 0:
+                        missing_ext = False
+                else:
+                    validate_pass = True
+                    for validator in ext_field.type_.__get_validators__():
+                        try:
+                            ext_value = validator(v=ext_value)
+                        except ValidationError as exc:
+                            errors.append(ErrorWrapper(exc, loc=ext_field.alias))
+                            validate_pass = False
+                    if not validate_pass:
+                        continue
+                    if ext_value.extension and len(ext_value.extension) > 0:
+                        missing_ext = False
+            if missing_ext:
+                if value is _missing:
+                    errors.append(ErrorWrapper(MissingError(), loc=field.alias))
+                else:
+                    errors.append(
+                        ErrorWrapper(NoneIsNotAllowedError(), loc=field.alias)
+                    )
+        if len(errors) > 0:
+            raise ValidationError(errors, cls)  # type: ignore
+
+        return values
+
+
+class ElementDefinitionBindingAdditional(element.Element):
+    """Disclaimer: Any field name ends with ``__ext`` doesn't part of
+    Resource StructureDefinition, instead used to enable Extensibility feature
+    for FHIR Primitive Data Types.
+
+    Additional Bindings - more rules about the binding.
+    Additional bindings that help applications implementing this element.
+    Additional bindings do not replace the main binding but provide more
+    information and/or context.
+    """
+    resource_type = Field("ElementDefinitionBindingAdditional", const=True)
+	
+    any: bool = Field(
+		None,
+		alias="any",
+		title="Whether binding can applies to all repeats, or just one",
+		description=(
+    "Whether the binding applies to all repeats, or just to any one of "
+    "them. This is only relevant for elements that can repeat."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+	)
+    any__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
+        None,
+        alias="_any",
+        title="Extension field for ``any``."
+    )
+	
+    documentation: fhirtypes.Markdown = Field(
+		None,
+		alias="documentation",
+		title="Documentation of the purpose of use of the binding",
+		description=(
+    "Documentation of the purpose of use of the bindingproviding additional"
+    " information about how it is intended to be used."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+	)
+    documentation__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
+        None,
+        alias="_documentation",
+        title="Extension field for ``documentation``."
+    )
+	
+    purpose: fhirtypes.Code = Field(
+		None,
+		alias="purpose",
+		title=(
+    "maximum | minimum | required | extensible | candidate | current | "
+    "preferred | ui | starter | component"
+    ),
+		description="The use of this additional binding.",
+        # if property is element of this resource.
+        element_property=True,
+        element_required=True,
+        # note: Enum values can be used in validation,
+        # but use in your own responsibilities, read official FHIR documentation.
+		enum_values=["maximum", "minimum", "required", "extensible", "candidate", "current", "preferred", "ui", "starter", "component"],
+	)
+    purpose__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
+        None,
+        alias="_purpose",
+        title="Extension field for ``purpose``."
+    )
+	
+    shortDoco: fhirtypes.String = Field(
+		None,
+		alias="shortDoco",
+		title="Concise documentation - for summary tables",
+		description=None,
+        # if property is element of this resource.
+        element_property=True,
+	)
+    shortDoco__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
+        None,
+        alias="_shortDoco",
+        title="Extension field for ``shortDoco``."
+    )
+	
+    usage: typing.List[fhirtypes.UsageContextType] = Field(
+		None,
+		alias="usage",
+		title="Qualifies the usage - jurisdiction, gender, workflow status etc.",
+		description=(
+    "Qualifies the usage of the binding. Typically bindings are qualified "
+    "by jurisdiction, but they may also be qualified by gender, workflow "
+    "status, clinical domain etc. The information to decide whether a usege"
+    " context applies is usually outside the resource, determined by "
+    "context, and this might present challenges for validation tooling."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+	)
+	
+    valueSet: fhirtypes.Canonical = Field(
+		None,
+		alias="valueSet",
+		title="The value set for the additional binding",
+		description="The valueSet that is being bound for the purpose.",
+        # if property is element of this resource.
+        element_property=True,
+        element_required=True,
+        # note: Listed Resource Type(s) should be allowed as Reference.
+		enum_reference_types=["ValueSet"],
+	)
+    valueSet__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
+        None,
+        alias="_valueSet",
+        title="Extension field for ``valueSet``."
+    )
+    @classmethod
+    def elements_sequence(cls):
+        """returning all elements names from
+        ``ElementDefinitionBindingAdditional`` according specification,
+        with preserving original sequence order.
+        """
+        return ["id", "extension", "purpose", "valueSet", "documentation", "shortDoco", "usage", "any"]
+
+
+    @root_validator(pre=True, allow_reuse=True)
+    def validate_required_primitive_elements_3640(
+        cls, values: typing.Dict[str, typing.Any]
+    ) -> typing.Dict[str, typing.Any]:
+        """https://www.hl7.org/fhir/extensibility.html#Special-Case
+        In some cases, implementers might find that they do not have appropriate data for
+        an element with minimum cardinality = 1. In this case, the element must be present,
+        but unless the resource or a profile on it has made the actual value of the primitive
+        data type mandatory, it is possible to provide an extension that explains why
+        the primitive value is not present.
+        """
+        required_fields = [
+			("purpose", "purpose__ext"),
+			("valueSet", "valueSet__ext")]
         _missing = object()
 
         def _fallback():
@@ -5507,30 +5747,13 @@ class ElementDefinitionConstraint(element.Element):
         alias="_suppress",
         title="Extension field for ``suppress``."
     )
-	
-    xpath: fhirtypes.String = Field(
-		None,
-		alias="xpath",
-		title="XPath expression of constraint",
-		description=(
-    "An XPath expression of constraint that can be executed to see if this "
-    "constraint is met."
-    ),
-        # if property is element of this resource.
-        element_property=True,
-	)
-    xpath__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
-        None,
-        alias="_xpath",
-        title="Extension field for ``xpath``."
-    )
     @classmethod
     def elements_sequence(cls):
         """returning all elements names from
         ``ElementDefinitionConstraint`` according specification,
         with preserving original sequence order.
         """
-        return ["id", "extension", "key", "requirements", "severity", "suppress", "human", "expression", "xpath", "source"]
+        return ["id", "extension", "key", "requirements", "severity", "suppress", "human", "expression", "source"]
 
 
     @root_validator(pre=True, allow_reuse=True)
@@ -5611,7 +5834,7 @@ class ElementDefinitionExample(element.Element):
 		None,
 		alias="label",
 		title="Describes the purpose of this example",
-		description="Describes the purpose of this example amoung the set of examples.",
+		description="Describes the purpose of this example among the set of examples.",
         # if property is element of this resource.
         element_property=True,
         element_required=True,
@@ -7030,14 +7253,14 @@ class ElementDefinitionSlicingDiscriminator(element.Element):
     type: fhirtypes.Code = Field(
 		None,
 		alias="type",
-		title="value | exists | pattern | type | profile | position",
+		title="value | exists | type | profile | position",
 		description="How the element value is interpreted when discrimination is evaluated.",
         # if property is element of this resource.
         element_property=True,
         element_required=True,
         # note: Enum values can be used in validation,
         # but use in your own responsibilities, read official FHIR documentation.
-		enum_values=["value", "exists", "pattern", "type", "profile", "position"],
+		enum_values=["value", "exists", "type", "profile", "position"],
 	)
     type__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
         None,

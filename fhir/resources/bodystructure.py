@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/BodyStructure
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 import typing
 from pydantic import Field
@@ -39,7 +39,7 @@ class BodyStructure(domainresource.DomainResource):
         title="Extension field for ``active``."
     )
 	
-    description: fhirtypes.String = Field(
+    description: fhirtypes.Markdown = Field(
 		None,
 		alias="description",
 		title="Text description",
@@ -53,7 +53,7 @@ class BodyStructure(domainresource.DomainResource):
         title="Extension field for ``description``."
     )
 	
-    excludedStructure: typing.List[fhirtypes.BodyStructureExcludedStructureType] = Field(
+    excludedStructure: typing.List[fhirtypes.BodyStructureIncludedStructureType] = Field(
 		None,
 		alias="excludedStructure",
 		title="Excluded anatomic locations(s)",
@@ -130,53 +130,6 @@ class BodyStructure(domainresource.DomainResource):
 
 from . import backboneelement
 
-class BodyStructureExcludedStructure(backboneelement.BackboneElement):
-    """Disclaimer: Any field name ends with ``__ext`` doesn't part of
-    Resource StructureDefinition, instead used to enable Extensibility feature
-    for FHIR Primitive Data Types.
-
-    Excluded anatomic locations(s).
-    The anatomical location(s) or region(s) not occupied or represented by the
-    specimen, lesion, or body structure.
-    """
-    resource_type = Field("BodyStructureExcludedStructure", const=True)
-	
-    laterality: fhirtypes.CodeableConceptType = Field(
-		None,
-		alias="laterality",
-		title="Code that represents the excluded structure laterality",
-		description=None,
-        # if property is element of this resource.
-        element_property=True,
-	)
-	
-    qualifier: typing.List[fhirtypes.CodeableConceptType] = Field(
-		None,
-		alias="qualifier",
-		title="Code that represents the excluded structure qualifier",
-		description=None,
-        # if property is element of this resource.
-        element_property=True,
-	)
-	
-    structure: fhirtypes.CodeableConceptType = Field(
-		...,
-		alias="structure",
-		title="Code that represents the excluded structure",
-		description=None,
-        # if property is element of this resource.
-        element_property=True,
-	)
-    @classmethod
-    def elements_sequence(cls):
-        """returning all elements names from
-        ``BodyStructureExcludedStructure`` according specification,
-        with preserving original sequence order.
-        """
-        return ["id", "extension", "modifierExtension", "structure", "laterality", "qualifier"]
-
-
-
 class BodyStructureIncludedStructure(backboneelement.BackboneElement):
     """Disclaimer: Any field name ends with ``__ext`` doesn't part of
     Resource StructureDefinition, instead used to enable Extensibility feature
@@ -187,6 +140,18 @@ class BodyStructureIncludedStructure(backboneelement.BackboneElement):
     structure.
     """
     resource_type = Field("BodyStructureIncludedStructure", const=True)
+	
+    bodyLandmarkOrientation: typing.List[fhirtypes.BodyStructureIncludedStructureBodyLandmarkOrientationType] = Field(
+		None,
+		alias="bodyLandmarkOrientation",
+		title="Landmark relative location",
+		description=(
+    "Body locations in relation to a specific body landmark (tatoo, scar, "
+    "other body structure)."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+	)
 	
     laterality: fhirtypes.CodeableConceptType = Field(
 		None,
@@ -206,6 +171,17 @@ class BodyStructureIncludedStructure(backboneelement.BackboneElement):
         element_property=True,
 	)
 	
+    spatialReference: typing.List[fhirtypes.ReferenceType] = Field(
+		None,
+		alias="spatialReference",
+		title="Cartesian reference for structure",
+		description="XY or XYZ-coordinate orientation for structure.",
+        # if property is element of this resource.
+        element_property=True,
+        # note: Listed Resource Type(s) should be allowed as Reference.
+		enum_reference_types=["ImagingSelection"],
+	)
+	
     structure: fhirtypes.CodeableConceptType = Field(
 		...,
 		alias="structure",
@@ -220,5 +196,110 @@ class BodyStructureIncludedStructure(backboneelement.BackboneElement):
         ``BodyStructureIncludedStructure`` according specification,
         with preserving original sequence order.
         """
-        return ["id", "extension", "modifierExtension", "structure", "laterality", "qualifier"]
+        return ["id", "extension", "modifierExtension", "structure", "laterality", "bodyLandmarkOrientation", "spatialReference", "qualifier"]
+
+
+
+class BodyStructureIncludedStructureBodyLandmarkOrientation(backboneelement.BackboneElement):
+    """Disclaimer: Any field name ends with ``__ext`` doesn't part of
+    Resource StructureDefinition, instead used to enable Extensibility feature
+    for FHIR Primitive Data Types.
+
+    Landmark relative location.
+    Body locations in relation to a specific body landmark (tatoo, scar, other
+    body structure).
+    """
+    resource_type = Field("BodyStructureIncludedStructureBodyLandmarkOrientation", const=True)
+	
+    clockFacePosition: typing.List[fhirtypes.CodeableConceptType] = Field(
+		None,
+		alias="clockFacePosition",
+		title="Clockface orientation",
+		description=(
+    "An description of the direction away from a landmark something is "
+    "located based on a radial clock dial."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+	)
+	
+    distanceFromLandmark: typing.List[fhirtypes.BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmarkType] = Field(
+		None,
+		alias="distanceFromLandmark",
+		title="Landmark relative location",
+		description=(
+    "The distance in centimeters a certain observation is made from a body "
+    "landmark."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+	)
+	
+    landmarkDescription: typing.List[fhirtypes.CodeableConceptType] = Field(
+		None,
+		alias="landmarkDescription",
+		title="Body ]andmark description",
+		description=(
+    "A description of a landmark on the body used as a reference to locate "
+    "something else."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+	)
+	
+    surfaceOrientation: typing.List[fhirtypes.CodeableConceptType] = Field(
+		None,
+		alias="surfaceOrientation",
+		title="Relative landmark surface orientation",
+		description="The surface area a body location is in relation to a landmark.",
+        # if property is element of this resource.
+        element_property=True,
+	)
+    @classmethod
+    def elements_sequence(cls):
+        """returning all elements names from
+        ``BodyStructureIncludedStructureBodyLandmarkOrientation`` according specification,
+        with preserving original sequence order.
+        """
+        return ["id", "extension", "modifierExtension", "landmarkDescription", "clockFacePosition", "distanceFromLandmark", "surfaceOrientation"]
+
+
+
+class BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmark(backboneelement.BackboneElement):
+    """Disclaimer: Any field name ends with ``__ext`` doesn't part of
+    Resource StructureDefinition, instead used to enable Extensibility feature
+    for FHIR Primitive Data Types.
+
+    Landmark relative location.
+    The distance in centimeters a certain observation is made from a body
+    landmark.
+    """
+    resource_type = Field("BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmark", const=True)
+	
+    device: typing.List[fhirtypes.CodeableReferenceType] = Field(
+		None,
+		alias="device",
+		title="Measurement device",
+		description="An instrument, tool, analyzer, etc. used in the measurement.",
+        # if property is element of this resource.
+        element_property=True,
+        # note: Listed Resource Type(s) should be allowed as Reference.
+		enum_reference_types=["Device"],
+	)
+	
+    value: typing.List[fhirtypes.QuantityType] = Field(
+		None,
+		alias="value",
+		title="Measured distance from body landmark",
+		description="The measured distance (e.g., in cm) from a body landmark.",
+        # if property is element of this resource.
+        element_property=True,
+	)
+    @classmethod
+    def elements_sequence(cls):
+        """returning all elements names from
+        ``BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmark`` according specification,
+        with preserving original sequence order.
+        """
+        return ["id", "extension", "modifierExtension", "device", "value"]
 

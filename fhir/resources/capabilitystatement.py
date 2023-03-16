@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/CapabilityStatement
-Release: 2022Sep
-Version: 5.0.0-ballot
-Build ID: 1505a88
-Last updated: 2022-09-10T04:52:37.223+10:00
+Release: 5.0.0-draft-final
+Version: 5.0.0-draft-final
+Build ID: 043d3d5
+Last updated: 2023-03-01T23:03:57.298+11:00
 """
 import typing
 from pydantic import Field
@@ -102,11 +102,11 @@ class CapabilityStatement(domainresource.DomainResource):
 		alias="date",
 		title="Date last changed",
 		description=(
-    "The date  (and optionally time) when the capability statement was "
-    "published. The date must change when the business version changes and "
-    "it must change if the status code changes. In addition, it should "
-    "change when the substantive content of the capability statement "
-    "changes."
+    "The date  (and optionally time) when the capability statement was last"
+    " significantly changed. The date must change when the business version"
+    " changes and it must change if the status code changes. In addition, "
+    "it should change when the substantive content of the capability "
+    "statement changes."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -204,6 +204,22 @@ class CapabilityStatement(domainresource.DomainResource):
         alias="_format",
         title="Extension field for ``format``."
     )
+	
+    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+		None,
+		alias="identifier",
+		title=(
+    "Additional identifier for the CapabilityStatement (business "
+    "identifier)"
+    ),
+		description=(
+    "A formal identifier that is used to identify this CapabilityStatement "
+    "when it is represented in other formats, or referenced in a "
+    "specification, model, design or an instance."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+	)
 	
     implementation: fhirtypes.CapabilityStatementImplementationType = Field(
 		None,
@@ -558,7 +574,7 @@ class CapabilityStatement(domainresource.DomainResource):
         ``CapabilityStatement`` according specification,
         with preserving original sequence order.
         """
-        return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "url", "version", "versionAlgorithmString", "versionAlgorithmCoding", "name", "title", "status", "experimental", "date", "publisher", "contact", "description", "useContext", "jurisdiction", "purpose", "copyright", "copyrightLabel", "kind", "instantiates", "imports", "software", "implementation", "fhirVersion", "format", "patchFormat", "acceptLanguage", "implementationGuide", "rest", "messaging", "document"]
+        return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "url", "identifier", "version", "versionAlgorithmString", "versionAlgorithmCoding", "name", "title", "status", "experimental", "date", "publisher", "contact", "description", "useContext", "jurisdiction", "purpose", "copyright", "copyrightLabel", "kind", "instantiates", "imports", "software", "implementation", "fhirVersion", "format", "patchFormat", "acceptLanguage", "implementationGuide", "rest", "messaging", "document"]
 
 
     @root_validator(pre=True, allow_reuse=True)
@@ -834,7 +850,7 @@ class CapabilityStatementImplementation(backboneelement.BackboneElement):
 		enum_reference_types=["Organization"],
 	)
 	
-    description: fhirtypes.String = Field(
+    description: fhirtypes.Markdown = Field(
 		None,
 		alias="description",
 		title="Describes this specific instance",
