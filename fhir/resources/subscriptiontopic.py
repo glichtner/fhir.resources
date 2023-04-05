@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/SubscriptionTopic
-Release: 5.0.0-draft-final
-Version: 5.0.0-draft-final
-Build ID: 043d3d5
-Last updated: 2023-03-01T23:03:57.298+11:00
+Release: R5
+Version: 5.0.0
+Build ID: 2aecd53
+Last updated: 2023-03-26T15:21:02.749+11:00
 """
 import typing
 from pydantic import Field
@@ -119,9 +119,11 @@ class SubscriptionTopic(domainresource.DomainResource):
 		alias="date",
 		title="Date status first applied",
 		description=(
-    "For draft definitions, indicates the date of initial creation.  For "
-    "active definitions, represents the date of activation.  For withdrawn "
-    "definitions, indicates the date of withdrawal."
+    "The date (and optionally time) when the subscription topic was last "
+    "significantly changed. The date must change when the business version "
+    "changes and it must change if the status code changes. In addition, it"
+    " should change when the substantive content of the subscription topic "
+    "changes."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -210,7 +212,7 @@ class SubscriptionTopic(domainresource.DomainResource):
     identifier: typing.List[fhirtypes.IdentifierType] = Field(
 		None,
 		alias="identifier",
-		title="Business Identifier for this subscription topic",
+		title="Business identifier for subscription topic",
 		description=(
     "Business identifiers assigned to this subscription topic by the "
     "performer and/or other systems.  These identifiers remain constant as "
@@ -354,10 +356,10 @@ class SubscriptionTopic(domainresource.DomainResource):
     title: fhirtypes.String = Field(
 		None,
 		alias="title",
-		title="Name for this subscription topic (Human friendly)",
+		title="Name for this subscription topic (human friendly)",
 		description=(
-    "A short, descriptive, user-friendly title for the SubscriptionTopic, "
-    "for example, \"admission\"."
+    "A short, descriptive, user-friendly title for the subscription topic."
+    "  For example, \"admission\"."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -372,8 +374,8 @@ class SubscriptionTopic(domainresource.DomainResource):
 		None,
 		alias="url",
 		title=(
-    "Canonical identifier for this subscription topic definition, "
-    "represented as a URI (globally unique)"
+    "Canonical identifier for this subscription topic, represented as an "
+    "absolute URI (globally unique)"
     ),
 		description=(
     "An absolute URI that is used to identify this subscription topic when "

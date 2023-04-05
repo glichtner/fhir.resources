@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/CapabilityStatement
-Release: 5.0.0-draft-final
-Version: 5.0.0-draft-final
-Build ID: 043d3d5
-Last updated: 2023-03-01T23:03:57.298+11:00
+Release: R5
+Version: 5.0.0
+Build ID: 2aecd53
+Last updated: 2023-03-26T15:21:02.749+11:00
 """
 from pydantic.validators import bytes_validator  # noqa: F401
 from fhir.resources import fhirtypes  # noqa: F401
@@ -21,7 +21,7 @@ def impl_capabilitystatement_1(inst):
     "structure"
     )
     assert inst.experimental is True
-    assert inst.fhirVersion == "5.0.0-draft-final"
+    assert inst.fhirVersion == "5.0.0"
     assert inst.format[0] == "xml"
     assert inst.format[1] == "json"
     assert inst.id == "messagedefinition"
@@ -41,7 +41,6 @@ def impl_capabilitystatement_1(inst):
     assert inst.publisher == "ACME Corporation"
     assert inst.software.name == "EHR"
     assert inst.status == "draft"
-    assert inst.text.status == "extensions"
 
 
 def test_capabilitystatement_1(base_settings):
@@ -69,9 +68,9 @@ def test_capabilitystatement_1(base_settings):
 def impl_capabilitystatement_2(inst):
     assert inst.contact[0].telecom[0].system == "url"
     assert inst.contact[0].telecom[0].value == "http://hl7.org/fhir"
-    assert inst.date == fhirtypes.DateTime.validate("2023-03-01T23:03:57+11:00")
+    assert inst.date == fhirtypes.DateTime.validate("2023-03-26T15:21:02+11:00")
     assert inst.experimental is True
-    assert inst.fhirVersion == "5.0.0-draft-final"
+    assert inst.fhirVersion == "5.0.0"
     assert inst.format[0] == "xml"
     assert inst.format[1] == "json"
     assert inst.id == "base2"
@@ -97,7 +96,7 @@ def impl_capabilitystatement_2(inst):
     assert inst.status == "draft"
     assert inst.text.status == "extensions"
     assert inst.url == "http://hl7.org/fhir/CapabilityStatement/base2"
-    assert inst.version == "5.0.0-draft-final"
+    assert inst.version == "5.0.0"
 
 
 def test_capabilitystatement_2(base_settings):
@@ -129,7 +128,8 @@ def impl_capabilitystatement_3(inst):
     "server can support more fucntionality than defined here, but"
     " this is the minimum amount"
     )
-    assert inst.fhirVersion == "5.0.0-draft-final"
+    assert inst.experimental is True
+    assert inst.fhirVersion == "5.0.0"
     assert inst.format[0] == "json"
     assert inst.format[1] == "xml"
     assert inst.id == "example-terminology-server"
@@ -276,7 +276,7 @@ def impl_capabilitystatement_3(inst):
     assert inst.text.status == "extensions"
     assert inst.title == "ACME Terminology Service — Capability Statement"
     assert inst.url == "http://hl7.org/fhir/CapabilityStatement/terminology-server"
-    assert inst.version == "5.0.0-draft-final"
+    assert inst.version == "5.0.0"
 
 
 def test_capabilitystatement_3(base_settings):
@@ -711,7 +711,7 @@ def impl_capabilitystatement_6(inst):
     assert inst.id == "example"
     assert inst.implementation.description == "main EHR at ACME"
     assert inst.implementation.url == "http://10.2.3.4/fhir"
-    assert inst.implementationGuide[0] == "http://hl7.org/fhir/us/lab"
+    assert inst.implementationGuide[0] == "http://example.org/fhir/us/lab"
     assert inst.instantiates[0] == "http://ihe.org/fhir/CapabilityStatement/pixm-client"
     assert inst.jurisdiction[0].coding[0].code == "US"
     assert inst.jurisdiction[0].coding[0].display == "United States of America (the)"
@@ -902,9 +902,9 @@ def test_capabilitystatement_7(base_settings):
 def impl_capabilitystatement_8(inst):
     assert inst.contact[0].telecom[0].system == "url"
     assert inst.contact[0].telecom[0].value == "http://hl7.org/fhir"
-    assert inst.date == fhirtypes.DateTime.validate("2023-03-01T23:03:57+11:00")
+    assert inst.date == fhirtypes.DateTime.validate("2023-03-26T15:21:02+11:00")
     assert inst.experimental is True
-    assert inst.fhirVersion == "5.0.0-draft-final"
+    assert inst.fhirVersion == "5.0.0"
     assert inst.format[0] == "xml"
     assert inst.format[1] == "json"
     assert inst.id == "base"
@@ -1919,6 +1919,13 @@ def impl_capabilitystatement_8(inst):
     assert inst.rest[0].resource[8].searchParam[0].documentation == "The artifact assessment publication date"
     assert inst.rest[0].resource[8].searchParam[0].name == "date"
     assert inst.rest[0].resource[8].searchParam[0].type == "date"
+    assert inst.rest[0].resource[8].searchParam[1].definition == (
+    "http://hl7.org/fhir/SearchParameter/ArtifactAssessment-"
+    "identifier"
+    )
+    assert inst.rest[0].resource[8].searchParam[1].documentation == "The artifact assessment identifier"
+    assert inst.rest[0].resource[8].searchParam[1].name == "identifier"
+    assert inst.rest[0].resource[8].searchParam[1].type == "token"
     assert inst.rest[0].resource[8].type == "ArtifactAssessment"
     assert inst.rest[0].resource[9].conditionalCreate is True
     assert inst.rest[0].resource[9].conditionalDelete == "multiple"
@@ -2073,7 +2080,7 @@ def impl_capabilitystatement_8(inst):
     assert inst.status == "draft"
     assert inst.text.status == "extensions"
     assert inst.url == "http://hl7.org/fhir/CapabilityStatement/base"
-    assert inst.version == "5.0.0-draft-final"
+    assert inst.version == "5.0.0"
 
 
 def test_capabilitystatement_8(base_settings):

@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/Bundle
-Release: 5.0.0-draft-final
-Version: 5.0.0-draft-final
-Build ID: 043d3d5
-Last updated: 2023-03-01T23:03:57.298+11:00
+Release: R5
+Version: 5.0.0
+Build ID: 2aecd53
+Last updated: 2023-03-26T15:21:02.749+11:00
 """
 import typing
 from pydantic import Field
@@ -68,14 +68,7 @@ class Bundle(resource.Resource):
 		None,
 		alias="link",
 		title="Links related to this Bundle",
-		description=(
-    "A series of links that provide context to this bundle. The behavior of"
-    " navigation link types (next/prev/first/last) are well defined for "
-    "searchset and history Bundles but are not currently defined for other "
-    "types. Implementers who choose to use such link relationships for "
-    "other bundle types will need to negotiate behavior with their "
-    "interoperability partners."
-    ),
+		description="A series of links that provide context to this bundle.",
         # if property is element of this resource.
         element_property=True,
 	)
@@ -745,11 +738,7 @@ class BundleLink(backboneelement.BackboneElement):
     for FHIR Primitive Data Types.
 
     Links related to this Bundle.
-    A series of links that provide context to this bundle. The behavior of
-    navigation link types (next/prev/first/last) are well defined for searchset
-    and history Bundles but are not currently defined for other types.
-    Implementers who choose to use such link relationships for other bundle
-    types will need to negotiate behavior with their interoperability partners.
+    A series of links that provide context to this bundle.
     """
     resource_type = Field("BundleLink", const=True)
 	

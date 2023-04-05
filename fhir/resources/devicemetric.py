@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/DeviceMetric
-Release: 5.0.0-draft-final
-Version: 5.0.0-draft-final
-Build ID: 043d3d5
-Last updated: 2023-03-01T23:03:57.298+11:00
+Release: R5
+Version: 5.0.0
+Build ID: 2aecd53
+Last updated: 2023-03-26T15:21:02.749+11:00
 """
 import typing
 from pydantic import Field
@@ -65,19 +65,17 @@ class DeviceMetric(domainresource.DomainResource):
     color: fhirtypes.Code = Field(
 		None,
 		alias="color",
-		title="black | red | green | yellow | blue | magenta | cyan | white",
+		title="Color name (from CSS4) or #RRGGBB code",
 		description=(
-    "Describes the color representation for the metric. This is often used "
-    "to aid clinicians to track and identify parameter types by color. In "
-    "practice, consider a Patient Monitor that has ECG/HR and Pleth for "
-    "example; the parameters are displayed in different characteristic "
-    "colors, such as HR-blue, BP-green, and PR and SpO2- magenta."
+    "The preferred color associated with the metric (e.g., display color). "
+    "This is often used to aid clinicians to track and identify parameter "
+    "types by color. In practice, consider a Patient Monitor that has "
+    "ECG/HR and Pleth; the metrics are displayed in different "
+    "characteristic colors, such as HR in blue, BP in green, and PR and "
+    "SpO2 in magenta."
     ),
         # if property is element of this resource.
         element_property=True,
-        # note: Enum values can be used in validation,
-        # but use in your own responsibilities, read official FHIR documentation.
-		enum_values=["black", "red", "green", "yellow", "blue", "magenta", "cyan", "white"],
 	)
     color__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
         None,
@@ -104,9 +102,9 @@ class DeviceMetric(domainresource.DomainResource):
 		alias="identifier",
 		title="Instance identifier",
 		description=(
-    "Unique instance identifiers assigned to a device by the device or "
-    "gateway software, manufacturers, other organizations or owners. For "
-    "example: handle ID."
+    "Instance identifiers assigned to a device, by the device or gateway "
+    "software, manufacturers, other organizations or owners. For example, "
+    "handle ID."
     ),
         # if property is element of this resource.
         element_property=True,

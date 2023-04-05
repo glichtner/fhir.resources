@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/TestScript
-Release: 5.0.0-draft-final
-Version: 5.0.0-draft-final
-Build ID: 043d3d5
-Last updated: 2023-03-01T23:03:57.298+11:00
+Release: R5
+Version: 5.0.0
+Build ID: 2aecd53
+Last updated: 2023-03-26T15:21:02.749+11:00
 """
 import typing
 from pydantic import Field
@@ -83,7 +83,7 @@ class TestScript(domainresource.DomainResource):
 		alias="date",
 		title="Date last changed",
 		description=(
-    "The date  (and optionally time) when the test script was last "
+    "The date (and optionally time) when the test script was last "
     "significantly changed. The date must change when the business version "
     "changes and it must change if the status code changes. In addition, it"
     " should change when the substantive content of the test script "

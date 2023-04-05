@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/StructureMap
-Release: 5.0.0-draft-final
-Version: 5.0.0-draft-final
-Build ID: 043d3d5
-Last updated: 2023-03-01T23:03:57.298+11:00
+Release: R5
+Version: 5.0.0
+Build ID: 2aecd53
+Last updated: 2023-03-26T15:21:02.749+11:00
 """
 from pydantic.validators import bytes_validator  # noqa: F401
 from fhir.resources import fhirtypes  # noqa: F401
@@ -13,6 +13,7 @@ from fhir.resources import structuremap
 
 def impl_structuremap_1(inst):
     assert inst.description == "Transform from an ActivityDefinition to a SupplyRequest"
+    assert inst.experimental is True
     assert inst.group[0].input[0].mode == "source"
     assert inst.group[0].input[0].name == "source"
     assert inst.group[0].input[0].type == "ActivityDefinition"
@@ -90,6 +91,7 @@ def impl_structuremap_1(inst):
     assert inst.text.status == "generated"
     assert inst.title == "Transform from an ActivityDefinition to a SupplyRequest"
     assert inst.url == "http://hl7.org/fhir/StructureMap/supplyrequest-transform"
+    assert inst.version == "5.0.0"
 
 
 def test_structuremap_1(base_settings):
@@ -119,6 +121,7 @@ def impl_structuremap_2(inst):
     assert inst.contact[0].telecom[0].value == "http://hl7.org/fhir"
     assert inst.date == fhirtypes.DateTime.validate("2017-03-09")
     assert inst.description == "Example Structure Map"
+    assert inst.experimental is True
     assert inst.group[0].documentation == "test -> testValue"
     assert inst.group[0].input[0].mode == "source"
     assert inst.group[0].input[0].name == "testSrc"
@@ -145,7 +148,7 @@ def impl_structuremap_2(inst):
     assert inst.text.status == "generated"
     assert inst.title == "Example Map"
     assert inst.url == "http://hl7.org/fhir/StructureMap/example"
-    assert inst.version == "0.1"
+    assert inst.version == "5.0.0"
 
 
 def test_structuremap_2(base_settings):

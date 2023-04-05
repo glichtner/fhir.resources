@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/Person
-Release: 5.0.0-draft-final
-Version: 5.0.0-draft-final
-Build ID: 043d3d5
-Last updated: 2023-03-01T23:03:57.298+11:00
+Release: R5
+Version: 5.0.0
+Build ID: 2aecd53
+Last updated: 2023-03-26T15:21:02.749+11:00
 """
 from pydantic.validators import bytes_validator  # noqa: F401
 from fhir.resources import fhirtypes  # noqa: F401
@@ -172,6 +172,50 @@ def test_person_3(base_settings):
 
 def impl_person_4(inst):
     assert inst.active is True
+    assert inst.birthDate == fhirtypes.Date.validate("1982-08-02")
+    assert inst.deceasedDateTime == fhirtypes.DateTime.validate("2021-12-12")
+    assert inst.gender == "female"
+    assert inst.id == "per4"
+    assert inst.identifier[0].system == "urn:oid:0.1.2.3.4.5.6.7"
+    assert inst.identifier[0].type.coding[0].code == "MR"
+    assert inst.identifier[0].type.coding[0].system == "http://terminology.hl7.org/CodeSystem/v2-0203"
+    assert inst.identifier[0].use == "usual"
+    assert inst.identifier[0].value == "123458"
+    assert inst.link[0].target.reference == "Patient/pat4"
+    assert inst.link[1].target.reference == "Practitioner/prac4"
+    assert inst.meta.tag[0].code == "HTEST"
+    assert inst.meta.tag[0].display == "test health data"
+    assert inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
+    assert inst.name[0].family == "Notsowell"
+    assert inst.name[0].given[0] == "Sandy"
+    assert inst.name[0].use == "official"
+    assert inst.text.status == "generated"
+
+
+def test_person_4(base_settings):
+    """No. 4 tests collection for Person.
+    Test File: person-example-per4.json
+    """
+    filename = (
+        base_settings["unittest_data_dir"] / "person-example-per4.json"
+    )
+    inst = person.Person.parse_file(
+        filename, content_type="application/json", encoding="utf-8"
+    )
+    assert "Person" == inst.resource_type
+
+    impl_person_4(inst)
+
+    # testing reverse by generating data from itself and create again.
+    data = inst.dict()
+    assert "Person" == data["resourceType"]
+
+    inst2 = person.Person(**data)
+    impl_person_4(inst2)
+
+
+def impl_person_5(inst):
+    assert inst.active is True
     assert inst.address[0].city == "PleasantVille"
     assert inst.address[0].line[0] == "534 Erewhon St"
     assert inst.address[0].postalCode == "3999"
@@ -204,8 +248,8 @@ def impl_person_4(inst):
     assert inst.text.status == "generated"
 
 
-def test_person_4(base_settings):
-    """No. 4 tests collection for Person.
+def test_person_5(base_settings):
+    """No. 5 tests collection for Person.
     Test File: person-grahame.json
     """
     filename = (
@@ -216,17 +260,17 @@ def test_person_4(base_settings):
     )
     assert "Person" == inst.resource_type
 
-    impl_person_4(inst)
+    impl_person_5(inst)
 
     # testing reverse by generating data from itself and create again.
     data = inst.dict()
     assert "Person" == data["resourceType"]
 
     inst2 = person.Person(**data)
-    impl_person_4(inst2)
+    impl_person_5(inst2)
 
 
-def impl_person_5(inst):
+def impl_person_6(inst):
     assert inst.active is True
     assert inst.address[0].city == "Sandusky"
     assert inst.address[0].country == "USA"
@@ -266,8 +310,8 @@ def impl_person_5(inst):
     assert inst.text.status == "generated"
 
 
-def test_person_5(base_settings):
-    """No. 5 tests collection for Person.
+def test_person_6(base_settings):
+    """No. 6 tests collection for Person.
     Test File: person-patient-portal.json
     """
     filename = (
@@ -278,11 +322,11 @@ def test_person_5(base_settings):
     )
     assert "Person" == inst.resource_type
 
-    impl_person_5(inst)
+    impl_person_6(inst)
 
     # testing reverse by generating data from itself and create again.
     data = inst.dict()
     assert "Person" == data["resourceType"]
 
     inst2 = person.Person(**data)
-    impl_person_5(inst2)
+    impl_person_6(inst2)

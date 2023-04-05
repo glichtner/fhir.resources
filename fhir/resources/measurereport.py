@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/MeasureReport
-Release: 5.0.0-draft-final
-Version: 5.0.0-draft-final
-Build ID: 043d3d5
-Last updated: 2023-03-01T23:03:57.298+11:00
+Release: R5
+Version: 5.0.0
+Build ID: 2aecd53
+Last updated: 2023-03-26T15:21:02.749+11:00
 """
 import typing
 from pydantic import Field
@@ -57,8 +57,8 @@ class MeasureReport(domainresource.DomainResource):
     date: fhirtypes.DateTime = Field(
 		None,
 		alias="date",
-		title="When the report was generated",
-		description="The date this measure report was generated.",
+		title="When the measure was calculated",
+		description="The date this measure was calculated.",
         # if property is element of this resource.
         element_property=True,
 	)
@@ -73,8 +73,10 @@ class MeasureReport(domainresource.DomainResource):
 		alias="evaluatedResource",
 		title="What data was used to calculate the measure score",
 		description=(
-    "A reference to a Resource that was used in the calculation of this "
-    "measure."
+    "Evaluated resources are used to capture what data was involved in the "
+    "calculation of a measure. This usage is only allowed for individual "
+    "reports to ensure that the size of the MeasureReport resource is "
+    "bounded."
     ),
         # if property is element of this resource.
         element_property=True,

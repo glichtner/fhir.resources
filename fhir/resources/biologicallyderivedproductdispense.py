@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/BiologicallyDerivedProductDispense
-Release: 5.0.0-draft-final
-Version: 5.0.0-draft-final
-Build ID: 043d3d5
-Last updated: 2023-03-01T23:03:57.298+11:00
+Release: R5
+Version: 5.0.0
+Build ID: 2aecd53
+Last updated: 2023-03-26T15:21:02.749+11:00
 """
 import typing
 from pydantic import Field
@@ -209,7 +209,7 @@ class BiologicallyDerivedProductDispense(domainresource.DomainResource):
         title="Extension field for ``status``."
     )
 	
-    usageInstruction: fhirtypes.CodeableConceptType = Field(
+    usageInstruction: fhirtypes.String = Field(
 		None,
 		alias="usageInstruction",
 		title="Specific instructions for use",
@@ -217,6 +217,11 @@ class BiologicallyDerivedProductDispense(domainresource.DomainResource):
         # if property is element of this resource.
         element_property=True,
 	)
+    usageInstruction__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
+        None,
+        alias="_usageInstruction",
+        title="Extension field for ``usageInstruction``."
+    )
 	
     whenHandedOver: fhirtypes.DateTime = Field(
 		None,

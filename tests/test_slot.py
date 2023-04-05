@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/Slot
-Release: 5.0.0-draft-final
-Version: 5.0.0-draft-final
-Build ID: 043d3d5
-Last updated: 2023-03-01T23:03:57.298+11:00
+Release: R5
+Version: 5.0.0
+Build ID: 2aecd53
+Last updated: 2023-03-26T15:21:02.749+11:00
 """
 from pydantic.validators import bytes_validator  # noqa: F401
 from fhir.resources import fhirtypes  # noqa: F401
@@ -55,26 +55,29 @@ def test_slot_1(base_settings):
 
 
 def impl_slot_2(inst):
-    assert inst.comment == "Dr Careful is out of the office"
-    assert inst.end == fhirtypes.Instant.validate("2013-12-25T10:00:00Z")
-    assert inst.id == "2"
+    assert inst.comment == (
+    "Assessments should be performed before requesting "
+    "appointments in this slot."
+    )
+    assert inst.end == fhirtypes.Instant.validate("2023-12-25T09:30:00Z")
+    assert inst.id == "example-hcs"
     assert inst.meta.tag[0].code == "HTEST"
     assert inst.meta.tag[0].display == "test health data"
     assert inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
-    assert inst.schedule.reference == "Schedule/example"
-    assert inst.serviceCategory[0].coding[0].code == "17"
-    assert inst.serviceCategory[0].coding[0].display == "General Practice"
-    assert inst.start == fhirtypes.Instant.validate("2013-12-25T09:45:00Z")
-    assert inst.status == "busy-tentative"
+    assert inst.schedule.reference == "Schedule/example-hcs"
+    assert inst.serviceType[0].reference.display == "Burgers UMC, Posttraumatic Stress Disorder Clinic"
+    assert inst.serviceType[0].reference.reference == "HealthcareService/example"
+    assert inst.start == fhirtypes.Instant.validate("2023-12-25T09:15:00Z")
+    assert inst.status == "free"
     assert inst.text.status == "generated"
 
 
 def test_slot_2(base_settings):
     """No. 2 tests collection for Slot.
-    Test File: slot-example-tentative.json
+    Test File: slot-example-hcs.json
     """
     filename = (
-        base_settings["unittest_data_dir"] / "slot-example-tentative.json"
+        base_settings["unittest_data_dir"] / "slot-example-hcs.json"
     )
     inst = slot.Slot.parse_file(
         filename, content_type="application/json", encoding="utf-8"
@@ -93,25 +96,25 @@ def test_slot_2(base_settings):
 
 def impl_slot_3(inst):
     assert inst.comment == "Dr Careful is out of the office"
-    assert inst.end == fhirtypes.Instant.validate("2013-12-25T09:45:00Z")
-    assert inst.id == "3"
+    assert inst.end == fhirtypes.Instant.validate("2013-12-25T10:00:00Z")
+    assert inst.id == "2"
     assert inst.meta.tag[0].code == "HTEST"
     assert inst.meta.tag[0].display == "test health data"
     assert inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
     assert inst.schedule.reference == "Schedule/example"
     assert inst.serviceCategory[0].coding[0].code == "17"
     assert inst.serviceCategory[0].coding[0].display == "General Practice"
-    assert inst.start == fhirtypes.Instant.validate("2013-12-25T09:30:00Z")
-    assert inst.status == "busy-unavailable"
+    assert inst.start == fhirtypes.Instant.validate("2013-12-25T09:45:00Z")
+    assert inst.status == "busy-tentative"
     assert inst.text.status == "generated"
 
 
 def test_slot_3(base_settings):
     """No. 3 tests collection for Slot.
-    Test File: slot-example-unavailable.json
+    Test File: slot-example-tentative.json
     """
     filename = (
-        base_settings["unittest_data_dir"] / "slot-example-unavailable.json"
+        base_settings["unittest_data_dir"] / "slot-example-tentative.json"
     )
     inst = slot.Slot.parse_file(
         filename, content_type="application/json", encoding="utf-8"
@@ -129,6 +132,43 @@ def test_slot_3(base_settings):
 
 
 def impl_slot_4(inst):
+    assert inst.comment == "Dr Careful is out of the office"
+    assert inst.end == fhirtypes.Instant.validate("2013-12-25T09:45:00Z")
+    assert inst.id == "3"
+    assert inst.meta.tag[0].code == "HTEST"
+    assert inst.meta.tag[0].display == "test health data"
+    assert inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
+    assert inst.schedule.reference == "Schedule/example"
+    assert inst.serviceCategory[0].coding[0].code == "17"
+    assert inst.serviceCategory[0].coding[0].display == "General Practice"
+    assert inst.start == fhirtypes.Instant.validate("2013-12-25T09:30:00Z")
+    assert inst.status == "busy-unavailable"
+    assert inst.text.status == "generated"
+
+
+def test_slot_4(base_settings):
+    """No. 4 tests collection for Slot.
+    Test File: slot-example-unavailable.json
+    """
+    filename = (
+        base_settings["unittest_data_dir"] / "slot-example-unavailable.json"
+    )
+    inst = slot.Slot.parse_file(
+        filename, content_type="application/json", encoding="utf-8"
+    )
+    assert "Slot" == inst.resource_type
+
+    impl_slot_4(inst)
+
+    # testing reverse by generating data from itself and create again.
+    data = inst.dict()
+    assert "Slot" == data["resourceType"]
+
+    inst2 = slot.Slot(**data)
+    impl_slot_4(inst2)
+
+
+def impl_slot_5(inst):
     assert inst.appointmentType[0].coding[0].code == "WALKIN"
     assert inst.appointmentType[0].coding[0].display == "A previously unscheduled walk-in visit"
     assert inst.appointmentType[0].coding[0].system == "http://terminology.hl7.org/CodeSystem/v2-0276"
@@ -153,8 +193,8 @@ def impl_slot_4(inst):
     assert inst.text.status == "generated"
 
 
-def test_slot_4(base_settings):
-    """No. 4 tests collection for Slot.
+def test_slot_5(base_settings):
+    """No. 5 tests collection for Slot.
     Test File: slot-example.json
     """
     filename = (
@@ -165,11 +205,11 @@ def test_slot_4(base_settings):
     )
     assert "Slot" == inst.resource_type
 
-    impl_slot_4(inst)
+    impl_slot_5(inst)
 
     # testing reverse by generating data from itself and create again.
     data = inst.dict()
     assert "Slot" == data["resourceType"]
 
     inst2 = slot.Slot(**data)
-    impl_slot_4(inst2)
+    impl_slot_5(inst2)

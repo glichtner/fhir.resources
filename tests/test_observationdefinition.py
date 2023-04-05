@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/ObservationDefinition
-Release: 5.0.0-draft-final
-Version: 5.0.0-draft-final
-Build ID: 043d3d5
-Last updated: 2023-03-01T23:03:57.298+11:00
+Release: R5
+Version: 5.0.0
+Build ID: 2aecd53
+Last updated: 2023-03-26T15:21:02.749+11:00
 """
 from pydantic.validators import bytes_validator  # noqa: F401
 from fhir.resources import fhirtypes  # noqa: F401
@@ -26,6 +26,9 @@ def impl_observationdefinition_1(inst):
     assert inst.method.coding[0].system == "http://snomed.info/sct"
     assert inst.multipleResultsAllowed is False
     assert inst.permittedDataType[0] == "Quantity"
+    assert inst.permittedUnit[0].code == "%"
+    assert inst.permittedUnit[0].display == "%"
+    assert inst.permittedUnit[0].system == "http://unitsofmeasure.org"
     assert inst.qualifiedValue[0].context.coding[0].code == "normal"
     assert inst.qualifiedValue[0].context.coding[0].display == "Normal Range"
     assert inst.qualifiedValue[0].context.coding[0].system == "http://terminology.hl7.org/CodeSystem/referencerange-meaning"
@@ -36,10 +39,6 @@ def impl_observationdefinition_1(inst):
     assert inst.qualifiedValue[1].context.coding[0].system == "http://terminology.hl7.org/CodeSystem/referencerange-meaning"
     assert float(inst.qualifiedValue[1].range.high.value) == float(40)
     assert inst.qualifiedValue[1].rangeCategory == "critical"
-    assert inst.quantitativeDetails.decimalPrecision == 0
-    assert inst.quantitativeDetails.unit.coding[0].code == "%"
-    assert inst.quantitativeDetails.unit.coding[0].display == "%"
-    assert inst.quantitativeDetails.unit.coding[0].system == "http://unitsofmeasure.org"
     assert inst.status == "active"
     assert inst.text.status == "generated"
 

@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/EpisodeOfCare
-Release: 5.0.0-draft-final
-Version: 5.0.0-draft-final
-Build ID: 043d3d5
-Last updated: 2023-03-01T23:03:57.298+11:00
+Release: R5
+Version: 5.0.0
+Build ID: 2aecd53
+Last updated: 2023-03-26T15:21:02.749+11:00
 """
 from pydantic.validators import bytes_validator  # noqa: F401
 from fhir.resources import fhirtypes  # noqa: F401
@@ -14,8 +14,8 @@ from fhir.resources import episodeofcare
 def impl_episodeofcare_1(inst):
     assert inst.account[0].display == "example account"
     assert inst.account[0].reference == "Account/example"
-    assert inst.careManager.display == "Amanda Assigned"
-    assert inst.careManager.reference == "Practitioner/14"
+    assert inst.careManager.display == "Carla Espinosa"
+    assert inst.careManager.reference == "Practitioner/f204"
     assert inst.careTeam[0].display == "example care team"
     assert inst.careTeam[0].reference == "CareTeam/example"
     assert inst.diagnosis[0].condition[0].reference.reference == "Condition/stroke"

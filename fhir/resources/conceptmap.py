@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/ConceptMap
-Release: 5.0.0-draft-final
-Version: 5.0.0-draft-final
-Build ID: 043d3d5
-Last updated: 2023-03-01T23:03:57.298+11:00
+Release: R5
+Version: 5.0.0
+Build ID: 2aecd53
+Last updated: 2023-03-26T15:21:02.749+11:00
 """
 import typing
 from pydantic import Field
@@ -943,12 +943,16 @@ class ConceptMapGroup(backboneelement.BackboneElement):
     unmapped: fhirtypes.ConceptMapGroupUnmappedType = Field(
 		None,
 		alias="unmapped",
-		title="What to do when there is no mapping target for the source concept",
+		title=(
+    "What to do when there is no mapping target for the source concept and "
+    "ConceptMap.group.element.noMap is not true"
+    ),
 		description=(
     "What to do when there is no mapping to a target concept from the "
-    "source concept.  This provides the \"default\" to be applied when there "
-    "is no target concept mapping specified.  The 'unmapped' element is "
-    "ignored if a code is specified to have relationship = not-related-to."
+    "source concept and ConceptMap.group.element.noMap is not true. This "
+    "provides the \"default\" to be applied when there is no target concept "
+    "mapping specified or the expansion of "
+    "ConceptMap.group.element.target.valueSet is empty."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -1034,8 +1038,11 @@ class ConceptMapGroupElement(backboneelement.BackboneElement):
     valueSet: fhirtypes.Canonical = Field(
 		None,
 		alias="valueSet",
-		title="Identifies elements being mapped",
-		description="The set of codes being mapped.",
+		title="Identifies the set of concepts being mapped",
+		description=(
+    "The set of concepts from the ConceptMap.group.source code system which"
+    " are all being mapped to the target as part of this mapping rule."
+    ),
         # if property is element of this resource.
         element_property=True,
         # note: Listed Resource Type(s) should be allowed as Reference.
@@ -1176,8 +1183,14 @@ class ConceptMapGroupElementTarget(backboneelement.BackboneElement):
     valueSet: fhirtypes.Canonical = Field(
 		None,
 		alias="valueSet",
-		title="Identifies the set of target elements",
-		description="The set of codes that the map refers to.",
+		title="Identifies the set of target concepts",
+		description=(
+    "The set of concepts from the ConceptMap.group.target code system which"
+    " are all being mapped to as part of this mapping rule. The effect of "
+    "using this data element is the same as having multiple "
+    "ConceptMap.group.element.target elements with one for each concept in "
+    "the ConceptMap.group.element.target.valueSet value set."
+    ),
         # if property is element of this resource.
         element_property=True,
         # note: Listed Resource Type(s) should be allowed as Reference.
@@ -1527,7 +1540,11 @@ class ConceptMapGroupElementTargetProperty(backboneelement.BackboneElement):
 		None,
 		alias="valueBoolean",
 		title="Value of the property for this concept",
-		description="The value of this property.",
+		description=(
+    "The value of this property. If the type chosen for this element is "
+    "'code', then the property SHALL be defined in a ConceptMap.property "
+    "element."
+    ),
         # if property is element of this resource.
         element_property=True,
         # Choice of Data Types. i.e value[x]
@@ -1544,7 +1561,11 @@ class ConceptMapGroupElementTargetProperty(backboneelement.BackboneElement):
 		None,
 		alias="valueCode",
 		title="Value of the property for this concept",
-		description="The value of this property.",
+		description=(
+    "The value of this property. If the type chosen for this element is "
+    "'code', then the property SHALL be defined in a ConceptMap.property "
+    "element."
+    ),
         # if property is element of this resource.
         element_property=True,
         # Choice of Data Types. i.e value[x]
@@ -1561,7 +1582,11 @@ class ConceptMapGroupElementTargetProperty(backboneelement.BackboneElement):
 		None,
 		alias="valueCoding",
 		title="Value of the property for this concept",
-		description="The value of this property.",
+		description=(
+    "The value of this property. If the type chosen for this element is "
+    "'code', then the property SHALL be defined in a ConceptMap.property "
+    "element."
+    ),
         # if property is element of this resource.
         element_property=True,
         # Choice of Data Types. i.e value[x]
@@ -1573,7 +1598,11 @@ class ConceptMapGroupElementTargetProperty(backboneelement.BackboneElement):
 		None,
 		alias="valueDateTime",
 		title="Value of the property for this concept",
-		description="The value of this property.",
+		description=(
+    "The value of this property. If the type chosen for this element is "
+    "'code', then the property SHALL be defined in a ConceptMap.property "
+    "element."
+    ),
         # if property is element of this resource.
         element_property=True,
         # Choice of Data Types. i.e value[x]
@@ -1590,7 +1619,11 @@ class ConceptMapGroupElementTargetProperty(backboneelement.BackboneElement):
 		None,
 		alias="valueDecimal",
 		title="Value of the property for this concept",
-		description="The value of this property.",
+		description=(
+    "The value of this property. If the type chosen for this element is "
+    "'code', then the property SHALL be defined in a ConceptMap.property "
+    "element."
+    ),
         # if property is element of this resource.
         element_property=True,
         # Choice of Data Types. i.e value[x]
@@ -1607,7 +1640,11 @@ class ConceptMapGroupElementTargetProperty(backboneelement.BackboneElement):
 		None,
 		alias="valueInteger",
 		title="Value of the property for this concept",
-		description="The value of this property.",
+		description=(
+    "The value of this property. If the type chosen for this element is "
+    "'code', then the property SHALL be defined in a ConceptMap.property "
+    "element."
+    ),
         # if property is element of this resource.
         element_property=True,
         # Choice of Data Types. i.e value[x]
@@ -1624,7 +1661,11 @@ class ConceptMapGroupElementTargetProperty(backboneelement.BackboneElement):
 		None,
 		alias="valueString",
 		title="Value of the property for this concept",
-		description="The value of this property.",
+		description=(
+    "The value of this property. If the type chosen for this element is "
+    "'code', then the property SHALL be defined in a ConceptMap.property "
+    "element."
+    ),
         # if property is element of this resource.
         element_property=True,
         # Choice of Data Types. i.e value[x]
@@ -1757,11 +1798,12 @@ class ConceptMapGroupUnmapped(backboneelement.BackboneElement):
     Resource StructureDefinition, instead used to enable Extensibility feature
     for FHIR Primitive Data Types.
 
-    What to do when there is no mapping target for the source concept.
+    What to do when there is no mapping target for the source concept and
+    ConceptMap.group.element.noMap is not true.
     What to do when there is no mapping to a target concept from the source
-    concept.  This provides the "default" to be applied when there is no target
-    concept mapping specified.  The 'unmapped' element is ignored if a code is
-    specified to have relationship = not-related-to.
+    concept and ConceptMap.group.element.noMap is not true. This provides the
+    "default" to be applied when there is no target concept mapping specified
+    or the expansion of ConceptMap.group.element.target.valueSet is empty.
     """
     resource_type = Field("ConceptMapGroupUnmapped", const=True)
 	

@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/OperationDefinition
-Release: 5.0.0-draft-final
-Version: 5.0.0-draft-final
-Build ID: 043d3d5
-Last updated: 2023-03-01T23:03:57.298+11:00
+Release: R5
+Version: 5.0.0
+Build ID: 2aecd53
+Last updated: 2023-03-26T15:21:02.749+11:00
 """
 from pydantic.validators import bytes_validator  # noqa: F401
 from fhir.resources import fhirtypes  # noqa: F401
@@ -18,7 +18,7 @@ def impl_operationdefinition_1(inst):
     assert inst.contact[0].telecom[0].value == "http://hl7.org/fhir"
     assert inst.contact[0].telecom[1].system == "email"
     assert inst.contact[0].telecom[1].value == "fhir@lists.hl7.org"
-    assert inst.date == fhirtypes.DateTime.validate("2023-03-01T23:03:57+11:00")
+    assert inst.date == fhirtypes.DateTime.validate("2023-03-26T15:21:02+11:00")
     assert inst.experimental is False
     assert inst.extension[0].url == (
     "http://hl7.org/fhir/StructureDefinition/structuredefinition-"
@@ -57,9 +57,9 @@ def impl_operationdefinition_1(inst):
     assert inst.parameter[1].type == "boolean"
     assert inst.parameter[1].use == "in"
     assert inst.parameter[2].max == "1"
-    assert inst.parameter[2].min == 0
-    assert inst.parameter[2].name == "docRef"
-    assert inst.parameter[2].type == "DocumentReference"
+    assert inst.parameter[2].min == 1
+    assert inst.parameter[2].name == "return"
+    assert inst.parameter[2].type == "Bundle"
     assert inst.parameter[2].use == "out"
     assert inst.publisher == "HL7 (FHIR Project)"
     assert inst.resource[0] == "DocumentReference"
@@ -72,7 +72,7 @@ def impl_operationdefinition_1(inst):
     "http://hl7.org/fhir/OperationDefinition/DocumentReference-"
     "generate"
     )
-    assert inst.version == "5.0.0-draft-final"
+    assert inst.version == "5.0.0"
 
 
 def test_operationdefinition_1(base_settings):
@@ -104,7 +104,7 @@ def impl_operationdefinition_2(inst):
     assert inst.contact[0].telecom[0].value == "http://hl7.org/fhir"
     assert inst.contact[0].telecom[1].system == "email"
     assert inst.contact[0].telecom[1].value == "fhir@lists.hl7.org"
-    assert inst.date == fhirtypes.DateTime.validate("2023-03-01T23:03:57+11:00")
+    assert inst.date == fhirtypes.DateTime.validate("2023-03-26T15:21:02+11:00")
     assert inst.description == (
     "The data-requirements operation aggregates and returns the "
     "parameters and data requirements for the measure and all its"
@@ -165,7 +165,7 @@ def impl_operationdefinition_2(inst):
     "http://hl7.org/fhir/OperationDefinition/Measure-data-"
     "requirements"
     )
-    assert inst.version == "5.0.0-draft-final"
+    assert inst.version == "5.0.0"
 
 
 def test_operationdefinition_2(base_settings):
@@ -286,7 +286,7 @@ def impl_operationdefinition_4(inst):
     assert inst.contact[0].telecom[0].value == "http://hl7.org/fhir"
     assert inst.contact[0].telecom[1].system == "email"
     assert inst.contact[0].telecom[1].value == "fhir@lists.hl7.org"
-    assert inst.date == fhirtypes.DateTime.validate("2023-03-01T23:03:57+11:00")
+    assert inst.date == fhirtypes.DateTime.validate("2023-03-26T15:21:02+11:00")
     assert inst.description == (
     "This operation is used to get a token for a websocket client"
     " to use in order to bind to one or more subscriptions."
@@ -349,7 +349,7 @@ def impl_operationdefinition_4(inst):
     "http://hl7.org/fhir/OperationDefinition/Subscription-get-ws-"
     "binding-token"
     )
-    assert inst.version == "5.0.0-draft-final"
+    assert inst.version == "5.0.0"
 
 
 def test_operationdefinition_4(base_settings):
@@ -381,7 +381,7 @@ def impl_operationdefinition_5(inst):
     assert inst.contact[0].telecom[0].value == "http://hl7.org/fhir"
     assert inst.contact[0].telecom[1].system == "email"
     assert inst.contact[0].telecom[1].value == "fhir@lists.hl7.org"
-    assert inst.date == fhirtypes.DateTime.validate("2023-03-01T23:03:57+11:00")
+    assert inst.date == fhirtypes.DateTime.validate("2023-03-26T15:21:02+11:00")
     assert inst.experimental is False
     assert inst.extension[0].url == (
     "http://hl7.org/fhir/StructureDefinition/structuredefinition-"
@@ -463,7 +463,7 @@ def impl_operationdefinition_5(inst):
     "http://hl7.org/fhir/OperationDefinition/StructureDefinition-"
     "questionnaire"
     )
-    assert inst.version == "5.0.0-draft-final"
+    assert inst.version == "5.0.0"
 
 
 def test_operationdefinition_5(base_settings):
@@ -495,7 +495,7 @@ def impl_operationdefinition_6(inst):
     assert inst.contact[0].telecom[0].value == "http://hl7.org/fhir"
     assert inst.contact[0].telecom[1].system == "email"
     assert inst.contact[0].telecom[1].value == "fhir@lists.hl7.org"
-    assert inst.date == fhirtypes.DateTime.validate("2023-03-01T23:03:57+11:00")
+    assert inst.date == fhirtypes.DateTime.validate("2023-03-26T15:21:02+11:00")
     assert inst.experimental is False
     assert inst.extension[0].url == (
     "http://hl7.org/fhir/StructureDefinition/structuredefinition-"
@@ -596,7 +596,7 @@ def impl_operationdefinition_6(inst):
     "http://hl7.org/fhir/OperationDefinition/CodeSystem-validate-"
     "code"
     )
-    assert inst.version == "5.0.0-draft-final"
+    assert inst.version == "5.0.0"
 
 
 def test_operationdefinition_6(base_settings):
@@ -628,7 +628,7 @@ def impl_operationdefinition_7(inst):
     assert inst.contact[0].telecom[0].value == "http://hl7.org/fhir"
     assert inst.contact[0].telecom[1].system == "email"
     assert inst.contact[0].telecom[1].value == "fhir@lists.hl7.org"
-    assert inst.date == fhirtypes.DateTime.validate("2023-03-01T23:03:57+11:00")
+    assert inst.date == fhirtypes.DateTime.validate("2023-03-26T15:21:02+11:00")
     assert inst.description == (
     "Filter content from an array in a large resource such as "
     "List or Group. See [Operations for Large "
@@ -680,7 +680,7 @@ def impl_operationdefinition_7(inst):
     assert inst.title == "Filter an array in a large resource"
     assert inst.type is False
     assert inst.url == "http://hl7.org/fhir/OperationDefinition/Resource-filter"
-    assert inst.version == "5.0.0-draft-final"
+    assert inst.version == "5.0.0"
 
 
 def test_operationdefinition_7(base_settings):
@@ -712,7 +712,7 @@ def impl_operationdefinition_8(inst):
     assert inst.contact[0].telecom[0].value == "http://hl7.org/fhir"
     assert inst.contact[0].telecom[1].system == "email"
     assert inst.contact[0].telecom[1].value == "fhir@lists.hl7.org"
-    assert inst.date == fhirtypes.DateTime.validate("2023-03-01T23:03:57+11:00")
+    assert inst.date == fhirtypes.DateTime.validate("2023-03-26T15:21:02+11:00")
     assert inst.experimental is False
     assert inst.extension[0].url == (
     "http://hl7.org/fhir/StructureDefinition/structuredefinition-"
@@ -773,7 +773,7 @@ def impl_operationdefinition_8(inst):
     "http://hl7.org/fhir/OperationDefinition/EpisodeOfCare-"
     "everything"
     )
-    assert inst.version == "5.0.0-draft-final"
+    assert inst.version == "5.0.0"
 
 
 def test_operationdefinition_8(base_settings):
@@ -805,7 +805,7 @@ def impl_operationdefinition_9(inst):
     assert inst.contact[0].telecom[0].value == "http://hl7.org/fhir"
     assert inst.contact[0].telecom[1].system == "email"
     assert inst.contact[0].telecom[1].value == "fhir@lists.hl7.org"
-    assert inst.date == fhirtypes.DateTime.validate("2023-03-01T23:03:57+11:00")
+    assert inst.date == fhirtypes.DateTime.validate("2023-03-26T15:21:02+11:00")
     assert inst.description == (
     "The apply operation applies a PlanDefinition to a given "
     "subject"
@@ -903,7 +903,7 @@ def impl_operationdefinition_9(inst):
     assert inst.title == "Apply"
     assert inst.type is True
     assert inst.url == "http://hl7.org/fhir/OperationDefinition/PlanDefinition-apply"
-    assert inst.version == "5.0.0-draft-final"
+    assert inst.version == "5.0.0"
 
 
 def test_operationdefinition_9(base_settings):
@@ -935,7 +935,7 @@ def impl_operationdefinition_10(inst):
     assert inst.contact[0].telecom[0].value == "http://hl7.org/fhir"
     assert inst.contact[0].telecom[1].system == "email"
     assert inst.contact[0].telecom[1].value == "fhir@lists.hl7.org"
-    assert inst.date == fhirtypes.DateTime.validate("2023-03-01T23:03:57+11:00")
+    assert inst.date == fhirtypes.DateTime.validate("2023-03-26T15:21:02+11:00")
     assert inst.experimental is False
     assert inst.extension[0].url == (
     "http://hl7.org/fhir/StructureDefinition/structuredefinition-"
@@ -981,7 +981,7 @@ def impl_operationdefinition_10(inst):
     "http://hl7.org/fhir/OperationDefinition/CoverageEligibilityR"
     "equest-submit"
     )
-    assert inst.version == "5.0.0-draft-final"
+    assert inst.version == "5.0.0"
 
 
 def test_operationdefinition_10(base_settings):

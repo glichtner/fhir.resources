@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/OrganizationAffiliation
-Release: 5.0.0-draft-final
-Version: 5.0.0-draft-final
-Build ID: 043d3d5
-Last updated: 2023-03-01T23:03:57.298+11:00
+Release: R5
+Version: 5.0.0
+Build ID: 2aecd53
+Last updated: 2023-03-26T15:21:02.749+11:00
 """
 from pydantic.validators import bytes_validator  # noqa: F401
 from fhir.resources import fhirtypes  # noqa: F401
@@ -69,10 +69,8 @@ def impl_organizationaffiliation_2(inst):
     assert inst.code[0].coding[0].system == "http://hl7.org/fhir/organization-role"
     assert inst.code[0].text == "Hospital member"
     assert inst.endpoint[0].display == "Founding Fathers Memorial Hospital HIE endpoint"
-    assert inst.endpoint[0].reference == "http://hl7.org/fhir/ig/vhdir/Endpoint/foundingfathersHIE"
     assert inst.id == "orgrole2"
     assert inst.identifier[0].assigner.display == "Monument Health Information Exchange"
-    assert inst.identifier[0].assigner.reference == "http://hl7.org/fhir/ig/vhdir/Organization/monumentHIE"
     assert inst.identifier[0].system == "http://example.org/www.monumentHIE.com"
     assert inst.identifier[0].type.text == "member hospital"
     assert inst.identifier[0].use == "secondary"
@@ -81,9 +79,7 @@ def impl_organizationaffiliation_2(inst):
     assert inst.meta.tag[0].display == "test health data"
     assert inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
     assert inst.organization.display == "Monument Health Information Exchange"
-    assert inst.organization.reference == "http://hl7.org/fhir/ig/vhdir/Organization/monumentHIE"
     assert inst.participatingOrganization.display == "Founding Fathers Memorial Hospital"
-    assert inst.participatingOrganization.reference == "http://hl7.org/fhir/ig/vhdir/Organization/foundingfathers"
     assert inst.text.status == "generated"
 
 
@@ -120,32 +116,19 @@ def impl_organizationaffiliation_3(inst):
     assert inst.contact[0].telecom[0].use == "work"
     assert inst.contact[0].telecom[0].value == "202-109-8765"
     assert inst.healthcareService[0].display == "Inpatient rehabilitation services"
-    assert inst.healthcareService[0].reference == (
-    "http://hl7.org/fhir/ig/vhdir/HealthcareService/independencer"
-    "ehab1"
-    )
     assert inst.healthcareService[1].display == "Outpatient rehabilitation services"
-    assert inst.healthcareService[1].reference == (
-    "http://hl7.org/fhir/ig/vhdir/HealthcareService/independencer"
-    "ehab2"
-    )
     assert inst.id == "orgrole1"
     assert inst.identifier[0].assigner.display == "Founding Fathers Memorial Hospital"
-    assert inst.identifier[0].assigner.reference == "http://hl7.org/fhir/ig/vhdir/Organization/foundingfathers"
     assert inst.identifier[0].system == "http://example.org/www.foundingfathersmemorial.com"
     assert inst.identifier[0].use == "secondary"
     assert inst.identifier[0].value == "service002"
     assert inst.location[0].display == "Founding Fathers Memorial Hospital"
-    assert inst.location[0].reference == "http://hl7.org/fhir/ig/vhdir/Location/foundingfathers1"
     assert inst.meta.tag[0].code == "HTEST"
     assert inst.meta.tag[0].display == "test health data"
     assert inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
     assert inst.network[0].display == "Patriot Preferred Provider Network"
-    assert inst.network[0].reference == "http://hl7.org/fhir/ig/vhdir/Network/patriotppo"
     assert inst.organization.display == "Founding Fathers Memorial Hospital"
-    assert inst.organization.reference == "http://hl7.org/fhir/ig/vhdir/Organization/foundingfathers"
     assert inst.participatingOrganization.display == "Independence Rehabilitation Services, Inc."
-    assert inst.participatingOrganization.reference == "http://hl7.org/fhir/ig/vhdir/Organization/independencerehab"
     assert inst.period.end == fhirtypes.DateTime.validate("2022-02-01")
     assert inst.period.start == fhirtypes.DateTime.validate("2018-02-09")
     assert inst.specialty[0].coding[0].code == "394602003"

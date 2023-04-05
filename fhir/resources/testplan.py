@@ -1,14 +1,17 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/TestPlan
-Release: 5.0.0-draft-final
-Version: 5.0.0-draft-final
-Build ID: 043d3d5
-Last updated: 2023-03-01T23:03:57.298+11:00
+Release: R5
+Version: 5.0.0
+Build ID: 2aecd53
+Last updated: 2023-03-26T15:21:02.749+11:00
 """
 import typing
 from pydantic import Field
 from pydantic import root_validator
+
+from pydantic.error_wrappers import ErrorWrapper, ValidationError
+from pydantic.errors import MissingError, NoneIsNotAllowedError
 
 from . import fhirtypes
 
@@ -20,6 +23,7 @@ class TestPlan(domainresource.DomainResource):
     Resource StructureDefinition, instead used to enable Extensibility feature
     for FHIR Primitive Data Types.
 
+    Description of intented testing.
     A plan for executing testing on an artifact or specifications.
     """
     resource_type = Field("TestPlan", const=True)
@@ -39,8 +43,11 @@ class TestPlan(domainresource.DomainResource):
     contact: typing.List[fhirtypes.ContactDetailType] = Field(
 		None,
 		alias="contact",
-		title="Contact",
-		description=None,
+		title="Contact details for the publisher",
+		description=(
+    "Contact details to assist a user in finding and communicating with the"
+    " publisher."
+    ),
         # if property is element of this resource.
         element_property=True,
 	)
@@ -48,8 +55,14 @@ class TestPlan(domainresource.DomainResource):
     copyright: fhirtypes.Markdown = Field(
 		None,
 		alias="copyright",
-		title="Copyright",
-		description=None,
+		title="Use and/or publishing restrictions",
+		description=(
+    "A copyright statement relating to the test plan and/or its contents. "
+    "Copyright statements are generally legal restrictions on the use and "
+    "publishing of the test plan. The short copyright declaration (e.g. (c)"
+    " '2015+ xyz organization' should be sent in the copyrightLabel "
+    "element."
+    ),
         # if property is element of this resource.
         element_property=True,
 	)
@@ -59,23 +72,47 @@ class TestPlan(domainresource.DomainResource):
         title="Extension field for ``copyright``."
     )
 	
-    date: typing.List[fhirtypes.DateTime] = Field(
+    copyrightLabel: fhirtypes.String = Field(
 		None,
-		alias="date",
-		title="Date",
-		description=None,
+		alias="copyrightLabel",
+		title="Copyright holder and year(s)",
+		description=(
+    "A short string (<50 characters), suitable for inclusion in a page "
+    "footer that identifies the copyright holder, effective period, and "
+    "optionally whether rights are resctricted. (e.g. 'All rights "
+    "reserved', 'Some rights reserved')."
+    ),
         # if property is element of this resource.
         element_property=True,
 	)
-    date__ext: typing.List[typing.Union[fhirtypes.FHIRPrimitiveExtensionType, None]] = Field(
+    copyrightLabel__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
+        None,
+        alias="_copyrightLabel",
+        title="Extension field for ``copyrightLabel``."
+    )
+	
+    date: fhirtypes.DateTime = Field(
+		None,
+		alias="date",
+		title="Date last changed",
+		description=(
+    "The date (and optionally time) when the test plan was last "
+    "significantly changed. The date must change when the business version "
+    "changes and it must change if the status code changes. In addition, it"
+    " should change when the substantive content of the test plan changes."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+	)
+    date__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
         None,
         alias="_date",
         title="Extension field for ``date``."
     )
 	
-    dependencies: typing.List[fhirtypes.TestPlanDependenciesType] = Field(
+    dependency: typing.List[fhirtypes.TestPlanDependencyType] = Field(
 		None,
-		alias="dependencies",
+		alias="dependency",
 		title=(
     "The required criteria to execute the test plan - e.g. preconditions, "
     "previous tests"
@@ -91,8 +128,11 @@ class TestPlan(domainresource.DomainResource):
     description: fhirtypes.Markdown = Field(
 		None,
 		alias="description",
-		title="Description",
-		description="Description of the test plan.",
+		title="Natural language description of the test plan",
+		description=(
+    "A free text natural language description of the test plan from a "
+    "consumer's perspective."
+    ),
         # if property is element of this resource.
         element_property=True,
 	)
@@ -119,11 +159,33 @@ class TestPlan(domainresource.DomainResource):
         title="Extension field for ``exitCriteria``."
     )
 	
+    experimental: bool = Field(
+		None,
+		alias="experimental",
+		title="For testing purposes, not real usage",
+		description=(
+    "A Boolean value to indicate that this test plan is authored for "
+    "testing purposes (or education/evaluation/marketing) and is not "
+    "intended to be used for genuine usage."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+	)
+    experimental__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
+        None,
+        alias="_experimental",
+        title="Extension field for ``experimental``."
+    )
+	
     identifier: typing.List[fhirtypes.IdentifierType] = Field(
 		None,
 		alias="identifier",
-		title="Business identifier",
-		description="Business identifier for the Test Plan.",
+		title="Business identifier identifier for the test plan",
+		description=(
+    "A formal identifier that is used to identify this test plan when it is"
+    " represented in other formats, or referenced in a specification, "
+    "model, design or an instance."
+    ),
         # if property is element of this resource.
         element_property=True,
 	)
@@ -131,35 +193,45 @@ class TestPlan(domainresource.DomainResource):
     jurisdiction: typing.List[fhirtypes.CodeableConceptType] = Field(
 		None,
 		alias="jurisdiction",
-		title="Jurisdiction",
-		description=None,
+		title="Intended jurisdiction where the test plan applies (if applicable)",
+		description=(
+    "A legal or geographic region in which the test plan is intended to be "
+    "used."
+    ),
         # if property is element of this resource.
         element_property=True,
 	)
 	
-    name: typing.List[typing.Optional[fhirtypes.String]] = Field(
+    name: fhirtypes.String = Field(
 		None,
 		alias="name",
-		title="Name",
-		description=None,
+		title="Name for this test plan (computer friendly)",
+		description=(
+    "A natural language name identifying the test plan. This name should be"
+    " usable as an identifier for the module by machine processing "
+    "applications such as code generation."
+    ),
         # if property is element of this resource.
         element_property=True,
 	)
-    name__ext: typing.List[typing.Union[fhirtypes.FHIRPrimitiveExtensionType, None]] = Field(
+    name__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
         None,
         alias="_name",
         title="Extension field for ``name``."
     )
 	
-    publisher: typing.List[typing.Optional[fhirtypes.String]] = Field(
+    publisher: fhirtypes.String = Field(
 		None,
 		alias="publisher",
-		title="Publisher",
-		description=None,
+		title="Name of the publisher/steward (organization or individual)",
+		description=(
+    "The name of the organization or individual responsible for the release"
+    " and ongoing maintenance of the test plan."
+    ),
         # if property is element of this resource.
         element_property=True,
 	)
-    publisher__ext: typing.List[typing.Union[fhirtypes.FHIRPrimitiveExtensionType, None]] = Field(
+    publisher__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
         None,
         alias="_publisher",
         title="Extension field for ``publisher``."
@@ -168,8 +240,11 @@ class TestPlan(domainresource.DomainResource):
     purpose: fhirtypes.Markdown = Field(
 		None,
 		alias="purpose",
-		title="Purpose",
-		description=None,
+		title="Why this test plan is defined",
+		description=(
+    "Explanation of why this test plan is needed and why it has been "
+    "designed as it has."
+    ),
         # if property is element of this resource.
         element_property=True,
 	)
@@ -194,18 +269,22 @@ class TestPlan(domainresource.DomainResource):
         element_property=True,
 	)
 	
-    status: typing.List[fhirtypes.Code] = Field(
+    status: fhirtypes.Code = Field(
 		None,
 		alias="status",
 		title="draft | active | retired | unknown",
-		description="Status.",
+		description=(
+    "The status of this test plan. Enables tracking the life-cycle of the "
+    "content."
+    ),
         # if property is element of this resource.
         element_property=True,
+        element_required=True,
         # note: Enum values can be used in validation,
         # but use in your own responsibilities, read official FHIR documentation.
 		enum_values=["draft", "active", "retired", "unknown"],
 	)
-    status__ext: typing.List[typing.Union[fhirtypes.FHIRPrimitiveExtensionType, None]] = Field(
+    status__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
         None,
         alias="_status",
         title="Extension field for ``status``."
@@ -214,8 +293,11 @@ class TestPlan(domainresource.DomainResource):
     testCase: typing.List[fhirtypes.TestPlanTestCaseType] = Field(
 		None,
 		alias="testCase",
-		title="The test cases that are part of this plan",
-		description=None,
+		title="The test cases that constitute this plan",
+		description=(
+    "The individual test cases that are part of this plan, when they they "
+    "are made explicit."
+    ),
         # if property is element of this resource.
         element_property=True,
 	)
@@ -237,15 +319,15 @@ class TestPlan(domainresource.DomainResource):
         title="Extension field for ``testTools``."
     )
 	
-    title: typing.List[typing.Optional[fhirtypes.String]] = Field(
+    title: fhirtypes.String = Field(
 		None,
 		alias="title",
-		title="Human-readable title",
-		description=None,
+		title="Name for this test plan (human friendly)",
+		description="A short, descriptive, user-friendly title for the test plan.",
         # if property is element of this resource.
         element_property=True,
 	)
-    title__ext: typing.List[typing.Union[fhirtypes.FHIRPrimitiveExtensionType, None]] = Field(
+    title__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
         None,
         alias="_title",
         title="Extension field for ``title``."
@@ -254,8 +336,19 @@ class TestPlan(domainresource.DomainResource):
     url: fhirtypes.Uri = Field(
 		None,
 		alias="url",
-		title="Canonical identifier URL",
-		description=None,
+		title=(
+    "Canonical identifier for this test plan, represented as a URI "
+    "(globally unique)"
+    ),
+		description=(
+    "An absolute URI that is used to identify this test plan when it is "
+    "referenced in a specification, model, design or an instance; also "
+    "called its canonical identifier. This SHOULD be globally unique and "
+    "SHOULD be a literal address at which an authoritative instance of this"
+    " test plan is (or will be) published. This URL can be the target of a "
+    "canonical reference. It SHALL remain the same when the test plan is "
+    "stored on different servers."
+    ),
         # if property is element of this resource.
         element_property=True,
 	)
@@ -265,18 +358,76 @@ class TestPlan(domainresource.DomainResource):
         title="Extension field for ``url``."
     )
 	
-    version: typing.List[typing.Optional[fhirtypes.String]] = Field(
+    useContext: typing.List[fhirtypes.UsageContextType] = Field(
 		None,
-		alias="version",
-		title="Version",
-		description="Version of the test plan.",
+		alias="useContext",
+		title="The context that the content is intended to support",
+		description=(
+    "The content was developed with a focus and intent of supporting the "
+    "contexts that are listed. These contexts may be general categories "
+    "(gender, age, ...) or may be references to specific programs "
+    "(insurance plans, studies, ...) and may be used to assist with "
+    "indexing and searching for appropriate test plan instances."
+    ),
         # if property is element of this resource.
         element_property=True,
 	)
-    version__ext: typing.List[typing.Union[fhirtypes.FHIRPrimitiveExtensionType, None]] = Field(
+	
+    version: fhirtypes.String = Field(
+		None,
+		alias="version",
+		title="Business version of the test plan",
+		description=(
+    "The identifier that is used to identify this version of the test plan "
+    "when it is referenced in a specification, model, design or instance.  "
+    "This is an arbitrary value managed by the test plan author and is not "
+    "expected to be globally unique. For example, it might be a timestamp "
+    "(e.g. yyyymmdd) if a managed version is not available. There is also "
+    "no expectation that versions can be placed in a lexicographical "
+    "sequence."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+	)
+    version__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
         None,
         alias="_version",
         title="Extension field for ``version``."
+    )
+	
+    versionAlgorithmCoding: fhirtypes.CodingType = Field(
+		None,
+		alias="versionAlgorithmCoding",
+		title="How to compare versions",
+		description=(
+    "Indicates the mechanism used to compare versions to determine which is"
+    " more current."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+        # Choice of Data Types. i.e versionAlgorithm[x]
+		one_of_many="versionAlgorithm",
+		one_of_many_required=False,
+	)
+	
+    versionAlgorithmString: fhirtypes.String = Field(
+		None,
+		alias="versionAlgorithmString",
+		title="How to compare versions",
+		description=(
+    "Indicates the mechanism used to compare versions to determine which is"
+    " more current."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+        # Choice of Data Types. i.e versionAlgorithm[x]
+		one_of_many="versionAlgorithm",
+		one_of_many_required=False,
+	)
+    versionAlgorithmString__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
+        None,
+        alias="_versionAlgorithmString",
+        title="Extension field for ``versionAlgorithmString``."
     )
     @classmethod
     def elements_sequence(cls):
@@ -284,13 +435,114 @@ class TestPlan(domainresource.DomainResource):
         ``TestPlan`` according specification,
         with preserving original sequence order.
         """
-        return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "url", "identifier", "version", "name", "title", "status", "date", "publisher", "contact", "description", "jurisdiction", "purpose", "copyright", "category", "scope", "testTools", "dependencies", "exitCriteria", "testCase"]
+        return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "url", "identifier", "version", "versionAlgorithmString", "versionAlgorithmCoding", "name", "title", "status", "experimental", "date", "publisher", "contact", "description", "useContext", "jurisdiction", "purpose", "copyright", "copyrightLabel", "category", "scope", "testTools", "dependency", "exitCriteria", "testCase"]
 
+
+    @root_validator(pre=True, allow_reuse=True)
+    def validate_required_primitive_elements_1005(
+        cls, values: typing.Dict[str, typing.Any]
+    ) -> typing.Dict[str, typing.Any]:
+        """https://www.hl7.org/fhir/extensibility.html#Special-Case
+        In some cases, implementers might find that they do not have appropriate data for
+        an element with minimum cardinality = 1. In this case, the element must be present,
+        but unless the resource or a profile on it has made the actual value of the primitive
+        data type mandatory, it is possible to provide an extension that explains why
+        the primitive value is not present.
+        """
+        required_fields = [
+			("status", "status__ext")]
+        _missing = object()
+
+        def _fallback():
+            return ""
+
+        errors: typing.List["ErrorWrapper"] = []
+        for name, ext in required_fields:
+            field = cls.__fields__[name]
+            ext_field = cls.__fields__[ext]
+            value = values.get(field.alias, _missing)
+            if value not in (_missing, None):
+                continue
+            ext_value = values.get(ext_field.alias, _missing)
+            missing_ext = True
+            if ext_value not in (_missing, None):
+                if isinstance(ext_value, dict):
+                    missing_ext = len(ext_value.get("extension", [])) == 0
+                elif (
+                    getattr(ext_value.__class__, "get_resource_type", _fallback)()
+                    == "FHIRPrimitiveExtension"
+                ):
+                    if ext_value.extension and len(ext_value.extension) > 0:
+                        missing_ext = False
+                else:
+                    validate_pass = True
+                    for validator in ext_field.type_.__get_validators__():
+                        try:
+                            ext_value = validator(v=ext_value)
+                        except ValidationError as exc:
+                            errors.append(ErrorWrapper(exc, loc=ext_field.alias))
+                            validate_pass = False
+                    if not validate_pass:
+                        continue
+                    if ext_value.extension and len(ext_value.extension) > 0:
+                        missing_ext = False
+            if missing_ext:
+                if value is _missing:
+                    errors.append(ErrorWrapper(MissingError(), loc=field.alias))
+                else:
+                    errors.append(
+                        ErrorWrapper(NoneIsNotAllowedError(), loc=field.alias)
+                    )
+        if len(errors) > 0:
+            raise ValidationError(errors, cls)  # type: ignore
+
+        return values
+
+    @root_validator(pre=True, allow_reuse=True)
+    def validate_one_of_many_1005(
+        cls, values: typing.Dict[str, typing.Any]
+    ) -> typing.Dict[str, typing.Any]:
+        """https://www.hl7.org/fhir/formats.html#choice
+        A few elements have a choice of more than one data type for their content.
+        All such elements have a name that takes the form nnn[x].
+        The "nnn" part of the name is constant, and the "[x]" is replaced with
+        the title-cased name of the type that is actually used.
+        The table view shows each of these names explicitly.
+
+        Elements that have a choice of data type cannot repeat - they must have a
+        maximum cardinality of 1. When constructing an instance of an element with a
+        choice of types, the authoring system must create a single element with a
+        data type chosen from among the list of permitted data types.
+        """
+        one_of_many_fields = {
+			"versionAlgorithm": [
+			    "versionAlgorithmCoding",
+			    "versionAlgorithmString"]}
+        for prefix, fields in one_of_many_fields.items():
+            assert cls.__fields__[fields[0]].field_info.extra["one_of_many"] == prefix
+            required = (
+                cls.__fields__[fields[0]].field_info.extra["one_of_many_required"]
+                is True
+            )
+            found = False
+            for field in fields:
+                if field in values and values[field] is not None:
+                    if found is True:
+                        raise ValueError(
+                            "Any of one field value is expected from "
+                            f"this list {fields}, but got multiple!"
+                        )
+                    else:
+                        found = True
+            if required is True and found is False:
+                raise ValueError(f"Expect any of field value from this list {fields}.")
+
+        return values
 
 
 from . import backboneelement
 
-class TestPlanDependencies(backboneelement.BackboneElement):
+class TestPlanDependency(backboneelement.BackboneElement):
     """Disclaimer: Any field name ends with ``__ext`` doesn't part of
     Resource StructureDefinition, instead used to enable Extensibility feature
     for FHIR Primitive Data Types.
@@ -300,13 +552,16 @@ class TestPlanDependencies(backboneelement.BackboneElement):
     The required criteria to execute the test plan - e.g. preconditions,
     previous tests...
     """
-    resource_type = Field("TestPlanDependencies", const=True)
+    resource_type = Field("TestPlanDependency", const=True)
 	
     description: fhirtypes.Markdown = Field(
 		None,
 		alias="description",
-		title="Description of the criteria",
-		description=None,
+		title="Description of the dependency criterium",
+		description=(
+    "A textual description of the criterium - what is needed for the "
+    "dependency to be considered met."
+    ),
         # if property is element of this resource.
         element_property=True,
 	)
@@ -320,14 +575,17 @@ class TestPlanDependencies(backboneelement.BackboneElement):
 		None,
 		alias="predecessor",
 		title="Link to predecessor test plans",
-		description=None,
+		description=(
+    "Predecessor test plans - those that are expected to be successfully "
+    "performed as a dependency for the execution of this test plan."
+    ),
         # if property is element of this resource.
         element_property=True,
 	)
     @classmethod
     def elements_sequence(cls):
         """returning all elements names from
-        ``TestPlanDependencies`` according specification,
+        ``TestPlanDependency`` according specification,
         with preserving original sequence order.
         """
         return ["id", "extension", "modifierExtension", "description", "predecessor"]
@@ -339,27 +597,32 @@ class TestPlanTestCase(backboneelement.BackboneElement):
     Resource StructureDefinition, instead used to enable Extensibility feature
     for FHIR Primitive Data Types.
 
-    The test cases that are part of this plan.
+    The test cases that constitute this plan.
+    The individual test cases that are part of this plan, when they they are
+    made explicit.
     """
     resource_type = Field("TestPlanTestCase", const=True)
 	
-    assertions: typing.List[fhirtypes.TestPlanTestCaseAssertionsType] = Field(
+    assertion: typing.List[fhirtypes.TestPlanTestCaseAssertionType] = Field(
 		None,
-		alias="assertions",
-		title="The test assertions",
-		description=None,
+		alias="assertion",
+		title="Test assertions or expectations",
+		description=(
+    "The test assertions - the expectations of test results from the "
+    "execution of the test case."
+    ),
         # if property is element of this resource.
         element_property=True,
 	)
 	
-    dependencies: typing.List[fhirtypes.TestPlanTestCaseDependenciesType] = Field(
+    dependency: typing.List[fhirtypes.TestPlanTestCaseDependencyType] = Field(
 		None,
-		alias="dependencies",
-		title=(
+		alias="dependency",
+		title="Required criteria to execute the test case",
+		description=(
     "The required criteria to execute the test case - e.g. preconditions, "
-    "previous tests"
+    "previous tests."
     ),
-		description=None,
         # if property is element of this resource.
         element_property=True,
 	)
@@ -367,8 +630,11 @@ class TestPlanTestCase(backboneelement.BackboneElement):
     scope: typing.List[fhirtypes.ReferenceType] = Field(
 		None,
 		alias="scope",
-		title="Specific test scope for one test case",
-		description=None,
+		title="The scope or artifact covered by the case",
+		description=(
+    "The scope or artifact covered by the case, when the individual test "
+    "case is associated with a testable artifact."
+    ),
         # if property is element of this resource.
         element_property=True,
 	)
@@ -376,8 +642,11 @@ class TestPlanTestCase(backboneelement.BackboneElement):
     sequence: fhirtypes.Integer = Field(
 		None,
 		alias="sequence",
-		title="Sequence of testing",
-		description=None,
+		title="Sequence of test case in the test plan",
+		description=(
+    "Sequence of test case - an ordinal number that indicates the order for"
+    " the present test case in the test plan."
+    ),
         # if property is element of this resource.
         element_property=True,
 	)
@@ -396,7 +665,7 @@ class TestPlanTestCase(backboneelement.BackboneElement):
         element_property=True,
 	)
 	
-    testRun: typing.List[fhirtypes.ReferenceType] = Field(
+    testRun: typing.List[fhirtypes.TestPlanTestCaseTestRunType] = Field(
 		None,
 		alias="testRun",
 		title="The actual test to be executed",
@@ -410,24 +679,26 @@ class TestPlanTestCase(backboneelement.BackboneElement):
         ``TestPlanTestCase`` according specification,
         with preserving original sequence order.
         """
-        return ["id", "extension", "modifierExtension", "sequence", "scope", "dependencies", "testRun", "testData", "assertions"]
+        return ["id", "extension", "modifierExtension", "sequence", "scope", "dependency", "testRun", "testData", "assertion"]
 
 
 
-class TestPlanTestCaseAssertions(backboneelement.BackboneElement):
+class TestPlanTestCaseAssertion(backboneelement.BackboneElement):
     """Disclaimer: Any field name ends with ``__ext`` doesn't part of
     Resource StructureDefinition, instead used to enable Extensibility feature
     for FHIR Primitive Data Types.
 
-    The test assertions.
+    Test assertions or expectations.
+    The test assertions - the expectations of test results from the execution
+    of the test case.
     """
-    resource_type = Field("TestPlanTestCaseAssertions", const=True)
+    resource_type = Field("TestPlanTestCaseAssertion", const=True)
 	
     object: typing.List[fhirtypes.CodeableReferenceType] = Field(
 		None,
 		alias="object",
 		title="The focus or object of the assertion",
-		description=None,
+		description="The focus or object of the assertion i.e. a resource.",
         # if property is element of this resource.
         element_property=True,
 	)
@@ -435,8 +706,11 @@ class TestPlanTestCaseAssertions(backboneelement.BackboneElement):
     result: typing.List[fhirtypes.CodeableReferenceType] = Field(
 		None,
 		alias="result",
-		title="The test assertions",
-		description=None,
+		title="The actual result assertion",
+		description=(
+    "The test assertion - the expected outcome from the test case "
+    "execution."
+    ),
         # if property is element of this resource.
         element_property=True,
 	)
@@ -444,30 +718,35 @@ class TestPlanTestCaseAssertions(backboneelement.BackboneElement):
     type: typing.List[fhirtypes.CodeableConceptType] = Field(
 		None,
 		alias="type",
-		title="The test assertion type",
-		description=None,
+		title="Assertion type - for example 'informative' or 'required' ",
+		description=(
+    "The test assertion type - this can be used to group assertions as "
+    "'required' or 'optional', or can be used for other classification of "
+    "the assertion."
+    ),
         # if property is element of this resource.
         element_property=True,
 	)
     @classmethod
     def elements_sequence(cls):
         """returning all elements names from
-        ``TestPlanTestCaseAssertions`` according specification,
+        ``TestPlanTestCaseAssertion`` according specification,
         with preserving original sequence order.
         """
         return ["id", "extension", "modifierExtension", "type", "object", "result"]
 
 
 
-class TestPlanTestCaseDependencies(backboneelement.BackboneElement):
+class TestPlanTestCaseDependency(backboneelement.BackboneElement):
     """Disclaimer: Any field name ends with ``__ext`` doesn't part of
     Resource StructureDefinition, instead used to enable Extensibility feature
     for FHIR Primitive Data Types.
 
+    Required criteria to execute the test case.
     The required criteria to execute the test case - e.g. preconditions,
     previous tests.
     """
-    resource_type = Field("TestPlanTestCaseDependencies", const=True)
+    resource_type = Field("TestPlanTestCaseDependency", const=True)
 	
     description: fhirtypes.Markdown = Field(
 		None,
@@ -494,7 +773,7 @@ class TestPlanTestCaseDependencies(backboneelement.BackboneElement):
     @classmethod
     def elements_sequence(cls):
         """returning all elements names from
-        ``TestPlanTestCaseDependencies`` according specification,
+        ``TestPlanTestCaseDependency`` according specification,
         with preserving original sequence order.
         """
         return ["id", "extension", "modifierExtension", "description", "predecessor"]
@@ -613,9 +892,7 @@ class TestPlanTestCaseTestData(backboneelement.BackboneElement):
         return values
 
 
-from . import reference
-
-class TestPlanTestCaseTestRun(reference.Reference):
+class TestPlanTestCaseTestRun(backboneelement.BackboneElement):
     """Disclaimer: Any field name ends with ``__ext`` doesn't part of
     Resource StructureDefinition, instead used to enable Extensibility feature
     for FHIR Primitive Data Types.
@@ -655,7 +932,7 @@ class TestPlanTestCaseTestRun(reference.Reference):
         ``TestPlanTestCaseTestRun`` according specification,
         with preserving original sequence order.
         """
-        return ["id", "extension", "reference", "type", "identifier", "display", "narrative", "script"]
+        return ["id", "extension", "modifierExtension", "narrative", "script"]
 
 
 

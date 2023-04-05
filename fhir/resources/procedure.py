@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/Procedure
-Release: 5.0.0-draft-final
-Version: 5.0.0-draft-final
-Build ID: 043d3d5
-Last updated: 2023-03-01T23:03:57.298+11:00
+Release: R5
+Version: 5.0.0
+Build ID: 2aecd53
+Last updated: 2023-03-26T15:21:02.749+11:00
 """
 import typing
 from pydantic import Field
@@ -380,8 +380,11 @@ class Procedure(domainresource.DomainResource):
     performer: typing.List[fhirtypes.ProcedurePerformerType] = Field(
 		None,
 		alias="performer",
-		title="The people who performed the procedure",
-		description="Limited to \"real\" people rather than equipment.",
+		title="Who performed the procedure and what they did",
+		description=(
+    "Indicates who or what performed the procedure and how they were "
+    "involved."
+    ),
         # if property is element of this resource.
         element_property=True,
 	)
@@ -734,8 +737,8 @@ class ProcedurePerformer(backboneelement.BackboneElement):
     Resource StructureDefinition, instead used to enable Extensibility feature
     for FHIR Primitive Data Types.
 
-    The people who performed the procedure.
-    Limited to "real" people rather than equipment.
+    Who performed the procedure and what they did.
+    Indicates who or what performed the procedure and how they were involved.
     """
     resource_type = Field("ProcedurePerformer", const=True)
 	

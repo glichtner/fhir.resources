@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/PractitionerRole
-Release: 5.0.0-draft-final
-Version: 5.0.0-draft-final
-Build ID: 043d3d5
-Last updated: 2023-03-01T23:03:57.298+11:00
+Release: R5
+Version: 5.0.0
+Build ID: 2aecd53
+Last updated: 2023-03-26T15:21:02.749+11:00
 """
 from pydantic.validators import bytes_validator  # noqa: F401
 from fhir.resources import fhirtypes  # noqa: F401
@@ -29,8 +29,16 @@ def impl_practitionerrole_1(inst):
     "Adam is generally unavailable on public holidays and during "
     "the Christmas/New Year break"
     )
+    assert inst.characteristic[0].coding[0].code == "in-person"
+    assert inst.characteristic[0].coding[0].display == "In Person"
+    assert inst.characteristic[0].coding[0].system == "http://hl7.org/fhir/service-mode"
+    assert inst.characteristic[0].coding[1].code == "videoconference"
+    assert inst.characteristic[0].coding[1].display == "Video Conference"
+    assert inst.characteristic[0].coding[1].system == "http://hl7.org/fhir/service-mode"
     assert inst.code[0].coding[0].code == "RP"
     assert inst.code[0].coding[0].system == "http://terminology.hl7.org/CodeSystem/v2-0286"
+    assert inst.communication[0].coding[0].code == "en"
+    assert inst.communication[0].coding[0].system == "urn:ietf:bcp:47"
     assert inst.contact[0].telecom[0].system == "phone"
     assert inst.contact[0].telecom[0].use == "work"
     assert inst.contact[0].telecom[0].value == "(03) 5555 6473"

@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/ServiceRequest
-Release: 5.0.0-draft-final
-Version: 5.0.0-draft-final
-Build ID: 043d3d5
-Last updated: 2023-03-01T23:03:57.298+11:00
+Release: R5
+Version: 5.0.0
+Build ID: 2aecd53
+Last updated: 2023-03-26T15:21:02.749+11:00
 """
 import typing
 from pydantic import Field
@@ -733,8 +733,8 @@ class ServiceRequestOrderDetail(backboneelement.BackboneElement):
     """
     resource_type = Field("ServiceRequestOrderDetail", const=True)
 	
-    parameter: fhirtypes.ServiceRequestOrderDetailParameterType = Field(
-		None,
+    parameter: typing.List[fhirtypes.ServiceRequestOrderDetailParameterType] = Field(
+		...,
 		alias="parameter",
 		title="The parameter details for the service being requested",
 		description=None,
@@ -775,7 +775,11 @@ class ServiceRequestOrderDetailParameter(backboneelement.BackboneElement):
 		...,
 		alias="code",
 		title="The detail of the order being requested",
-		description=None,
+		description=(
+    "A value representing the additional detail or instructions for the "
+    "order (e.g., catheter insertion, body elevation, descriptive device "
+    "configuration and/or setting instructions)."
+    ),
         # if property is element of this resource.
         element_property=True,
 	)
@@ -789,7 +793,7 @@ class ServiceRequestOrderDetailParameter(backboneelement.BackboneElement):
         element_property=True,
         # Choice of Data Types. i.e value[x]
 		one_of_many="value",
-		one_of_many_required=False,
+		one_of_many_required=True,
 	)
     valueBoolean__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
         None,
@@ -806,7 +810,7 @@ class ServiceRequestOrderDetailParameter(backboneelement.BackboneElement):
         element_property=True,
         # Choice of Data Types. i.e value[x]
 		one_of_many="value",
-		one_of_many_required=False,
+		one_of_many_required=True,
 	)
 	
     valuePeriod: fhirtypes.PeriodType = Field(
@@ -818,7 +822,7 @@ class ServiceRequestOrderDetailParameter(backboneelement.BackboneElement):
         element_property=True,
         # Choice of Data Types. i.e value[x]
 		one_of_many="value",
-		one_of_many_required=False,
+		one_of_many_required=True,
 	)
 	
     valueQuantity: fhirtypes.QuantityType = Field(
@@ -830,7 +834,7 @@ class ServiceRequestOrderDetailParameter(backboneelement.BackboneElement):
         element_property=True,
         # Choice of Data Types. i.e value[x]
 		one_of_many="value",
-		one_of_many_required=False,
+		one_of_many_required=True,
 	)
 	
     valueRange: fhirtypes.RangeType = Field(
@@ -842,7 +846,7 @@ class ServiceRequestOrderDetailParameter(backboneelement.BackboneElement):
         element_property=True,
         # Choice of Data Types. i.e value[x]
 		one_of_many="value",
-		one_of_many_required=False,
+		one_of_many_required=True,
 	)
 	
     valueRatio: fhirtypes.RatioType = Field(
@@ -854,7 +858,7 @@ class ServiceRequestOrderDetailParameter(backboneelement.BackboneElement):
         element_property=True,
         # Choice of Data Types. i.e value[x]
 		one_of_many="value",
-		one_of_many_required=False,
+		one_of_many_required=True,
 	)
 	
     valueString: fhirtypes.String = Field(
@@ -866,7 +870,7 @@ class ServiceRequestOrderDetailParameter(backboneelement.BackboneElement):
         element_property=True,
         # Choice of Data Types. i.e value[x]
 		one_of_many="value",
-		one_of_many_required=False,
+		one_of_many_required=True,
 	)
     valueString__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
         None,

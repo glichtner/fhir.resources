@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/QuestionnaireResponse
-Release: 5.0.0-draft-final
-Version: 5.0.0-draft-final
-Build ID: 043d3d5
-Last updated: 2023-03-01T23:03:57.298+11:00
+Release: R5
+Version: 5.0.0
+Build ID: 2aecd53
+Last updated: 2023-03-26T15:21:02.749+11:00
 """
 import typing
 from pydantic import Field
@@ -66,9 +66,9 @@ class QuestionnaireResponse(domainresource.DomainResource):
 		alias="basedOn",
 		title="Request fulfilled by this QuestionnaireResponse",
 		description=(
-    "The order, proposal or plan that is fulfilled in whole or in part by "
-    "this QuestionnaireResponse.  For example, a ServiceRequest seeking an "
-    "intake assessment or a decision support recommendation to assess for "
+    "A plan, proposal or order that is fulfilled in whole or in part by "
+    "this questionnaire response.  For example, a ServiceRequest seeking an"
+    " intake assessment or a decision support recommendation to assess for "
     "post-partum depression."
     ),
         # if property is element of this resource.
@@ -80,7 +80,7 @@ class QuestionnaireResponse(domainresource.DomainResource):
     encounter: fhirtypes.ReferenceType = Field(
 		None,
 		alias="encounter",
-		title="Encounter created as part of",
+		title="Encounter the questionnaire response is part of",
 		description=(
     "The Encounter during which this questionnaire response was created or "
     "to which the creation of this record is tightly associated."
@@ -94,10 +94,11 @@ class QuestionnaireResponse(domainresource.DomainResource):
     identifier: typing.List[fhirtypes.IdentifierType] = Field(
 		None,
 		alias="identifier",
-		title="Unique id for this set of answers",
+		title="Business identifier for this set of answers",
 		description=(
-    "A business identifier assigned to a particular completed (or partially"
-    " completed) questionnaire."
+    "Business identifiers assigned to this questionnaire response by the "
+    "performer and/or other systems.  These identifiers remain constant as "
+    "the resource is updated and propagates from server to server."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -118,7 +119,7 @@ class QuestionnaireResponse(domainresource.DomainResource):
     partOf: typing.List[fhirtypes.ReferenceType] = Field(
 		None,
 		alias="partOf",
-		title="Part of this action",
+		title="Part of referenced event",
 		description=(
     "A procedure or observation that this questionnaire was performed as "
     "part of the execution of.  For example, the surgery a checklist was "
@@ -168,10 +169,7 @@ class QuestionnaireResponse(domainresource.DomainResource):
 		None,
 		alias="status",
 		title="in-progress | completed | amended | entered-in-error | stopped",
-		description=(
-    "The position of the questionnaire response within its overall "
-    "lifecycle."
-    ),
+		description="The current state of the questionnaire response.",
         # if property is element of this resource.
         element_property=True,
         element_required=True,

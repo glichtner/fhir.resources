@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/VerificationResult
-Release: 5.0.0-draft-final
-Version: 5.0.0-draft-final
-Build ID: 043d3d5
-Last updated: 2023-03-01T23:03:57.298+11:00
+Release: R5
+Version: 5.0.0
+Build ID: 2aecd53
+Last updated: 2023-03-26T15:21:02.749+11:00
 """
 import typing
 from pydantic import Field
@@ -112,7 +112,7 @@ class VerificationResult(domainresource.DomainResource):
 		alias="status",
 		title=(
     "attested | validated | in-process | req-revalid | val-fail | reval-"
-    "fail"
+    "fail | entered-in-error"
     ),
 		description=(
     "The validation status of the target (attested; validated; in process; "
@@ -123,7 +123,7 @@ class VerificationResult(domainresource.DomainResource):
         element_required=True,
         # note: Enum values can be used in validation,
         # but use in your own responsibilities, read official FHIR documentation.
-		enum_values=["attested", "validated", "in-process", "req-revalid", "val-fail", "reval-fail"],
+		enum_values=["attested", "validated", "in-process", "req-revalid", "val-fail", "reval-fail", "entered-in-error"],
 	)
     status__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
         None,
@@ -343,7 +343,7 @@ class VerificationResultAttestation(backboneelement.BackboneElement):
     proxySignature: fhirtypes.SignatureType = Field(
 		None,
 		alias="proxySignature",
-		title="Proxy signature",
+		title="Proxy signature (digital or image)",
 		description=(
     "Signed assertion by the proxy entity indicating that they have the "
     "right to submit attested information on behalf of the attestation "
@@ -370,7 +370,7 @@ class VerificationResultAttestation(backboneelement.BackboneElement):
     sourceSignature: fhirtypes.SignatureType = Field(
 		None,
 		alias="sourceSignature",
-		title="Attester signature",
+		title="Attester signature (digital or image)",
 		description=(
     "Signed assertion by the attestation source that they have attested to "
     "the information."
@@ -512,7 +512,7 @@ class VerificationResultValidator(backboneelement.BackboneElement):
     attestationSignature: fhirtypes.SignatureType = Field(
 		None,
 		alias="attestationSignature",
-		title="Validator signature",
+		title="Validator signature (digital or image)",
 		description=(
     "Signed assertion by the validator that they have validated the "
     "information."

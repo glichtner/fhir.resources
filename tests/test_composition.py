@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/Composition
-Release: 5.0.0-draft-final
-Version: 5.0.0-draft-final
-Build ID: 043d3d5
-Last updated: 2023-03-01T23:03:57.298+11:00
+Release: R5
+Version: 5.0.0
+Build ID: 2aecd53
+Last updated: 2023-03-26T15:21:02.749+11:00
 """
 from pydantic.validators import bytes_validator  # noqa: F401
 from fhir.resources import fhirtypes  # noqa: F401
@@ -88,10 +88,10 @@ def impl_composition_2(inst):
     assert inst.custodian.reference == "Organization/2.16.840.1.113883.19.5"
     assert inst.date == fhirtypes.DateTime.validate("2012-01-04T09:10:14Z")
     assert inst.encounter.reference == "Encounter/xcda"
-    assert inst.event[0].code[0].coding[0].code == "HEALTHREC"
-    assert inst.event[0].code[0].coding[0].display == "health record"
-    assert inst.event[0].code[0].coding[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActCode"
-    assert inst.event[0].detail[0].reference == "Observation/example"
+    assert inst.event[0].detail[0].concept.coding[0].code == "HEALTHREC"
+    assert inst.event[0].detail[0].concept.coding[0].display == "health record"
+    assert inst.event[0].detail[0].concept.coding[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActCode"
+    assert inst.event[0].detail[0].reference.reference == "Observation/example"
     assert inst.event[0].period.end == fhirtypes.DateTime.validate("2012-11-12")
     assert inst.event[0].period.start == fhirtypes.DateTime.validate("2010-07-18")
     assert inst.id == "example"
@@ -111,7 +111,6 @@ def impl_composition_2(inst):
     assert inst.section[0].entry[0].reference == "Condition/stroke"
     assert inst.section[0].entry[1].reference == "Condition/example"
     assert inst.section[0].entry[2].reference == "Condition/example2"
-    assert inst.section[0].mode == "snapshot"
     assert inst.section[0].orderedBy.coding[0].code == "event-date"
     assert inst.section[0].orderedBy.coding[0].display == "Sorted by Event Date"
     assert inst.section[0].orderedBy.coding[0].system == "http://terminology.hl7.org/CodeSystem/list-order"
@@ -123,7 +122,6 @@ def impl_composition_2(inst):
     assert inst.section[1].emptyReason.coding[0].code == "withheld"
     assert inst.section[1].emptyReason.coding[0].display == "Information Withheld"
     assert inst.section[1].emptyReason.coding[0].system == "http://terminology.hl7.org/CodeSystem/list-empty-reason"
-    assert inst.section[1].mode == "snapshot"
     assert inst.section[1].text.status == "generated"
     assert inst.section[1].title == "History of family member diseases"
     assert inst.status == "final"

@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/SpecimenDefinition
-Release: 5.0.0-draft-final
-Version: 5.0.0-draft-final
-Build ID: 043d3d5
-Last updated: 2023-03-01T23:03:57.298+11:00
+Release: R5
+Version: 5.0.0
+Build ID: 2aecd53
+Last updated: 2023-03-26T15:21:02.749+11:00
 """
 from pydantic.validators import bytes_validator  # noqa: F401
 from fhir.resources import fhirtypes  # noqa: F401
@@ -12,6 +12,77 @@ from fhir.resources import specimendefinition
 
 
 def impl_specimendefinition_1(inst):
+    assert inst.experimental is True
+    assert inst.id == "7"
+    assert inst.identifier.value == "123455"
+    assert inst.patientPreparation[0].text == "no strict fasting"
+    assert inst.status == "active"
+    assert inst.text.status == "generated"
+    assert inst.title == "Venous blood specimen"
+    assert inst.typeCollected.coding[0].code == "122555007"
+    assert inst.typeCollected.coding[0].system == "http://snomed.info/sct"
+    assert inst.typeCollected.text == "Venous blood specimen (specimen)"
+    assert inst.typeTested[0].container.cap.coding[0].code == "yellow"
+    assert inst.typeTested[0].container.cap.coding[0].display == "yellow cap"
+    assert inst.typeTested[0].container.cap.coding[0].system == (
+    "http://terminology.hl7.org/5.1.0/CodeSystem-container-"
+    "cap.html"
+    )
+    assert inst.typeTested[0].container.material.text == "glass"
+    assert inst.typeTested[0].container.minimumVolumeQuantity.code == "mL"
+    assert inst.typeTested[0].container.minimumVolumeQuantity.system == "http://unitsofmeasure.org"
+    assert inst.typeTested[0].container.minimumVolumeQuantity.unit == "ml"
+    assert float(inst.typeTested[0].container.minimumVolumeQuantity.value) == float(2)
+    assert inst.typeTested[0].container.type.coding[0].code == "702281005"
+    assert inst.typeTested[0].container.type.coding[0].display == (
+    "Evacuated blood collection tube with thrombin and clot "
+    "activator and gel separator"
+    )
+    assert inst.typeTested[0].container.type.coding[0].system == "http://snomed.info/sct"
+    assert inst.typeTested[0].handling[0].maxDuration.code == "h"
+    assert inst.typeTested[0].handling[0].maxDuration.system == "http://unitsofmeasure.org"
+    assert float(inst.typeTested[0].handling[0].maxDuration.value) == float(12)
+    assert inst.typeTested[0].handling[0].temperatureQualifier.coding[0].code == "room"
+    assert inst.typeTested[0].handling[0].temperatureQualifier.coding[0].display == "room temperature"
+    assert inst.typeTested[0].handling[0].temperatureRange.high.code == "Cel"
+    assert inst.typeTested[0].handling[0].temperatureRange.high.system == "http://unitsofmeasure.org"
+    assert inst.typeTested[0].handling[0].temperatureRange.high.unit == "°C"
+    assert float(inst.typeTested[0].handling[0].temperatureRange.high.value) == float(25)
+    assert inst.typeTested[0].handling[0].temperatureRange.low.code == "Cel"
+    assert inst.typeTested[0].handling[0].temperatureRange.low.system == "http://unitsofmeasure.org"
+    assert inst.typeTested[0].handling[0].temperatureRange.low.unit == "°C"
+    assert float(inst.typeTested[0].handling[0].temperatureRange.low.value) == float(15)
+    assert inst.typeTested[0].isDerived is True
+    assert inst.typeTested[0].preference == "preferred"
+    assert inst.typeTested[0].type.coding[0].code == "119364003"
+    assert inst.typeTested[0].type.coding[0].system == "http://snomed.info/sct"
+    assert inst.typeTested[0].type.text == "Serum specimen (specimen)"
+    assert inst.url == "http://example-lab.com/specdef/123455"
+
+
+def test_specimendefinition_1(base_settings):
+    """No. 1 tests collection for SpecimenDefinition.
+    Test File: specimendefinition-example.json
+    """
+    filename = (
+        base_settings["unittest_data_dir"] / "specimendefinition-example.json"
+    )
+    inst = specimendefinition.SpecimenDefinition.parse_file(
+        filename, content_type="application/json", encoding="utf-8"
+    )
+    assert "SpecimenDefinition" == inst.resource_type
+
+    impl_specimendefinition_1(inst)
+
+    # testing reverse by generating data from itself and create again.
+    data = inst.dict()
+    assert "SpecimenDefinition" == data["resourceType"]
+
+    inst2 = specimendefinition.SpecimenDefinition(**data)
+    impl_specimendefinition_1(inst2)
+
+
+def impl_specimendefinition_2(inst):
     assert inst.experimental is False
     assert inst.id == "2364"
     assert inst.identifier.value == "12345"
@@ -128,8 +199,8 @@ def impl_specimendefinition_1(inst):
     assert inst.url == "http://example.com/specdef/v1/12345"
 
 
-def test_specimendefinition_1(base_settings):
-    """No. 1 tests collection for SpecimenDefinition.
+def test_specimendefinition_2(base_settings):
+    """No. 2 tests collection for SpecimenDefinition.
     Test File: specimendefinition-example-serum-plasma.json
     """
     filename = (
@@ -140,11 +211,11 @@ def test_specimendefinition_1(base_settings):
     )
     assert "SpecimenDefinition" == inst.resource_type
 
-    impl_specimendefinition_1(inst)
+    impl_specimendefinition_2(inst)
 
     # testing reverse by generating data from itself and create again.
     data = inst.dict()
     assert "SpecimenDefinition" == data["resourceType"]
 
     inst2 = specimendefinition.SpecimenDefinition(**data)
-    impl_specimendefinition_1(inst2)
+    impl_specimendefinition_2(inst2)

@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/ArtifactAssessment
-Release: 5.0.0-draft-final
-Version: 5.0.0-draft-final
-Build ID: 043d3d5
-Last updated: 2023-03-01T23:03:57.298+11:00
+Release: R5
+Version: 5.0.0
+Build ID: 2aecd53
+Last updated: 2023-03-26T15:21:02.749+11:00
 """
 import typing
 from pydantic import Field
@@ -260,14 +260,15 @@ class ArtifactAssessment(domainresource.DomainResource):
 		alias="workflowStatus",
 		title=(
     "submitted | triaged | waiting-for-input | resolved-no-change | "
-    "resolved-change-required | deferred | duplicate | applied | published"
+    "resolved-change-required | deferred | duplicate | applied | published "
+    "| entered-in-error"
     ),
 		description="Indicates the workflow status of the comment or change request.",
         # if property is element of this resource.
         element_property=True,
         # note: Enum values can be used in validation,
         # but use in your own responsibilities, read official FHIR documentation.
-		enum_values=["submitted", "triaged", "waiting-for-input", "resolved-no-change", "resolved-change-required", "deferred", "duplicate", "applied", "published"],
+		enum_values=["submitted", "triaged", "waiting-for-input", "resolved-no-change", "resolved-change-required", "deferred", "duplicate", "applied", "published", "entered-in-error"],
 	)
     workflowStatus__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
         None,

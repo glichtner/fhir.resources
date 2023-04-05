@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/OperationDefinition
-Release: 5.0.0-draft-final
-Version: 5.0.0-draft-final
-Build ID: 043d3d5
-Last updated: 2023-03-01T23:03:57.298+11:00
+Release: R5
+Version: 5.0.0
+Build ID: 2aecd53
+Last updated: 2023-03-26T15:21:02.749+11:00
 """
 import typing
 from pydantic import Field
@@ -116,9 +116,9 @@ class OperationDefinition(domainresource.DomainResource):
 		alias="copyright",
 		title="Use and/or publishing restrictions",
 		description=(
-    "A copyright statement relating to the OperationDefinition and/or its "
+    "A copyright statement relating to the operation definition and/or its "
     "contents. Copyright statements are generally legal restrictions on the"
-    " use and publishing of the OperationDefinition."
+    " use and publishing of the operation definition."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -192,7 +192,7 @@ class OperationDefinition(domainresource.DomainResource):
 		description=(
     "A Boolean value to indicate that this operation definition is authored"
     " for testing purposes (or education/evaluation/marketing) and is not "
-    "intended to be used for genuine usage."
+    "intended for genuine usage."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -400,10 +400,7 @@ class OperationDefinition(domainresource.DomainResource):
 		None,
 		alias="status",
 		title="draft | active | retired | unknown",
-		description=(
-    "The status of this operation definition. Enables tracking the life-"
-    "cycle of the content."
-    ),
+		description="The current state of this operation definition.",
         # if property is element of this resource.
         element_property=True,
         element_required=True,
@@ -476,8 +473,8 @@ class OperationDefinition(domainresource.DomainResource):
 		None,
 		alias="url",
 		title=(
-    "Canonical identifier for this operation definition, represented as a "
-    "URI (globally unique)"
+    "Canonical identifier for this operation definition, represented as an "
+    "absolute URI (globally unique)"
     ),
 		description=(
     "An absolute URI that is used to identify this operation definition "
@@ -507,7 +504,7 @@ class OperationDefinition(domainresource.DomainResource):
     "contexts that are listed. These contexts may be general categories "
     "(gender, age, ...) or may be references to specific programs "
     "(insurance plans, studies, ...) and may be used to assist with "
-    "indexing and searching for appropriate operation definition instances."
+    "indexing and searching for appropriate operation definition."
     ),
         # if property is element of this resource.
         element_property=True,

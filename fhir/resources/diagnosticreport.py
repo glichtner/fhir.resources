@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/DiagnosticReport
-Release: 5.0.0-draft-final
-Version: 5.0.0-draft-final
-Build ID: 043d3d5
-Last updated: 2023-03-01T23:03:57.298+11:00
+Release: R5
+Version: 5.0.0
+Build ID: 2aecd53
+Last updated: 2023-03-26T15:21:02.749+11:00
 """
 import typing
 from pydantic import Field
@@ -280,14 +280,17 @@ class DiagnosticReport(domainresource.DomainResource):
     status: fhirtypes.Code = Field(
 		None,
 		alias="status",
-		title="registered | partial | preliminary | final +",
+		title=(
+    "registered | partial | preliminary | modified | final | amended | "
+    "corrected | appended | cancelled | entered-in-error | unknown"
+    ),
 		description="The status of the diagnostic report.",
         # if property is element of this resource.
         element_property=True,
         element_required=True,
         # note: Enum values can be used in validation,
         # but use in your own responsibilities, read official FHIR documentation.
-		enum_values=["registered", "partial", "preliminary", "final", "+"],
+		enum_values=["registered", "partial", "preliminary", "modified", "final", "amended", "corrected", "appended", "cancelled", "entered-in-error", "unknown"],
 	)
     status__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
         None,

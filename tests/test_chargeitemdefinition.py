@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/ChargeItemDefinition
-Release: 5.0.0-draft-final
-Version: 5.0.0-draft-final
-Build ID: 043d3d5
-Last updated: 2023-03-01T23:03:57.298+11:00
+Release: R5
+Version: 5.0.0
+Build ID: 2aecd53
+Last updated: 2023-03-26T15:21:02.749+11:00
 """
 from pydantic.validators import bytes_validator  # noqa: F401
 from fhir.resources import fhirtypes  # noqa: F401
@@ -76,11 +76,16 @@ def impl_chargeitemdefinition_2(inst):
     assert inst.applicability[0].condition.description == "Verify ChargeItem pertains to Device 12345"
     assert inst.applicability[0].condition.expression == "%context.service.suppliedItem.reference='Device/12345'"
     assert inst.applicability[0].condition.language == "text/fhirpath"
-    assert inst.description == "Financial details for  custom made device"
+    assert inst.date == fhirtypes.DateTime.validate("2023-02")
+    assert inst.description == "Financial details for custom made device"
     assert inst.id == "device"
     assert inst.identifier[0].system == "urn:ietf:rfc:3986"
     assert inst.identifier[0].value == "urn:oid:2.16.840.1.113883.4.642.29.2"
-    assert inst.instance[0].reference == "Device/12345"
+    assert inst.instance[0].reference == "Device/example"
+    assert inst.jurisdiction[0].coding[0].code == "001"
+    assert inst.jurisdiction[0].coding[0].display == "World"
+    assert inst.jurisdiction[0].coding[0].system == "http://unstats.un.org/unsd/methods/m49/m49.htm"
+    assert inst.name == "CustomDevice345675"
     assert inst.propertyGroup[0].priceComponent[0].amount.currency == "EUR"
     assert float(inst.propertyGroup[0].priceComponent[0].amount.value) == float(67.44)
     assert inst.propertyGroup[0].priceComponent[0].code.coding[0].code == "VK"
@@ -103,9 +108,23 @@ def impl_chargeitemdefinition_2(inst):
     assert inst.propertyGroup[2].priceComponent[0].code.coding[0].system == "http://fhir.de/CodeSystem/billing-attributes"
     assert float(inst.propertyGroup[2].priceComponent[0].factor) == float(1.07)
     assert inst.propertyGroup[2].priceComponent[0].type == "tax"
+    assert inst.publisher == "Example Publisher"
     assert inst.status == "active"
     assert inst.text.status == "generated"
+    assert inst.title == "Financial details for custom made device (345675)"
     assert inst.url == "http://sap.org/ChargeItemDefinition/device-123"
+    assert inst.useContext[0].code.code == "venue"
+    assert inst.useContext[0].code.system == "http://terminology.hl7.org/CodeSystem/usage-context-type"
+    assert inst.useContext[0].valueCodeableConcept.coding[0].code == "440655000"
+    assert inst.useContext[0].valueCodeableConcept.coding[0].display == "Outpatient environment"
+    assert inst.useContext[0].valueCodeableConcept.coding[0].system == "http://snomed.info/sct"
+    assert inst.useContext[1].code.code == "age"
+    assert inst.useContext[1].code.system == "http://terminology.hl7.org/CodeSystem/usage-context-type"
+    assert inst.useContext[1].valueQuantity.code == "a"
+    assert inst.useContext[1].valueQuantity.comparator == ">"
+    assert inst.useContext[1].valueQuantity.system == "http://unitsofmeasure.org"
+    assert inst.useContext[1].valueQuantity.unit == "yrs"
+    assert float(inst.useContext[1].valueQuantity.value) == float(18)
 
 
 def test_chargeitemdefinition_2(base_settings):

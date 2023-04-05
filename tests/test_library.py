@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/Library
-Release: 5.0.0-draft-final
-Version: 5.0.0-draft-final
-Build ID: 043d3d5
-Last updated: 2023-03-01T23:03:57.298+11:00
+Release: R5
+Version: 5.0.0
+Build ID: 2aecd53
+Last updated: 2023-03-26T15:21:02.749+11:00
 """
 from pydantic.validators import bytes_validator  # noqa: F401
 from fhir.resources import fhirtypes  # noqa: F401
@@ -67,7 +67,6 @@ def impl_library_1(inst):
     assert inst.relatedArtifact[1].resource == "http://example.org/fhir/Library/opioidcds-common"
     assert inst.relatedArtifact[1].type == "depends-on"
     assert inst.status == "active"
-    assert inst.text.status == "generated"
     assert inst.title == "Opioid CDS Logic for recommendation #10"
     assert inst.topic[0].text == "Opioid Prescribing"
     assert inst.type.coding[0].code == "logic-library"
@@ -453,7 +452,6 @@ def impl_library_7(inst):
     assert inst.relatedArtifact[1].resource == "http://example.org/fhir/Library/opioidcds-common"
     assert inst.relatedArtifact[1].type == "depends-on"
     assert inst.status == "active"
-    assert inst.text.status == "generated"
     assert inst.title == "Opioid CDS Logic for recommendation #4"
     assert inst.topic[0].text == "Opioid Prescribing"
     assert inst.type.coding[0].code == "logic-library"
@@ -561,7 +559,6 @@ def impl_library_8(inst):
     )
     assert inst.relatedArtifact[2].type == "documentation"
     assert inst.status == "active"
-    assert inst.text.status == "generated"
     assert inst.title == "Opioid CDS Logic for recommendation #4"
     assert inst.topic[0].text == "Opioid Prescribing"
     assert inst.type.coding[0].code == "logic-library"
@@ -654,7 +651,6 @@ def impl_library_9(inst):
     )
     assert inst.relatedArtifact[2].type == "documentation"
     assert inst.status == "active"
-    assert inst.text.status == "generated"
     assert inst.title == "Opioid CDS Common Logic"
     assert inst.topic[0].text == "Opioid Prescribing"
     assert inst.type.coding[0].code == "logic-library"
@@ -744,7 +740,6 @@ def impl_library_10(inst):
     )
     assert inst.relatedArtifact[2].type == "documentation"
     assert inst.status == "active"
-    assert inst.text.status == "generated"
     assert inst.title == "OMTK Logic"
     assert inst.topic[0].text == "Opioid Prescribing"
     assert inst.type.coding[0].code == "logic-library"

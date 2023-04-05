@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/EvidenceVariable
-Release: 5.0.0-draft-final
-Version: 5.0.0-draft-final
-Build ID: 043d3d5
-Last updated: 2023-03-01T23:03:57.298+11:00
+Release: R5
+Version: 5.0.0
+Build ID: 2aecd53
+Last updated: 2023-03-26T15:21:02.749+11:00
 """
 import typing
 from pydantic import Field
@@ -53,7 +53,8 @@ class EvidenceVariable(domainresource.DomainResource):
 		description=(
     "The date on which the resource content was approved by the publisher. "
     "Approval happens once when the content is officially approved for "
-    "usage."
+    "usage.  See guidance around (not) making local changes to elements "
+    "[here](canonicalresource.html#localization)."
     ),
         # if property is element of this resource.
         element_property=True,

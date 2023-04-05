@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/ObservationDefinition
-Release: 5.0.0-draft-final
-Version: 5.0.0-draft-final
-Build ID: 043d3d5
-Last updated: 2023-03-01T23:03:57.298+11:00
+Release: R5
+Version: 5.0.0
+Build ID: 2aecd53
+Last updated: 2023-03-26T15:21:02.749+11:00
 """
 import typing
 from pydantic import Field
@@ -397,6 +397,18 @@ class ObservationDefinition(domainresource.DomainResource):
         title="Extension field for ``permittedDataType``."
     )
 	
+    permittedUnit: typing.List[fhirtypes.CodingType] = Field(
+		None,
+		alias="permittedUnit",
+		title="Unit for quantitative results",
+		description=(
+    "Units allowed for the valueQuantity element in the instance "
+    "observations conforming to this ObservationDefinition."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+	)
+	
     preferredReportName: fhirtypes.String = Field(
 		None,
 		alias="preferredReportName",
@@ -460,18 +472,6 @@ class ObservationDefinition(domainresource.DomainResource):
     "conditions -  provides a range for quantitative and ordinal "
     "observations and a collection of value sets for qualitative "
     "observations."
-    ),
-        # if property is element of this resource.
-        element_property=True,
-	)
-	
-    quantitativeDetails: fhirtypes.ObservationDefinitionQuantitativeDetailsType = Field(
-		None,
-		alias="quantitativeDetails",
-		title="Characteristics of quantitative results",
-		description=(
-    "Characteristics for quantitative results of observations conforming to"
-    " this ObservationDefinition."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -638,7 +638,7 @@ class ObservationDefinition(domainresource.DomainResource):
         ``ObservationDefinition`` according specification,
         with preserving original sequence order.
         """
-        return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "url", "identifier", "version", "versionAlgorithmString", "versionAlgorithmCoding", "name", "title", "status", "experimental", "date", "publisher", "contact", "description", "useContext", "jurisdiction", "purpose", "copyright", "copyrightLabel", "approvalDate", "lastReviewDate", "effectivePeriod", "derivedFromCanonical", "derivedFromUri", "subject", "performerType", "category", "code", "permittedDataType", "multipleResultsAllowed", "bodySite", "method", "specimen", "device", "preferredReportName", "quantitativeDetails", "qualifiedValue", "hasMember", "component"]
+        return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "url", "identifier", "version", "versionAlgorithmString", "versionAlgorithmCoding", "name", "title", "status", "experimental", "date", "publisher", "contact", "description", "useContext", "jurisdiction", "purpose", "copyright", "copyrightLabel", "approvalDate", "lastReviewDate", "effectivePeriod", "derivedFromCanonical", "derivedFromUri", "subject", "performerType", "category", "code", "permittedDataType", "multipleResultsAllowed", "bodySite", "method", "specimen", "device", "preferredReportName", "permittedUnit", "qualifiedValue", "hasMember", "component"]
 
 
     @root_validator(pre=True, allow_reuse=True)
@@ -788,6 +788,18 @@ class ObservationDefinitionComponent(backboneelement.BackboneElement):
         title="Extension field for ``permittedDataType``."
     )
 	
+    permittedUnit: typing.List[fhirtypes.CodingType] = Field(
+		None,
+		alias="permittedUnit",
+		title="Unit for quantitative results",
+		description=(
+    "Units allowed for the valueQuantity element in the instance "
+    "observations conforming to this ObservationDefinition."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+	)
+	
     qualifiedValue: typing.List[fhirtypes.ObservationDefinitionQualifiedValueType] = Field(
 		None,
 		alias="qualifiedValue",
@@ -801,22 +813,13 @@ class ObservationDefinitionComponent(backboneelement.BackboneElement):
         # if property is element of this resource.
         element_property=True,
 	)
-	
-    quantitativeDetails: fhirtypes.ObservationDefinitionQuantitativeDetailsType = Field(
-		None,
-		alias="quantitativeDetails",
-		title="Characteristics of quantitative results",
-		description="Characteristics for quantitative results of this observation.",
-        # if property is element of this resource.
-        element_property=True,
-	)
     @classmethod
     def elements_sequence(cls):
         """returning all elements names from
         ``ObservationDefinitionComponent`` according specification,
         with preserving original sequence order.
         """
-        return ["id", "extension", "modifierExtension", "code", "permittedDataType", "quantitativeDetails", "qualifiedValue"]
+        return ["id", "extension", "modifierExtension", "code", "permittedDataType", "permittedUnit", "qualifiedValue"]
 
 
 
@@ -1028,82 +1031,4 @@ class ObservationDefinitionQualifiedValue(backboneelement.BackboneElement):
         with preserving original sequence order.
         """
         return ["id", "extension", "modifierExtension", "context", "appliesTo", "gender", "age", "gestationalAge", "condition", "rangeCategory", "range", "validCodedValueSet", "normalCodedValueSet", "abnormalCodedValueSet", "criticalCodedValueSet"]
-
-
-
-class ObservationDefinitionQuantitativeDetails(backboneelement.BackboneElement):
-    """Disclaimer: Any field name ends with ``__ext`` doesn't part of
-    Resource StructureDefinition, instead used to enable Extensibility feature
-    for FHIR Primitive Data Types.
-
-    Characteristics of quantitative results.
-    Characteristics for quantitative results of observations conforming to this
-    ObservationDefinition.
-    """
-    resource_type = Field("ObservationDefinitionQuantitativeDetails", const=True)
-	
-    conversionFactor: fhirtypes.Decimal = Field(
-		None,
-		alias="conversionFactor",
-		title="Primary to secondary unit conversion factor",
-		description=(
-    "Factor for converting value expressed with primary unit to value "
-    "expressed with secondary unit."
-    ),
-        # if property is element of this resource.
-        element_property=True,
-	)
-    conversionFactor__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
-        None,
-        alias="_conversionFactor",
-        title="Extension field for ``conversionFactor``."
-    )
-	
-    customaryUnit: fhirtypes.CodeableConceptType = Field(
-		None,
-		alias="customaryUnit",
-		title="Customary (secondary) unit for quantitative results",
-		description=(
-    "Secondary unit used to report quantitative results of observations "
-    "conforming to this ObservationDefinition."
-    ),
-        # if property is element of this resource.
-        element_property=True,
-	)
-	
-    decimalPrecision: fhirtypes.Integer = Field(
-		None,
-		alias="decimalPrecision",
-		title="Decimal precision of observation quantitative results",
-		description=(
-    "Number of digits after decimal separator when the results of such "
-    "observations are of type Quantity."
-    ),
-        # if property is element of this resource.
-        element_property=True,
-	)
-    decimalPrecision__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
-        None,
-        alias="_decimalPrecision",
-        title="Extension field for ``decimalPrecision``."
-    )
-	
-    unit: fhirtypes.CodeableConceptType = Field(
-		None,
-		alias="unit",
-		title="Primary unit for quantitative results",
-		description=(
-    "Primary unit used to report quantitative results of observations "
-    "conforming to this ObservationDefinition."
-    ),
-        # if property is element of this resource.
-        element_property=True,
-	)
-    @classmethod
-    def elements_sequence(cls):
-        """returning all elements names from
-        ``ObservationDefinitionQuantitativeDetails`` according specification,
-        with preserving original sequence order.
-        """
-        return ["id", "extension", "modifierExtension", "unit", "customaryUnit", "conversionFactor", "decimalPrecision"]
 

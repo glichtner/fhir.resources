@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/Contract
-Release: 5.0.0-draft-final
-Version: 5.0.0-draft-final
-Build ID: 043d3d5
-Last updated: 2023-03-01T23:03:57.298+11:00
+Release: R5
+Version: 5.0.0
+Build ID: 2aecd53
+Last updated: 2023-03-26T15:21:02.749+11:00
 """
 import typing
 from pydantic import Field
@@ -304,8 +304,8 @@ class Contract(domainresource.DomainResource):
     "Links to Provenance records for past versions of this Contract "
     "definition, derivative, or instance, which identify key state "
     "transitions or updates that are likely to be relevant to a user "
-    "looking at the current version of the Contract.  The Provence.entity "
-    "indicates the target that was changed in the update (see "
+    "looking at the current version of the Contract.  The Provenance.entity"
+    " indicates the target that was changed in the update (see "
     "[Provenance.entity](provenance-definitions.html#Provenance.entity))."
     ),
         # if property is element of this resource.
@@ -415,9 +415,9 @@ class Contract(domainresource.DomainResource):
 		alias="subtitle",
 		title="Subordinate Friendly name",
 		description=(
-    "An explanatory or alternate user-friendly title for this Contract "
-    "definition, derivative, or instance in any legal state.t giving "
-    "additional information about its content."
+    "A more detailed or qualifying explanatory or alternate user-friendly "
+    "title for this Contract definition, derivative, or instance in any "
+    "legal state."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -460,8 +460,7 @@ class Contract(domainresource.DomainResource):
 		title="Human Friendly name",
 		description=(
     "A short, descriptive, user-friendly title for this Contract "
-    "definition, derivative, or instance in any legal state.t giving "
-    "additional information about its content."
+    "definition, derivative, or instance in any legal state."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -1206,7 +1205,7 @@ class ContractTerm(backboneelement.BackboneElement):
 		title="Protection for the Term",
 		description=(
     "Security labels that protect the handling of information about the "
-    "term and its elements, which may be specifically identified.."
+    "term and its elements, which may be specifically identified."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -1745,8 +1744,8 @@ class ContractTermAsset(backboneelement.BackboneElement):
 		alias="condition",
 		title="Quality desctiption of asset",
 		description=(
-    "Description of the quality and completeness of the asset that imay be "
-    "a factor in its valuation."
+    "Description of the quality and completeness of the asset that may be a"
+    " factor in its valuation."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -1807,7 +1806,7 @@ class ContractTermAsset(backboneelement.BackboneElement):
 		title="Kinship of the asset",
 		description=(
     "Specifies the applicability of the term to an asset resource instance,"
-    " and instances it refers to orinstances that refer to it, and/or are "
+    " and instances it refers to or instances that refer to it, and/or are "
     "owned by the offeree."
     ),
         # if property is element of this resource.
@@ -2396,7 +2395,7 @@ class ContractTermOfferAnswer(backboneelement.BackboneElement):
 		description=(
     "Response to an offer clause or question text,  which enables selection"
     " of values to be agreed to, e.g., the period of participation, the "
-    "date of occupancy of a rental, warrently duration, or whether "
+    "date of occupancy of a rental, warranty duration, or whether "
     "biospecimen may be used for further research."
     ),
         # if property is element of this resource.
@@ -2413,7 +2412,7 @@ class ContractTermOfferAnswer(backboneelement.BackboneElement):
 		description=(
     "Response to an offer clause or question text,  which enables selection"
     " of values to be agreed to, e.g., the period of participation, the "
-    "date of occupancy of a rental, warrently duration, or whether "
+    "date of occupancy of a rental, warranty duration, or whether "
     "biospecimen may be used for further research."
     ),
         # if property is element of this resource.
@@ -2435,7 +2434,7 @@ class ContractTermOfferAnswer(backboneelement.BackboneElement):
 		description=(
     "Response to an offer clause or question text,  which enables selection"
     " of values to be agreed to, e.g., the period of participation, the "
-    "date of occupancy of a rental, warrently duration, or whether "
+    "date of occupancy of a rental, warranty duration, or whether "
     "biospecimen may be used for further research."
     ),
         # if property is element of this resource.
@@ -2452,7 +2451,7 @@ class ContractTermOfferAnswer(backboneelement.BackboneElement):
 		description=(
     "Response to an offer clause or question text,  which enables selection"
     " of values to be agreed to, e.g., the period of participation, the "
-    "date of occupancy of a rental, warrently duration, or whether "
+    "date of occupancy of a rental, warranty duration, or whether "
     "biospecimen may be used for further research."
     ),
         # if property is element of this resource.
@@ -2474,7 +2473,7 @@ class ContractTermOfferAnswer(backboneelement.BackboneElement):
 		description=(
     "Response to an offer clause or question text,  which enables selection"
     " of values to be agreed to, e.g., the period of participation, the "
-    "date of occupancy of a rental, warrently duration, or whether "
+    "date of occupancy of a rental, warranty duration, or whether "
     "biospecimen may be used for further research."
     ),
         # if property is element of this resource.
@@ -2496,7 +2495,7 @@ class ContractTermOfferAnswer(backboneelement.BackboneElement):
 		description=(
     "Response to an offer clause or question text,  which enables selection"
     " of values to be agreed to, e.g., the period of participation, the "
-    "date of occupancy of a rental, warrently duration, or whether "
+    "date of occupancy of a rental, warranty duration, or whether "
     "biospecimen may be used for further research."
     ),
         # if property is element of this resource.
@@ -2518,7 +2517,7 @@ class ContractTermOfferAnswer(backboneelement.BackboneElement):
 		description=(
     "Response to an offer clause or question text,  which enables selection"
     " of values to be agreed to, e.g., the period of participation, the "
-    "date of occupancy of a rental, warrently duration, or whether "
+    "date of occupancy of a rental, warranty duration, or whether "
     "biospecimen may be used for further research."
     ),
         # if property is element of this resource.
@@ -2540,7 +2539,7 @@ class ContractTermOfferAnswer(backboneelement.BackboneElement):
 		description=(
     "Response to an offer clause or question text,  which enables selection"
     " of values to be agreed to, e.g., the period of participation, the "
-    "date of occupancy of a rental, warrently duration, or whether "
+    "date of occupancy of a rental, warranty duration, or whether "
     "biospecimen may be used for further research."
     ),
         # if property is element of this resource.
@@ -2557,7 +2556,7 @@ class ContractTermOfferAnswer(backboneelement.BackboneElement):
 		description=(
     "Response to an offer clause or question text,  which enables selection"
     " of values to be agreed to, e.g., the period of participation, the "
-    "date of occupancy of a rental, warrently duration, or whether "
+    "date of occupancy of a rental, warranty duration, or whether "
     "biospecimen may be used for further research."
     ),
         # if property is element of this resource.
@@ -2576,7 +2575,7 @@ class ContractTermOfferAnswer(backboneelement.BackboneElement):
 		description=(
     "Response to an offer clause or question text,  which enables selection"
     " of values to be agreed to, e.g., the period of participation, the "
-    "date of occupancy of a rental, warrently duration, or whether "
+    "date of occupancy of a rental, warranty duration, or whether "
     "biospecimen may be used for further research."
     ),
         # if property is element of this resource.
@@ -2598,7 +2597,7 @@ class ContractTermOfferAnswer(backboneelement.BackboneElement):
 		description=(
     "Response to an offer clause or question text,  which enables selection"
     " of values to be agreed to, e.g., the period of participation, the "
-    "date of occupancy of a rental, warrently duration, or whether "
+    "date of occupancy of a rental, warranty duration, or whether "
     "biospecimen may be used for further research."
     ),
         # if property is element of this resource.
@@ -2620,7 +2619,7 @@ class ContractTermOfferAnswer(backboneelement.BackboneElement):
 		description=(
     "Response to an offer clause or question text,  which enables selection"
     " of values to be agreed to, e.g., the period of participation, the "
-    "date of occupancy of a rental, warrently duration, or whether "
+    "date of occupancy of a rental, warranty duration, or whether "
     "biospecimen may be used for further research."
     ),
         # if property is element of this resource.
@@ -2740,7 +2739,7 @@ class ContractTermSecurityLabel(backboneelement.BackboneElement):
 
     Protection for the Term.
     Security labels that protect the handling of information about the term and
-    its elements, which may be specifically identified..
+    its elements, which may be specifically identified.
     """
     resource_type = Field("ContractTermSecurityLabel", const=True)
 	
@@ -2749,7 +2748,7 @@ class ContractTermSecurityLabel(backboneelement.BackboneElement):
 		alias="category",
 		title="Applicable Policy",
 		description=(
-    "Security label privacy tag that species the applicable privacy and "
+    "Security label privacy tag that specifies the applicable privacy and "
     "security policies governing this term and/or term elements."
     ),
         # if property is element of this resource.
@@ -2761,8 +2760,8 @@ class ContractTermSecurityLabel(backboneelement.BackboneElement):
 		alias="classification",
 		title="Confidentiality Protection",
 		description=(
-    "Security label privacy tag that species the level of confidentiality "
-    "protection required for this term and/or term elements."
+    "Security label privacy tag that specifies the level of confidentiality"
+    " protection required for this term and/or term elements."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -2773,7 +2772,7 @@ class ContractTermSecurityLabel(backboneelement.BackboneElement):
 		alias="control",
 		title="Handling Instructions",
 		description=(
-    "Security label privacy tag that species the manner in which term "
+    "Security label privacy tag that specifies the manner in which term "
     "and/or term elements are to be protected."
     ),
         # if property is element of this resource.

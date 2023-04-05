@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/EncounterHistory
-Release: 5.0.0-draft-final
-Version: 5.0.0-draft-final
-Build ID: 043d3d5
-Last updated: 2023-03-01T23:03:57.298+11:00
+Release: R5
+Version: 5.0.0
+Build ID: 2aecd53
+Last updated: 2023-03-26T15:21:02.749+11:00
 """
 from pydantic.validators import bytes_validator  # noqa: F401
 from fhir.resources import fhirtypes  # noqa: F401
@@ -15,7 +15,11 @@ def impl_encounterhistory_1(inst):
     assert inst.class_fhir.coding[0].code == "IMP"
     assert inst.class_fhir.coding[0].display == "inpatient encounter"
     assert inst.class_fhir.coding[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActCode"
+    assert inst.encounter.reference == "Encounter/example"
     assert inst.id == "example"
+    assert inst.identifier[0].system == "http://www.amc.nl/zorgportal/identifiers/visits"
+    assert inst.identifier[0].use == "official"
+    assert inst.identifier[0].value == "v2452"
     assert inst.meta.tag[0].code == "HTEST"
     assert inst.meta.tag[0].display == "test health data"
     assert inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"

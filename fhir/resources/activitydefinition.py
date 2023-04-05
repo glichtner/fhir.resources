@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/ActivityDefinition
-Release: 5.0.0-draft-final
-Version: 5.0.0-draft-final
-Build ID: 043d3d5
-Last updated: 2023-03-01T23:03:57.298+11:00
+Release: R5
+Version: 5.0.0
+Build ID: 2aecd53
+Last updated: 2023-03-26T15:21:02.749+11:00
 """
 import typing
 from pydantic import Field
@@ -363,8 +363,7 @@ class ActivityDefinition(domainresource.DomainResource):
 		description=(
     "A description of the kind of resource the activity definition is "
     "representing. For example, a MedicationRequest, a ServiceRequest, or a"
-    " CommunicationRequest. Typically, but not always, this is a Request "
-    "resource."
+    " CommunicationRequest."
     ),
         # if property is element of this resource.
         element_property=True,

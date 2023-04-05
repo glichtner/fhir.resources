@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/DetectedIssue
-Release: 5.0.0-draft-final
-Version: 5.0.0-draft-final
-Build ID: 043d3d5
-Last updated: 2023-03-01T23:03:57.298+11:00
+Release: R5
+Version: 5.0.0
+Build ID: 2aecd53
+Last updated: 2023-03-26T15:21:02.749+11:00
 """
 import typing
 from pydantic import Field
@@ -27,7 +27,7 @@ class DetectedIssue(domainresource.DomainResource):
     Indicates an actual or potential clinical issue with or between one or more
     active or proposed clinical actions for a patient; e.g. Drug-drug
     interaction, Ineffective treatment frequency, Procedure-condition conflict,
-    etc.
+    gaps in care, etc.
     """
     resource_type = Field("DetectedIssue", const=True)
 	

@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/Practitioner
-Release: 5.0.0-draft-final
-Version: 5.0.0-draft-final
-Build ID: 043d3d5
-Last updated: 2023-03-01T23:03:57.298+11:00
+Release: R5
+Version: 5.0.0
+Build ID: 2aecd53
+Last updated: 2023-03-26T15:21:02.749+11:00
 """
 from pydantic.validators import bytes_validator  # noqa: F401
 from fhir.resources import fhirtypes  # noqa: F401
@@ -211,6 +211,43 @@ def test_practitioner_4(base_settings):
 
 
 def impl_practitioner_5(inst):
+    assert inst.active is True
+    assert inst.birthDate == fhirtypes.Date.validate("1982-08-02")
+    assert inst.deceasedDateTime == fhirtypes.DateTime.validate("2021-12-12")
+    assert inst.gender == "female"
+    assert inst.id == "prac4"
+    assert inst.meta.tag[0].code == "HTEST"
+    assert inst.meta.tag[0].display == "test health data"
+    assert inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
+    assert inst.name[0].family == "Notsowell"
+    assert inst.name[0].given[0] == "Sandy"
+    assert inst.name[0].use == "official"
+    assert inst.text.status == "generated"
+
+
+def test_practitioner_5(base_settings):
+    """No. 5 tests collection for Practitioner.
+    Test File: practitioner-example-prac4.json
+    """
+    filename = (
+        base_settings["unittest_data_dir"] / "practitioner-example-prac4.json"
+    )
+    inst = practitioner.Practitioner.parse_file(
+        filename, content_type="application/json", encoding="utf-8"
+    )
+    assert "Practitioner" == inst.resource_type
+
+    impl_practitioner_5(inst)
+
+    # testing reverse by generating data from itself and create again.
+    data = inst.dict()
+    assert "Practitioner" == data["resourceType"]
+
+    inst2 = practitioner.Practitioner(**data)
+    impl_practitioner_5(inst2)
+
+
+def impl_practitioner_6(inst):
     assert inst.address[0].city == "Amsterdam"
     assert inst.address[0].country == "NLD"
     assert inst.address[0].line[0] == "Galapagosweg 91"
@@ -247,8 +284,8 @@ def impl_practitioner_5(inst):
     assert inst.text.status == "generated"
 
 
-def test_practitioner_5(base_settings):
-    """No. 5 tests collection for Practitioner.
+def test_practitioner_6(base_settings):
+    """No. 6 tests collection for Practitioner.
     Test File: practitioner-example-f004-rb.json
     """
     filename = (
@@ -259,17 +296,17 @@ def test_practitioner_5(base_settings):
     )
     assert "Practitioner" == inst.resource_type
 
-    impl_practitioner_5(inst)
+    impl_practitioner_6(inst)
 
     # testing reverse by generating data from itself and create again.
     data = inst.dict()
     assert "Practitioner" == data["resourceType"]
 
     inst2 = practitioner.Practitioner(**data)
-    impl_practitioner_5(inst2)
+    impl_practitioner_6(inst2)
 
 
-def impl_practitioner_6(inst):
+def impl_practitioner_7(inst):
     assert inst.address[0].city == "Den Burg"
     assert inst.address[0].country == "NLD"
     assert inst.address[0].line[0] == "Galapagosweg 91"
@@ -303,8 +340,8 @@ def impl_practitioner_6(inst):
     assert inst.text.status == "generated"
 
 
-def test_practitioner_6(base_settings):
-    """No. 6 tests collection for Practitioner.
+def test_practitioner_7(base_settings):
+    """No. 7 tests collection for Practitioner.
     Test File: practitioner-example-f002-pv.json
     """
     filename = (
@@ -315,17 +352,17 @@ def test_practitioner_6(base_settings):
     )
     assert "Practitioner" == inst.resource_type
 
-    impl_practitioner_6(inst)
+    impl_practitioner_7(inst)
 
     # testing reverse by generating data from itself and create again.
     data = inst.dict()
     assert "Practitioner" == data["resourceType"]
 
     inst2 = practitioner.Practitioner(**data)
-    impl_practitioner_6(inst2)
+    impl_practitioner_7(inst2)
 
 
-def impl_practitioner_7(inst):
+def impl_practitioner_8(inst):
     assert inst.address[0].city == "Den Burg"
     assert inst.address[0].country == "NLD"
     assert inst.address[0].line[0] == "Galapagosweg 91"
@@ -359,8 +396,8 @@ def impl_practitioner_7(inst):
     assert inst.text.status == "generated"
 
 
-def test_practitioner_7(base_settings):
-    """No. 7 tests collection for Practitioner.
+def test_practitioner_8(base_settings):
+    """No. 8 tests collection for Practitioner.
     Test File: practitioner-example-f006-rvdb.json
     """
     filename = (
@@ -371,17 +408,17 @@ def test_practitioner_7(base_settings):
     )
     assert "Practitioner" == inst.resource_type
 
-    impl_practitioner_7(inst)
+    impl_practitioner_8(inst)
 
     # testing reverse by generating data from itself and create again.
     data = inst.dict()
     assert "Practitioner" == data["resourceType"]
 
     inst2 = practitioner.Practitioner(**data)
-    impl_practitioner_7(inst2)
+    impl_practitioner_8(inst2)
 
 
-def impl_practitioner_8(inst):
+def impl_practitioner_9(inst):
     assert inst.active is True
     assert inst.id == "practitioner01"
     assert inst.identifier[0].assigner.display == "Child Hospital"
@@ -401,8 +438,8 @@ def impl_practitioner_8(inst):
     assert inst.text.status == "generated"
 
 
-def test_practitioner_8(base_settings):
-    """No. 8 tests collection for Practitioner.
+def test_practitioner_9(base_settings):
+    """No. 9 tests collection for Practitioner.
     Test File: Practitioner-practitioner01.json
     """
     filename = (
@@ -413,17 +450,17 @@ def test_practitioner_8(base_settings):
     )
     assert "Practitioner" == inst.resource_type
 
-    impl_practitioner_8(inst)
+    impl_practitioner_9(inst)
 
     # testing reverse by generating data from itself and create again.
     data = inst.dict()
     assert "Practitioner" == data["resourceType"]
 
     inst2 = practitioner.Practitioner(**data)
-    impl_practitioner_8(inst2)
+    impl_practitioner_9(inst2)
 
 
-def impl_practitioner_9(inst):
+def impl_practitioner_10(inst):
     assert inst.address[0].city == "Amsterdam"
     assert inst.address[0].country == "NLD"
     assert inst.address[0].line[0] == "Galapagosweg 91"
@@ -460,45 +497,12 @@ def impl_practitioner_9(inst):
     assert inst.text.status == "generated"
 
 
-def test_practitioner_9(base_settings):
-    """No. 9 tests collection for Practitioner.
+def test_practitioner_10(base_settings):
+    """No. 10 tests collection for Practitioner.
     Test File: practitioner-example-f003-mv.json
     """
     filename = (
         base_settings["unittest_data_dir"] / "practitioner-example-f003-mv.json"
-    )
-    inst = practitioner.Practitioner.parse_file(
-        filename, content_type="application/json", encoding="utf-8"
-    )
-    assert "Practitioner" == inst.resource_type
-
-    impl_practitioner_9(inst)
-
-    # testing reverse by generating data from itself and create again.
-    data = inst.dict()
-    assert "Practitioner" == data["resourceType"]
-
-    inst2 = practitioner.Practitioner(**data)
-    impl_practitioner_9(inst2)
-
-
-def impl_practitioner_10(inst):
-    assert inst.id == "xcda-author"
-    assert inst.meta.tag[0].code == "HTEST"
-    assert inst.meta.tag[0].display == "test health data"
-    assert inst.meta.tag[0].system == "http://terminology.hl7.org/CodeSystem/v3-ActReason"
-    assert inst.name[0].family == "Hippocrates"
-    assert inst.name[0].given[0] == "Harold"
-    assert inst.name[0].suffix[0] == "MD"
-    assert inst.text.status == "generated"
-
-
-def test_practitioner_10(base_settings):
-    """No. 10 tests collection for Practitioner.
-    Test File: practitioner-example-xcda-author.json
-    """
-    filename = (
-        base_settings["unittest_data_dir"] / "practitioner-example-xcda-author.json"
     )
     inst = practitioner.Practitioner.parse_file(
         filename, content_type="application/json", encoding="utf-8"

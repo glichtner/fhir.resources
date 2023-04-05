@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/Group
-Release: 5.0.0-draft-final
-Version: 5.0.0-draft-final
-Build ID: 043d3d5
-Last updated: 2023-03-01T23:03:57.298+11:00
+Release: R5
+Version: 5.0.0
+Build ID: 2aecd53
+Last updated: 2023-03-26T15:21:02.749+11:00
 """
 import typing
 from pydantic import Field
@@ -92,8 +92,12 @@ class Group(domainresource.DomainResource):
     identifier: typing.List[fhirtypes.IdentifierType] = Field(
 		None,
 		alias="identifier",
-		title="Unique id",
-		description="A unique business identifier for this group.",
+		title="Business Identifier for this Group",
+		description=(
+    "Business identifiers assigned to this participant by one of the "
+    "applications involved.  These identifiers remain constant as the "
+    "resource is updated and propagates from server to server."
+    ),
         # if property is element of this resource.
         element_property=True,
 	)

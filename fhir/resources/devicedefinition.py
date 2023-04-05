@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/DeviceDefinition
-Release: 5.0.0-draft-final
-Version: 5.0.0-draft-final
-Build ID: 043d3d5
-Last updated: 2023-03-01T23:03:57.298+11:00
+Release: R5
+Version: 5.0.0
+Build ID: 2aecd53
+Last updated: 2023-03-26T15:21:02.749+11:00
 """
 import typing
 from pydantic import Field
@@ -293,10 +293,15 @@ class DeviceDefinition(domainresource.DomainResource):
 		None,
 		alias="property",
 		title=(
-    "The potential, valid configuration settings of a device, e.g., "
-    "regulation status, time properties"
+    "Inherent, essentially fixed, characteristics of this kind of device, "
+    "e.g., time properties, size, etc"
     ),
-		description=None,
+		description=(
+    "Static or essentially fixed characteristics or features of this kind "
+    "of device that are otherwise not captured in more specific attributes,"
+    " e.g., time or timing attributes, resolution, accuracy, and physical "
+    "attributes."
+    ),
         # if property is element of this resource.
         element_property=True,
 	)
@@ -1166,16 +1171,22 @@ class DeviceDefinitionProperty(backboneelement.BackboneElement):
     Resource StructureDefinition, instead used to enable Extensibility feature
     for FHIR Primitive Data Types.
 
-    The potential, valid configuration settings of a device, e.g., regulation
-    status, time properties.
+    Inherent, essentially fixed, characteristics of this kind of device, e.g.,
+    time properties, size, etc.
+    Static or essentially fixed characteristics or features of this kind of
+    device that are otherwise not captured in more specific attributes, e.g.,
+    time or timing attributes, resolution, accuracy, and physical attributes.
     """
     resource_type = Field("DeviceDefinitionProperty", const=True)
 	
     type: fhirtypes.CodeableConceptType = Field(
 		...,
 		alias="type",
-		title="Code that specifies the property",
-		description=None,
+		title="Code that specifies the property being represented",
+		description=(
+    "Code that specifies the property such as a resolution or color being "
+    "represented."
+    ),
         # if property is element of this resource.
         element_property=True,
 	)
@@ -1183,8 +1194,11 @@ class DeviceDefinitionProperty(backboneelement.BackboneElement):
     valueAttachment: fhirtypes.AttachmentType = Field(
 		None,
 		alias="valueAttachment",
-		title="Property value - as a code or quantity",
-		description="Property value - the data type depends on the property type.",
+		title="Value of the property",
+		description=(
+    "The value of the property specified by the associated property.type "
+    "code."
+    ),
         # if property is element of this resource.
         element_property=True,
         # Choice of Data Types. i.e value[x]
@@ -1195,8 +1209,11 @@ class DeviceDefinitionProperty(backboneelement.BackboneElement):
     valueBoolean: bool = Field(
 		None,
 		alias="valueBoolean",
-		title="Property value - as a code or quantity",
-		description="Property value - the data type depends on the property type.",
+		title="Value of the property",
+		description=(
+    "The value of the property specified by the associated property.type "
+    "code."
+    ),
         # if property is element of this resource.
         element_property=True,
         # Choice of Data Types. i.e value[x]
@@ -1212,8 +1229,11 @@ class DeviceDefinitionProperty(backboneelement.BackboneElement):
     valueCodeableConcept: fhirtypes.CodeableConceptType = Field(
 		None,
 		alias="valueCodeableConcept",
-		title="Property value - as a code or quantity",
-		description="Property value - the data type depends on the property type.",
+		title="Value of the property",
+		description=(
+    "The value of the property specified by the associated property.type "
+    "code."
+    ),
         # if property is element of this resource.
         element_property=True,
         # Choice of Data Types. i.e value[x]
@@ -1224,8 +1244,11 @@ class DeviceDefinitionProperty(backboneelement.BackboneElement):
     valueInteger: fhirtypes.Integer = Field(
 		None,
 		alias="valueInteger",
-		title="Property value - as a code or quantity",
-		description="Property value - the data type depends on the property type.",
+		title="Value of the property",
+		description=(
+    "The value of the property specified by the associated property.type "
+    "code."
+    ),
         # if property is element of this resource.
         element_property=True,
         # Choice of Data Types. i.e value[x]
@@ -1241,8 +1264,11 @@ class DeviceDefinitionProperty(backboneelement.BackboneElement):
     valueQuantity: fhirtypes.QuantityType = Field(
 		None,
 		alias="valueQuantity",
-		title="Property value - as a code or quantity",
-		description="Property value - the data type depends on the property type.",
+		title="Value of the property",
+		description=(
+    "The value of the property specified by the associated property.type "
+    "code."
+    ),
         # if property is element of this resource.
         element_property=True,
         # Choice of Data Types. i.e value[x]
@@ -1253,8 +1279,11 @@ class DeviceDefinitionProperty(backboneelement.BackboneElement):
     valueRange: fhirtypes.RangeType = Field(
 		None,
 		alias="valueRange",
-		title="Property value - as a code or quantity",
-		description="Property value - the data type depends on the property type.",
+		title="Value of the property",
+		description=(
+    "The value of the property specified by the associated property.type "
+    "code."
+    ),
         # if property is element of this resource.
         element_property=True,
         # Choice of Data Types. i.e value[x]
@@ -1265,8 +1294,11 @@ class DeviceDefinitionProperty(backboneelement.BackboneElement):
     valueString: fhirtypes.String = Field(
 		None,
 		alias="valueString",
-		title="Property value - as a code or quantity",
-		description="Property value - the data type depends on the property type.",
+		title="Value of the property",
+		description=(
+    "The value of the property specified by the associated property.type "
+    "code."
+    ),
         # if property is element of this resource.
         element_property=True,
         # Choice of Data Types. i.e value[x]

@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/Location
-Release: 5.0.0-draft-final
-Version: 5.0.0-draft-final
-Build ID: 043d3d5
-Last updated: 2023-03-01T23:03:57.298+11:00
+Release: R5
+Version: 5.0.0
+Build ID: 2aecd53
+Last updated: 2023-03-26T15:21:02.749+11:00
 """
 from pydantic.validators import bytes_validator  # noqa: F401
 from fhir.resources import fhirtypes  # noqa: F401
@@ -70,8 +70,16 @@ def test_location_1(base_settings):
 
 
 def impl_location_2(inst):
+    assert inst.address.city == "Den Burg"
+    assert inst.address.country == "NLD"
+    assert inst.address.line[0] == "Galapagosweg 91, Building A"
+    assert inst.address.postalCode == "9105 PZ"
+    assert inst.address.use == "work"
     assert inst.alias[0] == "BU MC, SW, F2"
     assert inst.alias[1] == "Burgers University Medical Center, South Wing, second floor"
+    assert inst.characteristic[0].coding[0].code == "wheelchair"
+    assert inst.characteristic[0].coding[0].display == "Wheelchair accessible"
+    assert inst.characteristic[0].coding[0].system == "http://hl7.org/fhir/location-characteristic"
     assert inst.contact[0].telecom[0].system == "phone"
     assert inst.contact[0].telecom[0].use == "work"
     assert inst.contact[0].telecom[0].value == "2328"
@@ -83,11 +91,6 @@ def impl_location_2(inst):
     assert inst.contact[1].telecom[0].system == "url"
     assert inst.contact[1].telecom[0].use == "work"
     assert inst.contact[1].telecom[0].value == "http://sampleorg.com/southwing"
-    assert inst.contact[2].address.city == "Den Burg"
-    assert inst.contact[2].address.country == "NLD"
-    assert inst.contact[2].address.line[0] == "Galapagosweg 91, Building A"
-    assert inst.contact[2].address.postalCode == "9105 PZ"
-    assert inst.contact[2].address.use == "work"
     assert inst.description == (
     "Second floor of the Old South Wing, formerly in use by "
     "Psychiatry"
@@ -329,11 +332,11 @@ def test_location_6(base_settings):
 
 
 def impl_location_7(inst):
-    assert inst.contact[0].address.city == "Ann Arbor"
-    assert inst.contact[0].address.country == "USA"
-    assert inst.contact[0].address.line[0] == "3300 Washtenaw Avenue, Suite 227"
-    assert inst.contact[0].address.postalCode == "48104"
-    assert inst.contact[0].address.state == "MI"
+    assert inst.address.city == "Ann Arbor"
+    assert inst.address.country == "USA"
+    assert inst.address.line[0] == "3300 Washtenaw Avenue, Suite 227"
+    assert inst.address.postalCode == "48104"
+    assert inst.address.state == "MI"
     assert inst.contact[0].telecom[0].system == "phone"
     assert inst.contact[0].telecom[0].value == "(+1) 734-677-7777"
     assert inst.contact[0].telecom[1].system == "fax"

@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/ArtifactAssessment
-Release: 5.0.0-draft-final
-Version: 5.0.0-draft-final
-Build ID: 043d3d5
-Last updated: 2023-03-01T23:03:57.298+11:00
+Release: R5
+Version: 5.0.0
+Build ID: 2aecd53
+Last updated: 2023-03-26T15:21:02.749+11:00
 """
 from pydantic.validators import bytes_validator  # noqa: F401
 from fhir.resources import fhirtypes  # noqa: F401
@@ -20,13 +20,13 @@ def impl_artifactassessment_1(inst):
     )
     assert inst.content[0].classifier[0].coding[0].code == "extremely-serious-concern"
     assert inst.content[0].classifier[0].coding[0].display == "extremely serious concern"
-    assert inst.content[0].classifier[0].coding[0].system == "http://terminology.hl7.org/CodeSystem/certainty-rating"
+    assert inst.content[0].classifier[0].coding[0].system == "http://hl7.org/fhir/certainty-rating"
     assert inst.content[0].classifier[0].coding[0].userSelected is True
     assert inst.content[0].classifier[0].coding[0].version == "5.0.0"
     assert inst.content[0].component[0].author.display == "Brian S. Alper, Joanne Dehnbostel, Muhammad Afzal"
     assert inst.content[0].component[0].classifier[0].coding[0].code == "no-concern"
     assert inst.content[0].component[0].classifier[0].coding[0].display == "no serious concern"
-    assert inst.content[0].component[0].classifier[0].coding[0].system == "http://terminology.hl7.org/CodeSystem/certainty-rating"
+    assert inst.content[0].component[0].classifier[0].coding[0].system == "http://hl7.org/fhir/certainty-rating"
     assert inst.content[0].component[0].classifier[0].coding[0].userSelected is True
     assert inst.content[0].component[0].classifier[0].coding[0].version == "5.0.0"
     assert inst.content[0].component[0].summary == (
@@ -41,7 +41,7 @@ def impl_artifactassessment_1(inst):
     )
     assert inst.content[0].component[1].classifier[0].coding[0].code == "serious-concern"
     assert inst.content[0].component[1].classifier[0].coding[0].display == "serious concern"
-    assert inst.content[0].component[1].classifier[0].coding[0].system == "http://terminology.hl7.org/CodeSystem/certainty-rating"
+    assert inst.content[0].component[1].classifier[0].coding[0].system == "http://hl7.org/fhir/certainty-rating"
     assert inst.content[0].component[1].classifier[0].coding[0].userSelected is True
     assert inst.content[0].component[1].classifier[0].coding[0].version == "5.0.0"
     assert inst.content[0].component[1].component[3].author.display == (
@@ -73,7 +73,7 @@ def impl_artifactassessment_1(inst):
     )
     assert inst.content[0].component[1].component[4].classifier[0].coding[0].code == "serious-concern"
     assert inst.content[0].component[1].component[4].classifier[0].coding[0].display == "serious concern"
-    assert inst.content[0].component[1].component[4].classifier[0].coding[0].system == "http://terminology.hl7.org/CodeSystem/certainty-rating"
+    assert inst.content[0].component[1].component[4].classifier[0].coding[0].system == "http://hl7.org/fhir/certainty-rating"
     assert inst.content[0].component[1].component[4].classifier[0].coding[0].userSelected is True
     assert inst.content[0].component[1].component[4].classifier[0].coding[0].version == "5.0.0"
     assert inst.content[0].component[1].component[4].component[0].summary == (
@@ -97,7 +97,7 @@ def impl_artifactassessment_1(inst):
     )
     assert inst.content[0].component[2].classifier[0].coding[0].code == "very-serious-concern"
     assert inst.content[0].component[2].classifier[0].coding[0].display == "very serious concern"
-    assert inst.content[0].component[2].classifier[0].coding[0].system == "http://terminology.hl7.org/CodeSystem/certainty-rating"
+    assert inst.content[0].component[2].classifier[0].coding[0].system == "http://hl7.org/fhir/certainty-rating"
     assert inst.content[0].component[2].classifier[0].coding[0].userSelected is True
     assert inst.content[0].component[2].classifier[0].coding[0].version == "5.0.0"
     assert inst.content[0].component[2].component[0].summary == (
@@ -111,7 +111,7 @@ def impl_artifactassessment_1(inst):
     )
     assert inst.content[0].component[2].component[1].classifier[0].coding[0].code == "very-serious-concern"
     assert inst.content[0].component[2].component[1].classifier[0].coding[0].display == "very serious concern"
-    assert inst.content[0].component[2].component[1].classifier[0].coding[0].system == "http://terminology.hl7.org/CodeSystem/certainty-rating"
+    assert inst.content[0].component[2].component[1].classifier[0].coding[0].system == "http://hl7.org/fhir/certainty-rating"
     assert inst.content[0].component[2].component[1].classifier[0].coding[0].userSelected is True
     assert inst.content[0].component[2].component[1].classifier[0].coding[0].version == "5.0.0"
     assert inst.content[0].component[2].component[1].component[0].summary == (
@@ -178,7 +178,7 @@ def impl_artifactassessment_1(inst):
     assert inst.content[0].component[3].author.display == "Brian S. Alper, Joanne Dehnbostel, Muhammad Afzal"
     assert inst.content[0].component[3].classifier[0].coding[0].code == "no-concern"
     assert inst.content[0].component[3].classifier[0].coding[0].display == "no serious concern"
-    assert inst.content[0].component[3].classifier[0].coding[0].system == "http://terminology.hl7.org/CodeSystem/certainty-rating"
+    assert inst.content[0].component[3].classifier[0].coding[0].system == "http://hl7.org/fhir/certainty-rating"
     assert inst.content[0].component[3].classifier[0].coding[0].userSelected is True
     assert inst.content[0].component[3].classifier[0].coding[0].version == "5.0.0"
     assert inst.content[0].component[3].component[0].summary == (
@@ -189,7 +189,7 @@ def impl_artifactassessment_1(inst):
     assert inst.content[0].component[4].author.display == "Brian S. Alper, Joanne Dehnbostel, Muhammad Afzal"
     assert inst.content[0].component[4].classifier[0].coding[0].code == "no-concern"
     assert inst.content[0].component[4].classifier[0].coding[0].display == "no serious concern"
-    assert inst.content[0].component[4].classifier[0].coding[0].system == "http://terminology.hl7.org/CodeSystem/certainty-rating"
+    assert inst.content[0].component[4].classifier[0].coding[0].system == "http://hl7.org/fhir/certainty-rating"
     assert inst.content[0].component[4].classifier[0].coding[0].userSelected is True
     assert inst.content[0].component[4].classifier[0].coding[0].version == "5.0.0"
     assert inst.content[0].component[4].component[0].summary == (
@@ -208,7 +208,7 @@ def impl_artifactassessment_1(inst):
     )
     assert inst.content[0].component[5].classifier[0].coding[0].code == "very-serious-concern"
     assert inst.content[0].component[5].classifier[0].coding[0].display == "very serious concern"
-    assert inst.content[0].component[5].classifier[0].coding[0].system == "http://terminology.hl7.org/CodeSystem/certainty-rating"
+    assert inst.content[0].component[5].classifier[0].coding[0].system == "http://hl7.org/fhir/certainty-rating"
     assert inst.content[0].component[5].classifier[0].coding[0].userSelected is True
     assert inst.content[0].component[5].classifier[0].coding[0].version == "5.0.0"
     assert inst.content[0].component[5].component[0].summary == (
@@ -221,7 +221,7 @@ def impl_artifactassessment_1(inst):
     )
     assert inst.content[0].component[5].component[1].classifier[0].coding[0].code == "very-serious-concern"
     assert inst.content[0].component[5].component[1].classifier[0].coding[0].display == "very serious concern"
-    assert inst.content[0].component[5].component[1].classifier[0].coding[0].system == "http://terminology.hl7.org/CodeSystem/certainty-rating"
+    assert inst.content[0].component[5].component[1].classifier[0].coding[0].system == "http://hl7.org/fhir/certainty-rating"
     assert inst.content[0].component[5].component[1].classifier[0].coding[0].userSelected is True
     assert inst.content[0].component[5].component[1].classifier[0].coding[0].version == "5.0.0"
     assert inst.content[0].component[5].component[1].component[0].summary == (
@@ -251,7 +251,7 @@ def impl_artifactassessment_1(inst):
     )
     assert inst.content[0].component[5].component[2].classifier[0].coding[0].code == "very-serious-concern"
     assert inst.content[0].component[5].component[2].classifier[0].coding[0].display == "very serious concern"
-    assert inst.content[0].component[5].component[2].classifier[0].coding[0].system == "http://terminology.hl7.org/CodeSystem/certainty-rating"
+    assert inst.content[0].component[5].component[2].classifier[0].coding[0].system == "http://hl7.org/fhir/certainty-rating"
     assert inst.content[0].component[5].component[2].classifier[0].coding[0].userSelected is True
     assert inst.content[0].component[5].component[2].classifier[0].coding[0].version == "5.0.0"
     assert inst.content[0].component[5].component[2].component[0].summary == (
@@ -333,11 +333,11 @@ def impl_artifactassessment_2(inst):
     assert inst.content[0].author.display == "Brian S. Alper"
     assert inst.content[0].classifier[0].coding[0].code == "very-low"
     assert inst.content[0].classifier[0].coding[0].display == "Very low quality"
-    assert inst.content[0].classifier[0].coding[0].system == "http://terminology.hl7.org/CodeSystem/certainty-rating"
+    assert inst.content[0].classifier[0].coding[0].system == "http://hl7.org/fhir/certainty-rating"
     assert inst.content[0].component[0].author.display == "Brian S. Alper"
     assert inst.content[0].component[0].classifier[0].coding[0].code == "serious-concern"
     assert inst.content[0].component[0].classifier[0].coding[0].display == "serious concern"
-    assert inst.content[0].component[0].classifier[0].coding[0].system == "http://terminology.hl7.org/CodeSystem/certainty-rating"
+    assert inst.content[0].component[0].classifier[0].coding[0].system == "http://hl7.org/fhir/certainty-rating"
     assert inst.content[0].component[0].informationType == "rating"
     assert inst.content[0].component[0].summary == "risk of bias in both included trials"
     assert inst.content[0].component[0].type.coding[0].code == "RiskOfBias"
@@ -346,7 +346,7 @@ def impl_artifactassessment_2(inst):
     assert inst.content[0].component[1].author.display == "Brian S. Alper"
     assert inst.content[0].component[1].classifier[0].coding[0].code == "serious-concern"
     assert inst.content[0].component[1].classifier[0].coding[0].display == "serious concern"
-    assert inst.content[0].component[1].classifier[0].coding[0].system == "http://terminology.hl7.org/CodeSystem/certainty-rating"
+    assert inst.content[0].component[1].classifier[0].coding[0].system == "http://hl7.org/fhir/certainty-rating"
     assert inst.content[0].component[1].informationType == "rating"
     assert inst.content[0].component[1].summary == (
     "high degree of heterogeneity (I-squared 80.7%) with "
@@ -359,7 +359,7 @@ def impl_artifactassessment_2(inst):
     assert inst.content[0].component[2].author.display == "Brian S. Alper"
     assert inst.content[0].component[2].classifier[0].coding[0].code == "no-concern"
     assert inst.content[0].component[2].classifier[0].coding[0].display == "no serious concern"
-    assert inst.content[0].component[2].classifier[0].coding[0].system == "http://terminology.hl7.org/CodeSystem/certainty-rating"
+    assert inst.content[0].component[2].classifier[0].coding[0].system == "http://hl7.org/fhir/certainty-rating"
     assert inst.content[0].component[2].informationType == "rating"
     assert inst.content[0].component[2].type.coding[0].code == "Indirectness"
     assert inst.content[0].component[2].type.coding[0].display == "Indirectness"
@@ -367,7 +367,7 @@ def impl_artifactassessment_2(inst):
     assert inst.content[0].component[3].author.display == "Brian S. Alper"
     assert inst.content[0].component[3].classifier[0].coding[0].code == "serious-concern"
     assert inst.content[0].component[3].classifier[0].coding[0].display == "serious concern"
-    assert inst.content[0].component[3].classifier[0].coding[0].system == "http://terminology.hl7.org/CodeSystem/certainty-rating"
+    assert inst.content[0].component[3].classifier[0].coding[0].system == "http://hl7.org/fhir/certainty-rating"
     assert inst.content[0].component[3].informationType == "rating"
     assert inst.content[0].component[3].summary == (
     "95% confidence interval includes both large effects and no "
@@ -379,7 +379,7 @@ def impl_artifactassessment_2(inst):
     assert inst.content[0].component[4].author.display == "Brian S. Alper"
     assert inst.content[0].component[4].classifier[0].coding[0].code == "no-concern"
     assert inst.content[0].component[4].classifier[0].coding[0].display == "no serious concern"
-    assert inst.content[0].component[4].classifier[0].coding[0].system == "http://terminology.hl7.org/CodeSystem/certainty-rating"
+    assert inst.content[0].component[4].classifier[0].coding[0].system == "http://hl7.org/fhir/certainty-rating"
     assert inst.content[0].component[4].informationType == "rating"
     assert inst.content[0].component[4].type.coding[0].code == "PublicationBias"
     assert inst.content[0].component[4].type.coding[0].display == "Publication bias"

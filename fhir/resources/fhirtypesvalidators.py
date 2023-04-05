@@ -1151,8 +1151,6 @@ MODEL_CLASSES = {
      
      "ObservationDefinitionQualifiedValue": (None, ".observationdefinition"),
      
-     "ObservationDefinitionQuantitativeDetails": (None, ".observationdefinition"),
-     
      "ObservationReferenceRange": (None, ".observation"),
      
      "ObservationTriggeredBy": (None, ".observation"),
@@ -1252,8 +1250,6 @@ MODEL_CLASSES = {
      "PlanDefinitionGoal": (None, ".plandefinition"),
      
      "PlanDefinitionGoalTarget": (None, ".plandefinition"),
-     
-     "Population": (None, ".population"),
      
      "Practitioner": (None, ".practitioner"),
      
@@ -1571,13 +1567,13 @@ MODEL_CLASSES = {
      
      "TestPlan": (None, ".testplan"),
      
-     "TestPlanDependencies": (None, ".testplan"),
+     "TestPlanDependency": (None, ".testplan"),
      
      "TestPlanTestCase": (None, ".testplan"),
      
-     "TestPlanTestCaseAssertions": (None, ".testplan"),
+     "TestPlanTestCaseAssertion": (None, ".testplan"),
      
-     "TestPlanTestCaseDependencies": (None, ".testplan"),
+     "TestPlanTestCaseDependency": (None, ".testplan"),
      
      "TestPlanTestCaseTestData": (None, ".testplan"),
      
@@ -4096,10 +4092,6 @@ def observationdefinitionqualifiedvalue_validator(v: Union[StrBytes, dict, Path,
 
 	return fhir_model_validator("ObservationDefinitionQualifiedValue", v)
 
-def observationdefinitionquantitativedetails_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
-
-	return fhir_model_validator("ObservationDefinitionQuantitativeDetails", v)
-
 def observationreferencerange_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
 
 	return fhir_model_validator("ObservationReferenceRange", v)
@@ -4299,10 +4291,6 @@ def plandefinitiongoal_validator(v: Union[StrBytes, dict, Path, FHIRAbstractMode
 def plandefinitiongoaltarget_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
 
 	return fhir_model_validator("PlanDefinitionGoalTarget", v)
-
-def population_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
-
-	return fhir_model_validator("Population", v)
 
 def practitioner_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
 
@@ -4936,21 +4924,21 @@ def testplan_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
 
 	return fhir_model_validator("TestPlan", v)
 
-def testplandependencies_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
+def testplandependency_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
 
-	return fhir_model_validator("TestPlanDependencies", v)
+	return fhir_model_validator("TestPlanDependency", v)
 
 def testplantestcase_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
 
 	return fhir_model_validator("TestPlanTestCase", v)
 
-def testplantestcaseassertions_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
+def testplantestcaseassertion_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
 
-	return fhir_model_validator("TestPlanTestCaseAssertions", v)
+	return fhir_model_validator("TestPlanTestCaseAssertion", v)
 
-def testplantestcasedependencies_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
+def testplantestcasedependency_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
 
-	return fhir_model_validator("TestPlanTestCaseDependencies", v)
+	return fhir_model_validator("TestPlanTestCaseDependency", v)
 
 def testplantestcasetestdata_validator(v: Union[StrBytes, dict, Path, FHIRAbstractModel]):
 
@@ -6333,8 +6321,6 @@ __all__ = [
 	
 	"observationdefinitionqualifiedvalue_validator",
 	
-	"observationdefinitionquantitativedetails_validator",
-	
 	"observationreferencerange_validator",
 	
 	"observationtriggeredby_validator",
@@ -6434,8 +6420,6 @@ __all__ = [
 	"plandefinitiongoal_validator",
 	
 	"plandefinitiongoaltarget_validator",
-	
-	"population_validator",
 	
 	"practitioner_validator",
 	
@@ -6753,13 +6737,13 @@ __all__ = [
 	
 	"testplan_validator",
 	
-	"testplandependencies_validator",
+	"testplandependency_validator",
 	
 	"testplantestcase_validator",
 	
-	"testplantestcaseassertions_validator",
+	"testplantestcaseassertion_validator",
 	
-	"testplantestcasedependencies_validator",
+	"testplantestcasedependency_validator",
 	
 	"testplantestcasetestdata_validator",
 	

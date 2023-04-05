@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/DeviceDispense
-Release: 5.0.0-draft-final
-Version: 5.0.0-draft-final
-Build ID: 043d3d5
-Last updated: 2023-03-01T23:03:57.298+11:00
+Release: R5
+Version: 5.0.0
+Build ID: 2aecd53
+Last updated: 2023-03-26T15:21:02.749+11:00
 """
 import typing
 from pydantic import Field
@@ -23,8 +23,9 @@ class DeviceDispense(domainresource.DomainResource):
     Resource StructureDefinition, instead used to enable Extensibility feature
     for FHIR Primitive Data Types.
 
-    Device Dispense.
     A record of dispensation of a device.
+    A record of dispensation of a device - i.e., assigning a device to a
+    patient, or to a professional for their use.
     """
     resource_type = Field("DeviceDispense", const=True)
 	
@@ -260,7 +261,7 @@ class DeviceDispense(domainresource.DomainResource):
         element_property=True,
 	)
 	
-    usageInstruction: fhirtypes.String = Field(
+    usageInstruction: fhirtypes.Markdown = Field(
 		None,
 		alias="usageInstruction",
 		title="Full representation of the usage instructions",

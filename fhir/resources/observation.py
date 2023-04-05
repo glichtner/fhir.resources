@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/Observation
-Release: 5.0.0-draft-final
-Version: 5.0.0-draft-final
-Build ID: 043d3d5
-Last updated: 2023-03-01T23:03:57.298+11:00
+Release: R5
+Version: 5.0.0
+Build ID: 2aecd53
+Last updated: 2023-03-26T15:21:02.749+11:00
 """
 import typing
 from pydantic import Field
@@ -136,8 +136,11 @@ class Observation(domainresource.DomainResource):
     device: fhirtypes.ReferenceType = Field(
 		None,
 		alias="device",
-		title="(Measurement) Device",
-		description="The device used to generate the observation data.",
+		title=(
+    "A reference to the device that generates the measurements or the "
+    "device settings for the device"
+    ),
+		description=None,
         # if property is element of this resource.
         element_property=True,
         # note: Listed Resource Type(s) should be allowed as Reference.
@@ -511,26 +514,6 @@ class Observation(domainresource.DomainResource):
         title="Extension field for ``valueBoolean``."
     )
 	
-    valueCanonical: fhirtypes.Canonical = Field(
-		None,
-		alias="valueCanonical",
-		title="Actual result",
-		description=(
-    "The information determined as a result of making the observation, if "
-    "the information has a simple value."
-    ),
-        # if property is element of this resource.
-        element_property=True,
-        # Choice of Data Types. i.e value[x]
-		one_of_many="value",
-		one_of_many_required=False,
-	)
-    valueCanonical__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
-        None,
-        alias="_valueCanonical",
-        title="Extension field for ``valueCanonical``."
-    )
-	
     valueCodeableConcept: fhirtypes.CodeableConceptType = Field(
 		None,
 		alias="valueCodeableConcept",
@@ -584,26 +567,6 @@ class Observation(domainresource.DomainResource):
         None,
         alias="_valueInteger",
         title="Extension field for ``valueInteger``."
-    )
-	
-    valueMarkdown: fhirtypes.Markdown = Field(
-		None,
-		alias="valueMarkdown",
-		title="Actual result",
-		description=(
-    "The information determined as a result of making the observation, if "
-    "the information has a simple value."
-    ),
-        # if property is element of this resource.
-        element_property=True,
-        # Choice of Data Types. i.e value[x]
-		one_of_many="value",
-		one_of_many_required=False,
-	)
-    valueMarkdown__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
-        None,
-        alias="_valueMarkdown",
-        title="Extension field for ``valueMarkdown``."
     )
 	
     valuePeriod: fhirtypes.PeriodType = Field(
@@ -698,6 +661,26 @@ class Observation(domainresource.DomainResource):
 		one_of_many_required=False,
 	)
 	
+    valueString: fhirtypes.String = Field(
+		None,
+		alias="valueString",
+		title="Actual result",
+		description=(
+    "The information determined as a result of making the observation, if "
+    "the information has a simple value."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+        # Choice of Data Types. i.e value[x]
+		one_of_many="value",
+		one_of_many_required=False,
+	)
+    valueString__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
+        None,
+        alias="_valueString",
+        title="Extension field for ``valueString``."
+    )
+	
     valueTime: fhirtypes.Time = Field(
 		None,
 		alias="valueTime",
@@ -723,7 +706,7 @@ class Observation(domainresource.DomainResource):
         ``Observation`` according specification,
         with preserving original sequence order.
         """
-        return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "identifier", "instantiatesCanonical", "instantiatesReference", "basedOn", "triggeredBy", "partOf", "status", "category", "code", "subject", "focus", "encounter", "effectiveDateTime", "effectivePeriod", "effectiveTiming", "effectiveInstant", "issued", "performer", "valueQuantity", "valueCodeableConcept", "valueMarkdown", "valueBoolean", "valueInteger", "valueRange", "valueRatio", "valueSampledData", "valueTime", "valueDateTime", "valuePeriod", "valueAttachment", "valueReference", "valueCanonical", "dataAbsentReason", "interpretation", "note", "bodySite", "bodyStructure", "method", "specimen", "device", "referenceRange", "hasMember", "derivedFrom", "component"]
+        return ["id", "meta", "implicitRules", "language", "text", "contained", "extension", "modifierExtension", "identifier", "instantiatesCanonical", "instantiatesReference", "basedOn", "triggeredBy", "partOf", "status", "category", "code", "subject", "focus", "encounter", "effectiveDateTime", "effectivePeriod", "effectiveTiming", "effectiveInstant", "issued", "performer", "valueQuantity", "valueCodeableConcept", "valueString", "valueBoolean", "valueInteger", "valueRange", "valueRatio", "valueSampledData", "valueTime", "valueDateTime", "valuePeriod", "valueAttachment", "valueReference", "dataAbsentReason", "interpretation", "note", "bodySite", "bodyStructure", "method", "specimen", "device", "referenceRange", "hasMember", "derivedFrom", "component"]
 
 
     @root_validator(pre=True, allow_reuse=True)
@@ -814,17 +797,16 @@ class Observation(domainresource.DomainResource):
 			"value": [
 			    "valueAttachment",
 			    "valueBoolean",
-			    "valueCanonical",
 			    "valueCodeableConcept",
 			    "valueDateTime",
 			    "valueInteger",
-			    "valueMarkdown",
 			    "valuePeriod",
 			    "valueQuantity",
 			    "valueRange",
 			    "valueRatio",
 			    "valueReference",
 			    "valueSampledData",
+			    "valueString",
 			    "valueTime"]}
         for prefix, fields in one_of_many_fields.items():
             assert cls.__fields__[fields[0]].field_info.extra["one_of_many"] == prefix
@@ -947,26 +929,6 @@ class ObservationComponent(backboneelement.BackboneElement):
         title="Extension field for ``valueBoolean``."
     )
 	
-    valueCanonical: fhirtypes.Canonical = Field(
-		None,
-		alias="valueCanonical",
-		title="Actual component result",
-		description=(
-    "The information determined as a result of making the observation, if "
-    "the information has a simple value."
-    ),
-        # if property is element of this resource.
-        element_property=True,
-        # Choice of Data Types. i.e value[x]
-		one_of_many="value",
-		one_of_many_required=False,
-	)
-    valueCanonical__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
-        None,
-        alias="_valueCanonical",
-        title="Extension field for ``valueCanonical``."
-    )
-	
     valueCodeableConcept: fhirtypes.CodeableConceptType = Field(
 		None,
 		alias="valueCodeableConcept",
@@ -1020,26 +982,6 @@ class ObservationComponent(backboneelement.BackboneElement):
         None,
         alias="_valueInteger",
         title="Extension field for ``valueInteger``."
-    )
-	
-    valueMarkdown: fhirtypes.Markdown = Field(
-		None,
-		alias="valueMarkdown",
-		title="Actual component result",
-		description=(
-    "The information determined as a result of making the observation, if "
-    "the information has a simple value."
-    ),
-        # if property is element of this resource.
-        element_property=True,
-        # Choice of Data Types. i.e value[x]
-		one_of_many="value",
-		one_of_many_required=False,
-	)
-    valueMarkdown__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
-        None,
-        alias="_valueMarkdown",
-        title="Extension field for ``valueMarkdown``."
     )
 	
     valuePeriod: fhirtypes.PeriodType = Field(
@@ -1134,6 +1076,26 @@ class ObservationComponent(backboneelement.BackboneElement):
 		one_of_many_required=False,
 	)
 	
+    valueString: fhirtypes.String = Field(
+		None,
+		alias="valueString",
+		title="Actual component result",
+		description=(
+    "The information determined as a result of making the observation, if "
+    "the information has a simple value."
+    ),
+        # if property is element of this resource.
+        element_property=True,
+        # Choice of Data Types. i.e value[x]
+		one_of_many="value",
+		one_of_many_required=False,
+	)
+    valueString__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
+        None,
+        alias="_valueString",
+        title="Extension field for ``valueString``."
+    )
+	
     valueTime: fhirtypes.Time = Field(
 		None,
 		alias="valueTime",
@@ -1159,7 +1121,7 @@ class ObservationComponent(backboneelement.BackboneElement):
         ``ObservationComponent`` according specification,
         with preserving original sequence order.
         """
-        return ["id", "extension", "modifierExtension", "code", "valueQuantity", "valueCodeableConcept", "valueMarkdown", "valueBoolean", "valueInteger", "valueRange", "valueRatio", "valueSampledData", "valueTime", "valueDateTime", "valuePeriod", "valueAttachment", "valueReference", "valueCanonical", "dataAbsentReason", "interpretation", "referenceRange"]
+        return ["id", "extension", "modifierExtension", "code", "valueQuantity", "valueCodeableConcept", "valueString", "valueBoolean", "valueInteger", "valueRange", "valueRatio", "valueSampledData", "valueTime", "valueDateTime", "valuePeriod", "valueAttachment", "valueReference", "dataAbsentReason", "interpretation", "referenceRange"]
 
 
     @root_validator(pre=True, allow_reuse=True)
@@ -1182,17 +1144,16 @@ class ObservationComponent(backboneelement.BackboneElement):
 			"value": [
 			    "valueAttachment",
 			    "valueBoolean",
-			    "valueCanonical",
 			    "valueCodeableConcept",
 			    "valueDateTime",
 			    "valueInteger",
-			    "valueMarkdown",
 			    "valuePeriod",
 			    "valueQuantity",
 			    "valueRange",
 			    "valueRatio",
 			    "valueReference",
 			    "valueSampledData",
+			    "valueString",
 			    "valueTime"]}
         for prefix, fields in one_of_many_fields.items():
             assert cls.__fields__[fields[0]].field_info.extra["one_of_many"] == prefix

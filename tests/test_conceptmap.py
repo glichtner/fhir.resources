@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/ConceptMap
-Release: 5.0.0-draft-final
-Version: 5.0.0-draft-final
-Build ID: 043d3d5
-Last updated: 2023-03-01T23:03:57.298+11:00
+Release: R5
+Version: 5.0.0
+Build ID: 2aecd53
+Last updated: 2023-03-26T15:21:02.749+11:00
 """
 from pydantic.validators import bytes_validator  # noqa: F401
 from fhir.resources import fhirtypes  # noqa: F401
@@ -54,7 +54,7 @@ def impl_conceptmap_1(inst):
     assert inst.text.status == "extensions"
     assert inst.title == "Canonical Mapping for \"Episode Of Care Status\""
     assert inst.url == "http://hl7.org/fhir/ConceptMap/sc-episode-of-care-status"
-    assert inst.version == "5.0.0-draft-final"
+    assert inst.version == "5.0.0"
 
 
 def test_conceptmap_1(base_settings):
@@ -107,7 +107,7 @@ def impl_conceptmap_2(inst):
     assert inst.text.status == "extensions"
     assert inst.title == "Canonical Mapping for \"Medication Status Codes\""
     assert inst.url == "http://hl7.org/fhir/ConceptMap/sc-medication-status"
-    assert inst.version == "5.0.0-draft-final"
+    assert inst.version == "5.0.0"
 
 
 def test_conceptmap_2(base_settings):
@@ -190,7 +190,7 @@ def impl_conceptmap_3(inst):
     "http://hl7.org/fhir/ConceptMap/sc-"
     "biologicallyderivedproductdispense-status"
     )
-    assert inst.version == "5.0.0-draft-final"
+    assert inst.version == "5.0.0"
 
 
 def test_conceptmap_3(base_settings):
@@ -246,7 +246,7 @@ def impl_conceptmap_4(inst):
     assert inst.text.status == "extensions"
     assert inst.title == "Canonical Mapping for \"FHIR Device Status\""
     assert inst.url == "http://hl7.org/fhir/ConceptMap/sc-device-status"
-    assert inst.version == "5.0.0-draft-final"
+    assert inst.version == "5.0.0"
 
 
 def test_conceptmap_4(base_settings):
@@ -308,7 +308,7 @@ def impl_conceptmap_5(inst):
     assert inst.text.status == "extensions"
     assert inst.title == "Canonical Mapping for \"Detected Issue Status\""
     assert inst.url == "http://hl7.org/fhir/ConceptMap/sc-detectedissue-status"
-    assert inst.version == "5.0.0-draft-final"
+    assert inst.version == "5.0.0"
 
 
 def test_conceptmap_5(base_settings):
@@ -367,7 +367,7 @@ def impl_conceptmap_6(inst):
     assert inst.text.status == "extensions"
     assert inst.title == "Canonical Mapping for \"Adverse Event Status\""
     assert inst.url == "http://hl7.org/fhir/ConceptMap/sc-adverse-event-status"
-    assert inst.version == "5.0.0-draft-final"
+    assert inst.version == "5.0.0"
 
 
 def test_conceptmap_6(base_settings):
@@ -438,7 +438,7 @@ def impl_conceptmap_7(inst):
     "Codes\""
     )
     assert inst.url == "http://hl7.org/fhir/ConceptMap/sc-medication-admin-status"
-    assert inst.version == "5.0.0-draft-final"
+    assert inst.version == "5.0.0"
 
 
 def test_conceptmap_7(base_settings):
@@ -506,7 +506,7 @@ def impl_conceptmap_8(inst):
     assert inst.text.status == "extensions"
     assert inst.title == "Canonical Mapping for \"Consent State\""
     assert inst.url == "http://hl7.org/fhir/ConceptMap/sc-consent-state-codes"
-    assert inst.version == "5.0.0-draft-final"
+    assert inst.version == "5.0.0"
 
 
 def test_conceptmap_8(base_settings):
@@ -536,7 +536,7 @@ def impl_conceptmap_9(inst):
     assert inst.contact[0].telecom[0].value == "http://hl7.org/fhir"
     assert inst.contact[0].telecom[1].system == "email"
     assert inst.contact[0].telecom[1].value == "fhir@lists.hl7.org"
-    assert inst.date == fhirtypes.DateTime.validate("2023-03-01T23:03:57+11:00")
+    assert inst.date == fhirtypes.DateTime.validate("2023-03-26T15:21:02+11:00")
     assert inst.experimental is False
     assert inst.group[0].element[0].code == "home"
     assert inst.group[0].element[0].target[0].code == "H"
@@ -568,7 +568,7 @@ def impl_conceptmap_9(inst):
     assert inst.text.status == "extensions"
     assert inst.title == "v2 map for AddressUse"
     assert inst.url == "http://hl7.org/fhir/ConceptMap/cm-address-use-v2"
-    assert inst.version == "5.0.0-draft-final"
+    assert inst.version == "5.0.0"
 
 
 def test_conceptmap_9(base_settings):
@@ -633,7 +633,7 @@ def impl_conceptmap_10(inst):
     assert inst.text.status == "extensions"
     assert inst.title == "Canonical Mapping for \"Test Report Status\""
     assert inst.url == "http://hl7.org/fhir/ConceptMap/sc-report-status-codes"
-    assert inst.version == "5.0.0-draft-final"
+    assert inst.version == "5.0.0"
 
 
 def test_conceptmap_10(base_settings):

@@ -650,7 +650,7 @@ def get_fhir_type_class(model_name):
 class AbstractType(dict):
     """ """
 
-    __fhir_release__: str = "5.0.0-draft-final"
+    __fhir_release__: str = "R5"
     __resource_type__: str = ...  # type: ignore
 
     @classmethod
@@ -683,7 +683,7 @@ class FHIRPrimitiveExtensionType(AbstractType):
 class AbstractBaseType(dict):
     """ """
 
-    __fhir_release__: str = "5.0.0-draft-final"
+    __fhir_release__: str = "R5"
     __resource_type__: str = ...  # type: ignore
 
     @classmethod
@@ -3000,10 +3000,6 @@ class ObservationDefinitionQualifiedValueType(AbstractType):
     __resource_type__ = "ObservationDefinitionQualifiedValue"
 
 
-class ObservationDefinitionQuantitativeDetailsType(AbstractType):
-    __resource_type__ = "ObservationDefinitionQuantitativeDetails"
-
-
 class ObservationReferenceRangeType(AbstractType):
     __resource_type__ = "ObservationReferenceRange"
 
@@ -3202,10 +3198,6 @@ class PlanDefinitionGoalType(AbstractType):
 
 class PlanDefinitionGoalTargetType(AbstractType):
     __resource_type__ = "PlanDefinitionGoalTarget"
-
-
-class PopulationType(AbstractType):
-    __resource_type__ = "Population"
 
 
 class PractitionerType(AbstractType):
@@ -3837,20 +3829,20 @@ class TestPlanType(AbstractType):
     __resource_type__ = "TestPlan"
 
 
-class TestPlanDependenciesType(AbstractType):
-    __resource_type__ = "TestPlanDependencies"
+class TestPlanDependencyType(AbstractType):
+    __resource_type__ = "TestPlanDependency"
 
 
 class TestPlanTestCaseType(AbstractType):
     __resource_type__ = "TestPlanTestCase"
 
 
-class TestPlanTestCaseAssertionsType(AbstractType):
-    __resource_type__ = "TestPlanTestCaseAssertions"
+class TestPlanTestCaseAssertionType(AbstractType):
+    __resource_type__ = "TestPlanTestCaseAssertion"
 
 
-class TestPlanTestCaseDependenciesType(AbstractType):
-    __resource_type__ = "TestPlanTestCaseDependencies"
+class TestPlanTestCaseDependencyType(AbstractType):
+    __resource_type__ = "TestPlanTestCaseDependency"
 
 
 class TestPlanTestCaseTestDataType(AbstractType):
@@ -5822,9 +5814,6 @@ __all__ = [
 	"ObservationDefinitionQualifiedValueType",
 	
 	
-	"ObservationDefinitionQuantitativeDetailsType",
-	
-	
 	"ObservationReferenceRangeType",
 	
 	
@@ -5973,9 +5962,6 @@ __all__ = [
 	
 	
 	"PlanDefinitionGoalTargetType",
-	
-	
-	"PopulationType",
 	
 	
 	"PractitionerType",
@@ -6450,16 +6436,16 @@ __all__ = [
 	"TestPlanType",
 	
 	
-	"TestPlanDependenciesType",
+	"TestPlanDependencyType",
 	
 	
 	"TestPlanTestCaseType",
 	
 	
-	"TestPlanTestCaseAssertionsType",
+	"TestPlanTestCaseAssertionType",
 	
 	
-	"TestPlanTestCaseDependenciesType",
+	"TestPlanTestCaseDependencyType",
 	
 	
 	"TestPlanTestCaseTestDataType",

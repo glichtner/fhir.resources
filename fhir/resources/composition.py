@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/Composition
-Release: 5.0.0-draft-final
-Version: 5.0.0-draft-final
-Build ID: 043d3d5
-Last updated: 2023-03-01T23:03:57.298+11:00
+Release: R5
+Version: 5.0.0
+Build ID: 2aecd53
+Last updated: 2023-03-26T15:21:02.749+11:00
 """
 import typing
 from pydantic import Field
@@ -456,29 +456,17 @@ class CompositionEvent(backboneelement.BackboneElement):
     """
     resource_type = Field("CompositionEvent", const=True)
 	
-    code: typing.List[fhirtypes.CodeableConceptType] = Field(
-		None,
-		alias="code",
-		title="Code(s) that apply to the event being documented",
-		description=(
-    "This list of codes represents the main clinical acts, such as a "
-    "colonoscopy or an appendectomy, being documented. In some cases, the "
-    "event is inherent in the typeCode, such as a \"History and Physical "
-    "Report\" in which the procedure being documented is necessarily a "
-    "\"History and Physical\" act."
-    ),
-        # if property is element of this resource.
-        element_property=True,
-	)
-	
-    detail: typing.List[fhirtypes.ReferenceType] = Field(
+    detail: typing.List[fhirtypes.CodeableReferenceType] = Field(
 		None,
 		alias="detail",
-		title="The event(s) being documented",
+		title="The event(s) being documented, as code(s), reference(s), or both",
 		description=(
-    "The description and/or reference of the event(s) being documented. For"
-    " example, this could be used to document such a colonoscopy or an "
-    "appendectomy."
+    "Represents the main clinical acts, such as a colonoscopy or an "
+    "appendectomy, being documented. In some cases, the event is inherent "
+    "in the typeCode, such as a \"History and Physical Report\" in which case"
+    " the procedure being documented is necessarily a \"History and "
+    "Physical\" act. The events may be included as a code or as a reference "
+    "to an other resource."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -504,7 +492,7 @@ class CompositionEvent(backboneelement.BackboneElement):
         ``CompositionEvent`` according specification,
         with preserving original sequence order.
         """
-        return ["id", "extension", "modifierExtension", "code", "period", "detail"]
+        return ["id", "extension", "modifierExtension", "period", "detail"]
 
 
 
@@ -594,29 +582,6 @@ class CompositionSection(backboneelement.BackboneElement):
 		enum_reference_types=["Resource"],
 	)
 	
-    mode: fhirtypes.Code = Field(
-		None,
-		alias="mode",
-		title="working | snapshot | changes",
-		description=(
-    "How the entry list was prepared - whether it is a working list that is"
-    " suitable for being maintained on an ongoing basis, or if it "
-    "represents a snapshot of a list of items from another source, or "
-    "whether it is a prepared list where items may be marked as added, "
-    "modified or deleted."
-    ),
-        # if property is element of this resource.
-        element_property=True,
-        # note: Enum values can be used in validation,
-        # but use in your own responsibilities, read official FHIR documentation.
-		enum_values=["working", "snapshot", "changes"],
-	)
-    mode__ext: fhirtypes.FHIRPrimitiveExtensionType = Field(
-        None,
-        alias="_mode",
-        title="Extension field for ``mode``."
-    )
-	
     orderedBy: fhirtypes.CodeableConceptType = Field(
 		None,
 		alias="orderedBy",
@@ -673,5 +638,5 @@ class CompositionSection(backboneelement.BackboneElement):
         ``CompositionSection`` according specification,
         with preserving original sequence order.
         """
-        return ["id", "extension", "modifierExtension", "title", "code", "author", "focus", "text", "mode", "orderedBy", "entry", "emptyReason", "section"]
+        return ["id", "extension", "modifierExtension", "title", "code", "author", "focus", "text", "orderedBy", "entry", "emptyReason", "section"]
 

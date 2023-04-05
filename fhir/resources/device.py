@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Profile: http://hl7.org/fhir/StructureDefinition/Device
-Release: 5.0.0-draft-final
-Version: 5.0.0-draft-final
-Build ID: 043d3d5
-Last updated: 2023-03-01T23:03:57.298+11:00
+Release: R5
+Version: 5.0.0
+Build ID: 2aecd53
+Last updated: 2023-03-26T15:21:02.749+11:00
 """
 import typing
 from pydantic import Field
@@ -185,9 +185,9 @@ class Device(domainresource.DomainResource):
     "controller"
     ),
 		description=(
-    "The linked device acting as a communication/data collector, translator"
-    " or controller for the current device (e.g., mobile phone application "
-    "that relays a blood pressure device's data)."
+    "The linked device acting as a communication controller, data "
+    "collector, translator, or concentrator for the current device (e.g., "
+    "mobile phone application that relays a blood pressure device's data)."
     ),
         # if property is element of this resource.
         element_property=True,
@@ -721,7 +721,7 @@ class DeviceProperty(backboneelement.BackboneElement):
 		alias="valueAttachment",
 		title="Value of the property",
 		description=(
-    "The value of the property specified by the associated [property.type] "
+    "The value of the property specified by the associated property.type "
     "code."
     ),
         # if property is element of this resource.
@@ -736,7 +736,7 @@ class DeviceProperty(backboneelement.BackboneElement):
 		alias="valueBoolean",
 		title="Value of the property",
 		description=(
-    "The value of the property specified by the associated [property.type] "
+    "The value of the property specified by the associated property.type "
     "code."
     ),
         # if property is element of this resource.
@@ -756,7 +756,7 @@ class DeviceProperty(backboneelement.BackboneElement):
 		alias="valueCodeableConcept",
 		title="Value of the property",
 		description=(
-    "The value of the property specified by the associated [property.type] "
+    "The value of the property specified by the associated property.type "
     "code."
     ),
         # if property is element of this resource.
@@ -771,7 +771,7 @@ class DeviceProperty(backboneelement.BackboneElement):
 		alias="valueInteger",
 		title="Value of the property",
 		description=(
-    "The value of the property specified by the associated [property.type] "
+    "The value of the property specified by the associated property.type "
     "code."
     ),
         # if property is element of this resource.
@@ -791,7 +791,7 @@ class DeviceProperty(backboneelement.BackboneElement):
 		alias="valueQuantity",
 		title="Value of the property",
 		description=(
-    "The value of the property specified by the associated [property.type] "
+    "The value of the property specified by the associated property.type "
     "code."
     ),
         # if property is element of this resource.
@@ -806,7 +806,7 @@ class DeviceProperty(backboneelement.BackboneElement):
 		alias="valueRange",
 		title="Value of the property",
 		description=(
-    "The value of the property specified by the associated [property.type] "
+    "The value of the property specified by the associated property.type "
     "code."
     ),
         # if property is element of this resource.
@@ -821,7 +821,7 @@ class DeviceProperty(backboneelement.BackboneElement):
 		alias="valueString",
 		title="Value of the property",
 		description=(
-    "The value of the property specified by the associated [property.type] "
+    "The value of the property specified by the associated property.type "
     "code."
     ),
         # if property is element of this resource.
