@@ -8,7 +8,7 @@ from setuptools import setup, find_packages
 with open("README.rst") as readme_file:
     readme = readme_file.read()
 
-requirements = ["pydantic[email]>=1.7.2"]
+requirements = ["pydantic[email]>=1.7.2,<2.0"]
 
 setup_requirements = ["pytest-runner"]
 
